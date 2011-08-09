@@ -61,7 +61,7 @@ public class FactoriaBD {
     }
     
     public void prueba(){
-    String a= "hola";
+    String a= "holaAntonio";
     }
 
     public static Usuarios creaUsuario(String dni, Empresas empresa, String nombre,
