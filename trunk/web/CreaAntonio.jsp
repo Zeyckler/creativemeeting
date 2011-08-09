@@ -38,7 +38,7 @@
                 "antcamzap@gmail.com", "antcamzap", "holamundo", "Carmona", "Sevilla",
                 "España", 41410, "Jefe Maximo",new BigDecimal(9999),true , true);
         em.persist(us1);        
-        em.flush();
+        //em.flush();
         */
         //Tiporeuniones tp= new Tiporeuniones(1,"Charla Coloquio333332");
         
@@ -51,7 +51,7 @@
                 "c/Linares nº4-2B", "camachosl@gmail.com", "Carmona", "Sevilla", 
                 "España", 41410);
         em.persist(emp1);        
-        em.flush();
+        //em.flush();
         
         //Usuarios
         Date d= new Date(89, 6, 11);
@@ -60,18 +60,18 @@
                 "antcamzap@gmail.com", "antcamzap", "admin", "Carmona", "Sevilla",
                 "España", 41410, "Jefe Maximo",new BigDecimal(9999),true , true);
         em.persist(us1);        
-        em.flush();
+        //em.flush();
         Usuarios us2= new Usuarios("28828025d","28786879z", "Carlos", "Barrero", d1, "Avda La Barzola nº34 1ºC",
                 "zeyckler@gmail.com", "carbarvaz", "admin", "Sevilla", "Sevilla",
                 "España", 41008, "Jefe Maximo Segundo",new BigDecimal(9999),true , true);
         em.persist(us2);        
-        em.flush();
+        //em.flush();
         
         //Sala de Reuniones
         Salasreuniones sr1= new Salasreuniones(new Integer(1) , "Avda Reina Mercedes sn",
                 "41010", "Sevilla", "España",1223, new BigDecimal(99999), 987654213); 
         em.persist(sr1);        
-        em.flush();
+        //em.flush();
         
         //Tipo de Reuniones
         Tiporeuniones tr1= new Tiporeuniones(new Integer(1), "Análisis Delphi");
@@ -80,35 +80,35 @@
         em.persist(tr1);
         em.persist(tr2);
         em.persist(tr3);
-        em.flush();
+        //em.flush();
         
         //Reuniones
         Date fecha= new Date(110,5,9);
         Date hora= new Date(110,5,9,17,30,0);
         Reuniones ru1 = new Reuniones(new Integer(1) , fecha , hora, new Integer(123), new Integer(1234), new Integer(1234),tr1,sr1,us1);
         em.persist(ru1);
-        em.flush();
+        //em.flush();
         
         //Asistencia Reunion
         Asistenciareunion asr1= new Asistenciareunion(new Integer(1),ru1 , us1);
         Asistenciareunion asr2= new Asistenciareunion(new Integer(1),ru1 , us2);
         em.persist(asr1);
         em.persist(asr2);
-        em.flush();
+        //em.flush();
         
         //Puntos del dia 
         Puntosdeldia pd1= new Puntosdeldia(new Integer(1), "Presentación de la empresa", ru1);
         Puntosdeldia pd2= new Puntosdeldia(new Integer(1), "Sueldos de los jefes", ru1);
         em.persist(pd1);
         em.persist(pd2);
-        em.flush();
+        //em.flush();
         
         //Adjunto
         Adjunto adj1= new Adjunto(new Integer(1), "/adjuntos/reunion1/acta.pdf", ru1);
         Adjunto adj2= new Adjunto(new Integer(1), "/adjuntos/reunion1/sueldos.pdf", ru1);
         em.persist(adj1);
         em.persist(adj2);
-        em.flush();
+        //em.flush();
          
         //Intervención Reuniones
          Date dit1= new Date(110, 5, 9, 17, 35, 15);
