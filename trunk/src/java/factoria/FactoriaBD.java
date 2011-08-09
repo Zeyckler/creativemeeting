@@ -60,6 +60,10 @@ public class FactoriaBD {
         terminarTransaccion();
     }
 
+    public void prueba() {
+        String a = "holaCarlos";
+    }
+
     public static Usuarios creaUsuario(String dni, Empresas empresa, String nombre,
             String apellido1, Date fechanacimiento, String direccion, String email,
             String usuario, String contrasena, String localidad, String provincia,
