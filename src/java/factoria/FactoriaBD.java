@@ -59,10 +59,6 @@ public class FactoriaBD {
         em.persist(emp);
         terminarTransaccion();
     }
-    
-    public void prueba(){
-    String a= "holaAntonio";
-    }
 
     public static Usuarios creaUsuario(String dni, Empresas empresa, String nombre,
             String apellido1, Date fechanacimiento, String direccion, String email,
