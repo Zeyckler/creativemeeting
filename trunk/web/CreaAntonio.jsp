@@ -3,6 +3,10 @@
     Created on : 03-ago-2011, 18:38:37
     Author     : japarejo
 --%>
+<%@page import="utiles.Consultas"%>
+<%@page import="java.util.Collection"%>
+<%@page import="java.util.List"%>
+<%@page import="factoria.FactoriaBD"%>
 <%@page import="bd.Intervenciones"%>
 <%@page import="bd.Puntosdeldia"%>
 <%@page import="bd.Asistenciareunion"%>
@@ -45,7 +49,8 @@
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CreativeMPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        
+        /*
+ *          Prueba Inicial:
         //Empresa
         Empresas emp1 = new Empresas("28786879z", 954191739, "Antonio Camacho S.L",
                 "c/Linares nº4-2B", "camachosl@gmail.com", "Carmona", "Sevilla", 
@@ -128,8 +133,29 @@
         em.persist(it2);
         em.persist(it3);
         em.persist(it4);
-        em.flush();
+ *      */
+        /*
+ *          Prueba Factoria crea e inserta
+        Date d= new Date(89, 6, 11);
+        Date d1= new Date(89, 0, 20);
+        Usuarios us1= new Usuarios("28786879x","28786879z", "Antonio", "Camacho", d, "C Linares nº4-2ºA",
+                "antcamzap@gmail.com", "antcamzap", "admin", "Carmona", "Sevilla",
+                "España", 41410, "Jefe Maximo",new BigDecimal(9999),true , true);
+        Date fecha= new Date(110,5,9);
+        Date hora= new Date(110,5,9,17,30,0);
+        Tiporeuniones tr1= new Tiporeuniones(new Integer(1), "Análisis Delphi");
+        Salasreuniones sr1= new Salasreuniones(new Integer(1) , "Avda Reina Mercedes sn",
+                "41010", "Sevilla", "España",1223, new BigDecimal(99999), 987654213);
+        Reuniones ru1 = new Reuniones(new Integer(1) , fecha , hora, new Integer(123), new Integer(1234), new Integer(1234),tr1,sr1,us1);
+        Adjunto adjuntoPrueba= FactoriaBD.creaAdjunto(new Integer(1), "/adjuntos/reunion1/presupuesto.pdf",ru1 );
+        boolean a= FactoriaBD.insertaAdjunto(adjuntoPrueba);        
+        out.print(a);
+        */
+        List<Usuarios>usuarios=Consultas.asistentesReunion(1);
         
+        for(Usuarios us:usuarios){
+            out.print("<h2>"+us.getNombre()+"  "+ us.getApellido1()+"</h2>");
+        }
         
         
         
