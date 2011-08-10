@@ -75,6 +75,8 @@ public class Reuniones implements Serializable {
     @JoinColumn(name = "dnicreador", referencedColumnName = "dni")
     @ManyToOne
     private Usuarios dnicreador;
+    
+    public static final String BUSCAR_REUNIONES = "Reuniones.findByIdreunion";
 
     public Reuniones() {
     }
