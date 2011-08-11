@@ -53,4 +53,13 @@ public class Consultas {
         return usReunion;
 
     }
+    public static List<Usuarios> asistentesReunion2(int idReunion) {
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOSIDREUNIONES);
+        q1.setParameter("idr1", idReunion);
+        List<Usuarios> lu = q1.getResultList();
+        
+        return lu;
+        
+    }
 }

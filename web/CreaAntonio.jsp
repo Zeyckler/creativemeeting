@@ -151,7 +151,7 @@
         boolean a= FactoriaBD.insertaAdjunto(adjuntoPrueba);        
         out.print(a);
         */
-        List<Usuarios>usuarios=Consultas.asistentesReunion(1);
+        List<Usuarios>usuarios=Consultas.asistentesReunion2(1);
         
         for(Usuarios us:usuarios){
             out.print("<h2>"+us.getNombre()+"  "+ us.getApellido1()+"</h2>");

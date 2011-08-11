@@ -52,7 +52,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuarios.findByCargo", query = "SELECT u FROM Usuarios u WHERE u.cargo = :cargo"),
     @NamedQuery(name = "Usuarios.findBySalario", query = "SELECT u FROM Usuarios u WHERE u.salario = :salario"),
     @NamedQuery(name = "Usuarios.findByPrivilegios", query = "SELECT u FROM Usuarios u WHERE u.privilegios = :privilegios"),
-    @NamedQuery(name = "Usuarios.findByActivo", query = "SELECT u FROM Usuarios u WHERE u.activo = :activo")})
+    @NamedQuery(name = "Usuarios.findByActivo", query = "SELECT u FROM Usuarios u WHERE u.activo = :activo"),
+    @NamedQuery(name = "Usuarios.findByIdReunion", query = "SELECT u FROM Usuarios u JOIN u.asistenciareunionCollection arc JOIN arc.idreunion idr WHERE idr.idreunion =:idr1 ")
+})
 public class Usuarios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -148,6 +150,8 @@ public class Usuarios implements Serializable {
     @JoinColumn(name = "nif", referencedColumnName = "nif")
     @ManyToOne(optional = false)
     private Empresas nif;
+    
+    public static final String BUSCAR_USUARIOSIDREUNIONES = "Usuarios.findByIdReunion";
 
     public Usuarios() {
     }
