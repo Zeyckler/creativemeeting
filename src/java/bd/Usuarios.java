@@ -22,11 +22,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
-@ManagedBean
+@ManagedBean(name = "Usuarios")
 @SessionScoped
 @Entity
 @Table(name = "usuarios")
@@ -57,7 +55,6 @@ import javax.faces.bean.SessionScoped;
 })
 public class Usuarios implements Serializable {
 
-    @ManagedProperty(value="#{usuario}")
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
