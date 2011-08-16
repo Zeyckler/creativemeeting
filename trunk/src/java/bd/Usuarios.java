@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package bd;
 
 import java.io.Serializable;
@@ -25,10 +21,13 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author Antonio
- */
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+
+@ManagedBean
+@SessionScoped
 @Entity
 @Table(name = "usuarios")
 @XmlRootElement
@@ -56,6 +55,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuarios.findByIdReunion", query = "SELECT u FROM Usuarios u JOIN u.asistenciareunionCollection arc JOIN arc.idreunion idr WHERE idr.idreunion =:idr1 ")
 })
 public class Usuarios implements Serializable {
+
+    @ManagedProperty(value="#{usuario}")
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -150,7 +151,6 @@ public class Usuarios implements Serializable {
     @JoinColumn(name = "nif", referencedColumnName = "nif")
     @ManyToOne(optional = false)
     private Empresas nif;
-    
     public static final String BUSCAR_USUARIOSIDREUNIONES = "Usuarios.findByIdReunion";
 
     public Usuarios() {
@@ -160,7 +160,7 @@ public class Usuarios implements Serializable {
         this.dni = dni;
     }
 
-    public Usuarios(String dni,String nif, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, boolean privilegios, boolean activo) {
+    public Usuarios(String dni, String nif, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, boolean privilegios, boolean activo) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -177,9 +177,10 @@ public class Usuarios implements Serializable {
         this.salario = salario;
         this.privilegios = privilegios;
         this.activo = activo;
-        this.nif= new Empresas(nif);
+        this.nif = new Empresas(nif);
     }
-    public Usuarios(String dni,Empresas empresa, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, boolean privilegios, boolean activo) {
+
+    public Usuarios(String dni, Empresas empresa, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, boolean privilegios, boolean activo) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -196,7 +197,7 @@ public class Usuarios implements Serializable {
         this.salario = salario;
         this.privilegios = privilegios;
         this.activo = activo;
-        this.nif= empresa;
+        this.nif = empresa;
     }
 
     public Usuarios(String dni, String nombre, String apellido1, String apellido2, Date fechanacimiento, String direccion, Integer telefono, Integer movil, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, boolean privilegios, boolean activo, Empresas nif) {
@@ -221,7 +222,6 @@ public class Usuarios implements Serializable {
         this.activo = activo;
         this.nif = nif;
     }
-
 
     public String getDni() {
         return dni;
@@ -425,5 +425,4 @@ public class Usuarios implements Serializable {
     public String toString() {
         return "bd.Usuarios[ dni=" + dni + " ]";
     }
-    
 }
