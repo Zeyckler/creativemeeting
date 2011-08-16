@@ -5,7 +5,7 @@
         <Node id="CreaAntonio.jsp" x="150" y="300" zoom="true"/>
         <Node id="index.jsp" x="650" y="150" zoom="true"/>
         <Node id="index.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="pruebavalores.xhtml" x="663" y="111" zoom="true"/>
+        <Node id="pruebavalores.xhtml" x="591" y="263" zoom="true"/>
         <Node id="welcomeICEfaces.xhtml" x="150" y="150" zoom="false"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
