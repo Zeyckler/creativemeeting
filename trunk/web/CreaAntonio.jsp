@@ -3,6 +3,7 @@
     Created on : 03-ago-2011, 18:38:37
     Author     : japarejo
 --%>
+<%@page import="utiles.Utilidades"%>
 <%@page import="utiles.Consultas"%>
 <%@page import="java.util.Collection"%>
 <%@page import="java.util.List"%>
@@ -49,8 +50,8 @@
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CreativeMPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        /*
- *          Prueba Inicial:
+        
+ /*          Prueba Inicial:
         //Empresa
         Empresas emp1 = new Empresas("28786879z", 954191739, "Antonio Camacho S.L",
                 "c/Linares nº4-2B", "camachosl@gmail.com", "Carmona", "Sevilla", 
@@ -133,9 +134,10 @@
         em.persist(it2);
         em.persist(it3);
         em.persist(it4);
- *      */
+        */
+        
+        //   Prueba Factoria crea e inserta
         /*
- *          Prueba Factoria crea e inserta
         Date d= new Date(89, 6, 11);
         Date d1= new Date(89, 0, 20);
         Usuarios us1= new Usuarios("28786879x","28786879z", "Antonio", "Camacho", d, "C Linares nº4-2ºA",
@@ -149,16 +151,59 @@
         Reuniones ru1 = new Reuniones(new Integer(1) , fecha , hora, new Integer(123), new Integer(1234), new Integer(1234),tr1,sr1,us1);
         Adjunto adjuntoPrueba= FactoriaBD.creaAdjunto(new Integer(1), "/adjuntos/reunion1/presupuesto.pdf",ru1 );
         boolean a= FactoriaBD.insertaAdjunto(adjuntoPrueba);        
-        out.print(a);
-        */
-        List<Usuarios>usuarios=Consultas.asistentesReunion2(1);
+        out.print(a);*/
+        
+        
+        //Prueba Consultas
+        
+        /*List<Usuarios>usuarios=Consultas.asistentesReunion2(1);
         
         for(Usuarios us:usuarios){
             out.print("<h2>"+us.getNombre()+"  "+ us.getApellido1()+"</h2>");
         }
         
+        out.print("<h2>" +"usuarios Activos"+ "</h2>");
+        List<Usuarios>usuariosact=Consultas.listaUsuariosActivos();
         
+        for(Usuarios us12:usuariosact){
+            out.print("<h2>"+us12.getNombre()+"  "+ us12.getApellido1()+"</h2>");
+        }
+        out.print("<h2>" +"Empresas"+ "</h2>");
+        List<Empresas> empresas= Consultas.listaEmpresas();
         
+        for(Empresas emp:empresas){
+            out.print("<h2>"+ emp.getRazonsocial()+"<h2>");
+        }
+
+        out.print("usuarios de la empresa 28786879z");
+        
+        List<Usuarios> leu= Consultas.listaUsuariosEmpresa("28786879z");
+        for(Usuarios usem:leu){
+            out.print("<h2>"+usem.getNombre()+"  "+ usem.getApellido1()+"</h2>");
+        }*/
+        
+        //Prueba insertado de Reunion
+        
+        /*Tiporeuniones tp1 = new Tiporeuniones(new Integer(3));
+        Salasreuniones slr1 = new Salasreuniones(new Integer(1));
+        Usuarios usuario1= new Usuarios("28786879x");
+        Date fecha= new Date(111,5,9);
+        Date hora= new Date(111,5,9,17,30,0);
+        Reuniones reunion1= FactoriaBD.creaReuniones(new Integer (1) , fecha, hora, new Integer(30), new Integer(345), new Integer(35), tp1, slr1, usuario1);
+        boolean bool = FactoriaBD.insertaReuniones(reunion1);
+        out.print(bool);
+        */
+        List<Reuniones> lrusuarios= Consultas.listaReunionesCreador("28786879x");
+        
+        for(Reuniones rrr: lrusuarios){
+            Date fecha= rrr.getFecha();
+            String fechaReunion;
+            fechaReunion= Utilidades.getFormatoFecha(fecha);
+            String hora= Utilidades.getFormachoFechaHora(rrr.getHora());
+            out.print("PRUEBA:"+fecha.getDay());
+            out.print("<h4>"+ rrr.getDnicreador()+ "  "+ fecha+ "  "+fechaReunion+ "  "+ hora+ rrr.getIdreunion());
+            
+        }
         
         %>
         <p>Antonio ha sido grabado :-D</p>

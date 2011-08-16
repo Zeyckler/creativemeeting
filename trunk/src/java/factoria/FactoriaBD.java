@@ -164,7 +164,7 @@ public class FactoriaBD {
         
     }
     
-    public boolean insertaPuntosdeldia (Puntosdeldia pt1){
+    public static boolean insertaPuntosdeldia (Puntosdeldia pt1){
        
         boolean res = true;
 
@@ -187,16 +187,16 @@ public class FactoriaBD {
         
     }
     
-    public boolean insertaReuniones(Reuniones r1){
+    public static boolean insertaReuniones(Reuniones r1){
         
         boolean res = true;
 
-        try {
+       try {
             abrirTransaccion();
             em.persist(r1);
             terminarTransaccion();
         } catch (Exception e) {
-            res = false;
+           res = false;
         }
         return res;
     }

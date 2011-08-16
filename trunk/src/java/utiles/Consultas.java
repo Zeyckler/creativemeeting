@@ -5,9 +5,11 @@
 package utiles;
 
 import bd.Asistenciareunion;
+import bd.Empresas;
 import bd.Reuniones;
 import bd.Usuarios;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -58,6 +60,48 @@ public class Consultas {
         Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOSIDREUNIONES);
         q1.setParameter("idr1", idReunion);
         List<Usuarios> lu = q1.getResultList();
+        
+        return lu;
+        
+    }
+        public static List<Usuarios> listaUsuariosActivos(){
+      
+      abrirTransaccion();
+      Query q1= em.createNamedQuery(Usuarios.BUSCAR_USUARIOSACTIVOS);
+      q1.setParameter("activo", true);
+      List<Usuarios> lu = q1.getResultList();
+      
+      return lu;
+        
+    }
+    public static List<Empresas> listaEmpresas(){
+        
+        abrirTransaccion();
+        Query q1= em.createNamedQuery(Empresas.BUSCAR_EMPRESAS);
+        List<Empresas> lu = q1.getResultList();
+        
+        return lu;
+    }
+    
+    public static List<Usuarios> listaUsuariosEmpresa(String nif){
+        
+        abrirTransaccion();
+        Query q1= em.createNamedQuery(Usuarios.BUSCAR_USUARIOSBYEMPRESA);
+        q1.setParameter("nifempresa", nif);
+        List<Usuarios> lu = q1.getResultList();
+        
+        return lu;
+    }
+    
+    public static List<Reuniones> listaReunionesCreador(String nif){
+        
+        
+        abrirTransaccion();
+        Date fecha= new Date(111, 3, 16);
+        Query q1= em.createNamedQuery(Reuniones.BUSCAR_REUNIONESCREADOR);
+        q1.setParameter("creador", nif);
+        q1.setParameter("fechaactual", fecha);
+        List<Reuniones> lu = q1.getResultList();
         
         return lu;
         
