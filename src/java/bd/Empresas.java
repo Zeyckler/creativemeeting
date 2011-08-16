@@ -95,6 +95,8 @@ public class Empresas implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nif")
     private Collection<Usuarios> usuariosCollection;
 
+    public static final String BUSCAR_EMPRESAS= "Empresas.findAll";
+    
     public Empresas() {
     }
 

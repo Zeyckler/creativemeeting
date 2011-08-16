@@ -39,7 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reuniones.findByHora", query = "SELECT r FROM Reuniones r WHERE r.hora = :hora"),
     @NamedQuery(name = "Reuniones.findByDuracioninicial", query = "SELECT r FROM Reuniones r WHERE r.duracioninicial = :duracioninicial"),
     @NamedQuery(name = "Reuniones.findByCoste", query = "SELECT r FROM Reuniones r WHERE r.coste = :coste"),
-    @NamedQuery(name = "Reuniones.findByDuracionreal", query = "SELECT r FROM Reuniones r WHERE r.duracionreal = :duracionreal")})
+    @NamedQuery(name = "Reuniones.findByDuracionreal", query = "SELECT r FROM Reuniones r WHERE r.duracionreal = :duracionreal"),
+    @NamedQuery(name = "Reuniones.findByReunionCreador", query = "SELECT r FROM Reuniones r JOIN r.dnicreador usuario WHERE usuario.dni= :creador AND r.fecha> :fechaactual")
+})
 public class Reuniones implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -77,6 +79,7 @@ public class Reuniones implements Serializable {
     private Usuarios dnicreador;
     
     public static final String BUSCAR_REUNIONES = "Reuniones.findByIdreunion";
+    public static final String BUSCAR_REUNIONESCREADOR ="Reuniones.findByReunionCreador";
 
     public Reuniones() {
     }
