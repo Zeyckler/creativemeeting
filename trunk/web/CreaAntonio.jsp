@@ -205,6 +205,41 @@
             
         }
         
+        List<Adjunto> listaAdjunto= Consultas.listaAdjuntosReunion(1);
+        
+        for (Adjunto adj: listaAdjunto){
+            
+            out.print(adj.getRutaarchivo());
+        }
+        
+        List<Puntosdeldia> listapd= Consultas.listaPuntosdesDiaReunion(1);
+        
+        for(Puntosdeldia ptd: listapd){
+            
+            out.print("<h3>"+ ptd.getTitulopunto()+"</h3>");
+        }
+        List<Object[]> listInterv= Consultas.listaIntervencionesEnReunion(1);
+        
+        for (Object[] obj1:listInterv){
+            
+            Usuarios usr1= (Usuarios) obj1[0];
+            Intervenciones intrv1 = (Intervenciones) obj1[1];
+            String hora=Utilidades.getFormachoFechaHora(intrv1.getMomentointervencion());
+            out.print("<h4>"+usr1.getNombre()+" "+ usr1.getApellido1()+ "   dijo  "+intrv1.getIntervencion()+ "a las "+ hora+ "en el Punto del dia:  "+ intrv1.getIdpuntodeldia().getTitulopunto()+"</h4>" );
+            
+        }
+        
+        List<Reuniones> listareunionesUsuarios = Consultas.listaReunionesUsuarios("28786879y");
+        
+        for(Reuniones ru123: listareunionesUsuarios){
+            
+            String fecha12345= Utilidades.getFormatoFecha(ru123.getFecha());
+            out.print("<h5> Fecha Reunion: "+ ru123.getFecha()+"  Hora Reunion: "+ fecha12345 );
+        }
+        
+        Usuarios user= Consultas.buscaUsuarioContrasena("antcamzap", "akjdkajhd");
+        out.print(user);
+        
         %>
         <p>Antonio ha sido grabado :-D</p>
     </body>
