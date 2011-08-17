@@ -7,14 +7,6 @@
         <managed-bean-name>login</managed-bean-name>
         <managed-bean-class>beans.LoginBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>usuario</property-name>
-            <property-class>java.lang.String</property-class>
-        </managed-property>
-        <managed-property>
-            <property-name>contrasena</property-name>
-            <property-class>java.lang.String</property-class>
-        </managed-property>
     </managed-bean>
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
