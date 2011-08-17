@@ -33,7 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Puntosdeldia.findAll", query = "SELECT p FROM Puntosdeldia p"),
     @NamedQuery(name = "Puntosdeldia.findByIdpuntodeldia", query = "SELECT p FROM Puntosdeldia p WHERE p.idpuntodeldia = :idpuntodeldia"),
-    @NamedQuery(name = "Puntosdeldia.findByTitulopunto", query = "SELECT p FROM Puntosdeldia p WHERE p.titulopunto = :titulopunto")})
+    @NamedQuery(name = "Puntosdeldia.findByTitulopunto", query = "SELECT p FROM Puntosdeldia p WHERE p.titulopunto = :titulopunto"),
+    @NamedQuery(name = "Puntosdeldia.findByIdReunion", query = "SELECT p FROM Puntosdeldia p JOIN p.idreunion idr WHERE idr.idreunion = :idreunion")
+
+})
 public class Puntosdeldia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,6 +53,8 @@ public class Puntosdeldia implements Serializable {
     private Reuniones idreunion;
     @OneToMany(mappedBy = "idpuntodeldia")
     private Collection<Intervenciones> intervencionesCollection;
+    
+    public static final String BUSCAR_PUNTOSDIAREUNION= "Puntosdeldia.findByIdReunion";
 
     public Puntosdeldia() {
     }

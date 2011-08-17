@@ -51,7 +51,8 @@ import javax.faces.bean.SessionScoped;
     @NamedQuery(name = "Usuarios.findByPrivilegios", query = "SELECT u FROM Usuarios u WHERE u.privilegios = :privilegios"),
     @NamedQuery(name = "Usuarios.findByActivo", query = "SELECT u FROM Usuarios u WHERE u.activo = :activo"),
     @NamedQuery(name = "Usuarios.findByIdReunion", query = "SELECT u FROM Usuarios u JOIN u.asistenciareunionCollection arc JOIN arc.idreunion idr WHERE idr.idreunion =:idr1 "),
-    @NamedQuery(name = "Usuarios.findUsuarioByEmpresa", query = "SELECT u FROM Usuarios u JOIN u.nif emp WHERE emp.nif = :nifempresa")
+    @NamedQuery(name = "Usuarios.findUsuarioByEmpresa", query = "SELECT u FROM Usuarios u JOIN u.nif emp WHERE emp.nif = :nifempresa"),
+    @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia")
 })
 public class Usuarios implements Serializable {
 
@@ -149,9 +150,11 @@ public class Usuarios implements Serializable {
     @JoinColumn(name = "nif", referencedColumnName = "nif")
     @ManyToOne(optional = false)
     private Empresas nif;
+    
     public static final String BUSCAR_USUARIOSIDREUNIONES = "Usuarios.findByIdReunion";
     public static final String BUSCAR_USUARIOSACTIVOS= "Usuarios.findByActivo";
     public static final String BUSCAR_USUARIOSBYEMPRESA= "Usuarios.findUsuarioByEmpresa";
+    public static final String BUSCAR_USUARIOYCONTRASENA= "Usuarios.findByUsuarioyContrasena";
 
     public Usuarios() {
     }

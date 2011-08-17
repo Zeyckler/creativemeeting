@@ -4,8 +4,10 @@
  */
 package utiles;
 
+import bd.Adjunto;
 import bd.Asistenciareunion;
 import bd.Empresas;
+import bd.Puntosdeldia;
 import bd.Reuniones;
 import bd.Usuarios;
 import java.util.Collection;
@@ -93,6 +95,9 @@ public class Consultas {
         return lu;
     }
     
+    //listaReunionesCreador devuelve una lista de Reuniones que todavía no han 
+    //sido celebradas
+    
     public static List<Reuniones> listaReunionesCreador(String nif){
         
         
@@ -105,5 +110,65 @@ public class Consultas {
         
         return lu;
         
+    }
+    
+    public static List<Adjunto> listaAdjuntosReunion(int idReunion){
+        
+        abrirTransaccion();
+        Query q1= em.createNamedQuery(Adjunto.BUSCAR_ADJUNTOIDREUNION);
+        q1.setParameter("idreuniones", idReunion);
+        List<Adjunto> lu= q1.getResultList();
+        
+        return lu;
+         
+    }
+    
+    public static List<Puntosdeldia> listaPuntosdesDiaReunion(int idReunion){
+        
+        abrirTransaccion();
+        Query q1= em.createNamedQuery(Puntosdeldia.BUSCAR_PUNTOSDIAREUNION);
+        q1.setParameter("idreunion", idReunion);
+        List<Puntosdeldia> lu= q1.getResultList();
+        
+        return lu;
+        
+    }
+    public static List<Object[]> listaIntervencionesEnReunion(int idReunion){
+        
+        abrirTransaccion();
+        Query q1= em.createNamedQuery(Reuniones.BUSCAR_INTERVENCIONESPORREUNION);
+        q1.setParameter("idre", idReunion);
+        List<Object[]> lu = q1.getResultList();
+        
+        return lu;
+        
+    }
+    
+    public static List<Reuniones> listaReunionesUsuarios(String dni){
+        
+        abrirTransaccion();
+        Query q1= em.createNamedQuery(Reuniones.BUSCAR_REUNIONESUSUARIO);
+        q1.setParameter("dni", dni);
+        List<Reuniones> lu = q1.getResultList();
+        
+        return lu;    
+    }
+    
+    public static Usuarios buscaUsuarioContrasena(String usuario, String contrasena){
+        
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOYCONTRASENA);
+        q1.setParameter("usuario", usuario);
+        q1.setParameter("contasenia", contrasena);
+        
+        Usuarios user;
+        try {
+            user = (Usuarios) q1.getSingleResult();
+        } catch (Exception e) {
+            //Hay que ver si la execpcion es javax.persistence.NoResultException para que este el metodo bien
+            user= null;
+        }
+        
+        return user;
     }
 }

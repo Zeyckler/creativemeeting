@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Adjunto.findAll", query = "SELECT a FROM Adjunto a"),
     @NamedQuery(name = "Adjunto.findByIdadjunto", query = "SELECT a FROM Adjunto a WHERE a.idadjunto = :idadjunto"),
-    @NamedQuery(name = "Adjunto.findByRutaarchivo", query = "SELECT a FROM Adjunto a WHERE a.rutaarchivo = :rutaarchivo")})
+    @NamedQuery(name = "Adjunto.findByRutaarchivo", query = "SELECT a FROM Adjunto a WHERE a.rutaarchivo = :rutaarchivo"),
+    @NamedQuery(name = "Adjunto.findAdjuntoByReunion", query = "SELECT a FROM Adjunto a JOIN a.idreunion idr WHERE idr.idreunion = :idreuniones")
+})
 public class Adjunto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,6 +47,9 @@ public class Adjunto implements Serializable {
     @JoinColumn(name = "idreunion", referencedColumnName = "idreunion")
     @ManyToOne
     private Reuniones idreunion;
+    
+    public static final String BUSCAR_ADJUNTOIDREUNION= "Adjunto.findAdjuntoByReunion";
+    
 
     public Adjunto() {
     }
