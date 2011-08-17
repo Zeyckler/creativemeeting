@@ -5,6 +5,7 @@
 package beans;
 
 import bd.Usuarios;
+import java.io.Serializable;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -17,8 +18,9 @@ import utiles.Consultas;
  */
 @ManagedBean
 @SessionScoped
-public class LoginBean {
+public class LoginBean implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private String usuario;
     private String contrasena;
 
@@ -37,7 +39,7 @@ public class LoginBean {
     public String compruebaLogin() {
 
         if (compruebaVacio()) {
-            Usuarios a= Consultas.buscaUsuarioContrasena(this.usuario, this.contrasena);
+            Usuarios a = Consultas.buscaUsuarioContrasena(this.usuario, this.contrasena);
             if (a != null) {
                 return "ok";
             }
