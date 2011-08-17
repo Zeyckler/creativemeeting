@@ -17,7 +17,7 @@
             <p>Login b&aacute;sico CreativeMeetings</p>
             <h:inputText id="login" value="#{login.usuario}"></h:inputText>
             <h:inputSecret id="password" value="#{login.contrasena}"></h:inputSecret>
-            <h:commandButton id="acceder" value="Acceder" action="login"></h:commandButton>
+            <h:commandButton id="acceder" value="Acceder" action="#{login.compruebaLogin}"></h:commandButton>
         </h:form>
     </h:body>
     <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
