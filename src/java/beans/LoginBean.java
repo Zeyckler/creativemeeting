@@ -4,10 +4,12 @@
  */
 package beans;
 
+import bd.Usuarios;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import utiles.Consultas;
 
 /**
  *
@@ -33,10 +35,13 @@ public class LoginBean {
     }
 
     public String compruebaLogin() {
+
         if (compruebaVacio()) {
-            //if (Utiles.compruebaUsuario() == 1) {
+            Usuarios a= Consultas.buscaUsuarioContrasena(this.usuario, this.contrasena);
+            if (a != null) {
                 return "ok";
-            //}
+            }
+
         }
         return "error";
 
