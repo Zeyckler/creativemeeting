@@ -1,21 +1,32 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
-<!-- =========== FULL CONFIGURATION FILE ================================== -->
-
 <faces-config version="2.0"
     xmlns="http://java.sun.com/xml/ns/javaee" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <managed-bean>
-        <managed-bean-name>Usuarios</managed-bean-name>
-        <managed-bean-class>bd.Usuarios</managed-bean-class>
+        <managed-bean-name>login</managed-bean-name>
+        <managed-bean-class>beans.LoginBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>usuario</property-name>
+            <property-class>java.lang.String</property-class>
+        </managed-property>
+        <managed-property>
+            <property-name>contrasena</property-name>
+            <property-class>java.lang.String</property-class>
+        </managed-property>
     </managed-bean>
     <navigation-rule>
-        <from-view-id>/welcomeICEfaces.xhtml</from-view-id>
+        <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
-            <from-action>login</from-action>
-            <to-view-id>/pruebavalores.xhtml</to-view-id>
+            <from-action>#{login.compruebaLogin}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/correcto.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{login.compruebaLogin}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <managed-bean>
