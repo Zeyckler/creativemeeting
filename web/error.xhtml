@@ -1,4 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : error
+    Created on : 17-ago-2011, 14:56:20
+    Author     : Zeyckler
+-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,15 +14,12 @@
       xmlns:ice="http://www.icesoft.com/icefaces/component"
       >
     <h:head>
-        <title>Inicio CreativeMeetings</title>
+        <title>ERROR MORTAL</title>
         <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
     </h:head>
     <h:body styleClass="ice-skin-rime">
         <h:form id="form">
-            <p>Login b&aacute;sico CreativeMeetings</p>
-            <h:inputText id="login" value="#{Usuarios.usuario}"></h:inputText>
-            <h:inputSecret id="password" value="#{Usuarios.contrasena}"></h:inputSecret>
-            <h:commandButton id="acceder" value="Acceder" action="login"></h:commandButton>
+            <h:outputText value="ERROR MORTAL"/>
         </h:form>
     </h:body>
     <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
