@@ -39,5 +39,15 @@
         <managed-bean-class>utiles.Usuario</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>holaBean</managed-bean-name>
+        <managed-bean-class>beans.HolaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>usuariosBean</managed-bean-name>
+        <managed-bean-class>beans.UsuariosBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
 
