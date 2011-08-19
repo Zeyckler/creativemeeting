@@ -1,7 +1,7 @@
 
 #top {
     position: relative;
-    background-color: #036fab;
+    background-color: #ffffff;
     color: white;
     padding: 5px;
     margin: 0px 0px 10px 0px;
@@ -9,21 +9,22 @@
 
 #bottom {
     position: relative;
-    background-color: #c2dfef;
+    background-color: #ffffff;
     padding: 5px;
     margin: 10px 0px 0px 0px;
+    text-align: right;
 }
 
 #left {
     float: left;
-    background-color: #ece3a5;
+    background-color: #ffffff;
     padding: 5px;
     width: 150px;
 }
 
 #right {
     float: right;
-    background-color: #ece3a5;
+    background-color: #ffffff;
     padding: 5px;
     width: 150px;
 }
@@ -46,16 +47,33 @@
     margin: 0px 170px 0px 170px;
 }
 
+#content{
+    background-color: #ffffff;
+}
+
 #top a:link, #top a:visited {
-  color: white;
-  font-weight : bold;
-  text-decoration: none;
+    color: white;
+    font-weight : bold;
+    text-decoration: none;
 }
 
 #top a:link:hover, #top a:visited:hover  {
-  color: black;
-  font-weight : bold;
-  text-decoration : underline;
+    color: black;
+    font-weight : bold;
+    text-decoration : underline;
+}
+
+#copyright{
+    font-size: 9px;
+    color: darkred;
+}
+
+#login{
+    background-color: #0bbdbd;
+    text-align: center;
+    margin-right: 15%;
+    margin-left: 15%;
+    border-radius: 15px;
 }
 
 
