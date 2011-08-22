@@ -1,23 +1,21 @@
 
 #top {
     position: relative;
-    background-color: #ffffff;
     color: white;
     padding: 5px;
     margin: 0px 0px 10px 0px;
 }
 
 #bottom {
-    position: relative;
-    background-color: #ffffff;
-    padding: 5px;
-    margin: 10px 0px 0px 0px;
-    text-align: right;
+    margin-top: 10px;
+    position:fixed;
+    bottom:0px;
+    text-align:right;
+    width:98%;
 }
 
 #left {
     float: left;
-    background-color: #ffffff;
     padding: 5px;
     width: 150px;
 }
@@ -63,17 +61,55 @@
     text-decoration : underline;
 }
 
+
 #copyright{
     font-size: 9px;
     color: darkred;
 }
-
+/*-----CSS de index.xhtml-----*/
 #login{
-    background-color: #0bbdbd;
+    /* background-color: #0bbdbd;*/
     text-align: center;
     margin-right: 15%;
     margin-left: 15%;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
     border-radius: 15px;
+    background: -webkit-linear-gradient(top, #0bbdbd, white);
+    background: -moz-linear-gradient(top, #0bbdbd, white);
+    border-color: #dddddd;
+    border-width: 2px;
+    border-style: solid;
+    min-width: 500px;
 }
 
+#iniciosesion{
+    font-variant: small-caps;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
 
+#tablalogin{
+    margin:0 auto 0 auto;
+}
+
+.labelslogin{
+    text-align: right;
+}
+
+.inputslogin{
+    text-align: left;
+}
+
+#pregunta{
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.enlaces{
+    margin-bottom: 10px;
+}

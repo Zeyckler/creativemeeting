@@ -1,24 +1,60 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:icecore="http://www.icefaces.org/icefaces/core"
-      xmlns:ace="http://www.icefaces.org/icefaces/components"
-      xmlns:ice="http://www.icesoft.com/icefaces/component"
-      >
-    <h:head>
-        <title>Inicio CreativeMeetings</title>
-        <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
-    </h:head>
-    <h:body styleClass="ice-skin-rime">
-        <h:form id="form">
-            <p>Login b&aacute;sico CreativeMeetings</p>
-            <h:inputText id="login" value="#{login.usuario}"></h:inputText>
-            <h:inputSecret id="password" value="#{login.contrasena}"></h:inputSecret>
-            <h:commandButton id="acceder" value="Acceder" action="#{login.compruebaLogin}"></h:commandButton>
-        </h:form>
-    </h:body>
-    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
-</html>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:icecore="http://www.icefaces.org/icefaces/core"
+                xmlns:ace="http://www.icefaces.org/icefaces/components"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                template="./WEB-INF/facelets/templates/plantilla.xhtml">
+
+    <ui:define name="title">
+        Inicio - Creative Meetings
+    </ui:define>
+
+    <ui:define name="logoempresa">
+    </ui:define>
+
+    <ui:define name="left">
+    </ui:define>
+
+    <ui:define name="right" id="indexright">
+    </ui:define>
+
+    <ui:define name="content">
+        <div id="login">
+            <ice:form id="form">
+                <div id="iniciosesion"><ice:outputText>Inicio de sesi&oacute;n</ice:outputText></div>
+                <table id="tablalogin">
+                    <tr>
+                        <td><div class="labelslogin"><ice:outputLabel for="usuario">Nombre de usuario:</ice:outputLabel></div></td>
+                        <td><div class="inputslogin"><ice:inputText id="usuario" value="#{login.usuario}"></ice:inputText></div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="labelslogin"><ice:outputLabel for="clave">Contrase&ntilde;a:</ice:outputLabel></div></td>
+                        <td><div class="inputslogin"><ice:inputSecret id="clave" value="#{login.contrasena}"></ice:inputSecret></div></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="labelslogin"><ice:commandButton id="acceder" value="Acceder" action="#{login.compruebaLogin}"></ice:commandButton></td>
+                    </tr>
+                    <tr><td colspan="2"><div id="pregunta"><ice:outputText>&iquest;No est&aacute;s registrado?</ice:outputText></div></td>
+                    </tr>
+                    
+                        <tr>
+                               
+                            <td><div class="enlaces"><ice:outputLink value="#">Soy un usuario</ice:outputLink></div></td>
+                            <td><div class="enlaces"><ice:outputLink value="#">Soy una empresa</ice:outputLink></div></td>
+
+                        </tr>
+                   
+
+                </table>
+            </ice:form>
+        </div>
+    </ui:define>
+
+    <ui:define name="bottom">
+        <!-- Hay que incluir la funcion para mostrar logos aleatorios de las empresas-->
+    </ui:define>
+
+</ui:composition>
