@@ -25,7 +25,7 @@ public class Pruebas {
         em.getTransaction().begin();
         Usuarios us1= new Usuarios("87818678z","34567890x", "Antonio", "Camacho", d, "C Linares nº4-2ºA",
                 "antcamzap@gmail.com", "antcamzap", "holamundo", "Carmona", "Sevilla",
-                "España", 41410, "Jefe Maximo",new BigDecimal(9999),true , true);
+                "España", 41410, "Jefe Maximo",new BigDecimal(9999),2 , true);
         em.persist(us1);        
         em.flush();
         
