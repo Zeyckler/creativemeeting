@@ -35,18 +35,18 @@
                         <td><div class="inputslogin"><ice:inputSecret id="clave" value="#{login.contrasena}"></ice:inputSecret></div></td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="labelslogin"><ice:commandButton id="acceder" value="Acceder" action="#{login.compruebaLogin}"></ice:commandButton></td>
+                        <td colspan="2" class="labelslogin"><ice:graphicImage id="loading" alt="Cargando..." title="Cargando..." visible="false" url="#{resource['images:loading.gif']}"></ice:graphicImage><ice:commandButton id="acceder" value="Acceder" onclick="document.getElementById(loading).visible=true;" action="#{login.compruebaLogin}"></ice:commandButton></td>
                     </tr>
                     <tr><td colspan="2"><div id="pregunta"><ice:outputText>&iquest;No est&aacute;s registrado?</ice:outputText></div></td>
                     </tr>
-                    
-                        <tr>
-                               
-                            <td><div class="enlaces"><ice:outputLink value="#">Soy un usuario</ice:outputLink></div></td>
-                            <td><div class="enlaces"><ice:outputLink value="#">Soy una empresa</ice:outputLink></div></td>
 
-                        </tr>
-                   
+                    <tr>
+
+                        <td><div class="enlaces"><ice:outputLink value="#">Soy un usuario</ice:outputLink></div></td>
+                        <td><div class="enlaces"><ice:outputLink value="#">Soy una empresa</ice:outputLink></div></td>
+
+                    </tr>
+
 
                 </table>
             </ice:form>
