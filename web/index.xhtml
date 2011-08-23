@@ -1,60 +1,66 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:icecore="http://www.icefaces.org/icefaces/core"
-                xmlns:ace="http://www.icefaces.org/icefaces/components"
-                xmlns:ice="http://www.icesoft.com/icefaces/component"
-                template="./WEB-INF/facelets/templates/plantilla.xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
 
-    <ui:define name="title">
-        Inicio - Creative Meetings
-    </ui:define>
+    <body>
+        <ui:composition template="./WEB-INF/facelets/templates/plantilla.xhtml">
 
-    <ui:define name="logoempresa">
-    </ui:define>
+            <ui:define name="title">
+                Inicio - Creative Meetings
+            </ui:define>
 
-    <ui:define name="left">
-    </ui:define>
+            <ui:define name="logoempresa">
+            </ui:define>
 
-    <ui:define name="right" id="indexright">
-    </ui:define>
+            <ui:define name="left">
+            </ui:define>
 
-    <ui:define name="content">
-        <div id="login">
-            <ice:form id="form">
-                <div id="iniciosesion"><ice:outputText>Inicio de sesi&oacute;n</ice:outputText></div>
-                <table id="tablalogin">
-                    <tr>
-                        <td><div class="labelslogin"><ice:outputLabel for="usuario">Nombre de usuario:</ice:outputLabel></div></td>
-                        <td><div class="inputslogin"><ice:inputText id="usuario" value="#{login.usuario}"></ice:inputText></div></td>
-                    </tr>
-                    <tr>
-                        <td><div class="labelslogin"><ice:outputLabel for="clave">Contrase&ntilde;a:</ice:outputLabel></div></td>
-                        <td><div class="inputslogin"><ice:inputSecret id="clave" value="#{login.contrasena}"></ice:inputSecret></div></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="labelslogin"><ice:graphicImage id="loading" alt="Cargando..." title="Cargando..." visible="false" url="#{resource['images:loading.gif']}"></ice:graphicImage><ice:commandButton id="acceder" value="Acceder" onclick="document.getElementById(loading).visible=true;" action="#{login.compruebaLogin}"></ice:commandButton></td>
-                    </tr>
-                    <tr><td colspan="2"><div id="pregunta"><ice:outputText>&iquest;No est&aacute;s registrado?</ice:outputText></div></td>
-                    </tr>
+            <ui:define name="right" id="indexright">
+            </ui:define>
 
-                    <tr>
+            <ui:define name="content">
+                <div class="formulario" id="login">
+                    <ice:form id="form">
+                        <div class="encabezado" id="iniciosesion"><ice:outputText>Inicio de sesi&oacute;n</ice:outputText></div>
+                        <table class="tablaformulario" id="tablalogin">
+                            <tr>
+                                <td><div class="labelslogin"><ice:outputLabel for="usuario">Nombre de usuario:</ice:outputLabel></div></td>
+                                <td><div class="inputslogin"><ice:inputText id="usuario" value="#{login.usuario}" validator="#{login.validarUsuario}" required="true"></ice:inputText></div></td>
+                                <td><div class="errorformulario"><ice:message id="errorusuario" for="usuario"></ice:message></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="labelslogin"><ice:outputLabel for="clave">Contrase&ntilde;a:</ice:outputLabel></div></td>
+                                <td><div class="inputslogin"><ice:inputSecret id="clave" value="#{login.contrasena}" validator="#{login.validarContrasena}" required="true"></ice:inputSecret></div></td>
+                                <td><div class="errorformulario"><ice:message id="errorclave" for="clave"></ice:message></div></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="labelslogin"><ice:graphicImage id="loading" alt="Cargando..." title="Cargando..." visible="false" url="#{resource['images:loading.gif']}"></ice:graphicImage><ice:commandButton id="acceder" value="Acceder" onclick="document.getElementById(loading).visible=true;" action="#{login.compruebaLogin}"></ice:commandButton></td>
+                            </tr>
+                            <tr><td colspan="2"><div id="pregunta"><ice:outputText>&iquest;No est&aacute;s registrado?</ice:outputText></div></td>
+                            </tr>
 
-                        <td><div class="enlaces"><ice:outputLink value="#">Soy un usuario</ice:outputLink></div></td>
-                        <td><div class="enlaces"><ice:outputLink value="#">Soy una empresa</ice:outputLink></div></td>
+                            <tr>
 
-                    </tr>
+                                <td><div class="enlaces"><ice:outputLink value="#">Soy un usuario</ice:outputLink></div></td>
+                                <td><div class="enlaces"><ice:outputLink value="#">Soy una empresa</ice:outputLink></div></td>
+
+                            </tr>
 
 
-                </table>
-            </ice:form>
-        </div>
-    </ui:define>
+                        </table>
+                    </ice:form>
+                </div>
+            </ui:define>
 
-    <ui:define name="bottom">
-        <!-- Hay que incluir la funcion para mostrar logos aleatorios de las empresas-->
-    </ui:define>
+            <ui:define name="bottom">
+                <!-- Hay que incluir la funcion para mostrar logos aleatorios de las empresas-->
+            </ui:define>
 
-</ui:composition>
+        </ui:composition>
+    </body>
+</html>
