@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empresas.findByCodigopostal", query = "SELECT e FROM Empresas e WHERE e.codigopostal = :codigopostal"),
     @NamedQuery(name = "Empresas.findByLogotipo", query = "SELECT e FROM Empresas e WHERE e.logotipo = :logotipo")})
 public class Empresas implements Serializable {
+    @Size(max = 255)
+    @Column(name = "web")
+    private String web;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -104,7 +107,7 @@ public class Empresas implements Serializable {
         this.nif = nif;
     }
 
-    public Empresas(String nif, int telefono, String razonsocial, String direccion, String email, String localidad, String provincia, String pais, int codigopostal) {
+    public Empresas(String nif, int telefono, String razonsocial, String direccion, String email, String localidad, String provincia, String pais, int codigopostal, String web) {
         this.nif = nif;
         this.telefono = telefono;
         this.razonsocial = razonsocial;
@@ -114,6 +117,7 @@ public class Empresas implements Serializable {
         this.provincia = provincia;
         this.pais = pais;
         this.codigopostal = codigopostal;
+        this.web= web;
     }
 
     public String getNif() {
@@ -236,6 +240,14 @@ public class Empresas implements Serializable {
     @Override
     public String toString() {
         return "bd.Empresas[ nif=" + nif + " ]";
+    }
+
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
     }
     
 }

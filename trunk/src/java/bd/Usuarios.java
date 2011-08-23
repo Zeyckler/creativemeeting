@@ -55,6 +55,15 @@ import javax.faces.bean.SessionScoped;
     @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia")
 })
 public class Usuarios implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fechanacimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechanacimiento;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "privilegios")
+    private int privilegios;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -76,11 +85,6 @@ public class Usuarios implements Serializable {
     @Size(max = 45)
     @Column(name = "apellido2")
     private String apellido2;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fechanacimiento")
-    @Temporal(TemporalType.DATE)
-    private Date fechanacimiento;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
@@ -137,10 +141,6 @@ public class Usuarios implements Serializable {
     private BigDecimal salario;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "privilegios")
-    private boolean privilegios;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "activo")
     private boolean activo;
     @OneToMany(mappedBy = "dni")
@@ -163,7 +163,7 @@ public class Usuarios implements Serializable {
         this.dni = dni;
     }
 
-    public Usuarios(String dni, String nif, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, boolean privilegios, boolean activo) {
+    public Usuarios(String dni, String nif, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, int privilegios, boolean activo) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -183,7 +183,7 @@ public class Usuarios implements Serializable {
         this.nif = new Empresas(nif);
     }
 
-    public Usuarios(String dni, Empresas empresa, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, boolean privilegios, boolean activo) {
+    public Usuarios(String dni, Empresas empresa, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, int privilegios, boolean activo) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -203,7 +203,7 @@ public class Usuarios implements Serializable {
         this.nif = empresa;
     }
 
-    public Usuarios(String dni, String nombre, String apellido1, String apellido2, Date fechanacimiento, String direccion, Integer telefono, Integer movil, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, boolean privilegios, boolean activo, Empresas nif) {
+    public Usuarios(String dni, String nombre, String apellido1, String apellido2, Date fechanacimiento, String direccion, Integer telefono, Integer movil, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, int privilegios, boolean activo, Empresas nif) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -256,14 +256,6 @@ public class Usuarios implements Serializable {
 
     public void setApellido2(String apellido2) {
         this.apellido2 = apellido2;
-    }
-
-    public Date getFechanacimiento() {
-        return fechanacimiento;
-    }
-
-    public void setFechanacimiento(Date fechanacimiento) {
-        this.fechanacimiento = fechanacimiento;
     }
 
     public String getDireccion() {
@@ -362,14 +354,6 @@ public class Usuarios implements Serializable {
         this.salario = salario;
     }
 
-    public boolean getPrivilegios() {
-        return privilegios;
-    }
-
-    public void setPrivilegios(boolean privilegios) {
-        this.privilegios = privilegios;
-    }
-
     public boolean getActivo() {
         return activo;
     }
@@ -427,5 +411,21 @@ public class Usuarios implements Serializable {
     @Override
     public String toString() {
         return "bd.Usuarios[ dni=" + dni + " ]";
+    }
+
+    public Date getFechanacimiento() {
+        return fechanacimiento;
+    }
+
+    public void setFechanacimiento(Date fechanacimiento) {
+        this.fechanacimiento = fechanacimiento;
+    }
+
+    public int getPrivilegios() {
+        return privilegios;
+    }
+
+    public void setPrivilegios(int privilegios) {
+        this.privilegios = privilegios;
     }
 }
