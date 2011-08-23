@@ -5,6 +5,7 @@
         <Node id="CreaAntonio.jsp" x="650" y="150" zoom="true"/>
         <Node id="error.xhtml" x="120" y="281" zoom="true"/>
         <Node id="index.xhtml" x="120" y="156" zoom="true"/>
+        <Node id="registrarempresa.xhtml" x="150" y="150" zoom="true"/>
         <Node id="correcto.xhtml" x="111" y="34" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
