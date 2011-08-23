@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/facelets/templates/plantilla.xhtml">
+
+            <ui:define name="title">
+                Registro de Empresa - CreativeMeetings
+            </ui:define>
+
+            <ui:define name="logoempresa">
+                logoempresa
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="right">
+                right
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="formulario" id="formularioempresa">
+                    <div class="encabezado">Registro de empresa</div>
+                    <div>
+                        <ice:form>
+                            <table class="tablaformulario" id="tablaempresa">
+                                <tr><hr/></tr>
+                                <tr colspan="2">Datos referidos a la empresa</tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="nif">N.I.F.:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="nif" value="#{empresa.nif}"></ice:inputText></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="razonsocial">Raz&oacute;n social:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="razonsocial" value="#{empresa.razonsocial}"></ice:inputText></div></td>
+                                </tr>
+
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="direccion">Direcci&oacute;n:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="direccion" value="#{empresa.direccion}"></ice:inputText></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="localidad">Localidad:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="localidad" value="#{empresa.localidad}"></ice:inputText></div></td>
+                                </tr>
+
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="codigopostal">C&oacute;digo postal:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="codigopostal" value="#{empresa.codigopostal}"></ice:inputText></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="provincia">Provincia:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="provincia" value="#{empresa.provincia}"></ice:inputText></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="pais">Pa&iacute;s:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ui:include src="./WEB-INF/facelets/components/selectlistapaises.xhtml"/></div></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="telefono">Tel&eacute;fono:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="telefono" value="#{empresa.telefono}"></ice:inputText></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="fax">Fax:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="fax" value="#{empresa.fax}"></ice:inputText></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="email">Correo electr&oacute;nico:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="email" value="#{empresa.email}"></ice:inputText></div></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="web">P&aacute;gina web:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="web" value="#{empresa.web}"></ice:inputText></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="logo">Logotipo de la empresa:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ace:fileEntry id="logo" maxFileSize="10485760"></ace:fileEntry></div></td>
+                                </tr>
+                                <tr><td colspan="2"><hr/></td></tr>
+                            </table>
+
+                        </ice:form>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -17,28 +17,30 @@
         <title><ui:insert name="title"/></title>
     </h:head>
 
-    <h:body onload="mueveReloj()">
+    <h:body>
+        <div class="wrapper">
+            <div id="top">
 
-        <div id="top">
-
-            <div id="logocm"><ice:graphicImage alt="Logo CreativeMeetings" title="CreativeMeetings" url="#{resource['images:logo.png']}"></ice:graphicImage></div>
-            <div><ui:insert name="logoempresa"></ui:insert></div>
-            <div><ice:outputText id="capareloj"></ice:outputText></div>
-        </div>
-        <div>
-            <div id="left">
-                <ui:insert name="left">Left</ui:insert>
+                <div id="logocm"><ice:graphicImage alt="Logo CreativeMeetings" title="CreativeMeetings" url="#{resource['images:logo.png']}"></ice:graphicImage></div>
+                <div><ui:insert name="logoempresa"></ui:insert></div>
+                <div><ice:outputText id="capareloj"></ice:outputText></div>
             </div>
             <div>
-                <div id="right">
-                    <ui:insert name="right">Right</ui:insert>
+                <div id="left">
+                    <ui:insert name="left">Left</ui:insert>
                 </div>
-                <div id="content" class="right_content">
-                    <ui:insert name="content">Content</ui:insert>
+                <div>
+                    <div id="right">
+                        <ui:insert name="right">Right</ui:insert>
+                    </div>
+                    <div id="content" class="right_content">
+                        <ui:insert name="content">Content</ui:insert>
+                    </div>
                 </div>
+                <div class="push"></div> 
             </div>
         </div>
-        <div id="bottom">
+        <div class="footer" id="bottom">
             <ice:graphicImage alt="Tecnologias utilizadas" url="#{resource['images:banner-logos.gif']}"></ice:graphicImage>
             <ice:outputText id="copyright">&copy;Carlos Barrero V&aacute;zquez y Antonio Camacho Zapata - Sevilla, 2011</ice:outputText>
         </div>

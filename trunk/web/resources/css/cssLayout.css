@@ -6,12 +6,17 @@
     margin: 0px 0px 10px 0px;
 }
 
-#bottom {
-    margin-top: 10px;
-    position:fixed;
+.footer, .push {
+    height: 26px;
     bottom:0px;
     text-align:right;
-    width:98%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto;
+    height: 100%;
+    margin: 0 auto -29px;
 }
 
 #left {
@@ -67,7 +72,7 @@
     color: darkred;
 }
 /*-----CSS de index.xhtml-----*/
-#login{
+.formulario{
     /* background-color: #0bbdbd;*/
     text-align: center;
     margin-right: 15%;
@@ -83,7 +88,7 @@
     min-width: 500px;
 }
 
-#iniciosesion{
+.encabezado{
     font-variant: small-caps;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -92,7 +97,7 @@
     font-size: 20px;
 }
 
-#tablalogin{
+.tablaformulario{
     margin:0 auto 0 auto;
 }
 
@@ -112,4 +117,8 @@
 
 .enlaces{
     margin-bottom: 10px;
+}
+
+.errorformulario{
+    color: red;
 }
