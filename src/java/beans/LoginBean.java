@@ -44,13 +44,13 @@ public class LoginBean implements Serializable {
         }
         if (nomUsuario.length() > 11) {
             ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño m&aacute;ximo 11 caracteres");
+            FacesMessage msg = new FacesMessage("Tamaño máximo 11 caracteres");
             context.addMessage(validate.getClientId(context), msg);
 
         }
         if (nomUsuario.length() < 9) {
             ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño m&iacute;nimo 9 caracteres");
+            FacesMessage msg = new FacesMessage("Tamaño mínimo 9 caracteres");
             context.addMessage(validate.getClientId(context), msg);
 
         }
@@ -63,7 +63,7 @@ public class LoginBean implements Serializable {
 
         if (clave.equals("")) {
             ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("No puede estar vac&iacute;a");
+            FacesMessage msg = new FacesMessage("No puede estar vacía");
             context.addMessage(validate.getClientId(context), msg);
         }
 
