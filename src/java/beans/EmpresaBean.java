@@ -139,7 +139,7 @@ public class EmpresaBean implements Serializable {
         this.web = web;
     }
 
-    public void validarCadena255(FacesContext context, UIComponent validate, Object value) {
+    private void validarCadena255(FacesContext context, UIComponent validate, Object value) {
         String cad = (String) value;
         boolean tam = true;
 
@@ -151,10 +151,10 @@ public class EmpresaBean implements Serializable {
             FacesMessage msg = new FacesMessage("Tamaño máximo 255 caracteres");
             context.addMessage(validate.getClientId(context), msg);
         }
-        
-        
+
+
     }
-    
+
     public void validarEmail(FacesContext context, UIComponent validate, Object value) {
         String emailEmp = (String) value;
         boolean res = true;
@@ -185,7 +185,7 @@ public class EmpresaBean implements Serializable {
     public void validarWeb(FacesContext context, UIComponent validate, Object value) {
 
         validarCadena255(context, validate, value);
-        
+
     }
 
     public void validarTelefono(FacesContext context, UIComponent validate, Object value) {
@@ -238,29 +238,29 @@ public class EmpresaBean implements Serializable {
     }
 
     public void validarDireccion(FacesContext context, UIComponent validate, Object value) {
-        
+
         validarCadena255(context, validate, value);
-        
+
     }
 
     public void validarLocalidad(FacesContext context, UIComponent validate, Object value) {
-        
+
         validarCadena255(context, validate, value);
-        
+
     }
 
     public void validarProvincia(FacesContext context, UIComponent validate, Object value) {
-        
+
         validarCadena255(context, validate, value);
     }
-    
+
     public void validarPais(FacesContext context, UIComponent validate, Object value) {
-        
+
         validarCadena255(context, validate, value);
     }
-    
+
     public void validarCodigoPostal(FacesContext context, UIComponent validate, Object value) {
-        
+
         boolean res = true;
         String telefonoEmp = (String) value;
 
@@ -279,8 +279,45 @@ public class EmpresaBean implements Serializable {
             FacesMessage msg = new FacesMessage("Tamaño maximo 10 numeros");
             context.addMessage(validate.getClientId(context), msg);
         }
-        
+
     }
-    
-    
+
+    public void validarNif(FacesContext context, UIComponent validate, Object value) {
+
+        boolean res = true;
+        String nifEmp= (String)value; 
+
+        if (nifEmp.toUpperCase().startsWith("X") || nifEmp.toUpperCase().startsWith("Y") || nifEmp.toUpperCase().startsWith("Z")) {
+            nifEmp = nifEmp.substring(1);
+        }
+
+        Pattern nifPattern =
+                Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
+        Matcher m = nifPattern.matcher(nifEmp);
+        if (m.matches()) {
+            String letra = m.group(2);
+
+            //Extraer letra del NIF
+
+            String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+            int dni = Integer.parseInt(m.group(1));
+            dni = dni % 23;
+            String reference = letras.substring(dni, dni + 1);
+
+            if (reference.equalsIgnoreCase(letra)) {
+                res = true;
+            } else {
+                res = false;
+            }
+        } else {
+            res = false;
+        }
+        if(!res){
+            
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("N.I.F no válido");
+            context.addMessage(validate.getClientId(context), msg);
+            
+        }
+    }
 }
