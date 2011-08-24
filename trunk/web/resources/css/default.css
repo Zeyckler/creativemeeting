@@ -1,3 +1,7 @@
+* {
+    margin: 0;
+}
+
 html, body {
     height: 100%;
     background-color: #ffffff;
@@ -7,10 +11,6 @@ html, body {
 
 }
 
-* {
-    margin: 0;
-}
-
 h1 {
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     border-bottom: 1px solid #AFAFAF; 
@@ -18,7 +18,7 @@ h1 {
     font-weight: bold;
     margin: 0px;
     padding: 0px;
-    color: #D20005;
+    color: #000000;
 }
 
 a:link, a:visited {
