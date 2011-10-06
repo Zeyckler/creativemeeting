@@ -36,33 +36,33 @@
                                 <tr><td colspan="2"><h1>Datos referidos a la empresa</h1></td></tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="nif">N.I.F.:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="nif" value="#{empresa.nif}" required="true"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="nif" value="#{registraempresa.nif}" required="true" validator="#{registraempresa.validarNif}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errornif" for="nif"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="razonsocial">Raz&oacute;n social:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="razonsocial" value="#{empresa.razonsocial}" required="true"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="razonsocial" value="#{registraempresa.razonsocial}" required="true" validator="#{registraempresa.validarRazonSocial}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorrazonsocial" for="razonsocial"></ice:message></div></td>
                                 </tr>
 
                                 <tr>
-                                    <td><div class="labelslogin"><ice:outputLabel for="direccion">Direcci&oacute;n:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="direccion" value="#{empresa.direccion}" required="true"></ice:inputText></div></td>
+                                    <td><div class="labelslogin"><ice:outputLabel maxlenght="255" for="direccion">Direcci&oacute;n:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="direccion" value="#{registraempresa.direccion}" required="true" validator="#{registraempresa.validarDireccion}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errordireccion" for="direccion"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="localidad">Localidad:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="localidad" value="#{empresa.localidad}" required="true"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="localidad" value="#{registraempresa.localidad}" required="true" validator="#{registraempresa.validarLocalidad}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorlocalidad" for="localidad"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="codigopostal">C&oacute;digo postal:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="codigopostal" value="#{empresa.codigopostal}" required="true"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="codigopostal" value="#{registraempresa.codigopostal}" required="true" validator="#{registraempresa.validarCodigoPostal}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorcodigopostal" for="codigopostal"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="provincia">Provincia:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="provincia" value="#{empresa.provincia}" required="true"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="provincia" value="#{registraempresa.provincia}" required="true" validator="#{registraempresa.validarProvincia}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorprovincia" for="provincia"></ice:message></div></td>
                                 </tr>
                                 <tr>
@@ -72,23 +72,23 @@
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="telefono">Tel&eacute;fono:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="telefono" value="#{empresa.telefono}" required="true"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="telefono" value="#{registraempresa.telefono}" required="true" validator="#{registraempresa.validarTelefono}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errortelefono" for="telefono"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="fax">Fax:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="fax" value="#{empresa.fax}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="fax" value="#{registraempresa.fax}" validator="#{registraempresa.validarFax}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorfax" for="fax"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="email">Correo electr&oacute;nico:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="email" value="#{empresa.email}" required="true"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="email" value="#{registraempresa.email}" required="true" validator="#{registraempresa.validarEmail}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="erroremail" for="email"></ice:message></div></td>
                                 </tr>
 
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="web">P&aacute;gina web:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="web" value="#{empresa.web}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="web" value="#{registraempresa.web}" validator="#{registraempresa.validarWeb}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorweb" for="web"></ice:message></div></td>
                                 </tr>
                                 <tr>
