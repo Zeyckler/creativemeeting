@@ -1,0 +1,1 @@
+Hay que enterarse como va la creación de Beans y hacerlos a partir de los Objetos que necesitemos.
