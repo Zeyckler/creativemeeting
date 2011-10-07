@@ -94,5 +94,79 @@ public class ValidacionesBean {
             context.addMessage(validate.getClientId(context), msg);
         }
     }
-    
+
+    public void validarEmail(FacesContext context, UIComponent validate, Object value) {
+        String emailEmp = (String) value;
+        boolean res = true;
+        boolean tam = true;
+
+        if (emailEmp.length() > 255) {
+            tam = false;
+        }
+
+        Pattern p = Pattern.compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");
+        Matcher m = p.matcher(emailEmp);
+        res = m.matches();
+
+        if (!res) {
+
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("Correo electronico no válido");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+        if (!tam) {
+
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("Tamaño máximo 255 caracteres");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+    }
+
+    public void validarMovil(FacesContext context, UIComponent validate, Object value) {
+
+        boolean res = true;
+        String telefonoEmp = (String) value;
+
+        Pattern p = Pattern.compile("^[6|7]\\d{8}$");
+        Matcher m = p.matcher(telefonoEmp);
+        res = m.matches();
+
+        if (!res) {
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("Debe de ser numero Móvil empezado por 6 0 7");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+    }
+
+    public void validarTelefono(FacesContext context, UIComponent validate, Object value) {
+
+        boolean res = true;
+        String telefonoEmp = (String) value;
+
+        Pattern p = Pattern.compile("^[9]\\d{8}$");
+        Matcher m = p.matcher(telefonoEmp);
+        res = m.matches();
+
+        if (!res) {
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("Debe de ser numero Móvil empezado por 6 0 7");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+    }
+
+    public void validarCodigoPostal(FacesContext context, UIComponent validate, Object value) {
+
+        boolean res = true;
+        String cp = (String) value;
+
+        Pattern p = Pattern.compile("^\\d{5}$");
+        Matcher m = p.matcher(cp);
+        res = m.matches();
+
+        if (!res) {
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("Debe ser un número");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+    }
 }
