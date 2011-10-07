@@ -26,17 +26,29 @@ public class EmpresaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String email;
+    //validarEmail
     private String web;
+    //validarCadena255 
     private String nif;
+    //validarNif
     private int telefono;
+    //validarTelefono
     private Integer fax;
+    //validarTelefono
     private String razonsocial;
+    //validarCadena255
     private String direccion;
+    //validarCadena255
     private String localidad;
+    //validarCadena255
     private String provincia;
+    //validarCadena255
     private String pais;
+    //validarCadena255
     private int codigopostal;
+    //validarCodigoPostal
     private String logotipo;
+    
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -137,187 +149,5 @@ public class EmpresaBean implements Serializable {
 
     public void setWeb(String web) {
         this.web = web;
-    }
-
-    private void validarCadena255(FacesContext context, UIComponent validate, Object value) {
-        String cad = (String) value;
-        boolean tam = true;
-
-        if (cad.length() > 255) {
-            tam = false;
-        }
-        if (!false) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño máximo 255 caracteres");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-
-    }
-
-    public void validarEmail(FacesContext context, UIComponent validate, Object value) {
-        String emailEmp = (String) value;
-        boolean res = true;
-        boolean tam = true;
-
-        if (emailEmp.length() > 255) {
-            tam = false;
-        }
-
-        Pattern p = Pattern.compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");
-        Matcher m = p.matcher(emailEmp);
-        res = m.matches();
-
-        if (!res) {
-
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Correo electronico no válido");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-        if (!tam) {
-
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño máximo 255 caracteres");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-    }
-
-    public void validarWeb(FacesContext context, UIComponent validate, Object value) {
-
-        validarCadena255(context, validate, value);
-
-    }
-
-    public void validarTelefono(FacesContext context, UIComponent validate, Object value) {
-
-        boolean res = true;
-        String telefonoEmp = (String) value;
-
-        Pattern p = Pattern.compile("^\\d+$");
-        Matcher m = p.matcher(telefonoEmp);
-        res = m.matches();
-
-        if (!res) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Debe ser un número");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-        if (telefonoEmp.length() > 9) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño maximo 9 numeros");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-
-    }
-
-    public void validarFax(FacesContext context, UIComponent validate, Object value) {
-        boolean res = true;
-        String telefonoEmp = (String) value;
-
-        Pattern p = Pattern.compile("^\\d+$");
-        Matcher m = p.matcher(telefonoEmp);
-        res = m.matches();
-
-        if (!res) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Debe ser un número");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-        if (telefonoEmp.length() > 9) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño maximo 9 numeros");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-    }
-
-    public void validarRazonSocial(FacesContext context, UIComponent validate, Object value) {
-        validarCadena255(context, validate, value);
-    }
-
-    public void validarDireccion(FacesContext context, UIComponent validate, Object value) {
-
-        validarCadena255(context, validate, value);
-
-    }
-
-    public void validarLocalidad(FacesContext context, UIComponent validate, Object value) {
-
-        validarCadena255(context, validate, value);
-
-    }
-
-    public void validarProvincia(FacesContext context, UIComponent validate, Object value) {
-
-        validarCadena255(context, validate, value);
-    }
-
-    public void validarPais(FacesContext context, UIComponent validate, Object value) {
-
-        validarCadena255(context, validate, value);
-    }
-
-    public void validarCodigoPostal(FacesContext context, UIComponent validate, Object value) {
-
-        boolean res = true;
-        String telefonoEmp = (String) value;
-
-        Pattern p = Pattern.compile("^\\d+$");
-        Matcher m = p.matcher(telefonoEmp);
-        res = m.matches();
-
-        if (!res) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Debe ser un número");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-        if (telefonoEmp.length() > 5) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño maximo 10 numeros");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-    }
-
-    public void validarNif(FacesContext context, UIComponent validate, Object value) {
-
-        boolean res = true;
-        String nifEmp= (String)value; 
-
-        if (nifEmp.toUpperCase().startsWith("X") || nifEmp.toUpperCase().startsWith("Y") || nifEmp.toUpperCase().startsWith("Z")) {
-            nifEmp = nifEmp.substring(1);
-        }
-
-        Pattern nifPattern =
-                Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
-        Matcher m = nifPattern.matcher(nifEmp);
-        if (m.matches()) {
-            String letra = m.group(2);
-
-            //Extraer letra del NIF
-
-            String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-            int dni = Integer.parseInt(m.group(1));
-            dni = dni % 23;
-            String reference = letras.substring(dni, dni + 1);
-
-            if (reference.equalsIgnoreCase(letra)) {
-                res = true;
-            } else {
-                res = false;
-            }
-        } else {
-            res = false;
-        }
-        if(!res){
-            
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("N.I.F no válido");
-            context.addMessage(validate.getClientId(context), msg);
-            
-        }
     }
 }

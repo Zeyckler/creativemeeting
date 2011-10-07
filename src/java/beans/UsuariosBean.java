@@ -42,168 +42,192 @@ public class UsuariosBean implements Serializable {
     private String email;
     //ValidarEmail
     private String usuario;
-    
+    //No Necesita Validador
     private String provincia;
     //ValidarCadena255
     private String contrasena;
+    //ValidarCadena255
     private String localidad;
+    //ValidarCadena255
     private String pais;
+    //ValidarCadena255
     private int codigopostal;
+    //validarCodigoPostal
     private String cargo;
+    //ValidarCadena255
     private BigDecimal salario;
+    
     private int privilegios;
+    //ValidarCadena255
     private boolean activo;
+    //No necesita validacion
     private Empresas nif;
+    //No necesita Validacion
  
     
     
     public UsuariosBean() {
     }
     //Hay que crear un Constructor con una entrada de usuario
-    
-    
-    private void validarCadena255(FacesContext context, UIComponent validate, Object value) {
-        String cad = (String) value;
-        boolean tam = true;
 
-        if (cad.length() > 255) {
-            tam = false;
-        }
-        if (!false) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño máximo 255 caracteres");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-
+    public boolean isActivo() {
+        return activo;
     }
-    public void validarNif(FacesContext context, UIComponent validate, Object value) {
 
-        boolean res = true;
-        String nifEmp= (String)value; 
-
-        if (nifEmp.toUpperCase().startsWith("X") || nifEmp.toUpperCase().startsWith("Y") || nifEmp.toUpperCase().startsWith("Z")) {
-            nifEmp = nifEmp.substring(1);
-        }
-
-        Pattern nifPattern =
-                Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
-        Matcher m = nifPattern.matcher(nifEmp);
-        if (m.matches()) {
-            String letra = m.group(2);
-
-            //Extraer letra del NIF
-
-            String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-            int dni = Integer.parseInt(m.group(1));
-            dni = dni % 23;
-            String reference = letras.substring(dni, dni + 1);
-
-            if (reference.equalsIgnoreCase(letra)) {
-                res = true;
-            } else {
-                res = false;
-            }
-        } else {
-            res = false;
-        }
-        if(!res){
-            
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("N.I.F no válido");
-            context.addMessage(validate.getClientId(context), msg);
-            
-        }
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
-    
-    public void validarTelefono(FacesContext context, UIComponent validate, Object value) {
 
-        boolean res = true;
-        String telefonoEmp = (String) value;
-
-        Pattern p = Pattern.compile("^\\d+$");
-        Matcher m = p.matcher(telefonoEmp);
-        res = m.matches();
-
-        if (!res) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Debe ser un número");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-        if (telefonoEmp.length() > 9) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño maximo 9 numeros");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-
+    public String getApellido1() {
+        return apellido1;
     }
-    public void validarMovil(FacesContext context, UIComponent validate, Object value) {
-        
-        //Este método hay que probarlo no está del todo claro.
-        
-        boolean res = true;
-        String telefonoEmp = (String) value;
 
-        Pattern p = Pattern.compile("^\\[6|9]d+$");
-        Matcher m = p.matcher(telefonoEmp);
-        res = m.matches();
-
-        if (!res) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Debe ser un número");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-        if (telefonoEmp.length() > 9) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño maximo 9 numeros");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-
-
+    public void setApellido1(String apellido1) {
+        this.apellido1 = apellido1;
     }
-     public void validarEmail(FacesContext context, UIComponent validate, Object value) {
-        String emailEmp = (String) value;
-        boolean res = true;
-        boolean tam = true;
 
-        if (emailEmp.length() > 255) {
-            tam = false;
-        }
-
-        Pattern p = Pattern.compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");
-        Matcher m = p.matcher(emailEmp);
-        res = m.matches();
-
-        if (!res) {
-
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Correo electronico no válido");
-            context.addMessage(validate.getClientId(context), msg);
-        }
-        if (!tam) {
-
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Tamaño máximo 255 caracteres");
-            context.addMessage(validate.getClientId(context), msg);
-        }
+    public String getApellido2() {
+        return apellido2;
     }
-    
-     public void validarFecha(FacesContext context, UIComponent validate, Object value) {
-        
-        String fecha = (String) value;
-        String dia;
-        String mes;
-        String año;
-        
-        
-         
-     }
-        
-        
-        
 
+    public void setApellido2(String apellido2) {
+        this.apellido2 = apellido2;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    public int getCodigopostal() {
+        return codigopostal;
+    }
+
+    public void setCodigopostal(int codigopostal) {
+        this.codigopostal = codigopostal;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getFechanacimiento() {
+        return fechanacimiento;
+    }
+
+    public void setFechanacimiento(Date fechanacimiento) {
+        this.fechanacimiento = fechanacimiento;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Integer getMovil() {
+        return movil;
+    }
+
+    public void setMovil(Integer movil) {
+        this.movil = movil;
+    }
+
+    public Empresas getNif() {
+        return nif;
+    }
+
+    public void setNif(Empresas nif) {
+        this.nif = nif;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public int getPrivilegios() {
+        return privilegios;
+    }
+
+    public void setPrivilegios(int privilegios) {
+        this.privilegios = privilegios;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public BigDecimal getSalario() {
+        return salario;
+    }
+
+    public void setSalario(BigDecimal salario) {
+        this.salario = salario;
+    }
+
+    public Integer getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Integer telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
     
 }
