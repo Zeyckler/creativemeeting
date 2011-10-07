@@ -34,23 +34,28 @@
         </navigation-case>
     </navigation-rule>
     <managed-bean>
-        <description>Bean que almacena los datos del usuario</description>
-        <managed-bean-name>usuario</managed-bean-name>
-        <managed-bean-class>utiles.Usuario</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>holaBean</managed-bean-name>
         <managed-bean-class>beans.HolaBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>usuariosBean</managed-bean-name>
+        <managed-bean-name>usuario</managed-bean-name>
         <managed-bean-class>beans.UsuariosBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>empresa</managed-bean-name>
+        <managed-bean-class>beans.EmpresaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>validaciones</managed-bean-name>
+        <managed-bean-class>beans.ValidacionesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
     <application>
-  <message-bundle>mensajeserror.erroresValidacion</message-bundle>
- </application>
+        <message-bundle>mensajeserror.erroresValidacion</message-bundle>
+    </application>
 </faces-config>
 
