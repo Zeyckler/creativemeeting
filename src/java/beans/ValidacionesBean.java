@@ -25,7 +25,7 @@ public class ValidacionesBean {
     public ValidacionesBean() {
     }
 
-    private void validarCadena255(FacesContext context, UIComponent validate, Object value) {
+    public void validarCadena255(FacesContext context, UIComponent validate, Object value) {
         String cad = (String) value;
         boolean tam = true;
 
