@@ -274,7 +274,7 @@ public class EmpresaBean implements Serializable {
             context.addMessage(validate.getClientId(context), msg);
         }
 
-        if (telefonoEmp.length() > 10) {
+        if (telefonoEmp.length() > 5) {
             ((UIInput) validate).setValid(false);
             FacesMessage msg = new FacesMessage("Tamaño maximo 10 numeros");
             context.addMessage(validate.getClientId(context), msg);
