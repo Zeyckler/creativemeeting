@@ -169,4 +169,19 @@ public class ValidacionesBean {
             context.addMessage(validate.getClientId(context), msg);
         }
     }
+    public void validarSalario(FacesContext context, UIComponent validate, Object value) {
+
+        boolean res = true;
+        String cp = (String) value;
+
+        Pattern p = Pattern.compile("^([1-9]\\d+)|([1-9]\\d+\\.\\d{2})$");
+        Matcher m = p.matcher(cp);
+        res = m.matches();
+
+        if (!res) {
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("Debe ser un número");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+    }
 }
