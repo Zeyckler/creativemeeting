@@ -31,7 +31,7 @@ public class EmpresaBean implements Serializable {
     //validarCadena255 
     private String nif;
     //validarNif
-    private int telefono;
+    private Integer telefono;
     //validarTelefono
     private Integer fax;
     //validarTelefono
@@ -45,7 +45,7 @@ public class EmpresaBean implements Serializable {
     //validarCadena255
     private String pais;
     //validarCadena255
-    private int codigopostal;
+    private Integer codigopostal;
     //validarCodigoPostal
     private String logotipo;
     
@@ -55,7 +55,7 @@ public class EmpresaBean implements Serializable {
     public EmpresaBean() {
     }
 
-    public int getCodigopostal() {
+    public Integer getCodigopostal() {
         return codigopostal;
     }
 
@@ -135,7 +135,7 @@ public class EmpresaBean implements Serializable {
         this.razonsocial = razonsocial;
     }
 
-    public int getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
 
