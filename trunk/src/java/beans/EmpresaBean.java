@@ -5,16 +5,8 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.annotation.ManagedBean;
-import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
 
 /**
  *
