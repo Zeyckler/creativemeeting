@@ -51,7 +51,7 @@ public class UsuariosBean implements Serializable {
     //ValidarCadena255
     private String pais;
     //ValidarCadena255
-    private int codigopostal;
+    private Integer codigopostal;
     //validarCodigoPostal
     private String cargo;
     //ValidarCadena255
@@ -102,7 +102,7 @@ public class UsuariosBean implements Serializable {
         this.cargo = cargo;
     }
 
-    public int getCodigopostal() {
+    public Integer getCodigopostal() {
         return codigopostal;
     }
 
