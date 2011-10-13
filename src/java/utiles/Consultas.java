@@ -171,4 +171,23 @@ public class Consultas {
         
         return user;
     }
+    
+    public static List<Usuarios> buscaUsuarioParecidos(String usuario){
+        
+        //Busca Usuarios con las mismas iniciales en el nombre apellido q y apellido 2
+        
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOSPARECIDOS);
+        q1.setParameter("usuario", usuario);
+        
+        List<Usuarios> user = new LinkedList<Usuarios>();  
+        try {
+            user = (List<Usuarios>)  q1.getResultList();
+        } catch (Exception e) {
+            //Hay que ver si la execpcion es javax.persistence.NoResultException para que este el metodo bien
+            user= null;
+        }
+        
+        return user;
+    }
 }
