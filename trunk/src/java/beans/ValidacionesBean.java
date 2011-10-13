@@ -26,13 +26,14 @@ public class ValidacionesBean {
     }
 
     public void validarCadena255(FacesContext context, UIComponent validate, Object value) {
+        
         String cad = (String) value;
         boolean tam = true;
 
         if (cad.length() > 255) {
             tam = false;
         }
-        if (!false) {
+        if (!tam) {
             ((UIInput) validate).setValid(false);
             FacesMessage msg = new FacesMessage("Tamaño máximo 255 caracteres");
             context.addMessage(validate.getClientId(context), msg);
@@ -142,14 +143,14 @@ public class ValidacionesBean {
 
         boolean res = true;
         String telefonoEmp = (String) value;
-
+ 
         Pattern p = Pattern.compile("^[9]\\d{8}$");
         Matcher m = p.matcher(telefonoEmp);
         res = m.matches();
 
         if (!res) {
             ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Debe de ser numero Móvil empezado por 6 0 7");
+            FacesMessage msg = new FacesMessage("Debe de ser numero Fijo empezado por 9");
             context.addMessage(validate.getClientId(context), msg);
         }
     }

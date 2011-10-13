@@ -5,9 +5,14 @@
 package beans;
 
 import bd.Empresas;
+import bd.Usuarios;
+import factoria.FactoriaBD;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import utiles.Consultas;
 
 /**
  *
@@ -222,6 +227,34 @@ public class UsuariosBean implements Serializable {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+    
+    public String creaNombreUsuario(){
+        //TODO
+        String nomUs;
+        String nombreUs= nombre.toLowerCase().substring(0, 3);
+        String apellido1Us= apellido1.toLowerCase().substring(0, 3);
+        String apellido2Us= apellido2.toLowerCase().substring(0, 3);
+        
+       
+        nomUs=nombreUs+apellido1Us+apellido2Us;
+        
+        List<Usuarios> listUs = new LinkedList<Usuarios>();
+        listUs=Consultas.buscaUsuarioParecidos(nomUs);
+        
+        
+          
+        
+        return nomUs;
+    
+    }
+    
+    public boolean insertaUsuario(){
+        //TODO
+        
+        Usuarios us= FactoriaBD.creaUsuario(this.dni, this.nif, this.nombre,
+                this.apellido1, this.fechanacimiento, this.direccion, this.email, usuario, contrasena, localidad, provincia, pais, privilegios, cargo, salario, privilegios, activo);
+        return false;
     }
     
 }

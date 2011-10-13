@@ -41,6 +41,7 @@ import javax.faces.bean.SessionScoped;
     @NamedQuery(name = "Usuarios.findByMovil", query = "SELECT u FROM Usuarios u WHERE u.movil = :movil"),
     @NamedQuery(name = "Usuarios.findByEmail", query = "SELECT u FROM Usuarios u WHERE u.email = :email"),
     @NamedQuery(name = "Usuarios.findByUsuario", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario"),
+    @NamedQuery(name = "Usuarios.findByUsuarioParecidos", query = "SELECT u FROM Usuarios u LIKE u.usuario = :usuario%"),
     @NamedQuery(name = "Usuarios.findByContrasena", query = "SELECT u FROM Usuarios u WHERE u.contrasena = :contrasena"),
     @NamedQuery(name = "Usuarios.findByLocalidad", query = "SELECT u FROM Usuarios u WHERE u.localidad = :localidad"),
     @NamedQuery(name = "Usuarios.findByProvincia", query = "SELECT u FROM Usuarios u WHERE u.provincia = :provincia"),
@@ -155,7 +156,9 @@ public class Usuarios implements Serializable {
     public static final String BUSCAR_USUARIOSACTIVOS= "Usuarios.findByActivo";
     public static final String BUSCAR_USUARIOSBYEMPRESA= "Usuarios.findUsuarioByEmpresa";
     public static final String BUSCAR_USUARIOYCONTRASENA= "Usuarios.findByUsuarioyContrasena";
-
+    public static final String BUSCAR_USUARIOSPARECIDOS= "Usuarios.findByUsuarioParecidos";
+                                                                                                        
+    
     public Usuarios() {
     }
 
