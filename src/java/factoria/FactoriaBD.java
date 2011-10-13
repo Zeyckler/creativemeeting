@@ -86,15 +86,17 @@ public class FactoriaBD {
         return res;
     }
 
-    public static Usuarios creaUsuario(String dni, Empresas empresa, String nombre,
-            String apellido1, Date fechanacimiento, String direccion, String email,
-            String usuario, String contrasena, String localidad, String provincia,
-            String pais, int codigopostal, String cargo, BigDecimal salario,
-            int privilegios, boolean activo) {
+    public static Usuarios creaUsuario(String dni, String nombre, String apellido1, String apellido2,
+            Date fechanacimiento, String direccion, Integer telefono, Integer movil,
+            String email, String usuario, String contrasena, String localidad,
+            String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, 
+            int privilegios, boolean activo, Empresas nif) {
 
-        return new Usuarios(dni, empresa, nombre, apellido1, fechanacimiento,
-                direccion, email, usuario, contrasena, localidad, provincia, pais,
-                codigopostal, cargo, salario, privilegios, activo);
+        return new Usuarios( dni, nombre,  apellido1, apellido2,
+            fechanacimiento,  direccion,  telefono,  movil,
+            email, usuario, contrasena, localidad,
+            provincia, pais, codigopostal, cargo, salario, 
+            privilegios, activo, nif);
     }
 
     public static boolean insertaUsuario(Usuarios us) {

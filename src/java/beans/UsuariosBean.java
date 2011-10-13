@@ -235,26 +235,59 @@ public class UsuariosBean implements Serializable {
         String nombreUs= nombre.toLowerCase().substring(0, 3);
         String apellido1Us= apellido1.toLowerCase().substring(0, 3);
         String apellido2Us= apellido2.toLowerCase().substring(0, 3);
-        
+        Integer numUs;
        
         nomUs=nombreUs+apellido1Us+apellido2Us;
         
         List<Usuarios> listUs = new LinkedList<Usuarios>();
         listUs=Consultas.buscaUsuarioParecidos(nomUs);
         
+        numUs=listUs.size();
         
-          
+        if(numUs>0){
+            nomUs=nomUs+numUs.toString();
+        }
+        
+        this.usuario=nomUs;
         
         return nomUs;
     
     }
     
-    public boolean insertaUsuario(){
+    public boolean insertaUsuario(Integer tipo, Empresas nif){
         //TODO
+        Usuarios us= new Usuarios();
+        boolean res= false;
         
-        Usuarios us= FactoriaBD.creaUsuario(this.dni, this.nif, this.nombre,
-                this.apellido1, this.fechanacimiento, this.direccion, this.email, usuario, contrasena, localidad, provincia, pais, privilegios, cargo, salario, privilegios, activo);
-        return false;
+        
+        
+        if(tipo==0){
+            //Usuario Master
+            us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
+                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
+                    this.movil, this.email, this.usuario, this.contrasena, this.localidad,
+                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 0 , false, nif);
+        }
+        if(tipo==1){
+            //Usuario Administrador de Empresa
+            
+            us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
+                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
+                    this.movil, this.email, this.usuario, this.contrasena, this.localidad,
+                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 1 , false, nif);
+        }
+        if (tipo==2){
+            //Usuario Registrado perteneciente a una empresa
+            
+            us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
+                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
+                    this.movil, this.email, this.usuario, this.contrasena, this.localidad,
+                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 2 , false, nif);
+            
+        }
+        res=FactoriaBD.insertaUsuario(us);
+     
+        return res;
     }
     
 }
