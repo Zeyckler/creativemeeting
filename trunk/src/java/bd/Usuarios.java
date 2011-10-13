@@ -56,15 +56,7 @@ import javax.faces.bean.SessionScoped;
     @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia")
 })
 public class Usuarios implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fechanacimiento")
-    @Temporal(TemporalType.DATE)
-    private Date fechanacimiento;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "privilegios")
-    private int privilegios;
+    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -151,6 +143,15 @@ public class Usuarios implements Serializable {
     @JoinColumn(name = "nif", referencedColumnName = "nif")
     @ManyToOne(optional = false)
     private Empresas nif;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fechanacimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechanacimiento;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "privilegios")
+    private int privilegios;
     
     public static final String BUSCAR_USUARIOSIDREUNIONES = "Usuarios.findByIdReunion";
     public static final String BUSCAR_USUARIOSACTIVOS= "Usuarios.findByActivo";
@@ -206,7 +207,12 @@ public class Usuarios implements Serializable {
         this.nif = empresa;
     }
 
-    public Usuarios(String dni, String nombre, String apellido1, String apellido2, Date fechanacimiento, String direccion, Integer telefono, Integer movil, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, int privilegios, boolean activo, Empresas nif) {
+    public Usuarios(String dni, String nombre, String apellido1, String apellido2,
+            Date fechanacimiento, String direccion, Integer telefono, Integer movil,
+            String email, String usuario, String contrasena, String localidad,
+            String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, 
+            int privilegios, boolean activo, Empresas nif) {
+        
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
