@@ -107,7 +107,7 @@ public class Empresas implements Serializable {
         this.nif = nif;
     }
 
-    public Empresas(String nif, int telefono, String razonsocial, String direccion, String email, String localidad, String provincia, String pais, int codigopostal, String web) {
+    public Empresas(String nif, int telefono, String razonsocial, String direccion, String email, String localidad, String provincia, String pais, int codigopostal, String web, String logotipo, Integer fax) {
         this.nif = nif;
         this.telefono = telefono;
         this.razonsocial = razonsocial;
@@ -118,6 +118,8 @@ public class Empresas implements Serializable {
         this.pais = pais;
         this.codigopostal = codigopostal;
         this.web= web;
+        this.logotipo= logotipo;
+        this.fax=fax;
     }
 
     public String getNif() {
