@@ -105,7 +105,7 @@ public class UsuariosBean implements Serializable {
         return codigopostal;
     }
 
-    public void setCodigopostal(int codigopostal) {
+    public void setCodigopostal(Integer codigopostal) {
         this.codigopostal = codigopostal;
     }
 

@@ -43,7 +43,7 @@ public class EmpresaBean implements Serializable {
         return codigopostal;
     }
 
-    public void setCodigopostal(int codigopostal) {
+    public void setCodigopostal(Integer codigopostal) {
         this.codigopostal = codigopostal;
     }
 
@@ -123,7 +123,7 @@ public class EmpresaBean implements Serializable {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
 
