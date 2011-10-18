@@ -232,9 +232,9 @@ public class UsuariosBean implements Serializable {
     public String creaNombreUsuario(){
         //TODO
         String nomUs;
-        String nombreUs= nombre.toLowerCase().substring(0, 3);
-        String apellido1Us= apellido1.toLowerCase().substring(0, 3);
-        String apellido2Us= apellido2.toLowerCase().substring(0, 3);
+        String nombreUs= this.nombre.toLowerCase().substring(0, 3);
+        String apellido1Us= this.apellido1.toLowerCase().substring(0, 3);
+        String apellido2Us= this.apellido2.toLowerCase().substring(0, 3);
         Integer numUs;
        
         nomUs=nombreUs+apellido1Us+apellido2Us;

@@ -4,6 +4,8 @@
  */
 package beans;
 
+import bd.Empresas;
+import factoria.FactoriaBD;
 import java.io.Serializable;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
@@ -17,28 +19,18 @@ import javax.enterprise.context.SessionScoped;
 public class EmpresaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     private String email;
-    //validarEmail
     private String web;
-    //validarCadena255 
     private String nif;
-    //validarNif
     private Integer telefono;
-    //validarTelefono
     private Integer fax;
-    //validarTelefono
     private String razonsocial;
-    //validarCadena255
     private String direccion;
-    //validarCadena255
     private String localidad;
-    //validarCadena255
     private String provincia;
-    //validarCadena255
     private String pais;
-    //validarCadena255
     private Integer codigopostal;
-    //validarCodigoPostal
     private String logotipo;
     
 
@@ -141,5 +133,18 @@ public class EmpresaBean implements Serializable {
 
     public void setWeb(String web) {
         this.web = web;
+    }
+    
+    public boolean insertaEmpresa(){
+        boolean res;
+        
+        Empresas empresa= FactoriaBD.creaEmpresa(this.nif, this.telefono, this.razonsocial, 
+                this.direccion, this.email, this.localidad, this.provincia, this.pais,
+                this.codigopostal, this.web, this.logotipo, this.fax);
+        
+        res= FactoriaBD.insertaEmpresa(empresa);
+        
+        
+        return res;
     }
 }

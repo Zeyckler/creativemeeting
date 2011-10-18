@@ -66,10 +66,10 @@ public class FactoriaBD {
 
     public static Empresas creaEmpresa(String nif, int telefono, String razonsocial,
             String direccion, String email, String localidad, String provincia,
-            String pais, int codigopostal,String web) {
+            String pais, int codigopostal,String web, String logotipo, Integer fax) {
 
         return new Empresas(nif, telefono, razonsocial, direccion, email,
-                localidad, provincia, pais, codigopostal,web);
+                localidad, provincia, pais, codigopostal,web, logotipo, fax);
     }
 
     public static boolean insertaEmpresa(Empresas emp) {
