@@ -54,8 +54,27 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     
+    
     <application>
         <message-bundle>mensajeserror.erroresValidacion</message-bundle>
     </application>
+    <managed-bean>
+        <managed-bean-name>registroBean</managed-bean-name>
+        <managed-bean-class>beans.RegistroBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/registrarEmpresa.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{registroBean.registraEmpresayUsuario}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/correcto_1.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{registroBean.registraEmpresayUsuario}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error_1.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
 

@@ -4,7 +4,7 @@
  */
 package beans;
 
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ejb.Stateless;
@@ -26,7 +26,7 @@ public class ValidacionesBean {
     }
 
     public void validarCadena255(FacesContext context, UIComponent validate, Object value) {
-        
+
         String cad = (String) value;
         boolean tam = true;
 
@@ -126,7 +126,8 @@ public class ValidacionesBean {
     public void validarMovil(FacesContext context, UIComponent validate, Object value) {
 
         boolean res = true;
-        String telefonoEmp = (String) value;
+        String telefonoEmp = String.valueOf((Integer) value);
+
 
         Pattern p = Pattern.compile("^[6|7]\\d{8}$");
         Matcher m = p.matcher(telefonoEmp);
@@ -142,8 +143,8 @@ public class ValidacionesBean {
     public void validarTelefono(FacesContext context, UIComponent validate, Object value) {
 
         boolean res = true;
-        String telefonoEmp = (String) value;
- 
+        String telefonoEmp = String.valueOf((Integer) value);
+
         Pattern p = Pattern.compile("^[9]\\d{8}$");
         Matcher m = p.matcher(telefonoEmp);
         res = m.matches();
@@ -158,7 +159,7 @@ public class ValidacionesBean {
     public void validarCodigoPostal(FacesContext context, UIComponent validate, Object value) {
 
         boolean res = true;
-        String cp = (String) value;
+        String cp = String.valueOf((Integer) value);
 
         Pattern p = Pattern.compile("^\\d{5}$");
         Matcher m = p.matcher(cp);
@@ -170,10 +171,11 @@ public class ValidacionesBean {
             context.addMessage(validate.getClientId(context), msg);
         }
     }
+
     public void validarSalario(FacesContext context, UIComponent validate, Object value) {
 
         boolean res = true;
-        String cp = (String) value;
+        String cp = String.valueOf((BigDecimal) value);
 
         Pattern p = Pattern.compile("^([1-9]\\d+)|([1-9]\\d+\\.\\d{2})$");
         Matcher m = p.matcher(cp);
