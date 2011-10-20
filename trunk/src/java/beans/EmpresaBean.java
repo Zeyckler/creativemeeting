@@ -19,7 +19,6 @@ import javax.enterprise.context.SessionScoped;
 public class EmpresaBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     private String email;
     private String web;
     private String nif;
@@ -32,7 +31,6 @@ public class EmpresaBean implements Serializable {
     private String pais;
     private Integer codigopostal;
     private String logotipo;
-    
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -134,17 +132,17 @@ public class EmpresaBean implements Serializable {
     public void setWeb(String web) {
         this.web = web;
     }
-    
-    public boolean insertaEmpresa(){
-        boolean res;
-        
-        Empresas empresa= FactoriaBD.creaEmpresa(this.nif, this.telefono, this.razonsocial, 
+
+    public boolean insertaEmpresa() {
+        boolean res=false;
+
+        Empresas empresa = FactoriaBD.creaEmpresa(this.nif, this.telefono.intValue(), this.razonsocial,
                 this.direccion, this.email, this.localidad, this.provincia, this.pais,
-                this.codigopostal, this.web, this.logotipo, this.fax);
-        
-        res= FactoriaBD.insertaEmpresa(empresa);
-        
-        
+                this.codigopostal.intValue(), this.web, "hola me llamo puta", this.fax.intValue());
+
+        res = FactoriaBD.insertaEmpresa(empresa);
+
+
         return res;
     }
 }

@@ -4,6 +4,7 @@
  */
 package beans;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +21,9 @@ import javax.faces.context.FacesContext;
  */
 @Stateless
 @LocalBean
-public class ValidacionesBean {
+public class ValidacionesBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public ValidacionesBean() {
     }
