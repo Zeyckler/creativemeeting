@@ -256,9 +256,10 @@ public class UsuariosBean implements Serializable {
     
     public boolean insertaUsuario(Integer tipo, Empresas nif){
         //TODO
-        Usuarios us= new Usuarios();
-        boolean res= false;
         
+        creaNombreUsuario();
+        Usuarios us= new Usuarios();
+        boolean res=false;
         
         
         if(tipo==0){
