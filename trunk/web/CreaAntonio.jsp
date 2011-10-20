@@ -47,10 +47,10 @@
         */
         //Tiporeuniones tp= new Tiporeuniones(1,"Charla Coloquio333332");
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CreativeMPU");
+       /* EntityManagerFactory emf = Persistence.createEntityManagerFactory("CreativeMPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        
+        */
  /*          Prueba Inicial:
         //Empresa
         Empresas emp1 = new Empresas("28786879z", 954191739, "Antonio Camacho S.L",
@@ -193,7 +193,7 @@
         boolean bool = FactoriaBD.insertaReuniones(reunion1);
         out.print(bool);
         */
-        List<Reuniones> lrusuarios= Consultas.listaReunionesCreador("28786879x");
+        /*List<Reuniones> lrusuarios= Consultas.listaReunionesCreador("28786879x");
         
         for(Reuniones rrr: lrusuarios){
             Date fecha= rrr.getFecha();
@@ -239,6 +239,16 @@
         
         Usuarios user= Consultas.buscaUsuarioContrasena("antcamzap", "akjdkajhd");
         out.print(user);
+        */
+        
+        /*
+        Empresas a= FactoriaBD.creaEmpresa("11111111H", 955444222, "pepito Perez", "Calle sin nombre", "ant@us.es", "Carmona", "Sevilla", "España", 41410, "www.artyos.es","antoñito" , 955444777);
+        boolean rt= FactoriaBD.insertaEmpresa(a);
+        
+        out.print(rt );*/
+        
+        List<Usuarios> lista= Consultas.buscaUsuarioParecidos("antcamzap");
+        out.print(lista.size());
         
         %>
         <p>Antonio ha sido grabado :-D</p>
