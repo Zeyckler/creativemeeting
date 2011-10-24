@@ -178,7 +178,7 @@ public class Consultas {
         
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOSPARECIDOS);
-        q1.setParameter("usuario", usuario);
+        q1.setParameter("usuario", "%"+usuario+"%");
         
         List<Usuarios> user = new LinkedList<Usuarios>();  
         try {

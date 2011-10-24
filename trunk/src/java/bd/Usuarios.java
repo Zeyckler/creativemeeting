@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.hibernate.validator.constraints.Length.List;
+import utiles.Consultas;
 
 @ManagedBean(name = "Usuarios")
 @SessionScoped
@@ -167,45 +170,7 @@ public class Usuarios implements Serializable {
         this.dni = dni;
     }
 
-    public Usuarios(String dni, String nif, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, int privilegios, boolean activo) {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido1 = apellido1;
-        this.fechanacimiento = fechanacimiento;
-        this.direccion = direccion;
-        this.email = email;
-        this.usuario = usuario;
-        this.contrasena = contrasena;
-        this.localidad = localidad;
-        this.provincia = provincia;
-        this.pais = pais;
-        this.codigopostal = codigopostal;
-        this.cargo = cargo;
-        this.salario = salario;
-        this.privilegios = privilegios;
-        this.activo = activo;
-        this.nif = new Empresas(nif);
-    }
-
-    public Usuarios(String dni, Empresas empresa, String nombre, String apellido1, Date fechanacimiento, String direccion, String email, String usuario, String contrasena, String localidad, String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, int privilegios, boolean activo) {
-        this.dni = dni;
-        this.nombre = nombre;
-        this.apellido1 = apellido1;
-        this.fechanacimiento = fechanacimiento;
-        this.direccion = direccion;
-        this.email = email;
-        this.usuario = usuario;
-        this.contrasena = contrasena;
-        this.localidad = localidad;
-        this.provincia = provincia;
-        this.pais = pais;
-        this.codigopostal = codigopostal;
-        this.cargo = cargo;
-        this.salario = salario;
-        this.privilegios = privilegios;
-        this.activo = activo;
-        this.nif = empresa;
-    }
+    
 
     public Usuarios(String dni, String nombre, String apellido1, String apellido2,
             Date fechanacimiento, String direccion, Integer telefono, Integer movil,
@@ -437,4 +402,6 @@ public class Usuarios implements Serializable {
     public void setPrivilegios(int privilegios) {
         this.privilegios = privilegios;
     }
+    
+    
 }
