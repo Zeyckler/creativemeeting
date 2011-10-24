@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import utiles.Consultas;
+import utiles.Utilidades;
 
 /**
  *
@@ -229,35 +230,12 @@ public class UsuariosBean implements Serializable {
         this.usuario = usuario;
     }
     
-    public String creaNombreUsuario(){
-        //TODO
-        String nomUs;
-        String nombreUs= this.nombre.toLowerCase().substring(0, 3);
-        String apellido1Us= this.apellido1.toLowerCase().substring(0, 3);
-        String apellido2Us= this.apellido2.toLowerCase().substring(0, 3);
-        Integer numUs;
-       
-        nomUs=nombreUs+apellido1Us+apellido2Us;
-        
-        List<Usuarios> listUs = new LinkedList<Usuarios>();
-        listUs=Consultas.buscaUsuarioParecidos(nomUs);
-        
-        numUs=listUs.size();
-        
-        if(numUs>0){
-            nomUs=nomUs+numUs.toString();
-        }
-        
-        this.usuario=nomUs;
-        
-        return nomUs;
     
-    }
     
     public boolean insertaUsuario(Integer tipo, Empresas nif){
         //TODO
         
-        creaNombreUsuario();
+        String nomUsuario= Utilidades.creaNombreUsuario(this.nombre,this.apellido1,this.apellido2);
         Usuarios us= new Usuarios();
         boolean res=false;
         
@@ -266,7 +244,7 @@ public class UsuariosBean implements Serializable {
             //Usuario Master
             us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
                     this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
-                    this.movil, this.email, this.usuario, this.contrasena, this.localidad,
+                    this.movil, this.email, nomUsuario, this.contrasena, this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 0 , false, nif);
         }
         if(tipo==1){
@@ -274,7 +252,7 @@ public class UsuariosBean implements Serializable {
             
             us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
                     this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
-                    this.movil, this.email, this.usuario, this.contrasena, this.localidad,
+                    this.movil, this.email, nomUsuario, this.contrasena, this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 1 , false, nif);
         }
         if (tipo==2){
@@ -282,7 +260,7 @@ public class UsuariosBean implements Serializable {
             
             us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
                     this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
-                    this.movil, this.email, this.usuario, this.contrasena, this.localidad,
+                    this.movil, this.email, nomUsuario, this.contrasena, this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 2 , false, nif);
             
         }

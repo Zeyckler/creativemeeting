@@ -73,15 +73,22 @@ public class FactoriaBD {
     }
 
     public static boolean insertaEmpresa(Empresas emp) {
+         EntityManagerFactory emf1;
+         EntityManager em1;
 
         boolean res = true;
 
         try {
-            abrirTransaccion();
-            em.persist(emp);
-            terminarTransaccion();
+            emf1 = Persistence.createEntityManagerFactory("CreativeMPU");
+            em1 = emf1.createEntityManager();
+            em1.getTransaction().begin();
+            em1.persist(emp);
+            em1.flush();
+            em1.close();
+            emf1.close();
+            
         } catch (Exception e) {
-            res = false;
+            res=false;
         }
         return res;
     }

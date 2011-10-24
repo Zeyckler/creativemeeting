@@ -247,9 +247,18 @@
         
         out.print(rt );*/
         
-        List<Usuarios> lista= Consultas.buscaUsuarioParecidos("antcamzap");
-        out.print(lista.size());
         
+        Empresas emp= Consultas.listaEmpresas().get(0);
+        String usuario = Utilidades.creaNombreUsuario("Antonio", "Camacho", "Zapata");
+        out.println("");
+        out.println(usuario);
+        Usuarios us1 = FactoriaBD.creaUsuario("11111111E", "Antonio", "Camacho", "Zapata", new Date(89, 6, 11),
+                "c/ Linares nº1", 955632147 , 654123789 , "antcam@gmail.com" , usuario, "contraseña", "Carmona", 
+                "Sevilla", "España" , 41410 , "Jefe", new BigDecimal(11111) , 1, true, emp);
+        boolean a = FactoriaBD.insertaUsuario(us1);
+        
+        out.print(a);
+            
         %>
         <p>Antonio ha sido grabado :-D</p>
     </body>
