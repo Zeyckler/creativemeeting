@@ -5,13 +5,9 @@
 package beans;
 
 import bd.Empresas;
+import factoria.FactoriaBD;
 import java.io.Serializable;
 import java.util.Map;
-import java.util.Set;
-import javax.enterprise.inject.spi.Bean;
-import javax.faces.context.ExternalContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -32,13 +28,34 @@ public class RegistroBean implements Serializable {
         Map sesion = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         EmpresaBean empresa = (EmpresaBean) sesion.get("empresa");
         UsuariosBean usuario = (UsuariosBean) sesion.get("usuario");
-        empresaOK = empresa.insertaEmpresa();
-        
+
+
+        Empresas emp = FactoriaBD.creaEmpresa(empresa.getNif(), empresa.getTelefono(), empresa.getRazonsocial(),
+                empresa.getDireccion(), empresa.getEmail(), empresa.getLocalidad(), empresa.getProvincia(),
+                empresa.getPais(), empresa.getCodigopostal(), empresa.getWeb(), "ljcnsdljn", empresa.getFax());
+
+        empresaOK = FactoriaBD.insertaEmpresa(emp);
+        //empresaOK = empresa.insertaEmpresa();
+
+        System.out.print("Nif: " + empresa.getNif());
+        System.out.print("Telefono: " + empresa.getTelefono());
+        System.out.print("Razonsocial: " + empresa.getRazonsocial());
+        System.out.print("Direccion: " + empresa.getDireccion());
+        System.out.print("Email: " + empresa.getEmail());
+        System.out.print("Localidad: " + empresa.getLocalidad());
+        System.out.print("Provincia: " + empresa.getProvincia());
+        System.out.print("Pais: " + empresa.getPais());
+        System.out.print("CP: " + empresa.getCodigopostal());
+        System.out.print("Web: " + empresa.getWeb());
+        System.out.print("Provincia: " + empresa.getLogotipo());
+        System.out.print("Fax: " + empresa.getFax());
+
+
         System.out.print(empresaOK);
 
 
-      if (empresaOK) {
-            usuarioOK = usuario.insertaUsuario(1, new Empresas(empresa.getNif()));
+        if (empresaOK) {
+            usuarioOK = usuario.insertaUsuario(new Integer(1), new Empresas(empresa.getNif()));
         }
         if (empresaOK && usuarioOK) {
             return "ok";

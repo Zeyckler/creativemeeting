@@ -120,7 +120,7 @@
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="fechanacimiento">Fecha de nacimiento:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:selectInputDate id="fechanacimiento" value="#{usuario.fechanacimiento}" required="true" renderAsPopup="true" renderMonthAsDropdown="true" renderYearAsDropdown="true"><f:converter converterId="javax.faces.DateTime"/> 
+                                    <td><div class="inputslogin"><ice:selectInputDate id="fechanacimiento" value="#{usuario.fechanacimiento}" partialSubmit="false" required="true" renderAsPopup="true" renderMonthAsDropdown="true" renderYearAsDropdown="true"><f:converter converterId="javax.faces.DateTime"/> 
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/></ice:selectInputDate></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorfechanacimiento" for="fechanacimiento"></ice:message></div></td>
 
@@ -148,7 +148,9 @@
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="paisusuario">Pa&iacute;s:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ui:include id="paisusuario" src="./WEB-INF/facelets/components/selectlistapaises.xhtml"/></div></td>
+                                    <td><div class="inputslogin"><ice:selectOneMenu id="paisusuario" value="#{listapaises.espana}" partialSubmit="false">
+                                                <f:selectItems id="listapaises" value="#{listapaises.paises}"/>
+                                            </ice:selectOneMenu></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorpaisusuario" for="paisusuario"></ice:message></div></td>
                                 </tr>
                                 <tr>

@@ -51,7 +51,7 @@ public class FactoriaBD {
     }
 
     public static boolean insertaAdjunto(Adjunto adj) {
-        
+
         boolean res = true;
 
         try {
@@ -66,15 +66,15 @@ public class FactoriaBD {
 
     public static Empresas creaEmpresa(String nif, int telefono, String razonsocial,
             String direccion, String email, String localidad, String provincia,
-            String pais, int codigopostal,String web, String logotipo, Integer fax) {
+            String pais, int codigopostal, String web, String logotipo, Integer fax) {
 
         return new Empresas(nif, telefono, razonsocial, direccion, email,
-                localidad, provincia, pais, codigopostal,web, logotipo, fax);
+                localidad, provincia, pais, codigopostal, web, logotipo, fax);
     }
 
     public static boolean insertaEmpresa(Empresas emp) {
-         EntityManagerFactory emf1;
-         EntityManager em1;
+        EntityManagerFactory emf1;
+        EntityManager em1;
 
         boolean res = true;
 
@@ -86,9 +86,9 @@ public class FactoriaBD {
             em1.flush();
             em1.close();
             emf1.close();
-            
+
         } catch (Exception e) {
-            res=false;
+            res = false;
         }
         return res;
     }
@@ -96,18 +96,18 @@ public class FactoriaBD {
     public static Usuarios creaUsuario(String dni, String nombre, String apellido1, String apellido2,
             Date fechanacimiento, String direccion, Integer telefono, Integer movil,
             String email, String usuario, String contrasena, String localidad,
-            String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, 
+            String provincia, String pais, int codigopostal, String cargo, BigDecimal salario,
             int privilegios, boolean activo, Empresas nif) {
 
-        return new Usuarios( dni, nombre,  apellido1, apellido2,
-            fechanacimiento,  direccion,  telefono,  movil,
-            email, usuario, contrasena, localidad,
-            provincia, pais, codigopostal, cargo, salario, 
-            privilegios, activo, nif);
+        return new Usuarios(dni, nombre, apellido1, apellido2,
+                fechanacimiento, direccion, telefono, movil,
+                email, usuario, contrasena, localidad,
+                provincia, pais, codigopostal, cargo, salario,
+                privilegios, activo, nif);
     }
 
     public static boolean insertaUsuario(Usuarios us) {
-        
+
         boolean res = true;
 
         try {
@@ -128,7 +128,7 @@ public class FactoriaBD {
     }
 
     public static boolean insertaAsistenciareunion(Asistenciareunion asr1) {
-        
+
         boolean res = true;
 
         try {
@@ -152,7 +152,7 @@ public class FactoriaBD {
     }
 
     public static boolean insertaIntervenciones(Intervenciones intv1) {
-        
+
         boolean res = true;
 
         try {
@@ -170,11 +170,11 @@ public class FactoriaBD {
 
         Puntosdeldia pt1 = new Puntosdeldia(idpuntodeldia, titulopunto, idreunion);
         return pt1;
-        
+
     }
-    
-    public static boolean insertaPuntosdeldia (Puntosdeldia pt1){
-       
+
+    public static boolean insertaPuntosdeldia(Puntosdeldia pt1) {
+
         boolean res = true;
 
         try {
@@ -186,42 +186,42 @@ public class FactoriaBD {
         }
         return res;
     }
-    
-    public static Reuniones creaReuniones(Integer idreunion, Date fecha, Date hora, Integer duracioninicial, 
+
+    public static Reuniones creaReuniones(Integer idreunion, Date fecha, Date hora, Integer duracioninicial,
             Integer coste, Integer duracionreal, Tiporeuniones idtipo, Salasreuniones idsalareunion,
-            Usuarios dnicreador){
-        
-        Reuniones r1 = new Reuniones(idreunion,fecha, hora, duracioninicial, coste, duracionreal, idtipo, idsalareunion, dnicreador);
+            Usuarios dnicreador) {
+
+        Reuniones r1 = new Reuniones(idreunion, fecha, hora, duracioninicial, coste, duracionreal, idtipo, idsalareunion, dnicreador);
         return r1;
-        
+
     }
-    
-    public static boolean insertaReuniones(Reuniones r1){
-        
+
+    public static boolean insertaReuniones(Reuniones r1) {
+
         boolean res = true;
 
-       try {
+        try {
             abrirTransaccion();
             em.persist(r1);
             terminarTransaccion();
         } catch (Exception e) {
-           res = false;
+            res = false;
         }
         return res;
     }
-    
-    public static Salasreuniones creaSalasreuniones(Integer idsalareunion, String direccion, 
-            String codigopostal, String localidad, String pais, int capacidad, 
-            BigDecimal costealquiler, int telefono){
-        
-        Salasreuniones slr1= new Salasreuniones(idsalareunion, direccion, codigopostal,
+
+    public static Salasreuniones creaSalasreuniones(Integer idsalareunion, String direccion,
+            String codigopostal, String localidad, String pais, int capacidad,
+            BigDecimal costealquiler, int telefono) {
+
+        Salasreuniones slr1 = new Salasreuniones(idsalareunion, direccion, codigopostal,
                 localidad, pais, capacidad, costealquiler, telefono);
         return slr1;
-        
+
     }
-    
-    public static boolean insertaSalasreuniones(Salasreuniones slr1){
-        
+
+    public static boolean insertaSalasreuniones(Salasreuniones slr1) {
+
         boolean res = true;
 
         try {
@@ -233,16 +233,16 @@ public class FactoriaBD {
         }
         return res;
     }
-    
-    public static Tiporeuniones creaTiporeuniones(Integer idtipo, String tiporeunion){
-        
-        Tiporeuniones tpr1= new Tiporeuniones(idtipo, tiporeunion);
+
+    public static Tiporeuniones creaTiporeuniones(Integer idtipo, String tiporeunion) {
+
+        Tiporeuniones tpr1 = new Tiporeuniones(idtipo, tiporeunion);
         return tpr1;
-        
+
     }
-    
-    public static boolean insertaTiporeuniones(Tiporeuniones tpr1){
-        
+
+    public static boolean insertaTiporeuniones(Tiporeuniones tpr1) {
+
         boolean res = true;
 
         try {
@@ -253,10 +253,7 @@ public class FactoriaBD {
             res = false;
         }
         return res;
-        
-        
+
+
     }
-     
-     
-    
 }
