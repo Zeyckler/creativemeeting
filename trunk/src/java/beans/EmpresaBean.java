@@ -134,11 +134,11 @@ public class EmpresaBean implements Serializable {
     }
 
     public boolean insertaEmpresa() {
-        boolean res=false;
+        boolean res = false;
 
-        Empresas empresa = FactoriaBD.creaEmpresa(this.nif, this.telefono.intValue(), this.razonsocial,
-                this.direccion, this.email, this.localidad, this.provincia, this.pais,
-                this.codigopostal.intValue(), this.web, "hola me llamo puta", this.fax.intValue());
+        Empresas empresa = FactoriaBD.creaEmpresa(this.nif, this.telefono, this.razonsocial,
+                this.direccion, this.email, this.localidad, this.provincia,
+                this.pais, this.codigopostal, this.web, "ljcnsdljn", this.fax);
 
         res = FactoriaBD.insertaEmpresa(empresa);
 
