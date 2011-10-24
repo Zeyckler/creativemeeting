@@ -64,7 +64,7 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <navigation-rule>
-        <from-view-id>/registrarEmpresa.xhtml</from-view-id>
+        <from-view-id>/registrarempresa.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{registroBean.registraEmpresayUsuario}</from-action>
             <from-outcome>ok</from-outcome>
@@ -76,5 +76,10 @@
             <to-view-id>/error_1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>listapaises</managed-bean-name>
+        <managed-bean-class>beans.PaisesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
 
