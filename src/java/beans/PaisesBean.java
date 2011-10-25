@@ -18,7 +18,8 @@ public class PaisesBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String espana = "España";
-    private String paises[] = {"Afganistán",
+    private String paises[] = {"España",
+        "Afganistán",
         "Islas Aland ",
         "Albania",
         "Argelia",
@@ -220,7 +221,6 @@ public class PaisesBean implements Serializable {
         "Sudáfrica",
         "Islas Georgia del Sur e Islas Sandwich del Sur",
         "Corea del Sur",
-        "España",
         "Islas Spratly",
         "Sri Lanka",
         "Sudán",
