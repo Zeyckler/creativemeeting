@@ -37,19 +37,33 @@ public class RegistroBean implements Serializable {
         empresaOK = FactoriaBD.insertaEmpresa(emp);
         //empresaOK = empresa.insertaEmpresa();
 
-        System.out.print("Nif: " + empresa.getNif());
-        System.out.print("Telefono: " + empresa.getTelefono());
-        System.out.print("Razonsocial: " + empresa.getRazonsocial());
-        System.out.print("Direccion: " + empresa.getDireccion());
-        System.out.print("Email: " + empresa.getEmail());
-        System.out.print("Localidad: " + empresa.getLocalidad());
-        System.out.print("Provincia: " + empresa.getProvincia());
-        System.out.print("Pais: " + empresa.getPais());
-        System.out.print("CP: " + empresa.getCodigopostal());
-        System.out.print("Web: " + empresa.getWeb());
-        System.out.print("Provincia: " + empresa.getLogotipo());
-        System.out.print("Fax: " + empresa.getFax());
-
+        System.out.println("Nif: " + empresa.getNif());
+        System.out.println("Telefono: " + empresa.getTelefono());
+        System.out.println("Razonsocial: " + empresa.getRazonsocial());
+        System.out.println("Direccion: " + empresa.getDireccion());
+        System.out.println("Email: " + empresa.getEmail());
+        System.out.println("Localidad: " + empresa.getLocalidad());
+        System.out.println("Provincia: " + empresa.getProvincia());
+        System.out.println("Pais: " + empresa.getPais());
+        System.out.println("CP: " + empresa.getCodigopostal());
+        System.out.println("Web: " + empresa.getWeb());
+        System.out.println("Logotipo: " + empresa.getLogotipo());
+        System.out.println("Fax: " + empresa.getFax());
+        
+        //Atrubutos de emp
+        System.out.println("Datos referidos al Objeto");
+        System.out.println("Nif: " + emp.getNif());
+        System.out.println("Telefono: " + emp.getTelefono());
+        System.out.println("Razonsocial: " + emp.getRazonsocial());
+        System.out.println("Direccion: " + emp.getDireccion());
+        System.out.println("Email: " + emp.getEmail());
+        System.out.println("Localidad: " + emp.getLocalidad());
+        System.out.println("Provincia: " + emp.getProvincia());
+        System.out.println("Pais: " + emp.getPais());
+        System.out.println("CP: " + emp.getCodigopostal());
+        System.out.println("Web: " + emp.getWeb());
+        System.out.println("Logotipo: " + emp.getLogotipo());
+        System.out.println("Fax: " + emp.getFax());
 
         System.out.print(empresaOK);
 
