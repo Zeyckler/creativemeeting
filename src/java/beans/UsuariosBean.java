@@ -240,27 +240,27 @@ public class UsuariosBean implements Serializable {
         boolean res=false;
         
         
-        if(tipo==0){
+        if(tipo.intValue()==0){
             //Usuario Master
             us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
                     this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
-                    this.movil, this.email, nomUsuario, this.contrasena, this.localidad,
+                    this.movil, this.email, nomUsuario, "123445", this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 0 , false, nif);
         }
-        if(tipo==1){
+        if(tipo.intValue()==1){
             //Usuario Administrador de Empresa
             
             us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
                     this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
-                    this.movil, this.email, nomUsuario, this.contrasena, this.localidad,
+                    this.movil, this.email, nomUsuario, "123445", this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 1 , false, nif);
         }
-        if (tipo==2){
+        if (tipo.intValue()==2){
             //Usuario Registrado perteneciente a una empresa
             
             us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
                     this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
-                    this.movil, this.email, nomUsuario, this.contrasena, this.localidad,
+                    this.movil, this.email, nomUsuario, "123445", this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 2 , false, nif);
             
         }

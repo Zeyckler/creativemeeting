@@ -160,9 +160,20 @@ public class ValidacionesBean implements Serializable {
     }
 
     public void validarCodigoPostal(FacesContext context, UIComponent validate, Object value) {
+        
 
         boolean res = true;
-        String cp = String.valueOf((Integer) value);
+        
+        try{
+            int cp = Integer.parseInt(((Integer)value).toString());
+        }
+        catch(Exception e){
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("Debe ser un número");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+        
+        /*String cp = String.valueOf((Integer) value);
 
         Pattern p = Pattern.compile("^\\d{5}$");
         Matcher m = p.matcher(cp);
@@ -172,7 +183,7 @@ public class ValidacionesBean implements Serializable {
             ((UIInput) validate).setValid(false);
             FacesMessage msg = new FacesMessage("Debe ser un número");
             context.addMessage(validate.getClientId(context), msg);
-        }
+        }*/
     }
 
     public void validarSalario(FacesContext context, UIComponent validate, Object value) {

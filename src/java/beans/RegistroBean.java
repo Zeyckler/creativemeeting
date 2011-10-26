@@ -9,6 +9,7 @@ import factoria.FactoriaBD;
 import java.io.Serializable;
 import java.util.Map;
 import javax.faces.context.FacesContext;
+import utiles.Utilidades;
 
 /**
  *
@@ -69,7 +70,31 @@ public class RegistroBean implements Serializable {
 
 
         if (empresaOK) {
-            usuarioOK = usuario.insertaUsuario(new Integer(1), new Empresas(empresa.getNif()));
+            
+            usuarioOK = usuario.insertaUsuario(new Integer(1), emp);
+            
+            System.out.println("Datos referidos al Usuario");
+            System.out.println("Apellido1: " + usuario.getApellido1());
+            System.out.println("Apellido2: " + usuario.getApellido2());
+            System.out.println("Cargo: " + usuario.getCargo());
+            System.out.println("Contraseña: " + usuario.getContrasena());
+            System.out.println("Direccion: " + usuario.getDireccion());
+            System.out.println("DNI: " + usuario.getDni());
+            System.out.println("Email: " + usuario.getEmail());
+            System.out.println("Localidad: " + usuario.getLocalidad());
+            System.out.println("Nombre: " + usuario.getNombre());
+            System.out.println("Pais: " + usuario.getPais());
+            System.out.println("Provincia: " + usuario.getProvincia());
+            System.out.println("Usuario: " + usuario.getUsuario());
+            System.out.println("Codigo Postal: " + usuario.getCodigopostal());
+            System.out.println("Apellido1: " + Utilidades.getFormatoFecha(usuario.getFechanacimiento()));
+            System.out.println("Movil: " + usuario.getMovil());
+            System.out.println("Privilegio: " + usuario.getPrivilegios());
+            System.out.println("Slario: " + usuario.getSalario());
+            System.out.println("Telegono: " + usuario.getTelefono());
+            
+            System.out.println(usuarioOK);
+ 
         }
         if (empresaOK && usuarioOK) {
             return "ok";

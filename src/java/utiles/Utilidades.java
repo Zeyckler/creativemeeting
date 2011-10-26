@@ -27,7 +27,7 @@ public class Utilidades {
         return fec;
     }
 
-    public static String getFormachoFechaHora(Date fecha) {
+    public static String getFormatoFechaHora(Date fecha) {
 
         String hora = "";
         hora = hora + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
