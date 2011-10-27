@@ -81,5 +81,10 @@
         <managed-bean-class>beans.PaisesBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>subirarchivobean</managed-bean-name>
+        <managed-bean-class>beans.SubirArchivoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
 
