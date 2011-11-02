@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <body>
+        <ui:composition template="./WEB-INF/facelets/templates/plantilla.xhtml">
+            <ui:define name="title">
+                title
+            </ui:define>
+
+            <ui:define name="logoempresa">
+                logoempresa
+            </ui:define>
+
+            <ui:define name="left">
+                <ice:outputLink value="home.xhtml">Inicio</ice:outputLink>
+                <c:if test="${usuario.privilegios eq 0}">
+                    <ice:outputLink value="admin-companies.xhtml">Administrar empresas</ice:outputLink>
+                    <ice:outputLink value="admin-users.xhtml">Administrar usuarios</ice:outputLink>
+                </c:if>
+
+                <c:if test="${usuario.privilegios eq 1}">
+                    <ice:outputLink value="admin-employes.xhtml">Administrar empleados</ice:outputLink>
+                    <ice:outputLink value="admin-calendar.xhtml">Administrar calendario</ice:outputLink>
+                </c:if>
+                <c:if test="${usuario.privilegios eq 2}">
+                    <ice:outputLink value="view-notifications.xhtml">Ver notificaciones</ice:outputLink>
+                    <ice:outputLink value="view-calendar.xhtml">Ver calendario</ice:outputLink>
+                </c:if>
+            </ui:define>
+
+            <ui:define name="right">
+                right
+            </ui:define>
+
+            <ui:define name="content">
+                content
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
