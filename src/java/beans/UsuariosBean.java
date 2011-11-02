@@ -69,7 +69,32 @@ public class UsuariosBean implements Serializable {
     public UsuariosBean() {
     }
     //Hay que crear un Constructor con una entrada de usuario
-
+    public UsuariosBean(Usuarios us){
+        this.activo=us.getActivo();
+        this.apellido1=us.getApellido1();
+        this.apellido2= us.getApellido2();
+        this.cargo= us.getCargo();
+        this.codigopostal= us.getCodigopostal();
+        this.contrasena=us.getContrasena();
+        this.direccion=us.getDireccion();
+        this.dni=us.getDni();
+        this.email=us.getEmail();
+        this.fechanacimiento=us.getFechanacimiento();
+        this.localidad= us.getLocalidad();
+        this.movil= us.getMovil();
+        this.nif= us.getNif();
+        this.nombre= us.getNombre();
+        this.pais=us.getPais();
+        this.privilegios= us.getPrivilegios();
+        this.provincia=us.getProvincia();
+        this.salario= us.getSalario();
+        this.telefono= us.getTelefono();
+        this.usuario= us.getUsuario();
+        
+        
+        
+        
+    }
     public boolean isActivo() {
         return activo;
     }
