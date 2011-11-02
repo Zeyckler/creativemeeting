@@ -83,7 +83,8 @@ public class LoginBean implements Serializable {
         Usuarios a = Consultas.buscaUsuarioContrasena(this.usuario, this.contrasena);
 
         if (a != null) {
-            UsuariosBean usuario = new UsuariosBean(a);
+            UsuariosBean user = new UsuariosBean(a);
+            EmpresaBean empresa= new EmpresaBean(a.getNif());
             return "ok";
             
         }
