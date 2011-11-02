@@ -36,6 +36,22 @@ public class EmpresaBean implements Serializable {
     // "Insert Code > Add Business Method")
     public EmpresaBean() {
     }
+    public EmpresaBean(Empresas emp){
+        this.codigopostal= emp.getCodigopostal();
+        this.direccion= emp.getDireccion();
+        this.email=emp.getEmail();
+        this.fax= emp.getFax();
+        this.localidad = emp.getLocalidad();
+        this.logotipo= emp.getLogotipo();
+        this.nif= emp.getNif();
+        this.pais= emp.getPais();
+        this.provincia= emp.getProvincia();
+        this.razonsocial= emp.getRazonsocial();
+        this.telefono= emp.getTelefono();
+        this.web= emp.getWeb();
+        
+        
+    }
 
     public Integer getCodigopostal() {
         return codigopostal;
