@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -41,6 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Salasreuniones.findByCostealquiler", query = "SELECT s FROM Salasreuniones s WHERE s.costealquiler = :costealquiler"),
     @NamedQuery(name = "Salasreuniones.findByTelefono", query = "SELECT s FROM Salasreuniones s WHERE s.telefono = :telefono")})
 public class Salasreuniones implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,6 +89,9 @@ public class Salasreuniones implements Serializable {
     private int telefono;
     @OneToMany(mappedBy = "idsalareunion")
     private Collection<Reuniones> reunionesCollection;
+    @JoinColumn(name = "nif", referencedColumnName = "nif")
+    @ManyToOne
+    private Empresas nif;
 
     public Salasreuniones() {
     }
@@ -223,6 +229,14 @@ public class Salasreuniones implements Serializable {
     @Override
     public String toString() {
         return "bd.Salasreuniones[ idsalareunion=" + idsalareunion + " ]";
+    }
+
+    public Empresas getNif() {
+        return nif;
+    }
+
+    public void setNif(Empresas nif) {
+        this.nif = nif;
     }
     
 }

@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empresas.findByCodigopostal", query = "SELECT e FROM Empresas e WHERE e.codigopostal = :codigopostal"),
     @NamedQuery(name = "Empresas.findByLogotipo", query = "SELECT e FROM Empresas e WHERE e.logotipo = :logotipo")})
 public class Empresas implements Serializable {
+    @OneToMany(mappedBy = "nif")
+    private Collection<Salasreuniones> salasreunionesCollection;
     @Size(max = 255)
     @Column(name = "web")
     private String web;
@@ -250,6 +252,15 @@ public class Empresas implements Serializable {
 
     public void setWeb(String web) {
         this.web = web;
+    }
+
+    @XmlTransient
+    public Collection<Salasreuniones> getSalasreunionesCollection() {
+        return salasreunionesCollection;
+    }
+
+    public void setSalasreunionesCollection(Collection<Salasreuniones> salasreunionesCollection) {
+        this.salasreunionesCollection = salasreunionesCollection;
     }
     
 }
