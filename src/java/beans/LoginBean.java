@@ -37,10 +37,10 @@ public class LoginBean implements Serializable {
 
         String nomUsuario = (String) value;
 
-        if (nomUsuario.length()<=0) {
-        ((UIInput) validate).setValid(false);
-        FacesMessage msg = new FacesMessage("No puede estar vac&iacute;o");
-        context.addMessage(validate.getClientId(context), msg);
+        if (nomUsuario.length() <= 0) {
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("No puede estar vac&iacute;o");
+            context.addMessage(validate.getClientId(context), msg);
         }
         if (nomUsuario.length() > 11) {
             ((UIInput) validate).setValid(false);
@@ -84,9 +84,9 @@ public class LoginBean implements Serializable {
 
         if (a != null) {
             UsuariosBean user = new UsuariosBean(a);
-            EmpresaBean empresa= new EmpresaBean(a.getNif());
+            EmpresaBean empresa = new EmpresaBean(a.getNif());
             return "ok";
-            
+
         }
 
 
