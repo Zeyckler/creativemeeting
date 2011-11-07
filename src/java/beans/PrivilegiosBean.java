@@ -21,7 +21,7 @@ public class PrivilegiosBean implements Serializable {
     }
 
     public int compruebaPrivilegiosSesion() {
-        int privilegios;
+        int privilegios = 0;
         Map sesion = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         try {
             UsuariosBean usuario = (UsuariosBean) sesion.get("usuario");
@@ -29,7 +29,7 @@ public class PrivilegiosBean implements Serializable {
         } catch (Exception e) {
             privilegios = 3;
         }
-        return privilegios;
+        return 2;
 
     }
 }

@@ -25,49 +25,50 @@
                 <div id="logocm"><ice:graphicImage alt="Logo CreativeMeetings" title="CreativeMeetings" url="#{resource['images:logo.png']}"></ice:graphicImage></div>
                 <div><ui:insert name="logoempresa"></ui:insert></div>
             </div>
-            <c:if test="${privilegiosBean.compruebaPrivilegiosSesion() eq 0}">
-                <div>
-                    <div id="left">
-                        <ui:insert name="left">
-                            <ice:outputLink value="home.xhtml">Inicio</ice:outputLink>
-                            <c:if test="${usuario.privilegios==0}">
-                                <ice:commandLink action="#" value="Ver notificaciones"></ice:commandLink>
-                                <ice:commandLink action="#" value="Administrar empresas"></ice:commandLink>
-                                <ice:commandLink action="#" value="Administrar usuarios"></ice:commandLink>
-                            </c:if>
-
-                            <c:if test="${usuario.privilegios==1}">
-                                <ice:commandLink action="#" value="Ver notificaciones"></ice:commandLink>
-                                <ice:commandLink action="#" value="Ver calendario"></ice:commandLink>
-                                <ice:commandLink action="#" value="Administrar reuniones"></ice:commandLink>
-                                <ice:commandLink action="#" value="Administrar empleados"></ice:commandLink>
-                                <ice:commandLink action="#" value="Administrar salas de reunión"></ice:commandLink>
-                            </c:if>
-                            <c:if test="${usuario.privilegios==2}">
-                                <ice:commandLink action="#" value="Ver notificaciones"></ice:commandLink>
-                                <ice:commandLink action="#" value="Ver calendario"></ice:commandLink>
-                                <ice:commandLink action="#" value="Crear reuni&oacute;n"></ice:commandLink>                                                                                            
-                            </c:if>
-                            <ice:commandLink action="#" value="Ayuda"></ice:commandLink>                                                       
-                            <ice:commandLink action="#" value="Modificar mis datos"></ice:commandLink>
-                            <ice:commandLink action="#" value="Cerrar sesi&oacute;n"></ice:commandLink>
-
-
-                        </ui:insert>
-                    </div>
-                    <div>
-                        <div id="right">
-                            <ui:insert name="right">Right</ui:insert>
-                        </div>
-                        <div id="content" class="right_content">
-                            <ui:insert name="content">Content</ui:insert>
-                        </div>
-                    </div>
-                    <div class="push"></div> 
-                </div>
+            <c:if test="${privilegiosBean==null}">
+                <h1>Fucniona!!</h1>
             </c:if>
-            <ice:outputText>PRUEBBAAAANDDOOOO</ice:outputText>
-            <c:if test="${usuario.privilegios==null}">
+
+            <div>
+                <div id="left">
+                    <ui:insert name="left">
+                        <ice:outputLink value="home.xhtml">Inicio</ice:outputLink>
+                        <c:if test="${usuario.privilegios==0}">
+                            <ice:commandLink action="#" value="Ver notificaciones"></ice:commandLink>
+                            <ice:commandLink action="#" value="Administrar empresas"></ice:commandLink>
+                            <ice:commandLink action="#" value="Administrar usuarios"></ice:commandLink>
+                        </c:if>
+
+                        <c:if test="${usuario.privilegios==1}">
+                            <ice:commandLink action="#" value="Ver notificaciones"></ice:commandLink>
+                            <ice:commandLink action="#" value="Ver calendario"></ice:commandLink>
+                            <ice:commandLink action="#" value="Administrar reuniones"></ice:commandLink>
+                            <ice:commandLink action="#" value="Administrar empleados"></ice:commandLink>
+                            <ice:commandLink action="#" value="Administrar salas de reunión"></ice:commandLink>
+                        </c:if>
+                        <c:if test="${usuario.privilegios==2}">
+                            <ice:commandLink action="#" value="Ver notificaciones"></ice:commandLink>
+                            <ice:commandLink action="#" value="Ver calendario"></ice:commandLink>
+                            <ice:commandLink action="#" value="Crear reuni&oacute;n"></ice:commandLink>                                                                                            
+                        </c:if>
+                        <ice:commandLink action="#" value="Ayuda"></ice:commandLink>                                                       
+                        <ice:commandLink action="#" value="Modificar mis datos"></ice:commandLink>
+                        <ice:commandLink action="#" value="Cerrar sesi&oacute;n"></ice:commandLink>
+
+
+                    </ui:insert>
+                </div>
+                <div>
+                    <div id="right">
+                        <ui:insert name="right">Right</ui:insert>
+                    </div>
+                    <div id="content" class="right_content">
+                        <ui:insert name="content">Content</ui:insert>
+                    </div>
+                </div>
+                <div class="push"></div> 
+            </div>
+            <c:if test="${privilegiosBean.compruebaPrivilegiosSesion()==3}">
                 <h1 style="color: red;">ERROR, NO TIENE PERMISO PARA ENTRAR AQU&Iacute;</h1>
             </c:if>
         </div>
