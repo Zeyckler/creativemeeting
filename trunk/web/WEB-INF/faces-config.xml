@@ -86,5 +86,10 @@
         <managed-bean-class>beans.SubirArchivoBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>privilegiosBean</managed-bean-name>
+        <managed-bean-class>beans.PrivilegiosBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
 

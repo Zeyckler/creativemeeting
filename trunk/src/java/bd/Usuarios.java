@@ -59,7 +59,6 @@ import utiles.Consultas;
     @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia")
 })
 public class Usuarios implements Serializable {
-    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -155,14 +154,12 @@ public class Usuarios implements Serializable {
     @NotNull
     @Column(name = "privilegios")
     private int privilegios;
-    
     public static final String BUSCAR_USUARIOSIDREUNIONES = "Usuarios.findByIdReunion";
-    public static final String BUSCAR_USUARIOSACTIVOS= "Usuarios.findByActivo";
-    public static final String BUSCAR_USUARIOSBYEMPRESA= "Usuarios.findUsuarioByEmpresa";
-    public static final String BUSCAR_USUARIOYCONTRASENA= "Usuarios.findByUsuarioyContrasena";
-    public static final String BUSCAR_USUARIOSPARECIDOS= "Usuarios.findByUsuarioParecidos";
-                                                                                                        
-    
+    public static final String BUSCAR_USUARIOSACTIVOS = "Usuarios.findByActivo";
+    public static final String BUSCAR_USUARIOSBYEMPRESA = "Usuarios.findUsuarioByEmpresa";
+    public static final String BUSCAR_USUARIOYCONTRASENA = "Usuarios.findByUsuarioyContrasena";
+    public static final String BUSCAR_USUARIOSPARECIDOS = "Usuarios.findByUsuarioParecidos";
+
     public Usuarios() {
     }
 
@@ -170,14 +167,12 @@ public class Usuarios implements Serializable {
         this.dni = dni;
     }
 
-    
-
     public Usuarios(String dni, String nombre, String apellido1, String apellido2,
             Date fechanacimiento, String direccion, Integer telefono, Integer movil,
             String email, String usuario, String contrasena, String localidad,
-            String provincia, String pais, int codigopostal, String cargo, BigDecimal salario, 
+            String provincia, String pais, int codigopostal, String cargo, BigDecimal salario,
             int privilegios, boolean activo, Empresas nif) {
-        
+
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -402,6 +397,4 @@ public class Usuarios implements Serializable {
     public void setPrivilegios(int privilegios) {
         this.privilegios = privilegios;
     }
-    
-    
 }
