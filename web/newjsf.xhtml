@@ -11,9 +11,26 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+        <ui:composition template="./WEB-INF/facelets/templates/plantilla.xhtml">            
+            <ui:define name="title">
+                Inicio - Creative Meetings
+            </ui:define>
+
+            <ui:define name="logoempresa">
+            </ui:define>
+
+            <ui:define name="left">
+            </ui:define>
+
+            <ui:define name="right" id="indexright">
+            </ui:define>
+
+            <ui:define name="content">
          <c:if test="${true}">
                 <h1>Fucniona!!</h1>
             </c:if>                
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 
