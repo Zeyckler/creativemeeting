@@ -59,6 +59,7 @@ import utiles.Consultas;
     @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia")
 })
 public class Usuarios implements Serializable {
+    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -147,13 +148,17 @@ public class Usuarios implements Serializable {
     private Empresas nif;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "privilegios")
+    private int privilegios;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "fechanacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechanacimiento;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "privilegios")
-    private int privilegios;
+    @Column(name = "activacioninicial")
+    private boolean activacioninicial;
     public static final String BUSCAR_USUARIOSIDREUNIONES = "Usuarios.findByIdReunion";
     public static final String BUSCAR_USUARIOSACTIVOS = "Usuarios.findByActivo";
     public static final String BUSCAR_USUARIOSBYEMPRESA = "Usuarios.findUsuarioByEmpresa";
@@ -193,6 +198,7 @@ public class Usuarios implements Serializable {
         this.privilegios = privilegios;
         this.activo = activo;
         this.nif = nif;
+        this.activacioninicial=true;
     }
 
     public String getDni() {
@@ -382,6 +388,14 @@ public class Usuarios implements Serializable {
         return "bd.Usuarios[ dni=" + dni + " ]";
     }
 
+    public int getPrivilegios() {
+        return privilegios;
+    }
+
+    public void setPrivilegios(int privilegios) {
+        this.privilegios = privilegios;
+    }
+
     public Date getFechanacimiento() {
         return fechanacimiento;
     }
@@ -390,11 +404,11 @@ public class Usuarios implements Serializable {
         this.fechanacimiento = fechanacimiento;
     }
 
-    public int getPrivilegios() {
-        return privilegios;
+    public boolean getActivacioninicial() {
+        return activacioninicial;
     }
 
-    public void setPrivilegios(int privilegios) {
-        this.privilegios = privilegios;
+    public void setActivacioninicial(boolean activacioninicial) {
+        this.activacioninicial = activacioninicial;
     }
 }

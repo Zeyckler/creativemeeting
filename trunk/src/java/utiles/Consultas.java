@@ -190,4 +190,25 @@ public class Consultas {
         
         return user;
     }
+    public static List<Empresas> buscaEmpresaPorActivar(){
+        
+        boolean activo= true;
+        
+        List<Empresas> empInactivas;
+        
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Empresas.BUSCAR_EMPRESAS_ACTIVACION);
+        q1.setParameter("activo", activo );
+        
+        try {
+            empInactivas = q1.getResultList();
+        } catch (Exception e) {
+            //Hay que ver si la execpcion es javax.persistence.NoResultException para que este el metodo bien
+            empInactivas= null;
+        }
+        
+        return empInactivas;
+        
+        
+    }
 }

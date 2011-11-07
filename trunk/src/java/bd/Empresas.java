@@ -39,8 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empresas.findByProvincia", query = "SELECT e FROM Empresas e WHERE e.provincia = :provincia"),
     @NamedQuery(name = "Empresas.findByPais", query = "SELECT e FROM Empresas e WHERE e.pais = :pais"),
     @NamedQuery(name = "Empresas.findByCodigopostal", query = "SELECT e FROM Empresas e WHERE e.codigopostal = :codigopostal"),
+    @NamedQuery(name = "Empresas.findByActivarEmpresa", query = "SELECT e FROM Empresas e WHERE e.activacioninicial = :activo"),
     @NamedQuery(name = "Empresas.findByLogotipo", query = "SELECT e FROM Empresas e WHERE e.logotipo = :logotipo")})
 public class Empresas implements Serializable {
+    
     @OneToMany(mappedBy = "nif")
     private Collection<Salasreuniones> salasreunionesCollection;
     @Size(max = 255)
@@ -97,10 +99,15 @@ public class Empresas implements Serializable {
     @Size(max = 255)
     @Column(name = "logotipo")
     private String logotipo;
+    @Column(name = "activacioninicial")
+    private Boolean activacioninicial;
+    @Column(name = "activo")
+    private Boolean activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nif")
     private Collection<Usuarios> usuariosCollection;
 
     public static final String BUSCAR_EMPRESAS= "Empresas.findAll";
+     public static final String BUSCAR_EMPRESAS_ACTIVACION= "Empresas.findByActivarEmpresa";
     
     public Empresas() {
     }
@@ -122,6 +129,8 @@ public class Empresas implements Serializable {
         this.web= web;
         this.logotipo= logotipo;
         this.fax=fax;
+        this.activo= false;
+        this.activacioninicial= true;
     }
 
     public String getNif() {
@@ -261,6 +270,22 @@ public class Empresas implements Serializable {
 
     public void setSalasreunionesCollection(Collection<Salasreuniones> salasreunionesCollection) {
         this.salasreunionesCollection = salasreunionesCollection;
+    }
+
+    public Boolean getActivacioninicial() {
+        return activacioninicial;
+    }
+
+    public void setActivacioninicial(Boolean activacioninicial) {
+        this.activacioninicial = activacioninicial;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
     
 }
