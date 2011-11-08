@@ -6,6 +6,7 @@ package beans;
 
 import bd.Usuarios;
 import java.io.Serializable;
+import java.util.Enumeration;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -13,6 +14,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import utiles.Consultas;
 
 /**
@@ -84,7 +86,20 @@ public class LoginBean implements Serializable {
 
         if (a != null) {
             UsuariosBean user = new UsuariosBean(a);
-            EmpresaBean empresa = new EmpresaBean(a.getNif());
+            EmpresaBean emp = new EmpresaBean(a.getNif());
+            
+            
+            // -----------------Nuevo 8-11-11
+            
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession)ctx.getExternalContext().getSession(true);
+            
+            session.setAttribute("usuario", user);
+            session.setAttribute("empresa", emp);
+                    
+            // -----------------
+            
+            
             return "ok";
 
         }
