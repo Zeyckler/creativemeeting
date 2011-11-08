@@ -56,7 +56,9 @@ import utiles.Consultas;
     @NamedQuery(name = "Usuarios.findByActivo", query = "SELECT u FROM Usuarios u WHERE u.activo = :activo"),
     @NamedQuery(name = "Usuarios.findByIdReunion", query = "SELECT u FROM Usuarios u JOIN u.asistenciareunionCollection arc JOIN arc.idreunion idr WHERE idr.idreunion =:idr1 "),
     @NamedQuery(name = "Usuarios.findUsuarioByEmpresa", query = "SELECT u FROM Usuarios u JOIN u.nif emp WHERE emp.nif = :nifempresa"),
-    @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia")
+    @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia"),
+    @NamedQuery(name = "Usuarios.findUsuarioInactivoAdministradorEmpresa", query = "SELECT u FROM Usuarios u JOIN u.nif emp WHERE emp.nif = :nifempresa AND u.privilegios= :privilegio AND u.activacioninicial: activacion")
+        
 })
 public class Usuarios implements Serializable {
     
@@ -164,6 +166,7 @@ public class Usuarios implements Serializable {
     public static final String BUSCAR_USUARIOSBYEMPRESA = "Usuarios.findUsuarioByEmpresa";
     public static final String BUSCAR_USUARIOYCONTRASENA = "Usuarios.findByUsuarioyContrasena";
     public static final String BUSCAR_USUARIOSPARECIDOS = "Usuarios.findByUsuarioParecidos";
+    public static final String BUSCAR_USUARIOS_INACTIVOS_ADMINISTRADORES_EMPRESA = "Usuarios.findUsuarioInactivoAdministradorEmpresa";
 
     public Usuarios() {
     }
