@@ -6,7 +6,6 @@ package beans;
 
 import bd.Usuarios;
 import java.io.Serializable;
-import java.util.Enumeration;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -28,6 +27,7 @@ public class LoginBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private String usuario;
     private String contrasena;
+    private String errorlogin;
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
@@ -87,25 +87,29 @@ public class LoginBean implements Serializable {
         if (a != null) {
             UsuariosBean user = new UsuariosBean(a);
             EmpresaBean emp = new EmpresaBean(a.getNif());
-            
-            
+
+
             // -----------------Nuevo 8-11-11
-            
+
             FacesContext ctx = FacesContext.getCurrentInstance();
-            HttpSession session = (HttpSession)ctx.getExternalContext().getSession(true);
-            
+            HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+
             session.setAttribute("usuario", user);
             session.setAttribute("empresa", emp);
-                    
+
             // -----------------
-            
-            
+
+
             return "ok";
+
+        } else {
+            this.errorlogin = "Usuario y/o contraseña incorrectos";
+            return "error";
 
         }
 
 
-        return "error";
+
 
     }
 
@@ -123,6 +127,14 @@ public class LoginBean implements Serializable {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public String getErrorlogin() {
+        return errorlogin;
+    }
+
+    public void setErrorlogin(String errorlogin) {
+        this.errorlogin = errorlogin;
     }
 
     public String cerrarSesion() {
