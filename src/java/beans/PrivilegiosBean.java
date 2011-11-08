@@ -22,31 +22,18 @@ public class PrivilegiosBean implements Serializable {
     public PrivilegiosBean() {
     }
 
-    public int compruebaPrivilegiosSesion() {  
-        
-        /*
-        int privilegios = 0;
-        Map sesion = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-        try {
-            UsuariosBean usuario = (UsuariosBean) sesion.get("usuario");
-            privilegios = usuario.getPrivilegios();
-        } catch (Exception e) {
-            privilegios = 3;
-        }
-        return privilegios;*/
+    public int compruebaPrivilegiosSesion() {
         int privilegio;
         FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession)ctx.getExternalContext().getSession(true);
-        
-        UsuariosBean usB= (UsuariosBean)session.getAttribute("usuario");
-        
-        if (usB == null){
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+
+        UsuariosBean usB = (UsuariosBean) session.getAttribute("usuario");
+
+        if (usB == null) {
             privilegio = 3;
+        } else {
+            privilegio = usB.getPrivilegios();
         }
-        else{
-            privilegio= usB.getPrivilegios();
-        }
-        System.out.print("El metodo devuelve"+ privilegio);
         return privilegio;
 
     }

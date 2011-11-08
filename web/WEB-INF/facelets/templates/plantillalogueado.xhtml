@@ -7,7 +7,6 @@
       xmlns:ace="http://www.icefaces.org/icefaces/components"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
-
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="#{resource['css:default.css']}" rel="stylesheet" type="text/css" />
@@ -15,15 +14,22 @@
         <link href="#{resource['images:favicon.ico']}" rel="icon" />
         <!--<link href="#{resource['css:./xmlhttp/css/rime/rime.css']}" rel="stylesheet" type="text/css"/>-->
         <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+        <link href="#{resource['css:jquery.tzineClock.css']}" rel="stylesheet" type="text/css" />
+        <script src="#{resource['js:jquery.tzineClock.js']}" type="text/javascript"></script>
+        <script src="#{resource['js:script.js']}" type="text/javascript"></script>
+        <script src="#{resource['js:jquery-1.7.min.js']}" type="text/javascript"></script>
+
+
         <title><ui:insert name="title"/></title>
     </h:head>
 
     <h:body>
         <div class="wrapper">
             <div id="top">
-
+                <div id="fancyClock"></div>
                 <div id="logocm"><ice:graphicImage alt="Logo CreativeMeetings" title="CreativeMeetings" url="#{resource['images:logo.png']}"></ice:graphicImage></div>
                 <div><ui:insert name="logoempresa"></ui:insert></div>
+
             </div>
             <c:if test="${privilegiosBean.compruebaPrivilegiosSesion()==1}">
                 <ice:outputText value="#{usuario.nombre}"/>
