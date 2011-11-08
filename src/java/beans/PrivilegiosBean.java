@@ -7,6 +7,8 @@ package beans;
 import java.io.Serializable;
 import java.util.Map;
 import javax.faces.context.FacesContext;
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,7 +22,9 @@ public class PrivilegiosBean implements Serializable {
     public PrivilegiosBean() {
     }
 
-    public int compruebaPrivilegiosSesion() {
+    public int compruebaPrivilegiosSesion() {  
+        
+        /*
         int privilegios = 0;
         Map sesion = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         try {
@@ -29,7 +33,21 @@ public class PrivilegiosBean implements Serializable {
         } catch (Exception e) {
             privilegios = 3;
         }
-        return 2;
+        return privilegios;*/
+        int privilegio;
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession)ctx.getExternalContext().getSession(true);
+        
+        UsuariosBean usB= (UsuariosBean)session.getAttribute("usuario");
+        
+        if (usB == null){
+            privilegio = 3;
+        }
+        else{
+            privilegio= usB.getPrivilegios();
+        }
+        System.out.print("El metodo devuelve"+ privilegio);
+        return privilegio;
 
     }
 }
