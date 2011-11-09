@@ -2,13 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:ice="http://www.icesoft.com/icefaces/component">
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
+
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
 
             <ui:define name="title">
-                Inicio - CreativeMeetings
+                Calendario - CreativeMeetings
             </ui:define>
 
             <ui:define name="logoempresa">
@@ -24,9 +26,17 @@
             </ui:define>
 
             <ui:define name="content">
-                <ice:outputText>Bienvenido a la pagina</ice:outputText>
+                <ice:form id="formulariocalendario">
+                    <div id="calendario">
+                        <date></date>
+                        <ice:selectInputDate styleClass="calendarioReuniones" id="fechanacimiento" partialSubmit="false" required="true" renderMonthAsDropdown="true" renderYearAsDropdown="true">
+                            <f:converter converterId="javax.faces.DateTime"/> 
+                            <f:convertDateTime pattern="dd/MM/yyyy"/></ice:selectInputDate>
+                    </div>
+                </ice:form>
             </ui:define>
 
         </ui:composition>
+
     </body>
 </html>
