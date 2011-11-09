@@ -70,7 +70,7 @@
     font-size: 9px;
     color: darkred;
 }
-/*-----CSS de index.xhtml-----*/
+/*-----index.xhtml-----*/
 .formulario{
     /* background-color: #0bbdbd;*/
     text-align: center;
@@ -120,4 +120,15 @@
 
 .errorformulario{
     color: red;
+}
+
+/*-----viewcalendar.xhtml-----*/
+
+.calendarioReuniones{
+    width: 80%;
+    height: 350px;
+    min-width: 175px;
+    min-height: 165px;
+    text-align: center;
+
 }
