@@ -9,7 +9,6 @@ import factoria.FactoriaBD;
 import java.io.Serializable;
 import java.util.Map;
 import javax.faces.context.FacesContext;
-import utiles.Utilidades;
 
 /**
  *
