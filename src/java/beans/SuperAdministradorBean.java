@@ -26,5 +26,4 @@ public class SuperAdministradorBean implements Serializable {
         List<Empresas> le = Consultas.buscaEmpresaPorActivar();
         this.listaempresassinactivar = le;
     }
-    
 }
