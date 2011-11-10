@@ -5,6 +5,7 @@
 package beans;
 
 import bd.Empresas;
+import java.io.Serializable;
 import java.util.List;
 import utiles.Consultas;
 
@@ -26,5 +27,4 @@ public class SuperAdministradorBean implements Serializable {
         this.listaempresassinactivar = le;
     }
     
-    public List<Empresas> listaEmpresasNoActivadas{}
 }

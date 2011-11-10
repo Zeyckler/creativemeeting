@@ -32,3 +32,20 @@ a:link:hover, a:visited:hover  {
     font-weight : bold;
     text-decoration : underline;
 }
+.antonio {
+   background: #0bbdbd;
+}
+.antonio .iceCmdLnk {
+    background: none;
+    border: none;
+}
+    
+.juan{
+    
+    background-color: greenyellow;
+}
+.juan iceCmdLnk{
+     background:white;
+    
+}
+
