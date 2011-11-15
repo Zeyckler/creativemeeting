@@ -3,10 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
       xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
         <link href="#{resource['css:default.css']}" rel="stylesheet" type="text/css" />
+        
 
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
 
@@ -19,22 +21,25 @@
             </ui:define>
 
             <ui:define name="left">
-
+                
             </ui:define>
 
             <ui:define name="right">
-
+                
             </ui:define>
 
             <ui:define name="content">
+                
                 <ice:form id="formulariocalendario">
                     <div id="calendario">
                         <ice:selectInputDate styleClass="calendarioReuniones"  id="anoreunion" partialSubmit="true"
-                                             required="true" renderMonthAsDropdown="false" renderYearAsDropdown="false" 
+                                             
+                                             required="true" renderMonthAsDropdown="true" renderYearAsDropdown="true" 
                                              highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK: MONTH: DAY_OF_YEAR" 
-                                             highlightValue="1,7: 8: 314" value="#{holaBean.fecha}" valueChangeListener="#{holaBean.seleccionFechaChange}">
+                                             highlightValue="1,7: 8: #{holaBean.fechias}" value="#{holaBean.fecha}" valueChangeListener="#{holaBean.seleccionFechaChange}">
                             <f:converter converterId="javax.faces.DateTime"/> 
-                            <f:convertDateTime pattern="dd/MM/yyyy"/></ice:selectInputDate>
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </ice:selectInputDate>
                     </div>
                 </ice:form>
             </ui:define>
