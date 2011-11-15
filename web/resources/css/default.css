@@ -49,11 +49,7 @@ a:link:hover, a:visited:hover  {
     
 }
 
-
-.calendarioReunionesMoYrDropdown{
-   
-  
-}
-#anoreunion_sy{
+.calendarioReunionesMonthYear .iceCmdLnk{
+    
     display: none;
 }
