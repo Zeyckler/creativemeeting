@@ -44,8 +44,16 @@ a:link:hover, a:visited:hover  {
     
     background-color: greenyellow;
 }
-.juan iceCmdLnk{
-     background:white;
+.juan .iceCmdLnk{
+     background:none;
     
 }
 
+
+.calendarioReunionesMoYrDropdown{
+   
+  
+}
+#anoreunion_sy{
+    display: none;
+}

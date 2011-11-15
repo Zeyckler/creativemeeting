@@ -80,11 +80,14 @@
                     <ui:insert name="right">Right</ui:insert>
                 </div>
                 <div id="content" class="right_content">
+                              <script type="text/javascript">
+            document.write("ASDALSDHLIASHDLAIHSDLIHSALDIHLASDIHLAIDHSLIHA");
+        </script>
                     <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==3}">
                         <h1 style="color: red;">ERROR, NO TIENE PERMISO PARA ENTRAR AQU&Iacute;</h1>
                     </c:if>
                     <ui:insert name="content">
-
+              
                     </ui:insert>
                 </div>
 
