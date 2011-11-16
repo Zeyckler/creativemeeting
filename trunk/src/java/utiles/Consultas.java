@@ -212,27 +212,5 @@ public class Consultas {
         
     }
     
-    public static Usuarios buscaUsuarioPorActivarAdministradorEmpresa(String nif){
-        
-        boolean activo= true;
-        int privilegio= 1;
-        Usuarios us;
-        
-        abrirTransaccion();
-        Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOS_INACTIVOS_ADMINISTRADORES_EMPRESA);
-        q1.setParameter("activo", activo );
-        q1.setParameter("nifempresa", nif);
-        q1.setParameter("privilegio", privilegio);
-        
-        try {
-            us = (Usuarios) q1.getSingleResult();
-        } catch (Exception e) {
-            //Hay que ver si la execpcion es javax.persistence.NoResultException para que este el metodo bien
-            us= null;
-        }
-        
-        return us;
-        
-        
-    }
+    
 }
