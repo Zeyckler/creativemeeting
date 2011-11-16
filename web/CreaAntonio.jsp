@@ -259,12 +259,7 @@
         
         out.print(a);
           */
-          Empresas a = FactoriaBD.creaEmpresa("12345678w", 954123789, "Empresa SL", 
-                  "Calle sin nombre", "ansdfh@us.es", "Carmona", "Sevilla", "España",
-                  41410, "Hllkjdcnjdsnb", "llcjsdjcb", 987456321);
-          boolean res= FactoriaBD.insertaEmpresa(a);
-          
-          out.print(res);
+         
         %>
         <p>Antonio ha sido grabado :-D</p>
     </body>
