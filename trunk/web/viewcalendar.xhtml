@@ -8,7 +8,7 @@
 
     <body>
         <link href="#{resource['css:default.css']}" rel="stylesheet" type="text/css" />
-        
+
 
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
 
@@ -21,25 +21,25 @@
             </ui:define>
 
             <ui:define name="left">
-                
+
             </ui:define>
 
             <ui:define name="right">
-                
+
             </ui:define>
 
             <ui:define name="content">
-                
+
                 <ice:form id="formulariocalendario">
                     <div id="calendario">
-                        <ice:selectOneMenu value="#{calendarioUsuarioBean.anio}">
+                        <ice:selectOneMenu value="#{calendarioUsuarioBean.anio}" >
                             <f:selectItems value="#{calendarioUsuarioBean.listaanios}" ></f:selectItems>
                         </ice:selectOneMenu> 
+                        <ice:commandButton action="#{calendarioUsuarioBean.irAnio}" value="Cambiar a&ntilde;o"></ice:commandButton>
                         <ice:selectInputDate  styleClass="calendarioReuniones"  id="anoreunion" partialSubmit="true"
-                                             
-                                             required="true" renderMonthAsDropdown="true" renderYearAsDropdown="false" 
-                                             highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK: MONTH: DAY_OF_YEAR" 
-                                             highlightValue="1,7: 8: #{holaBean.fechias}" value="#{calendarioUsuarioBean.fecha}">
+                                              required="true" renderMonthAsDropdown="true" renderYearAsDropdown="false" 
+                                              highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK: MONTH: DAY_OF_YEAR" 
+                                              highlightValue="1,7: 8: #{calendarioUsuarioBean.fechias}" value="#{calendarioUsuarioBean.fecha}" valueChangeListener="#{holaBean.seleccionFechaChange}">
                             <f:converter converterId="javax.faces.DateTime"/> 
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </ice:selectInputDate>

@@ -33,6 +33,16 @@
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/viewcalendar.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{calendarioUsuarioBean.irAnio}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/viewcalendar.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
     <managed-bean>
         <managed-bean-name>holaBean</managed-bean-name>
         <managed-bean-class>beans.HolaBean</managed-bean-class>
@@ -101,5 +111,6 @@
         <managed-bean-class>beans.CalendarioUsuarioBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    
 </faces-config>
 

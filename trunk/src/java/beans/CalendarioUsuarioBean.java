@@ -21,9 +21,11 @@ public class CalendarioUsuarioBean implements Serializable {
     private List<Date> listadiasreuniones;
     private String reunionescadena;
     private Integer anio;
-    private Date fecha = Calendar.getInstance().getTime();
+    private Date fecha = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, 0, 2);
     private Integer listaanios[] = {Calendar.getInstance().get(Calendar.YEAR),
         Calendar.getInstance().get(Calendar.YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR) + 1};
+    
+    private String fechias = "1,2,3,4,5,6,7,8,9,10";
 
     /** Creates a new instance of CalendarioUsuarioBean */
     public CalendarioUsuarioBean() {
@@ -69,14 +71,20 @@ public class CalendarioUsuarioBean implements Serializable {
         this.anio = anio;
     }
 
-    public void cambioAnio(ValueChangeEvent valueChangeEvent) {
+    public String getFechias() {
+        return fechias;
+    }
 
-        Integer anionuevo = (Integer) valueChangeEvent.getNewValue();
-        Integer anioviejo = (Integer) valueChangeEvent.getOldValue();
+    public void setFechias(String fechias) {
+        this.fechias = fechias;
+    }
+    
 
-        if (anionuevo != anioviejo) {
-        }
+    public String irAnio() {
 
+        this.fecha = new Date(anio - 1900, 0, 2);
+        setFechias("11,12,13,14,15");
+        return "ok";
 
     }
 
@@ -105,4 +113,6 @@ public class CalendarioUsuarioBean implements Serializable {
         reunionescadena = res;
         return res;
     }
+    
+    
 }
