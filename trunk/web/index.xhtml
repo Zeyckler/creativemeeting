@@ -39,7 +39,9 @@
                                 <td><div class="errorformulario"><ice:message id="errorclave" for="clave"></ice:message></div></td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="labelslogin"><ice:graphicImage id="loading" alt="Cargando..." title="Cargando..." visible="true" url="#{resource['images:loading.gif']}"></ice:graphicImage><ice:commandButton id="acceder" value="Acceder" onclick="document.getElementById(loading).visible=true;" action="#{login.compruebaLogin}"></ice:commandButton></td>
+                                <td colspan="2" class="labelslogin">
+                                    <ice:graphicImage id="loading" alt="Cargando..." title="Cargando..." visible="false" url="#{resource['images:loading.gif']}"></ice:graphicImage>
+                                    <ice:commandButton id="acceder" value="Acceder" action="#{login.compruebaLogin}" ></ice:commandButton></td>
                             </tr>
                             <tr><td colspan="2"><div id="errorlogin" class="errorformulario">
                                         <ice:outputText value="#{login.errorlogin}">

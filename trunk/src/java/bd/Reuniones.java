@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reuniones.findByDuracionreal", query = "SELECT r FROM Reuniones r WHERE r.duracionreal = :duracionreal"),
     @NamedQuery(name = "Reuniones.findByReunionCreador", query = "SELECT r FROM Reuniones r JOIN r.dnicreador usuario WHERE usuario.dni= :creador AND r.fecha> :fechaactual"),
     @NamedQuery(name = "Reuniones.findIntervencionesByIdreunion", query = "SELECT u , intervenciones FROM Usuarios u JOIN u.asistenciareunionCollection asistencia JOIN asistencia.idreunion reunion JOIN asistencia.intervencionesCollection intervenciones WHERE reunion.idreunion =:idre ORDER BY intervenciones.momentointervencion"),
-    @NamedQuery(name = "Reuniones.findReunionesdeUsuarios", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni")
+    @NamedQuery(name = "Reuniones.findReunionesdeUsuarios", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni"),
+    @NamedQuery(name = "Reuniones.findReunionesdeUsuariosAnio", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND r.fecha BETWEEN :fecha1 AND :fecha2 ")
     
 })
 public class Reuniones implements Serializable {
@@ -84,7 +85,8 @@ public class Reuniones implements Serializable {
     public static final String BUSCAR_REUNIONES = "Reuniones.findByIdreunion";
     public static final String BUSCAR_REUNIONESCREADOR ="Reuniones.findByReunionCreador";
     public static final String BUSCAR_INTERVENCIONESPORREUNION ="Reuniones.findIntervencionesByIdreunion";
-     public static final String BUSCAR_REUNIONESUSUARIO ="Reuniones.findReunionesdeUsuarios";
+    public static final String BUSCAR_REUNIONESUSUARIO ="Reuniones.findReunionesdeUsuarios";
+    public static final String BUSCAR_REUNIONES_USUARIO_ANIO ="Reuniones.findReunionesdeUsuariosAnio"; 
     
     public Reuniones() {
     }

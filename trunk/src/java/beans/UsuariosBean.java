@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import utiles.Consultas;
 import utiles.Utilidades;
 
@@ -22,11 +24,10 @@ import utiles.Utilidades;
 public class UsuariosBean implements Serializable {
 
     private final static long serialVersionUID = 1L;
-    
     private String dni;
     //ValidarNif
     private String nombre;
-   //ValidarCadena255
+    //ValidarCadena255
     private String apellido1;
     //ValidarCadena255
     private String apellido2;
@@ -56,45 +57,44 @@ public class UsuariosBean implements Serializable {
     private String cargo;
     //ValidarCadena255
     private BigDecimal salario;
-    
     private int privilegios;
     //ValidarCadena255
     private boolean activo;
     //No necesita validacion
     private Empresas nif;
     //No necesita Validacion
- 
-    
-    
+
     public UsuariosBean() {
     }
     //Hay que crear un Constructor con una entrada de usuario
-    public UsuariosBean(Usuarios us){
-        this.activo=us.getActivo();
-        this.apellido1=us.getApellido1();
-        this.apellido2= us.getApellido2();
-        this.cargo= us.getCargo();
-        this.codigopostal= us.getCodigopostal();
-        this.contrasena=us.getContrasena();
-        this.direccion=us.getDireccion();
-        this.dni=us.getDni();
-        this.email=us.getEmail();
-        this.fechanacimiento=us.getFechanacimiento();
-        this.localidad= us.getLocalidad();
-        this.movil= us.getMovil();
-        this.nif= us.getNif();
-        this.nombre= us.getNombre();
-        this.pais=us.getPais();
-        this.privilegios= us.getPrivilegios();
-        this.provincia=us.getProvincia();
-        this.salario= us.getSalario();
-        this.telefono= us.getTelefono();
-        this.usuario= us.getUsuario();
-        
-        
-        
-        
+
+    public UsuariosBean(Usuarios us) {
+        this.activo = us.getActivo();
+        this.apellido1 = us.getApellido1();
+        this.apellido2 = us.getApellido2();
+        this.cargo = us.getCargo();
+        this.codigopostal = us.getCodigopostal();
+        this.contrasena = us.getContrasena();
+        this.direccion = us.getDireccion();
+        this.dni = us.getDni();
+        this.email = us.getEmail();
+        this.fechanacimiento = us.getFechanacimiento();
+        this.localidad = us.getLocalidad();
+        this.movil = us.getMovil();
+        this.nif = us.getNif();
+        this.nombre = us.getNombre();
+        this.pais = us.getPais();
+        this.privilegios = us.getPrivilegios();
+        this.provincia = us.getProvincia();
+        this.salario = us.getSalario();
+        this.telefono = us.getTelefono();
+        this.usuario = us.getUsuario();
+
+
+
+
     }
+
     public boolean isActivo() {
         return activo;
     }
@@ -254,44 +254,66 @@ public class UsuariosBean implements Serializable {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-    
-    
-    
-    public boolean insertaUsuario(Integer tipo, Empresas nif){
+
+    public boolean insertaUsuario(Integer tipo, Empresas nif) {
         //TODO
-        
-        String nomUsuario= Utilidades.creaNombreUsuario(this.nombre,this.apellido1,this.apellido2);
-        Usuarios us= new Usuarios();
-        boolean res=false;
-        
-        
-        if(tipo.intValue()==0){
+
+        String nomUsuario = Utilidades.creaNombreUsuario(this.nombre, this.apellido1, this.apellido2);
+        Usuarios us = new Usuarios();
+        boolean res = false;
+
+
+        if (tipo.intValue() == 0) {
             //Usuario Master
-            us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
-                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
+            us = FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
+                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono,
                     this.movil, this.email, nomUsuario, "123445", this.localidad,
-                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 0 , false, nif);
+                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 0, false, nif);
         }
-        if(tipo.intValue()==1){
+        if (tipo.intValue() == 1) {
             //Usuario Administrador de Empresa
-            
-            us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
-                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
+
+            us = FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
+                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono,
                     this.movil, this.email, nomUsuario, "123445", this.localidad,
-                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 1 , false, nif);
+                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 1, false, nif);
         }
-        if (tipo.intValue()==2){
+        if (tipo.intValue() == 2) {
             //Usuario Registrado perteneciente a una empresa
-            
-            us= FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
-                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono, 
+
+            us = FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
+                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono,
                     this.movil, this.email, nomUsuario, "123445", this.localidad,
-                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 2 , false, nif);
-            
+                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 2, false, nif);
+
         }
-        res=FactoriaBD.insertaUsuario(us);
-     
+        res = FactoriaBD.insertaUsuario(us);
+
         return res;
     }
-    
+
+    public String insertarCalendarioSesion() {
+
+
+        String res = "";
+        try {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+
+            UsuariosBean usBean = (UsuariosBean) session.getAttribute("usuario");
+            String dni = usBean.getDni();
+
+            CalendarioUsuarioBean calbean = new CalendarioUsuarioBean(dni);
+
+            session.setAttribute("calendarioUsuarioBean", calbean);
+            res= "ok";
+
+        }catch(Exception e){
+            res= "error";
+        }
+        
+        return res;
+
+
+    }
 }
