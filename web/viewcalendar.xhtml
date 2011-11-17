@@ -39,7 +39,7 @@
                         <ice:selectInputDate  styleClass="calendarioReuniones"  id="anoreunion" partialSubmit="true"
                                               required="true" renderMonthAsDropdown="true" renderYearAsDropdown="false" 
                                               highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK: MONTH: DAY_OF_YEAR" 
-                                              highlightValue="1,7: 8: #{calendarioUsuarioBean.fechias}" value="#{calendarioUsuarioBean.fecha}" valueChangeListener="#{holaBean.seleccionFechaChange}">
+                                              highlightValue="1,7: 8: #{calendarioUsuarioBean.reunionescadena}" value="#{calendarioUsuarioBean.fecha}" valueChangeListener="#{holaBean.seleccionFechaChange}">
                             <f:converter converterId="javax.faces.DateTime"/> 
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </ice:selectInputDate>

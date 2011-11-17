@@ -212,5 +212,27 @@ public class Consultas {
         
     }
     
-    
+    public static  List<Reuniones> buscaReunionesUsuarioAnio(String dniusuario, Integer anio){
+        
+        Date finicio= new Date(anio-1901, 11, 31);
+        Date ffinal= new  Date (anio-1900, 11, 31);
+        
+        System.out.print(finicio.toString());
+        System.out.print(ffinal.toString());
+        
+        
+        List<Reuniones> listareuniones = null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Reuniones.BUSCAR_REUNIONES_USUARIO_ANIO);
+        q1.setParameter("dni", dniusuario);
+        q1.setParameter("fecha1", finicio);
+        q1.setParameter("fecha2", ffinal);
+         try{
+             listareuniones= q1.getResultList();
+         }catch(Exception e){
+            System.out.print(e.toString());
+         }
+         return listareuniones;
+        
+    }
 }

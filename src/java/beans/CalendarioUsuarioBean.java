@@ -4,12 +4,16 @@
  */
 package beans;
 
+import bd.Reuniones;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.HttpSession;
+import utiles.Consultas;
 
 /**
  *
@@ -18,25 +22,30 @@ import javax.faces.event.ValueChangeEvent;
 public class CalendarioUsuarioBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private List<Date> listadiasreuniones;
+    private List<Reuniones> listareuniones;
     private String reunionescadena;
     private Integer anio;
     private Date fecha = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, 0, 2);
     private Integer listaanios[] = {Calendar.getInstance().get(Calendar.YEAR),
         Calendar.getInstance().get(Calendar.YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR) + 1};
-    
     private String fechias = "1,2,3,4,5,6,7,8,9,10";
 
     /** Creates a new instance of CalendarioUsuarioBean */
     public CalendarioUsuarioBean() {
     }
 
-    public List<Date> getListadiasreuniones() {
-        return listadiasreuniones;
-    }
+    public CalendarioUsuarioBean(String dniusuario) {
 
-    public void setListadiasreuniones(List<Date> listadiasreuniones) {
-        this.listadiasreuniones = listadiasreuniones;
+        this.anio = Calendar.getInstance().get(Calendar.YEAR);
+        //Lista de reuniones por el año actual inicialmente
+        this.listareuniones = Consultas.buscaReunionesUsuarioAnio(dniusuario, anio);
+        //String con los dias del año que tienes reunión
+        this.reunionescadena = this.trasformaListaFechaCadena(this.listareuniones);
+        //Primer dia del año que se marcara el el calendario
+        this.fecha = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, 0, 2);
+        //Lista por defecto para elegir el año de las reuniones
+        this.listaanios = new Integer[]{Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR) + 1};
     }
 
     public String getReunionescadena() {
@@ -78,30 +87,46 @@ public class CalendarioUsuarioBean implements Serializable {
     public void setFechias(String fechias) {
         this.fechias = fechias;
     }
-    
+
+    public List<Reuniones> getListareuniones() {
+        return listareuniones;
+    }
+
+    public void setListareuniones(List<Reuniones> listareuniones) {
+        this.listareuniones = listareuniones;
+    }
 
     public String irAnio() {
+        
+        //Coger el Dni de Usuario para actualizar lista reuniones
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        UsuariosBean usBean = (UsuariosBean) session.getAttribute("usuario");
+        String dni = usBean.getDni();
 
-        this.fecha = new Date(anio - 1900, 0, 2);
-        setFechias("11,12,13,14,15");
+        
+        setFecha(new Date(anio - 1900, 0, 2));
+        setListareuniones(Consultas.buscaReunionesUsuarioAnio(dni, anio));
+        setReunionescadena(trasformaListaFechaCadena(this.listareuniones));
+        
         return "ok";
 
     }
 
-    public String trasformaListaFechaCadena(List<Date> listaFecha) {
+    public String trasformaListaFechaCadena(List<Reuniones> listaReuniones) {
 
         String res = "";
         int i = 0;
 
-        for (Date d : listaFecha) {
+        for (Reuniones d : listaReuniones) {
 
             i++;
             Calendar c1 = new GregorianCalendar();
-            c1.setTime(d);
+            c1.setTime(d.getFecha());
             int formatday = Calendar.DAY_OF_YEAR;
             int dia_ano = c1.get(formatday);
 
-            if (i < listaFecha.size()) {
+            if (i < listaReuniones.size()) {
                 res = res + dia_ano + ",";
             } else {
                 res = res + dia_ano;
@@ -113,6 +138,4 @@ public class CalendarioUsuarioBean implements Serializable {
         reunionescadena = res;
         return res;
     }
-    
-    
 }

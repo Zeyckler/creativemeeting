@@ -259,7 +259,22 @@
         
         out.print(a);
           */
-         
+        int i=0; 
+        List<Reuniones> l = Consultas.buscaReunionesUsuarioAnio("28500490v", 2010);
+        for(Reuniones r: l){
+            i++;
+            out.println("Reunion: " + i + "realizada el dia" + Utilidades.getFormatoFecha(r.getFecha()));
+            out.print("</br>");
+            Collection<Asistenciareunion> listaAsistencia= r.getAsistenciareunionCollection();
+            out.println("Usuarios que asisten a la reunion");
+            out.print("</br>");
+            for(Asistenciareunion asis: listaAsistencia){
+                Usuarios us = asis.getDni();
+                out.println(us.getDni()+"-"+ us.getNombre()+ us.getApellido1()+us.getApellido2()); 
+                out.print("</br>");
+            }
+            
+        }
         %>
         <p>Antonio ha sido grabado :-D</p>
     </body>

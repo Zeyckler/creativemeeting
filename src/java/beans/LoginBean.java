@@ -81,8 +81,15 @@ public class LoginBean implements Serializable {
 
     public String compruebaLogin() {
 
-
-        Usuarios a = Consultas.buscaUsuarioContrasena(this.usuario, this.contrasena);
+        Usuarios a=null;
+        try{
+            a = Consultas.buscaUsuarioContrasena(this.usuario, this.contrasena);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            
+        }
+        
 
         if (a != null) {
             UsuariosBean user = new UsuariosBean(a);
