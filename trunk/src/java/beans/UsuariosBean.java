@@ -62,7 +62,8 @@ public class UsuariosBean implements Serializable {
     private boolean activo;
     //No necesita validacion
     private Empresas nif;
-    //No necesita Validacion
+    //No necesita Validacion 
+    private CalendarioUsuarioBean calusuario;
 
     public UsuariosBean() {
     }
@@ -89,6 +90,7 @@ public class UsuariosBean implements Serializable {
         this.salario = us.getSalario();
         this.telefono = us.getTelefono();
         this.usuario = us.getUsuario();
+        calusuario= creCalendarioUsuario();
 
 
 
@@ -255,6 +257,15 @@ public class UsuariosBean implements Serializable {
         this.usuario = usuario;
     }
 
+    public CalendarioUsuarioBean getCalusuario() {
+        return calusuario;
+    }
+
+    public void setCalusuario(CalendarioUsuarioBean calusuario) {
+        this.calusuario = calusuario;
+    }
+    
+
     public boolean insertaUsuario(Integer tipo, Empresas nif) {
         //TODO
 
@@ -292,27 +303,27 @@ public class UsuariosBean implements Serializable {
         return res;
     }
 
-    public String insertarCalendarioSesion() {
+    public CalendarioUsuarioBean creCalendarioUsuario() {
 
 
         String res = "";
-        try {
+        CalendarioUsuarioBean calbean;
+        /*try {
             FacesContext ctx = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
 
             UsuariosBean usBean = (UsuariosBean) session.getAttribute("usuario");
-            String dni = usBean.getDni();
+            String dniUsuario = usBean.getDni();*/     
+            calbean = new CalendarioUsuarioBean(this.dni);
 
-            CalendarioUsuarioBean calbean = new CalendarioUsuarioBean(dni);
+            /*session.setAttribute("calendarioUsuarioBean", calbean);
+            res= "ok"*/;
 
-            session.setAttribute("calendarioUsuarioBean", calbean);
-            res= "ok";
-
-        }catch(Exception e){
-            res= "error";
-        }
+        /*}catch(Exception e){
+            calbean= null;
+        }*/
         
-        return res;
+        return calbean;
 
 
     }

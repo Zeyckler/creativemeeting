@@ -56,19 +56,35 @@ public class LoginBean implements Serializable {
             context.addMessage(validate.getClientId(context), msg);
 
         }
+        this.usuario=nomUsuario;
 
     }
 
     public void validarContrasena(FacesContext context, UIComponent validate, Object value) {
 
         String clave = (String) value;
-
+        Usuarios a=null;
+        
         if (clave.equals("")) {
             ((UIInput) validate).setValid(false);
             FacesMessage msg = new FacesMessage("No puede estar vacía");
             context.addMessage(validate.getClientId(context), msg);
         }
-
+        
+        try{
+             
+            a = Consultas.buscaUsuarioContrasena(this.usuario, clave);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());   
+        }
+        if(a==null){
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("Nombre de Usuario o contraseña no válidos");
+            context.addMessage(validate.getClientId(context), msg);
+            
+            
+        }
     }
 
     public boolean compruebaVacio() {
@@ -110,7 +126,6 @@ public class LoginBean implements Serializable {
             return "ok";
 
         } else {
-            this.errorlogin = "Usuario y/o contraseña incorrectos";
             return "error";
 
         }

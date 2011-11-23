@@ -25,9 +25,8 @@ public class CalendarioUsuarioBean implements Serializable {
     private List<Reuniones> listareuniones;
     private String reunionescadena;
     private Integer anio;
-    private Date fecha = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, 0, 2);
-    private Integer listaanios[] = {Calendar.getInstance().get(Calendar.YEAR),
-        Calendar.getInstance().get(Calendar.YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR) + 1};
+    private Date fecha;
+    private Integer listaanios[];
     private String fechias = "1,2,3,4,5,6,7,8,9,10";
 
     /** Creates a new instance of CalendarioUsuarioBean */
