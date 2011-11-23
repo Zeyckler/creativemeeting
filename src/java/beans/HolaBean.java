@@ -4,25 +4,11 @@
  */
 package beans;
 
-import com.icesoft.faces.component.selectinputdate.SelectInputDate;
-import com.sun.net.httpserver.HttpServer;
 import java.io.Serializable;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
-import java.util.Set;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.spi.http.HttpContext;
-import sun.net.www.http.HttpCapture;
+
 
 /**
  *
