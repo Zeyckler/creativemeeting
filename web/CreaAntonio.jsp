@@ -276,6 +276,6 @@
             
         }
         %>
-        <p>Antonio ha sido grabado :-D!!!</p>
+        <p>¡¡¡Antonio ha sido grabado :-D!!!</p>
     </body>
 </html>
