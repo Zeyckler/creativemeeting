@@ -30,7 +30,7 @@
                 <div class="formulario" id="formularioempresa">
                     <div class="encabezado"><h1>Registro de usuario</h1></div>
                     <div>
-                        <ice:form action="">
+                        <ice:form>
                             <table class="tablaformulario" id="tablaempresa">
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="nombre">Nombre:</ice:outputLabel></div></td>
@@ -51,6 +51,11 @@
                                     <td><div class="labelslogin"><ice:outputLabel for="dni">DNI:</ice:outputLabel></div></td>
                                     <td><div class="inputslogin"><ice:inputText id="dni" value="#{usuario.dni}" required="true" validator="#{validaciones.validarNif}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errordni" for="dni"></ice:message></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="nif">N.I.F. de la empresa:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="nif" value="#{usuario.niftmp}" required="true" validator="#{validaciones.validarNifUsuario}"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errornif" for="nif"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="fechanacimiento">Fecha de nacimiento:</ice:outputLabel></div></td>

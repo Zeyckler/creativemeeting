@@ -86,6 +86,7 @@
             <to-view-id>/error_1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
     <managed-bean>
         <managed-bean-name>listapaises</managed-bean-name>
         <managed-bean-class>beans.PaisesBean</managed-bean-class>
@@ -122,6 +123,19 @@
             <from-action>#{usuario.insertarCalendarioSesion}</from-action>
             <from-outcome>error</from-outcome>
             <to-view-id>/error.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/registrousuario.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{registroBean.registraUsuario}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/correcto_1.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{registroBean.registraUsuario}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error_1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

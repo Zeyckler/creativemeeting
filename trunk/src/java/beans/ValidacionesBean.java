@@ -4,6 +4,7 @@
  */
 package beans;
 
+import bd.Empresas;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
@@ -14,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import utiles.Consultas;
 
 /**
  *
@@ -82,6 +84,54 @@ public class ValidacionesBean implements Serializable {
         }
     }
 
+    public void validarNifUsuario(FacesContext context, UIComponent validate, Object value) {
+
+        boolean res = true;
+        String nifEmp = (String) value;
+
+        if (nifEmp.toUpperCase().startsWith("X") || nifEmp.toUpperCase().startsWith("Y") || nifEmp.toUpperCase().startsWith("Z")) {
+            nifEmp = nifEmp.substring(1);
+        }
+
+        Pattern nifPattern =
+                Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
+        Matcher m = nifPattern.matcher(nifEmp);
+        if (m.matches()) {
+            String letra = m.group(2);
+
+            //Extraer letra del NIF
+
+            String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+            int dni = Integer.parseInt(m.group(1));
+            dni = dni % 23;
+            String reference = letras.substring(dni, dni + 1);
+
+            if (reference.equalsIgnoreCase(letra)) {
+                res = true;
+            } else {
+                res = false;
+            }
+        } else {
+            res = false;
+        }
+        if (!res) {
+
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("N.I.F no válido");
+            context.addMessage(validate.getClientId(context), msg);
+
+        }
+        
+        boolean existemp=Consultas.existeEmpresa(nifEmp);
+        if(existemp==false){
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("N.I.F no registrado");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+        
+    }
+    
+    
     public void ValidarFecha(FacesContext context, UIComponent validate, Object value) {
         boolean res = true;
         String fecha = (String) value;

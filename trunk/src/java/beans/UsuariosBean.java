@@ -62,6 +62,8 @@ public class UsuariosBean implements Serializable {
     private boolean activo;
     //No necesita validacion
     private Empresas nif;
+    
+    private String niftmp;
     //No necesita Validacion 
     private CalendarioUsuarioBean calusuario;
 
@@ -264,6 +266,15 @@ public class UsuariosBean implements Serializable {
     public void setCalusuario(CalendarioUsuarioBean calusuario) {
         this.calusuario = calusuario;
     }
+
+    public String getNiftmp() {
+        return niftmp;
+    }
+
+    public void setNiftmp(String niftmp) {
+        this.niftmp = niftmp;
+    }
+    
     
 
     public boolean insertaUsuario(Integer tipo, Empresas nif) {

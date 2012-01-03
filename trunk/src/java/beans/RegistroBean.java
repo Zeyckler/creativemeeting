@@ -9,6 +9,7 @@ import factoria.FactoriaBD;
 import java.io.Serializable;
 import java.util.Map;
 import javax.faces.context.FacesContext;
+import utiles.Consultas;
 
 /**
  *
@@ -35,7 +36,7 @@ public class RegistroBean implements Serializable {
                 empresa.getPais(), empresa.getCodigopostal(), empresa.getWeb(), "ljcnsdljn", empresa.getFax());
 
         empresaOK = FactoriaBD.insertaEmpresa(emp);
-        
+
         if (empresaOK) {
 
             usuarioOK = usuario.insertaUsuario(new Integer(1), emp);
@@ -45,5 +46,28 @@ public class RegistroBean implements Serializable {
         } else {
             return "error";
         }
+    }
+
+    public String registraUsuario() {
+        //moodificar todo
+        
+        boolean usuarioOK = false;
+        
+        Map sesion = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        UsuariosBean usuario = (UsuariosBean) sesion.get("usuario");
+        
+        String empnif= usuario.getNiftmp();
+        
+        Empresas emp = Consultas.buscaEmpresaNif(empnif);
+        
+        usuarioOK= usuario.insertaUsuario(new Integer(1), emp);
+        
+        if(usuarioOK == true){
+            return "ok";
+        }else{
+            return "error";
+        }
+        
+        
     }
 }

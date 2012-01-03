@@ -109,6 +109,7 @@ public class Empresas implements Serializable {
 
     public static final String BUSCAR_EMPRESAS= "Empresas.findAll";
      public static final String BUSCAR_EMPRESAS_ACTIVACION= "Empresas.findByActivarEmpresa";
+     public static final String BUSCAR_EMPRESA_NIF="Empresas.findByNif";
     
     public Empresas() {
     }

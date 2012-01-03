@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -57,182 +58,217 @@ public class Consultas {
         return usReunion;
 
     }
+
     public static List<Usuarios> asistentesReunion2(int idReunion) {
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOSIDREUNIONES);
         q1.setParameter("idr1", idReunion);
         List<Usuarios> lu = q1.getResultList();
-        
+
         return lu;
-        
+
     }
-        public static List<Usuarios> listaUsuariosActivos(){
-      
-      abrirTransaccion();
-      Query q1= em.createNamedQuery(Usuarios.BUSCAR_USUARIOSACTIVOS);
-      q1.setParameter("activo", true);
-      List<Usuarios> lu = q1.getResultList();
-      
-      return lu;
-        
-    }
-    public static List<Empresas> listaEmpresas(){
-        
+
+    public static List<Usuarios> listaUsuariosActivos() {
+
         abrirTransaccion();
-        Query q1= em.createNamedQuery(Empresas.BUSCAR_EMPRESAS);
+        Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOSACTIVOS);
+        q1.setParameter("activo", true);
+        List<Usuarios> lu = q1.getResultList();
+
+        return lu;
+
+    }
+
+    public static List<Empresas> listaEmpresas() {
+
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Empresas.BUSCAR_EMPRESAS);
         List<Empresas> lu = q1.getResultList();
-        
+
         return lu;
     }
-    
-    public static List<Usuarios> listaUsuariosEmpresa(String nif){
-        
+
+    public static List<Usuarios> listaUsuariosEmpresa(String nif) {
+
         abrirTransaccion();
-        Query q1= em.createNamedQuery(Usuarios.BUSCAR_USUARIOSBYEMPRESA);
+        Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOSBYEMPRESA);
         q1.setParameter("nifempresa", nif);
         List<Usuarios> lu = q1.getResultList();
-        
+
         return lu;
     }
-    
+
     //listaReunionesCreador devuelve una lista de Reuniones que todavía no han 
     //sido celebradas
-    
-    public static List<Reuniones> listaReunionesCreador(String nif){
-        
-        
+    public static List<Reuniones> listaReunionesCreador(String nif) {
+
+
         abrirTransaccion();
-        Date fecha= new Date(111, 3, 16);
-        Query q1= em.createNamedQuery(Reuniones.BUSCAR_REUNIONESCREADOR);
+        Date fecha = new Date(111, 3, 16);
+        Query q1 = em.createNamedQuery(Reuniones.BUSCAR_REUNIONESCREADOR);
         q1.setParameter("creador", nif);
         q1.setParameter("fechaactual", fecha);
         List<Reuniones> lu = q1.getResultList();
-        
+
         return lu;
-        
+
     }
-    
-    public static List<Adjunto> listaAdjuntosReunion(int idReunion){
-        
+
+    public static List<Adjunto> listaAdjuntosReunion(int idReunion) {
+
         abrirTransaccion();
-        Query q1= em.createNamedQuery(Adjunto.BUSCAR_ADJUNTOIDREUNION);
+        Query q1 = em.createNamedQuery(Adjunto.BUSCAR_ADJUNTOIDREUNION);
         q1.setParameter("idreuniones", idReunion);
-        List<Adjunto> lu= q1.getResultList();
-        
+        List<Adjunto> lu = q1.getResultList();
+
         return lu;
-         
+
     }
-    
-    public static List<Puntosdeldia> listaPuntosdesDiaReunion(int idReunion){
-        
+
+    public static List<Puntosdeldia> listaPuntosdesDiaReunion(int idReunion) {
+
         abrirTransaccion();
-        Query q1= em.createNamedQuery(Puntosdeldia.BUSCAR_PUNTOSDIAREUNION);
+        Query q1 = em.createNamedQuery(Puntosdeldia.BUSCAR_PUNTOSDIAREUNION);
         q1.setParameter("idreunion", idReunion);
-        List<Puntosdeldia> lu= q1.getResultList();
-        
+        List<Puntosdeldia> lu = q1.getResultList();
+
         return lu;
-        
+
     }
-    public static List<Object[]> listaIntervencionesEnReunion(int idReunion){
-        
+
+    public static List<Object[]> listaIntervencionesEnReunion(int idReunion) {
+
         abrirTransaccion();
-        Query q1= em.createNamedQuery(Reuniones.BUSCAR_INTERVENCIONESPORREUNION);
+        Query q1 = em.createNamedQuery(Reuniones.BUSCAR_INTERVENCIONESPORREUNION);
         q1.setParameter("idre", idReunion);
         List<Object[]> lu = q1.getResultList();
-        
+
         return lu;
-        
+
     }
-    
-    public static List<Reuniones> listaReunionesUsuarios(String dni){
-        
+
+    public static List<Reuniones> listaReunionesUsuarios(String dni) {
+
         abrirTransaccion();
-        Query q1= em.createNamedQuery(Reuniones.BUSCAR_REUNIONESUSUARIO);
+        Query q1 = em.createNamedQuery(Reuniones.BUSCAR_REUNIONESUSUARIO);
         q1.setParameter("dni", dni);
         List<Reuniones> lu = q1.getResultList();
-        
-        return lu;    
+
+        return lu;
+    }
+
+    public static boolean existeEmpresa(String nifemp) {
+
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Empresas.BUSCAR_EMPRESA_NIF);
+        q1.setParameter("nif", nifemp);
+
+        int numeroEmp = q1.getResultList().size();
+
+        if (numeroEmp == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public static Empresas buscaEmpresaNif(String nifemp) {
+
+        Empresas emp;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Empresas.BUSCAR_EMPRESA_NIF);
+        q1.setParameter("nif", nifemp);
+        try{
+            emp = (Empresas) q1.getSingleResult();
+        }
+        catch(Exception e){
+            emp=null;
+        }
+        return emp;
     }
     
-    public static Usuarios buscaUsuarioContrasena(String usuario, String contrasena){
-        
+    //modificar
+
+    public static Usuarios buscaUsuarioContrasena(String usuario, String contrasena) {
+
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOYCONTRASENA);
         q1.setParameter("usuario", usuario);
         q1.setParameter("contasenia", contrasena);
-        
+
         Usuarios user;
         try {
             user = (Usuarios) q1.getSingleResult();
         } catch (Exception e) {
             //Hay que ver si la execpcion es javax.persistence.NoResultException para que este el metodo bien
-            user= null;
+            user = null;
         }
-        
+
         return user;
     }
-    
-    public static List<Usuarios> buscaUsuarioParecidos(String usuario){
-        
+
+    public static List<Usuarios> buscaUsuarioParecidos(String usuario) {
+
         //Busca Usuarios con las mismas iniciales en el nombre apellido q y apellido 2
-        
+
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOSPARECIDOS);
-        q1.setParameter("usuario", "%"+usuario+"%");
-        
-        List<Usuarios> user = new LinkedList<Usuarios>();  
+        q1.setParameter("usuario", "%" + usuario + "%");
+
+        List<Usuarios> user = new LinkedList<Usuarios>();
         try {
-            user = (List<Usuarios>)  q1.getResultList();
+            user = (List<Usuarios>) q1.getResultList();
         } catch (Exception e) {
             //Hay que ver si la execpcion es javax.persistence.NoResultException para que este el metodo bien
-            user= null;
+            user = null;
         }
-        
+
         return user;
     }
-    public static List<Empresas> buscaEmpresaPorActivar(){
-        
-        boolean activo= true;
-        
+
+    public static List<Empresas> buscaEmpresaPorActivar() {
+
+        boolean activo = true;
+
         List<Empresas> empInactivas;
-        
+
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Empresas.BUSCAR_EMPRESAS_ACTIVACION);
-        q1.setParameter("activo", activo );
-        
+        q1.setParameter("activo", activo);
+
         try {
             empInactivas = q1.getResultList();
         } catch (Exception e) {
             //Hay que ver si la execpcion es javax.persistence.NoResultException para que este el metodo bien
-            empInactivas= null;
+            empInactivas = null;
         }
-        
+
         return empInactivas;
-        
-        
+
+
     }
-    
-    public static  List<Reuniones> buscaReunionesUsuarioAnio(String dniusuario, Integer anio){
-        
-        Date finicio= new Date(anio-1901, 11, 31);
-        Date ffinal= new  Date (anio-1900, 11, 31);
-        
+
+    public static List<Reuniones> buscaReunionesUsuarioAnio(String dniusuario, Integer anio) {
+
+        Date finicio = new Date(anio - 1901, 11, 31);
+        Date ffinal = new Date(anio - 1900, 11, 31);
+
         System.out.print(finicio.toString());
         System.out.print(ffinal.toString());
-        
-        
+
+
         List<Reuniones> listareuniones = null;
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Reuniones.BUSCAR_REUNIONES_USUARIO_ANIO);
         q1.setParameter("dni", dniusuario);
         q1.setParameter("fecha1", finicio);
         q1.setParameter("fecha2", ffinal);
-         try{
-             listareuniones= q1.getResultList();
-         }catch(Exception e){
+        try {
+            listareuniones = q1.getResultList();
+        } catch (Exception e) {
             System.out.print(e.toString());
-         }
-         return listareuniones;
-        
+        }
+        return listareuniones;
+
     }
 }
