@@ -3,6 +3,7 @@
     Created on : 03-ago-2011, 18:38:37
     Author     : japarejo
 --%>
+<%@page import="javax.persistence.Query"%>
 <%@page import="utiles.Utilidades"%>
 <%@page import="utiles.Consultas"%>
 <%@page import="java.util.Collection"%>
@@ -259,6 +260,7 @@
         
         out.print(a);
           */
+        /*
         int i=0; 
         List<Reuniones> l = Consultas.buscaReunionesUsuarioAnio("28500490v", 2010);
         for(Reuniones r: l){
@@ -274,7 +276,16 @@
                 out.print("</br>");
             }
             
-        }
+        }*/
+            EntityManagerFactory emf;
+            EntityManager em;
+            emf = Persistence.createEntityManagerFactory("CreativeMPU");
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+            Query q1 = em.createNamedQuery(Empresas.BUSCAR_EMPRESA_NIF);
+            q1.setParameter("nif", "28500490v");
+            int a= q1.getResultList().size();
+            out.print(a);
         %>
         <p>¡¡¡Antonio ha sido grabado :-D!!!</p>
     </body>
