@@ -62,7 +62,6 @@ public class UsuariosBean implements Serializable {
     private boolean activo;
     //No necesita validacion
     private Empresas nif;
-    
     private String niftmp;
     //No necesita Validacion 
     private CalendarioUsuarioBean calusuario;
@@ -92,7 +91,7 @@ public class UsuariosBean implements Serializable {
         this.salario = us.getSalario();
         this.telefono = us.getTelefono();
         this.usuario = us.getUsuario();
-        calusuario= creCalendarioUsuario();
+        calusuario = creCalendarioUsuario();
 
 
 
@@ -274,8 +273,6 @@ public class UsuariosBean implements Serializable {
     public void setNiftmp(String niftmp) {
         this.niftmp = niftmp;
     }
-    
-    
 
     public boolean insertaUsuario(Integer tipo, Empresas nif) {
         //TODO
@@ -308,9 +305,9 @@ public class UsuariosBean implements Serializable {
                     this.movil, this.email, nomUsuario, "123445", this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 2, false, nif);
 
+
         }
         res = FactoriaBD.insertaUsuario(us);
-
         return res;
     }
 
@@ -320,20 +317,19 @@ public class UsuariosBean implements Serializable {
         String res = "";
         CalendarioUsuarioBean calbean;
         /*try {
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-
-            UsuariosBean usBean = (UsuariosBean) session.getAttribute("usuario");
-            String dniUsuario = usBean.getDni();*/     
-            calbean = new CalendarioUsuarioBean(this.dni);
-
-            /*session.setAttribute("calendarioUsuarioBean", calbean);
-            res= "ok"*/;
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        
+        UsuariosBean usBean = (UsuariosBean) session.getAttribute("usuario");
+        String dniUsuario = usBean.getDni();*/
+        calbean = new CalendarioUsuarioBean(this.dni);
+        /*session.setAttribute("calendarioUsuarioBean", calbean);
+        res= "ok"*/;
 
         /*}catch(Exception e){
-            calbean= null;
+        calbean= null;
         }*/
-        
+
         return calbean;
 
 

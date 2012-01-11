@@ -82,13 +82,15 @@
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="provinciausuario">Provincia:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="provinciausuario" value="#{empresa.provincia}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="provinciausuario" value="#{usuario.provincia}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorprivinciausuario" for="provinciausuario"></ice:message></div></td>
                                 </tr>
                                 <tr>
-                                    <td><div class="labelslogin"><ice:outputLabel for="paisusuario">Pa&iacute;s:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ui:include id="paisusuario" src="./WEB-INF/facelets/components/selectlistapaises.xhtml"/></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpaisusuario" for="paisusuario"></ice:message></div></td>
+                                    <td><div class="labelslogin"><ice:outputLabel for="pais">Pa&iacute;s:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:selectOneMenu id="pais" value="#{usuario.pais}" partialSubmit="false">
+                                                <f:selectItems id="listapaisesemp" value="#{listapaises.paises}"/>
+                                            </ice:selectOneMenu></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpais" for="paisusuario"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="telefonousuario">Tel&eacute;fono:</ice:outputLabel></div></td>
