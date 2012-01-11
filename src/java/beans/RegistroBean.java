@@ -54,14 +54,19 @@ public class RegistroBean implements Serializable {
         boolean usuarioOK = false;
         
         Map sesion = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-        UsuariosBean usuario = (UsuariosBean) sesion.get("usuario");
+        UsuariosBean user = (UsuariosBean) sesion.get("usuario");
         
-        String empnif= usuario.getNiftmp();
+        String empnif= user.getNiftmp();
+        
+        
         
         Empresas emp = Consultas.buscaEmpresaNif(empnif);
         
-        usuarioOK= usuario.insertaUsuario(new Integer(1), emp);
         
+        
+        usuarioOK= user.insertaUsuario(new Integer(2), emp);
+        
+       
         if(usuarioOK == true){
             return "ok";
         }else{
