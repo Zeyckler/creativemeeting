@@ -93,6 +93,11 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>listaTipoReunion</managed-bean-name>
+        <managed-bean-class>beans.TiposReunionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>subirarchivobean</managed-bean-name>
         <managed-bean-class>beans.SubirArchivoBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
@@ -138,6 +143,11 @@
             <to-view-id>/error_1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>horaReunionBean</managed-bean-name>
+        <managed-bean-class>beans.HoraReunionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>creaReunion</managed-bean-name>
         <managed-bean-class>beans.RegistraReunion</managed-bean-class>
