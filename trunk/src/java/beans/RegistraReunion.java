@@ -126,6 +126,22 @@ public class RegistraReunion implements Serializable {
     public void setTipostr(String tipostr) {
         this.tipostr = tipostr;
     }
+
+    public String getHorastr() {
+        return horastr;
+    }
+
+    public void setHorastr(String horastr) {
+        this.horastr = horastr;
+    }
+
+    public String getMinutosstr() {
+        return minutosstr;
+    }
+
+    public void setMinutosstr(String minutosstr) {
+        this.minutosstr = minutosstr;
+    }
     
     
     
