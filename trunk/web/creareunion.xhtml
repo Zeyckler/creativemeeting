@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
+
+            <ui:define name="title">
+                Crea Reunón - CreativeMeetings
+            </ui:define>
+
+            <ui:define name="logoempresa">
+
+            </ui:define>
+
+            <ui:define name="left">
+
+            </ui:define>
+
+            <ui:define name="right">
+
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="formulario" id="formularioreunion">
+                    <div> 
+                        <ice:form>
+                            <table class="tablaformulario" id="tablareunion">
+                                <tr><td colspan="2"><h1>Datos referidos a la reunión</h1></td></tr>
+                                
+                                
+                                
+                                
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="fechareunion">Fecha de reunión:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:selectInputDate id="fechareunion" value="#{usuario.fechanacimiento}" partialSubmit="false" required="true" renderAsPopup="true" renderMonthAsDropdown="true" renderYearAsDropdown="true"><f:converter converterId="javax.faces.DateTime"/> 
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/></ice:selectInputDate></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorfechanacimiento" for="fechanacimiento"></ice:message></div></td>
+                                </tr>
+                                
+
+                            </table>
+                        </ice:form>
+
+                    </div>
+
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
