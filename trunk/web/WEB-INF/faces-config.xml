@@ -138,5 +138,10 @@
             <to-view-id>/error_1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>creaReunion</managed-bean-name>
+        <managed-bean-class>beans.RegistraReunion</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
 
