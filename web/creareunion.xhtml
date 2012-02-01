@@ -34,18 +34,33 @@
                     <div> 
                         <ice:form>
                             <table class="tablaformulario" id="tablareunion">
-                                <tr><td colspan="2"><h1>Datos referidos a la reunión</h1></td></tr>
-                                
-                                
-                                
-                                
+                                <tr><td colspan="2"><h1>Datos referidos a la reunión</h1></td></tr>                                
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="fechareunion">Fecha de reunión:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:selectInputDate id="fechareunion" value="#{usuario.fechanacimiento}" partialSubmit="false" required="true" renderAsPopup="true" renderMonthAsDropdown="true" renderYearAsDropdown="true"><f:converter converterId="javax.faces.DateTime"/> 
+                                    <td><div class="inputslogin"><ice:selectInputDate id="fechareunion" value="#{creaReunion.fechareunion}" partialSubmit="false" required="true" renderAsPopup="true" renderMonthAsDropdown="true" renderYearAsDropdown="true" validator="#{validaciones.validarReunion24h ¡¡IMplementar!!}"><f:converter converterId="javax.faces.DateTime"/> 
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/></ice:selectInputDate></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorfechanacimiento" for="fechanacimiento"></ice:message></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorfechareunion" for="fechareunion"></ice:message></div></td>
                                 </tr>
-                                
+
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="tipo">Tipo de reunión:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:selectOneMenu id="tipo" value="#{creaReunion.tipostr}" partialSubmit="false">
+                                                <f:selectItems id="listatipos" value="#{listaTipoReunion.tipos}"/>
+                                            </ice:selectOneMenu></div></td>
+
+                                </tr>
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="listahoras">Hora de comienzo:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin">
+                                            <ice:selectOneMenu id="listahoras" value="#{creaReunion.horastr}" partialSubmit="false">
+                                                <f:selectItems id="horas" value="#{horaReunionBean.horas}"/>
+                                            </ice:selectOneMenu>
+                                            <ice:selectOneMenu id="listaminutos" value="#{creaReunion.minutosstr}" partialSubmit="false">
+                                                <f:selectItems id="minutos" value="#{horaReunionBean.horas}"/>
+                                            </ice:selectOneMenu>
+                                        </div></td>
+                                </tr>
+
 
                             </table>
                         </ice:form>
