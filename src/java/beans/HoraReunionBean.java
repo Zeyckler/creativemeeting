@@ -4,6 +4,7 @@
  */
 package beans;
 
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -13,8 +14,9 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class HoraReunionBean {
+public class HoraReunionBean implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private String horas[] = {"08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "00", "01", "02", "03", "04", "05", "06", "07"};
     /** Creates a new instance of HoraReunionBean */
     private String minutos[] = {"00", "15", "30", "45"};
