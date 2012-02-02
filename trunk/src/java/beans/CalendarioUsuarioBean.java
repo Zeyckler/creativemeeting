@@ -27,6 +27,7 @@ public class CalendarioUsuarioBean implements Serializable {
     private Integer anio;
     private Date fecha;
     private Integer listaanios[];
+    private Integer listaanioscreareunion[];
     private String fechias = "1,2,3,4,5,6,7,8,9,10";
 
     /** Creates a new instance of CalendarioUsuarioBean */
@@ -45,6 +46,7 @@ public class CalendarioUsuarioBean implements Serializable {
         //Lista por defecto para elegir el año de las reuniones
         this.listaanios = new Integer[]{Calendar.getInstance().get(Calendar.YEAR),
             Calendar.getInstance().get(Calendar.YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR) + 1};
+        this.listaanioscreareunion= new Integer[]{Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.YEAR) + 1};
     }
 
     public String getReunionescadena() {
@@ -94,6 +96,16 @@ public class CalendarioUsuarioBean implements Serializable {
     public void setListareuniones(List<Reuniones> listareuniones) {
         this.listareuniones = listareuniones;
     }
+
+    public Integer[] getListaanioscreareunion() {
+        return listaanioscreareunion;
+    }
+
+    public void setListaanioscreareunion(Integer[] listaanioscreareunion) {
+        this.listaanioscreareunion = listaanioscreareunion;
+    }
+    
+    
 
     public String irAnio() {
         
