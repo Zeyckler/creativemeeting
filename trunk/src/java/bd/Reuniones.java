@@ -34,19 +34,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Reuniones.findAll", query = "SELECT r FROM Reuniones r"),
-    @NamedQuery(name = "Reuniones.findByIdreunion", query = "SELECT r FROM Reuniones r WHERE r.idreunion = :idreunion"),
-    @NamedQuery(name = "Reuniones.findByFecha", query = "SELECT r FROM Reuniones r WHERE r.fecha = :fecha"),
-    @NamedQuery(name = "Reuniones.findByHora", query = "SELECT r FROM Reuniones r WHERE r.hora = :hora"),
-    @NamedQuery(name = "Reuniones.findByDuracioninicial", query = "SELECT r FROM Reuniones r WHERE r.duracioninicial = :duracioninicial"),
-    @NamedQuery(name = "Reuniones.findByCoste", query = "SELECT r FROM Reuniones r WHERE r.coste = :coste"),
-    @NamedQuery(name = "Reuniones.findByDuracionreal", query = "SELECT r FROM Reuniones r WHERE r.duracionreal = :duracionreal"),
-    @NamedQuery(name = "Reuniones.findByReunionCreador", query = "SELECT r FROM Reuniones r JOIN r.dnicreador usuario WHERE usuario.dni= :creador AND r.fecha> :fechaactual"),
+    @NamedQuery(name = "Reuniones.findByIdreunion", query = "SELECT r FROM Reuniones r WHERE r.idreunion = :idreunion"),  
+    @NamedQuery(name = "Reuniones.findByCoste", query = "SELECT r FROM Reuniones r WHERE r.coste = :coste"), 
+    @NamedQuery(name = "Reuniones.findByReunionCreador", query = "SELECT r FROM Reuniones r JOIN r.dnicreador usuario WHERE usuario.dni= :creador AND r.fechainicial> :fechaactual"),
     @NamedQuery(name = "Reuniones.findIntervencionesByIdreunion", query = "SELECT u , intervenciones FROM Usuarios u JOIN u.asistenciareunionCollection asistencia JOIN asistencia.idreunion reunion JOIN asistencia.intervencionesCollection intervenciones WHERE reunion.idreunion =:idre ORDER BY intervenciones.momentointervencion"),
     @NamedQuery(name = "Reuniones.findReunionesdeUsuarios", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni"),
-    @NamedQuery(name = "Reuniones.findReunionesdeUsuariosAnio", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND r.fecha BETWEEN :fecha1 AND :fecha2 ")
-    
+    @NamedQuery(name = "Reuniones.findReunionesdeUsuariosAnio", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND r.fechainicial BETWEEN :fecha1 AND :fecha2 ")
 })
 public class Reuniones implements Serializable {
+  
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,18 +51,17 @@ public class Reuniones implements Serializable {
     @NotNull
     @Column(name = "idreunion")
     private Integer idreunion;
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
-    @Column(name = "hora")
-    @Temporal(TemporalType.TIME)
-    private Date hora;
-    @Column(name = "duracioninicial")
-    private Integer duracioninicial;
+    @Column(name = "fechainicial")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicial;
+    @Column(name = "fechafinalestimada")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalestimada;
+    @Column(name = "fechafinalreal")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalreal;
     @Column(name = "coste")
     private Integer coste;
-    @Column(name = "duracionreal")
-    private Integer duracionreal;
     @OneToMany(mappedBy = "idreunion")
     private Collection<Puntosdeldia> puntosdeldiaCollection;
     @OneToMany(mappedBy = "idreunion")
@@ -81,42 +77,21 @@ public class Reuniones implements Serializable {
     @JoinColumn(name = "dnicreador", referencedColumnName = "dni")
     @ManyToOne
     private Usuarios dnicreador;
-    
     public static final String BUSCAR_REUNIONES = "Reuniones.findByIdreunion";
-    public static final String BUSCAR_REUNIONESCREADOR ="Reuniones.findByReunionCreador";
-    public static final String BUSCAR_INTERVENCIONESPORREUNION ="Reuniones.findIntervencionesByIdreunion";
-    public static final String BUSCAR_REUNIONESUSUARIO ="Reuniones.findReunionesdeUsuarios";
-    public static final String BUSCAR_REUNIONES_USUARIO_ANIO ="Reuniones.findReunionesdeUsuariosAnio"; 
-    
+    public static final String BUSCAR_REUNIONESCREADOR = "Reuniones.findByReunionCreador";
+    public static final String BUSCAR_INTERVENCIONESPORREUNION = "Reuniones.findIntervencionesByIdreunion";
+    public static final String BUSCAR_REUNIONESUSUARIO = "Reuniones.findReunionesdeUsuarios";
+    public static final String BUSCAR_REUNIONES_USUARIO_ANIO = "Reuniones.findReunionesdeUsuariosAnio";
+
     public Reuniones() {
     }
-
-    public Reuniones(Integer idreunion) {
-        this.idreunion = idreunion;
+    public Reuniones(Date fechainicial, Date fechafinalestimada, Date fechafinalreal, Integer coste, Salasreuniones idsala ){
+        this.fechainicial= fechainicial;
+        this.fechafinalestimada= fechafinalestimada;
+        this.fechafinalreal= fechafinalreal;
+        this.coste= coste;
+        this.idsalareunion= idsala;
     }
-    
-    public Reuniones(Integer idreunion, Date fecha, Date hora, Integer duracioninicial, Integer coste, Integer duracionreal, Tiporeuniones idtipo, Salasreuniones idsalareunion, Usuarios dnicreador) {
-        this.idreunion = idreunion;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.duracioninicial = duracioninicial;
-        this.coste = coste;
-        this.duracionreal = duracionreal;
-        this.idtipo = idtipo;
-        this.idsalareunion = idsalareunion;
-        this.dnicreador = dnicreador;
-    }
-    public Reuniones( Date fecha, Date hora, Integer duracioninicial, Integer coste, Integer duracionreal, Tiporeuniones idtipo, Salasreuniones idsalareunion, Usuarios dnicreador) {
-        this.fecha = fecha;
-        this.hora = hora;
-        this.duracioninicial = duracioninicial;
-        this.coste = coste;
-        this.duracionreal = duracionreal;
-        this.idtipo = idtipo;
-        this.idsalareunion = idsalareunion;
-        this.dnicreador = dnicreador;
-    }
-    
 
     public Integer getIdreunion() {
         return idreunion;
@@ -126,30 +101,29 @@ public class Reuniones implements Serializable {
         this.idreunion = idreunion;
     }
 
-    public Date getFecha() {
-        return fecha;
+     public Date getFechainicial() {
+        return fechainicial;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechainicial(Date fechainicial) {
+        this.fechainicial = fechainicial;
     }
 
-    public Date getHora() {
-        return hora;
+    public Date getFechafinalestimada() {
+        return fechafinalestimada;
     }
 
-    public void setHora(Date hora) {
-        this.hora = hora;
+    public void setFechafinalestimada(Date fechafinalestimada) {
+        this.fechafinalestimada = fechafinalestimada;
     }
 
-    public Integer getDuracioninicial() {
-        return duracioninicial;
+    public Date getFechafinalreal() {
+        return fechafinalreal;
     }
 
-    public void setDuracioninicial(Integer duracioninicial) {
-        this.duracioninicial = duracioninicial;
+    public void setFechafinalreal(Date fechafinalreal) {
+        this.fechafinalreal = fechafinalreal;
     }
-
     public Integer getCoste() {
         return coste;
     }
@@ -157,15 +131,7 @@ public class Reuniones implements Serializable {
     public void setCoste(Integer coste) {
         this.coste = coste;
     }
-
-    public Integer getDuracionreal() {
-        return duracionreal;
-    }
-
-    public void setDuracionreal(Integer duracionreal) {
-        this.duracionreal = duracionreal;
-    }
-
+    
     @XmlTransient
     public Collection<Puntosdeldia> getPuntosdeldiaCollection() {
         return puntosdeldiaCollection;
@@ -241,5 +207,5 @@ public class Reuniones implements Serializable {
     public String toString() {
         return "bd.Reuniones[ idreunion=" + idreunion + " ]";
     }
-    
+
 }

@@ -133,7 +133,7 @@ public class CalendarioUsuarioBean implements Serializable {
 
             i++;
             Calendar c1 = new GregorianCalendar();
-            c1.setTime(d.getFecha());
+            c1.setTime(d.getFechainicial());
             int formatday = Calendar.DAY_OF_YEAR;
             int dia_ano = c1.get(formatday);
 

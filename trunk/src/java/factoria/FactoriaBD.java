@@ -187,13 +187,11 @@ public class FactoriaBD {
         return res;
     }
 
-    public static Reuniones creaReuniones(Integer idreunion, Date fecha, Date hora, Integer duracioninicial,
-            Integer coste, Integer duracionreal, Tiporeuniones idtipo, Salasreuniones idsalareunion,
-            Usuarios dnicreador) {
-
-        Reuniones r1 = new Reuniones(idreunion, fecha, hora, duracioninicial, coste, duracionreal, idtipo, idsalareunion, dnicreador);
-        return r1;
-
+    public static Reuniones creaReuniones(Date fechainicial, Date fechafinalestimada, Date fechafinalreal, Integer coste, Salasreuniones idsala) {
+        
+        Reuniones reunion= new Reuniones( fechainicial,fechafinalestimada, fechafinalreal, coste, idsala);
+        
+        return reunion;
     }
 
     public static boolean insertaReuniones(Reuniones r1) {

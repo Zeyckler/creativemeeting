@@ -92,6 +92,11 @@ public class Salasreuniones implements Serializable {
     @JoinColumn(name = "nif", referencedColumnName = "nif")
     @ManyToOne
     private Empresas nif;
+    
+    /*Espacio reservado para las consultas*/
+    
+    
+    
 
     public Salasreuniones() {
     }
