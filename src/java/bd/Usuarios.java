@@ -57,10 +57,8 @@ import utiles.Consultas;
     @NamedQuery(name = "Usuarios.findByIdReunion", query = "SELECT u FROM Usuarios u JOIN u.asistenciareunionCollection arc JOIN arc.idreunion idr WHERE idr.idreunion =:idr1 "),
     @NamedQuery(name = "Usuarios.findUsuarioByEmpresa", query = "SELECT u FROM Usuarios u JOIN u.nif emp WHERE emp.nif = :nifempresa"),
     @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia")
-         
 })
 public class Usuarios implements Serializable {
-    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -82,6 +80,11 @@ public class Usuarios implements Serializable {
     @Size(max = 45)
     @Column(name = "apellido2")
     private String apellido2;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fechanacimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechanacimiento;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
@@ -153,11 +156,6 @@ public class Usuarios implements Serializable {
     private int privilegios;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fechanacimiento")
-    @Temporal(TemporalType.DATE)
-    private Date fechanacimiento;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "activacioninicial")
     private boolean activacioninicial;
     public static final String BUSCAR_USUARIOSIDREUNIONES = "Usuarios.findByIdReunion";
@@ -165,8 +163,7 @@ public class Usuarios implements Serializable {
     public static final String BUSCAR_USUARIOSBYEMPRESA = "Usuarios.findUsuarioByEmpresa";
     public static final String BUSCAR_USUARIOYCONTRASENA = "Usuarios.findByUsuarioyContrasena";
     public static final String BUSCAR_USUARIOSPARECIDOS = "Usuarios.findByUsuarioParecidos";
-    
-    
+
     public Usuarios() {
     }
 
@@ -200,7 +197,7 @@ public class Usuarios implements Serializable {
         this.privilegios = privilegios;
         this.activo = activo;
         this.nif = nif;
-        this.activacioninicial=true;
+        this.activacioninicial = true;
     }
 
     public String getDni() {
@@ -398,19 +395,19 @@ public class Usuarios implements Serializable {
         this.privilegios = privilegios;
     }
 
-    public Date getFechanacimiento() {
-        return fechanacimiento;
-    }
-
-    public void setFechanacimiento(Date fechanacimiento) {
-        this.fechanacimiento = fechanacimiento;
-    }
-
     public boolean getActivacioninicial() {
         return activacioninicial;
     }
 
     public void setActivacioninicial(boolean activacioninicial) {
         this.activacioninicial = activacioninicial;
+    }
+
+    public Date getFechanacimiento() {
+        return fechanacimiento;
+    }
+
+    public void setFechanacimiento(Date fechanacimiento) {
+        this.fechanacimiento = fechanacimiento;
     }
 }
