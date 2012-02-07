@@ -9,18 +9,24 @@ import bd.Asistenciareunion;
 import bd.Puntosdeldia;
 import bd.Salasreuniones;
 import bd.Tiporeuniones;
+import bd.Usuarios;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.xml.ws.http.HTTPBinding;
+import utiles.Consultas;
+import utiles.Fila;
 
 /**
  *
  * @author AntonioCZ
  */
-public class RegistraReunionBean implements Serializable {
+public class CreaReunionBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -35,12 +41,12 @@ public class RegistraReunionBean implements Serializable {
     private Tiporeuniones idtipo;
     private String tipostr;
     private Salasreuniones idsalareunion;
-    private Collection<Adjunto> adjuntoCollection;
     private String duracionhorareunion;
     private String duracionminutosreunion;
+    private Usuarios dnicreador;
    
-    /** Creates a new instance of RegistraReunionBean */
-    public RegistraReunionBean() {
+    /** Creates a new instance of CreaReunionBean */
+    public CreaReunionBean() {
     }
 
     public Date getFechafinalestimada() {
@@ -67,14 +73,6 @@ public class RegistraReunionBean implements Serializable {
         this.fechainicial = fechainicial;
     }
 
-    
-    public Collection<Adjunto> getAdjuntoCollection() {
-        return adjuntoCollection;
-    }
-
-    public void setAdjuntoCollection(Collection<Adjunto> adjuntoCollection) {
-        this.adjuntoCollection = adjuntoCollection;
-    }
 
     public Collection<Asistenciareunion> getAsistenciareunionCollection() {
         return asistenciareunionCollection;
@@ -158,6 +156,17 @@ public class RegistraReunionBean implements Serializable {
     public void setDuracionminutosreunion(String duracionminutosreunion) {
         this.duracionminutosreunion = duracionminutosreunion;
     }
+
+    public Usuarios getDnicreador() {
+        return dnicreador;
+    }
+
+    public void setDnicreador(Usuarios dnicreador) {
+        this.dnicreador = dnicreador;
+    }
+    
+    
+    
     
     
     
@@ -182,7 +191,20 @@ public class RegistraReunionBean implements Serializable {
         
     }
     public String creaReunionPaso1 (){
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
         
+        CreaReunionBean creareunion = (CreaReunionBean)session.getAttribute("creaReunionBean");
+        
+        calculaFechasReunion(this.fechafinalestimada, this.horastr, this.minutosstr, this.duracionhorareunion, this.duracionminutosreunion);
+        
+        creareunion.setFechainicial(this.fechainicial);
+        creareunion.setFechafinalestimada(this.fechafinalestimada);
+        
+        session.setAttribute("creaReunionBean", creareunion);
+        
+        List<Salasreuniones> listasalasvacias = Consultas.buscaSalasLibreFecha(this.fechainicial, this.fechafinalestimada);
+        List<Fila<Salasreuniones>> filasreunionesvacias;
         
         
         
