@@ -9,6 +9,7 @@ import bd.Asistenciareunion;
 import bd.Empresas;
 import bd.Puntosdeldia;
 import bd.Reuniones;
+import bd.Salasreuniones;
 import bd.Usuarios;
 import java.util.Collection;
 import java.util.Date;
@@ -172,23 +173,22 @@ public class Consultas {
             return true;
         }
     }
+
     public static Empresas buscaEmpresaNif(String nifemp) {
 
         Empresas emp;
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Empresas.BUSCAR_EMPRESA_NIF);
         q1.setParameter("nif", nifemp);
-        try{
+        try {
             emp = (Empresas) q1.getSingleResult();
-        }
-        catch(Exception e){
-            emp=null;
+        } catch (Exception e) {
+            emp = null;
         }
         return emp;
     }
-    
-    //modificar
 
+    //modificar
     public static Usuarios buscaUsuarioContrasena(String usuario, String contrasena) {
 
         abrirTransaccion();
@@ -269,6 +269,24 @@ public class Consultas {
             System.out.print(e.toString());
         }
         return listareuniones;
+
+    }
+    
+    public static List<Salasreuniones> buscaSalasLibreFecha(Date fechainicial, Date fechafinal) {
+
+        List<Salasreuniones> salas = null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Salasreuniones.BUSCAR_SALASLIBREFECHA);
+        q1.setParameter("fechinicial", fechainicial);
+        q1.setParameter("fechfinal", fechafinal);
+        
+
+        try {
+            salas = q1.getResultList();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+        }
+        return salas;
 
     }
 }

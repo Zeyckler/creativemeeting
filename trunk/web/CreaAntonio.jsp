@@ -277,7 +277,7 @@
             }
             
         }*/
-            EntityManagerFactory emf;
+           /* EntityManagerFactory emf;
             EntityManager em;
             emf = Persistence.createEntityManagerFactory("CreativeMPU");
             em = emf.createEntityManager();
@@ -285,7 +285,22 @@
             Query q1 = em.createNamedQuery(Empresas.BUSCAR_EMPRESA_NIF);
             q1.setParameter("nif", "28500490v");
             int a= q1.getResultList().size();
-            out.print(a);
+            out.print(a);*/
+        Date dinicial= new Date(111, 1, 13, 11, 30, 0);
+        Date dfinal= new Date(111, 1, 13, 13, 30, 0);
+        
+        out.print(dinicial);
+        out.print("</br>");
+        out.print(dfinal);
+        out.print("</br>");
+        
+        List<Salasreuniones> l1=Consultas.buscaSalasLibreFecha(dinicial, dfinal);
+        out.print(l1.size());
+        out.print("</br>");
+        for(Salasreuniones sl:l1){
+            out.print(sl.getNombresala());
+            out.print("</br>");
+        }
         %>
         <p>¡¡¡Antonio ha sido grabado :-D!!!</p>
     </body>
