@@ -14,12 +14,13 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.xml.ws.http.HTTPBinding;
 
 /**
  *
  * @author AntonioCZ
  */
-public class RegistraReunion implements Serializable {
+public class RegistraReunionBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -35,9 +36,11 @@ public class RegistraReunion implements Serializable {
     private String tipostr;
     private Salasreuniones idsalareunion;
     private Collection<Adjunto> adjuntoCollection;
+    private String duracionhorareunion;
+    private String duracionminutosreunion;
    
-    /** Creates a new instance of RegistraReunion */
-    public RegistraReunion() {
+    /** Creates a new instance of RegistraReunionBean */
+    public RegistraReunionBean() {
     }
 
     public Date getFechafinalestimada() {
@@ -139,6 +142,24 @@ public class RegistraReunion implements Serializable {
     public void setMinutosstr(String minutosstr) {
         this.minutosstr = minutosstr;
     }
+
+    public String getDuracionhorareunion() {
+        return duracionhorareunion;
+    }
+
+    public void setDuracionhorareunion(String duracionhorareunion) {
+        this.duracionhorareunion = duracionhorareunion;
+    }
+
+    public String getDuracionminutosreunion() {
+        return duracionminutosreunion;
+    }
+
+    public void setDuracionminutosreunion(String duracionminutosreunion) {
+        this.duracionminutosreunion = duracionminutosreunion;
+    }
+    
+    
     
     public void calculaFechasReunion(Date fechareunion, String horareunion, String minutosreunion, String duracionhorareunion, String duracionminutosreunion){
         
@@ -158,6 +179,15 @@ public class RegistraReunion implements Serializable {
         
         this.fechainicial= fechinicialestimada.getTime();
         this.fechafinalestimada= fechfinalestimada.getTime();
+        
+    }
+    public String creaReunionPaso1 (){
+        
+        
+        
+        
+        return "Ok";
+        
         
     }
     

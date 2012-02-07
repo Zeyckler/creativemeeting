@@ -85,7 +85,24 @@
                                             </ice:selectOneMenu>
                                         </div></td>
                                 </tr>
-
+                                
+                                
+                                <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="listaduracionhorareunion">Duración de reunion:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin">
+                                            <ice:selectOneMenu id="listaduracionhorareunion" value="#{creaReunion.duracionhorareunion}" partialSubmit="false">
+                                                <f:selectItems id="duracionhorasreunionl" value="#{horaReunionBean.duracionhoras}"/>
+                                            </ice:selectOneMenu>
+                                            <ice:selectOneMenu id="listaduracionminutosreunion" value="#{creaReunion.duracionminutosreunion}" partialSubmit="false">
+                                                <f:selectItems id="duracionminutosreunionl" value="#{horaReunionBean.duracionminutos}"/>
+                                            </ice:selectOneMenu>
+                                        </div></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <ice:commandButton id="crearunionpasoq" value="Siguiente paso" action="#{creaReunion.creaReunionPaso1}"></ice:commandButton>
+                                    </td>
+                                </tr>
 
                             </table>
                         </ice:form>
