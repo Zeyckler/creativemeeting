@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <body>
+        <h:outputScript target="head" library="./resources/js/puntosdeldia.js" name="scriptpuntosdeldia"></h:outputScript>
+        <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
+
+            <ui:define name="title">
+                Crea Reunón - CreativeMeetings
+            </ui:define>
+
+            <ui:define name="logoempresa">
+
+            </ui:define>
+
+            <ui:define name="left">
+
+            </ui:define>
+
+            <ui:define name="right">
+
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="formulario" id="formularioreunion">
+                    <div> 
+                        <ice:form>
+                            <table class="tablaformulario" id="tablareunion">
+                                <tr><td colspan="2"><h1>Datos referidos a la reunión</h1></td></tr>                                
+
+
+
+                                <tr id="trpuntodeldia1" class="puntosdeldia">
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia1">Punto del día 1:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia1" value="#{creaReunionBean1.listapuntosdeldia[0]}" required="true" maxlength="255" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia1" for="puntodeldia1"></ice:message></div></td>
+                                </tr>
+
+                                <tr id="trpuntodeldia2" class="puntosdeldia" style="display:none;" >
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia2">Punto del día 2:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia2" value="#{creaReunionBean1.listapuntosdeldia[1]}" maxlength="255"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia2" for="puntodeldia2"></ice:message></div></td>
+                                </tr>
+
+                                <tr id="trpuntodeldia3" class="puntosdeldia" style="display:none;" >
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia3">Punto del día 3:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia3" value="#{creaReunionBean1.listapuntosdeldia[2]}" maxlength="255"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia3" for="puntodeldia3"></ice:message></div></td>
+                                </tr>
+
+                                <tr id="trpuntodeldia4" class="puntosdeldia" style="display:none;" >
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia4">Punto del día 4:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia4" value="#{creaReunionBean1.listapuntosdeldia[3]}" maxlength="255"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia4" for="puntodeldia4"></ice:message></div></td>
+                                </tr>
+                                <tr id="trpuntodeldia5" class="puntosdeldia" style="display:none;" >
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia5">Punto del día 5:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia5" value="#{creaReunionBean1.listapuntosdeldia[4]}" maxlength="255"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia5" for="puntodeldia5"></ice:message></div></td>
+                                </tr>
+                                <tr id="trpuntodeldia6" class="puntosdeldia" style="display:none;" >
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia6">Punto del día 6:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia6" value="#{creaReunionBean1.listapuntosdeldia[5]}" maxlength="255"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia6" for="puntodeldia6"></ice:message></div></td>
+                                </tr>
+                                <tr id="trpuntodeldia7" class="puntosdeldia" style="display:none;" >
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia7">Punto del día 7:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia7" value="#{creaReunionBean1.listapuntosdeldia[6]}" maxlength="255"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia7" for="puntodeldia7"></ice:message></div></td>
+                                </tr>
+                                <tr id="trpuntodeldia8" class="puntosdeldia" style="display:none;" >
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia8">Punto del día 8:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia8" value="#{creaReunionBean1.listapuntosdeldia[7]}" maxlength="255"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia8" for="puntodeldia8"></ice:message></div></td>
+                                </tr>
+                                <tr id="trpuntodeldia9" class="puntosdeldia" style="display:none;" >
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia9">Punto del día 9:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia9" value="#{creaReunionBean1.listapuntosdeldia[8]}" maxlength="255"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia9" for="puntodeldia9"></ice:message></div></td>
+                                </tr><tr id="trpuntodeldia10" class="puntosdeldia" style="display:none;" >
+                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia10">Punto del día 10:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia10" value="#{creaReunionBean1.listapuntosdeldia[9]}" maxlength="255"></ice:inputText></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia10" for="puntodeldia10"></ice:message></div></td>
+                                </tr>
+                                <ice:inputHidden id="numPuntos" value="1"></ice:inputHidden>
+
+                            </table>
+                            <input id="eliminarultimo" disabled="disabled" type="button"  value="Eliminar último" onclick="eliminaPuntoDelDia();"/>
+                            <input id="agregarnuevo" disabled="" type="button"  value="Agregar Nuevo" onclick="anadePuntoDelDia();"/>
+                        </ice:form>
+
+                    </div>
+
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

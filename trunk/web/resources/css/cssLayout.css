@@ -7,15 +7,15 @@
 
 .footer, .push {
     height: 26px;
-    bottom:0px;
     text-align:right;
+    width: 100%;
 }
 
 .wrapper {
     min-height: 100%;
-    height: auto;
+    height: auto!important;
     height: 100%;
-    margin: 0 auto -26px;
+    margin: 0 auto -30px;
 }
 
 #left {
@@ -131,4 +131,9 @@
     min-height: 165px;
     text-align: center;
 
+}
+
+.puntosdeldia{
+
+    height: 40px;
 }
