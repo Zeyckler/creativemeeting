@@ -149,9 +149,10 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>creaReunion</managed-bean-name>
-        <managed-bean-class>beans.RegistraReunionBean</managed-bean-class>
+        <managed-bean-name>creaReunionBean</managed-bean-name>
+        <managed-bean-class>beans.CreaReunionBean</managed-bean-class>
     
-        <managed-bean-scope>session</managed-bean-scope></managed-bean>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
 

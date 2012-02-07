@@ -4,6 +4,9 @@
  */
 package utiles;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * @author AntonioCZ
@@ -33,8 +36,8 @@ public class Fila <T> {
     public void setTipo(T tipo) {
         this.tipo = tipo;
     }
-    
-    
+   
+  
     
     
     

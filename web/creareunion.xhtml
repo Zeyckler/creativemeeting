@@ -69,7 +69,7 @@
 
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="tiporeunion">Tipo de reunión:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:selectOneMenu id="tiporeunion" value="#{creaReunion.tipostr}" partialSubmit="false">
+                                    <td><div class="inputslogin"><ice:selectOneMenu id="tiporeunion" value="#{creaReunionBean.tipostr}" partialSubmit="false">
                                                 <f:selectItems id="listatiposreunion" value="#{listaTipoReunion.tipos}"/>
                                             </ice:selectOneMenu></div></td>
                                 </tr>
@@ -77,10 +77,10 @@
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="listahorasreunion">Hora de comienzo:</ice:outputLabel></div></td>
                                     <td><div class="inputslogin">
-                                            <ice:selectOneMenu id="listahorasreunion" value="#{creaReunion.horastr}" partialSubmit="false">
+                                            <ice:selectOneMenu id="listahorasreunion" value="#{creaReunionBean.horastr}" partialSubmit="false">
                                                 <f:selectItems id="horasreunion" value="#{horaReunionBean.horas}"/>
                                             </ice:selectOneMenu>
-                                            <ice:selectOneMenu id="listaminutosreunion" value="#{creaReunion.minutosstr}" partialSubmit="false">
+                                            <ice:selectOneMenu id="listaminutosreunion" value="#{creaReunionBean.minutosstr}" partialSubmit="false">
                                                 <f:selectItems id="minutosreunion" value="#{horaReunionBean.minutos}"/>
                                             </ice:selectOneMenu>
                                         </div></td>
@@ -90,17 +90,17 @@
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="listaduracionhorareunion">Duración de reunion:</ice:outputLabel></div></td>
                                     <td><div class="inputslogin">
-                                            <ice:selectOneMenu id="listaduracionhorareunion" value="#{creaReunion.duracionhorareunion}" partialSubmit="false">
+                                            <ice:selectOneMenu id="listaduracionhorareunion" value="#{creaReunionBean.duracionhorareunion}" partialSubmit="false">
                                                 <f:selectItems id="duracionhorasreunionl" value="#{horaReunionBean.duracionhoras}"/>
                                             </ice:selectOneMenu>
-                                            <ice:selectOneMenu id="listaduracionminutosreunion" value="#{creaReunion.duracionminutosreunion}" partialSubmit="false">
+                                            <ice:selectOneMenu id="listaduracionminutosreunion" value="#{creaReunionBean.duracionminutosreunion}" partialSubmit="false">
                                                 <f:selectItems id="duracionminutosreunionl" value="#{horaReunionBean.duracionminutos}"/>
                                             </ice:selectOneMenu>
                                         </div></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <ice:commandButton id="crearunionpasoq" value="Siguiente paso" action="#{creaReunion.creaReunionPaso1}"></ice:commandButton>
+                                        <ice:commandButton id="crearunionpasoq" value="Siguiente paso" action="#{creaReunionBean.creaReunionPaso1}"></ice:commandButton>
                                     </td>
                                 </tr>
 
