@@ -10,8 +10,10 @@ import bd.Puntosdeldia;
 import bd.Salasreuniones;
 import bd.Tiporeuniones;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -20,13 +22,13 @@ import java.util.Date;
 public class RegistraReunion implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Date fecha;
-    private Date hora;
+    
+    private Date fechainicial;
+    private Date fechafinalestimada;
+    private Date fechafinalreal;
     private String horastr;
     private String minutosstr;
-    private Integer duracioninicial;
     private Integer coste;
-    private Integer duracionreal;
     private Collection<Puntosdeldia> puntosdeldiaCollection;
     private Collection<Asistenciareunion> asistenciareunionCollection;
     private Tiporeuniones idtipo;
@@ -38,6 +40,31 @@ public class RegistraReunion implements Serializable {
     public RegistraReunion() {
     }
 
+    public Date getFechafinalestimada() {
+        return fechafinalestimada;
+    }
+
+    public void setFechafinalestimada(Date fechafinalestimada) {
+        this.fechafinalestimada = fechafinalestimada;
+    }
+
+    public Date getFechafinalreal() {
+        return fechafinalreal;
+    }
+
+    public void setFechafinalreal(Date fechafinalreal) {
+        this.fechafinalreal = fechafinalreal;
+    }
+
+    public Date getFechainicial() {
+        return fechainicial;
+    }
+
+    public void setFechainicial(Date fechainicial) {
+        this.fechainicial = fechainicial;
+    }
+
+    
     public Collection<Adjunto> getAdjuntoCollection() {
         return adjuntoCollection;
     }
@@ -62,37 +89,7 @@ public class RegistraReunion implements Serializable {
         this.coste = coste;
     }
 
-    public Integer getDuracioninicial() {
-        return duracioninicial;
-    }
 
-    public void setDuracioninicial(Integer duracioninicial) {
-        this.duracioninicial = duracioninicial;
-    }
-
-    public Integer getDuracionreal() {
-        return duracionreal;
-    }
-
-    public void setDuracionreal(Integer duracionreal) {
-        this.duracionreal = duracionreal;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public Date getHora() {
-        return hora;
-    }
-
-    public void setHora(Date hora) {
-        this.hora = hora;
-    }
 
     public Salasreuniones getIdsalareunion() {
         return idsalareunion;
@@ -143,8 +140,25 @@ public class RegistraReunion implements Serializable {
         this.minutosstr = minutosstr;
     }
     
-    
-    
-    
+    public void calculaFechasReunion(Date fechareunion, String horareunion, String minutosreunion, String duracionhorareunion, String duracionminutosreunion){
+        
+        int hreunion= Integer.parseInt(horareunion);
+        int mreunion= Integer.parseInt(minutosreunion);
+        int durhorasreunion= Integer.parseInt(duracionhorareunion);
+        int durminutosreunion = Integer.parseInt(duracionminutosreunion);
+        
+        Calendar fechinicialestimada = new GregorianCalendar();
+        fechinicialestimada.setTime(fechareunion);
+        fechinicialestimada.set(Calendar.HOUR_OF_DAY , hreunion);
+        fechinicialestimada.set(Calendar.MINUTE, mreunion);
+        
+        Calendar fechfinalestimada= fechinicialestimada;
+        fechfinalestimada.add(Calendar.HOUR_OF_DAY, durhorasreunion);
+        fechfinalestimada.add(Calendar.MINUTE, durminutosreunion );
+        
+        this.fechainicial= fechinicialestimada.getTime();
+        this.fechafinalestimada= fechfinalestimada.getTime();
+        
+    }
     
 }

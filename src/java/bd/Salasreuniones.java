@@ -41,8 +41,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Salasreuniones.findByPais", query = "SELECT s FROM Salasreuniones s WHERE s.pais = :pais"),
     @NamedQuery(name = "Salasreuniones.findByCapacidad", query = "SELECT s FROM Salasreuniones s WHERE s.capacidad = :capacidad"),
     @NamedQuery(name = "Salasreuniones.findByCostealquiler", query = "SELECT s FROM Salasreuniones s WHERE s.costealquiler = :costealquiler"),
-    @NamedQuery(name = "Salasreuniones.findByTelefono", query = "SELECT s FROM Salasreuniones s WHERE s.telefono = :telefono")})
+    @NamedQuery(name = "Salasreuniones.findByTelefono", query = "SELECT s FROM Salasreuniones s WHERE s.telefono = :telefono"),
+    @NamedQuery(name = "Salasreuniones.findsalaslibresreunion1", query = "SELECT s FROM Salasreuniones s LEFT JOIN s.reunionesCollection reunion WHERE ( reunion.fechainicial NOT BETWEEN :fechinicial  AND :fechfinal) OR (reunion.fechafinalestimada  NOT BETWEEN :fechinicial  AND :fechfinal ) OR reunion.fechainicial IS NULL OR reunion.fechafinalestimada IS NULL   "),
+    @NamedQuery(name = "Salasreuniones.findsalaslibresreunion", query = "SELECT s FROM Salasreuniones s LEFT JOIN s.reunionesCollection reunion WHERE ( :fechinicial < reunion.fechainicial   AND :fechfinal <= reunion.fechainicial ) OR ( :fechfinal > reunion.fechafinalestimada   AND  :fechinicial >= reunion.fechafinalestimada ) OR reunion.fechainicial IS NULL OR reunion.fechafinalestimada IS NULL   ")
+
+
+})
 public class Salasreuniones implements Serializable {
+    
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,6 +62,9 @@ public class Salasreuniones implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "direccion")
     private String direccion;
+    @Size(max = 255)
+    @Column(name = "nombresala")
+    private String nombresala;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -94,6 +103,8 @@ public class Salasreuniones implements Serializable {
     private Empresas nif;
     
     /*Espacio reservado para las consultas*/
+    
+    public static final String BUSCAR_SALASLIBREFECHA = "Salasreuniones.findsalaslibresreunion";
     
     
     
@@ -242,6 +253,14 @@ public class Salasreuniones implements Serializable {
 
     public void setNif(Empresas nif) {
         this.nif = nif;
+    }
+
+    public String getNombresala() {
+        return nombresala;
+    }
+
+    public void setNombresala(String nombresala) {
+        this.nombresala = nombresala;
     }
     
 }
