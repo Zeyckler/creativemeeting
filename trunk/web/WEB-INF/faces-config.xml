@@ -43,6 +43,15 @@
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>/creareunion.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{calendarioUsuarioBean.irAnioCreaReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/creareunion.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
     <managed-bean>
         <managed-bean-name>holaBean</managed-bean-name>
         <managed-bean-class>beans.HolaBean</managed-bean-class>

@@ -23,12 +23,14 @@ public class CalendarioUsuarioBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private List<Reuniones> listareuniones;
+    private List<Reuniones> listareunionescreareunion;
     private String reunionescadena;
+    private String reunionescadenacreareunion;
     private Integer anio;
+    private Integer aniocreareunion;
     private Date fecha;
     private Integer listaanios[];
     private Integer listaanioscreareunion[];
-    private String fechias = "1,2,3,4,5,6,7,8,9,10";
 
     /** Creates a new instance of CalendarioUsuarioBean */
     public CalendarioUsuarioBean() {
@@ -37,10 +39,13 @@ public class CalendarioUsuarioBean implements Serializable {
     public CalendarioUsuarioBean(String dniusuario) {
 
         this.anio = Calendar.getInstance().get(Calendar.YEAR);
+        this.aniocreareunion= Calendar.getInstance().get(Calendar.YEAR);
         //Lista de reuniones por el año actual inicialmente
         this.listareuniones = Consultas.buscaReunionesUsuarioAnio(dniusuario, anio);
+        this.listareunionescreareunion = Consultas.buscaReunionesUsuarioAnio(dniusuario, anio);
         //String con los dias del año que tienes reunión
         this.reunionescadena = this.trasformaListaFechaCadena(this.listareuniones);
+        this.reunionescadenacreareunion = this.trasformaListaFechaCadena(this.listareuniones);
         //Primer dia del año que se marcara el el calendario
         this.fecha = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, 0, 2);
         //Lista por defecto para elegir el año de las reuniones
@@ -81,13 +86,6 @@ public class CalendarioUsuarioBean implements Serializable {
         this.anio = anio;
     }
 
-    public String getFechias() {
-        return fechias;
-    }
-
-    public void setFechias(String fechias) {
-        this.fechias = fechias;
-    }
 
     public List<Reuniones> getListareuniones() {
         return listareuniones;
@@ -104,6 +102,30 @@ public class CalendarioUsuarioBean implements Serializable {
     public void setListaanioscreareunion(Integer[] listaanioscreareunion) {
         this.listaanioscreareunion = listaanioscreareunion;
     }
+
+    public Integer getAniocreareunion() {
+        return aniocreareunion;
+    }
+
+    public void setAniocreareunion(Integer aniocreareunion) {
+        this.aniocreareunion = aniocreareunion;
+    }
+
+    public List<Reuniones> getListareunionescreareunion() {
+        return listareunionescreareunion;
+    }
+
+    public void setListareunionescreareunion(List<Reuniones> listareunionescreareunion) {
+        this.listareunionescreareunion = listareunionescreareunion;
+    }
+
+    public String getReunionescadenacreareunion() {
+        return reunionescadenacreareunion;
+    }
+
+    public void setReunionescadenacreareunion(String reunionescadenacreareunion) {
+        this.reunionescadenacreareunion = reunionescadenacreareunion;
+    }
     
     
 
@@ -119,6 +141,25 @@ public class CalendarioUsuarioBean implements Serializable {
         setFecha(new Date(anio - 1900, 0, 2));
         setListareuniones(Consultas.buscaReunionesUsuarioAnio(dni, anio));
         setReunionescadena(trasformaListaFechaCadena(this.listareuniones));
+        
+        return "ok";
+
+    }
+    public String irAnioCreaReunion() {
+        
+        //Coger el Dni de Usuario para actualizar lista reuniones
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        UsuariosBean usBean = (UsuariosBean) session.getAttribute("usuario");
+        String dni = usBean.getDni();
+        
+        CreaReunionBean creareunionb= (CreaReunionBean) session.getAttribute("creaReunionBean");
+        creareunionb.setFechaCalendario(new Date(this.aniocreareunion - 1900, 0, 2));
+        session.setAttribute("creaReunionBean", creareunionb);
+        
+        
+        setListareunionescreareunion(Consultas.buscaReunionesUsuarioAnio(dni, this.aniocreareunion));
+        setReunionescadenacreareunion(trasformaListaFechaCadena(this.listareuniones));
         
         return "ok";
 
