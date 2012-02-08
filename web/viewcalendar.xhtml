@@ -33,8 +33,8 @@
 
                 <ice:form id="formulariocalendario">
                     <div id="calendario">
-                        <c:set var="calendarioUsuarioBean" value="#{usuario.calusuario}">
-                        </c:set>
+                        <!--<c:set var="calendarioUsuarioBean" value="#{usuario.calusuario}">
+                        </c:set>-->
                         <ice:selectOneMenu value="#{calendarioUsuarioBean.anio}" >
                             <f:selectItems value="#{calendarioUsuarioBean.listaanios}" ></f:selectItems>
                         </ice:selectOneMenu> 
@@ -42,8 +42,7 @@
                         <ice:selectInputDate  styleClass="calendarioReuniones"  id="anoreunion" partialSubmit="true"
                                               required="true" renderMonthAsDropdown="true" renderYearAsDropdown="false" 
                                               highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK: MONTH: DAY_OF_YEAR" 
-                                              highlightValue="1,7: 8: #{calendarioUsuarioBean.reunionescadena}" value="#{calendarioUsuarioBean.fecha}" 
-                                              valueChangeListener="#{holaBean.seleccionFechaChange}">
+                                              highlightValue="1,7: 8: #{calendarioUsuarioBean.reunionescadena}" value="#{calendarioUsuarioBean.fecha}">
                             <f:converter converterId="javax.faces.DateTime"/> 
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </ice:selectInputDate>

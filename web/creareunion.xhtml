@@ -30,7 +30,7 @@
             </ui:define>
 
             <ui:define name="content">
-                <c:set var="calendarioUsuarioBean" value="#{usuario.calusuario}"></c:set>
+               <!-- <c:set var="calendarioUsuarioBean" value="#{usuario.calusuario}"></c:set>-->
                 <div class="formulario" id="formularioreunion">
                     <div> 
                         <ice:form>
@@ -40,15 +40,11 @@
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="nif">Selecciona año Reunión:</ice:outputLabel></div></td>
                                     <td>
-                                        <div  class="inputslogin" ><ice:selectOneMenu value="#{calendarioUsuarioBean.anio}" >
+                                        <div  class="inputslogin" >
+                                            <ice:selectOneMenu value="#{calendarioUsuarioBean.aniocreareunion}" >
                                                 <f:selectItems value="#{calendarioUsuarioBean.listaanioscreareunion}" ></f:selectItems>
                                             </ice:selectOneMenu>
-                                             <ice:commandButton action="#{calendarioUsuarioBean.irAnio}" value="Cambiar a&ntilde;o"></ice:commandButton>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="inputslogin">
-                                           
+                                            <ice:commandButton action="#{calendarioUsuarioBean.irAnioCreaReunion}" value="Cambiar a&ntilde;o"></ice:commandButton>
                                         </div>
                                     </td>
 
@@ -56,14 +52,14 @@
 
                                 <tr>
                                     <td  colspan="3">   
-                                            <ice:selectInputDate  styleClass="calendarioReuniones"  id="anoreunion" partialSubmit="true"
-                                                                  required="true" renderMonthAsDropdown="true" renderYearAsDropdown="false" 
-                                                                  highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK :MONTH: DAY_OF_YEAR" 
-                                                                  highlightValue="1,7: : #{calendarioUsuarioBean.reunionescadena}" 
-                                                                  value="#{calendarioUsuarioBean.fecha}" valueChangeListener="#{holaBean.seleccionFechaChange}">
-                                                <f:converter converterId="javax.faces.DateTime"/> 
-                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                            </ice:selectInputDate>
+                                        <ice:selectInputDate  styleClass="calendarioReuniones"  id="anoreunion" partialSubmit="true"
+                                                              required="true" renderMonthAsDropdown="true" renderYearAsDropdown="false" 
+                                                              highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK :MONTH: DAY_OF_YEAR" 
+                                                              highlightValue="1,7: : #{calendarioUsuarioBean.reunionescadenacreareunion}" 
+                                                              value="#{creaReunionBean.fechaCalendario}">
+                                            <f:converter converterId="javax.faces.DateTime"/> 
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </ice:selectInputDate>
                                     </td>
                                 </tr>
 
@@ -85,8 +81,8 @@
                                             </ice:selectOneMenu>
                                         </div></td>
                                 </tr>
-                                
-                                
+
+
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="listaduracionhorareunion">Duración de reunion:</ice:outputLabel></div></td>
                                     <td><div class="inputslogin">

@@ -63,8 +63,7 @@ public class UsuariosBean implements Serializable {
     //No necesita validacion
     private Empresas nif;
     private String niftmp;
-    //No necesita Validacion 
-    private CalendarioUsuarioBean calusuario;
+
 
     public UsuariosBean() {
     }
@@ -91,7 +90,6 @@ public class UsuariosBean implements Serializable {
         this.salario = us.getSalario();
         this.telefono = us.getTelefono();
         this.usuario = us.getUsuario();
-        calusuario = creCalendarioUsuario();
 
 
 
@@ -258,14 +256,6 @@ public class UsuariosBean implements Serializable {
         this.usuario = usuario;
     }
 
-    public CalendarioUsuarioBean getCalusuario() {
-        return calusuario;
-    }
-
-    public void setCalusuario(CalendarioUsuarioBean calusuario) {
-        this.calusuario = calusuario;
-    }
-
     public String getNiftmp() {
         return niftmp;
     }
@@ -314,7 +304,7 @@ public class UsuariosBean implements Serializable {
     public CalendarioUsuarioBean creCalendarioUsuario() {
 
 
-        String res = "";
+  
         CalendarioUsuarioBean calbean;
         /*try {
         FacesContext ctx = FacesContext.getCurrentInstance();

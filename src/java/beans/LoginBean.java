@@ -110,6 +110,7 @@ public class LoginBean implements Serializable {
         if (a != null) {
             UsuariosBean user = new UsuariosBean(a);
             EmpresaBean emp = new EmpresaBean(a.getNif());
+            CalendarioUsuarioBean calendariouserbean = user.creCalendarioUsuario();
 
 
             // -----------------Nuevo 8-11-11
@@ -119,7 +120,8 @@ public class LoginBean implements Serializable {
 
             session.setAttribute("usuario", user);
             session.setAttribute("empresa", emp);
-
+            session.setAttribute("calendarioUsuarioBean", calendariouserbean);
+            
             // -----------------
 
 

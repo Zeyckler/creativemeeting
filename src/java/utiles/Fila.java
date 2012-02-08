@@ -16,6 +16,7 @@ public class Fila <T> {
     private T tipo;
     private boolean seleccionada;
 
+
     public Fila(T tipo, boolean seleccionada) {
         this.tipo = tipo;
         this.seleccionada = seleccionada;
@@ -37,7 +38,6 @@ public class Fila <T> {
         this.tipo = tipo;
     }
    
-  
     
     
     

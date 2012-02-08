@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -30,6 +31,7 @@ public class CreaReunionBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    private Date fechaCalendario = Calendar.getInstance().getTime();
     private Date fechainicial;
     private Date fechafinalestimada;
     private Date fechafinalreal;
@@ -44,7 +46,8 @@ public class CreaReunionBean implements Serializable {
     private String duracionhorareunion;
     private String duracionminutosreunion;
     private Usuarios dnicreador;
-   
+    private List<Fila<Salasreuniones>> filassalasdisponible;
+
     /** Creates a new instance of CreaReunionBean */
     public CreaReunionBean() {
     }
@@ -73,7 +76,6 @@ public class CreaReunionBean implements Serializable {
         this.fechainicial = fechainicial;
     }
 
-
     public Collection<Asistenciareunion> getAsistenciareunionCollection() {
         return asistenciareunionCollection;
     }
@@ -90,8 +92,6 @@ public class CreaReunionBean implements Serializable {
         this.coste = coste;
     }
 
-
-
     public Salasreuniones getIdsalareunion() {
         return idsalareunion;
     }
@@ -107,7 +107,6 @@ public class CreaReunionBean implements Serializable {
     public void setIdtipo(Tiporeuniones idtipo) {
         this.idtipo = idtipo;
     }
-
 
     public Collection<Puntosdeldia> getPuntosdeldiaCollection() {
         return puntosdeldiaCollection;
@@ -164,53 +163,97 @@ public class CreaReunionBean implements Serializable {
     public void setDnicreador(Usuarios dnicreador) {
         this.dnicreador = dnicreador;
     }
+
+    public List<Fila<Salasreuniones>> getFilassalasdisponible() {
+        return filassalasdisponible;
+    }
+
+    public void setFilassalasdisponible(List<Fila<Salasreuniones>> filassalasdisponible) {
+        this.filassalasdisponible = filassalasdisponible;
+    }
+
+    public Date getFechaCalendario() {
+        return fechaCalendario;
+    }
+
+    public void setFechaCalendario(Date fechaCalendario) {
+        this.fechaCalendario = fechaCalendario;
+    }
     
     
-    
-    
-    
-    
-    public void calculaFechasReunion(Date fechareunion, String horareunion, String minutosreunion, String duracionhorareunion, String duracionminutosreunion){
-        
-        int hreunion= Integer.parseInt(horareunion);
-        int mreunion= Integer.parseInt(minutosreunion);
-        int durhorasreunion= Integer.parseInt(duracionhorareunion);
+
+    public void calculaFechasReunion(Date fechareunion, String horareunion, String minutosreunion, String duracionhorareunion, String duracionminutosreunion) {
+
+        int hreunion = Integer.parseInt(horareunion);
+        int mreunion = Integer.parseInt(minutosreunion);
+        int durhorasreunion = Integer.parseInt(duracionhorareunion);
         int durminutosreunion = Integer.parseInt(duracionminutosreunion);
-        
+
         Calendar fechinicialestimada = new GregorianCalendar();
         fechinicialestimada.setTime(fechareunion);
-        fechinicialestimada.set(Calendar.HOUR_OF_DAY , hreunion);
+        fechinicialestimada.set(Calendar.HOUR_OF_DAY, hreunion);
         fechinicialestimada.set(Calendar.MINUTE, mreunion);
-        
-        Calendar fechfinalestimada= fechinicialestimada;
+
+        Calendar fechfinalestimada = fechinicialestimada;
         fechfinalestimada.add(Calendar.HOUR_OF_DAY, durhorasreunion);
-        fechfinalestimada.add(Calendar.MINUTE, durminutosreunion );
-        
-        this.fechainicial= fechinicialestimada.getTime();
-        this.fechafinalestimada= fechfinalestimada.getTime();
-        
+        fechfinalestimada.add(Calendar.MINUTE, durminutosreunion);
+
+        this.fechainicial = fechinicialestimada.getTime();
+        this.fechafinalestimada = fechfinalestimada.getTime();
+
     }
-    public String creaReunionPaso1 (){
+
+    public String creaReunionPaso1() {
+        
+        String res= null;
+
+        /* Cogemos la sesión actual*/
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        
-        CreaReunionBean creareunion = (CreaReunionBean)session.getAttribute("creaReunionBean");
-        
-        calculaFechasReunion(this.fechafinalestimada, this.horastr, this.minutosstr, this.duracionhorareunion, this.duracionminutosreunion);
-        
+
+        /* Cogemos el creaReunionBean de la sesión*/
+        CreaReunionBean creareunion = (CreaReunionBean) session.getAttribute("creaReunionBean");
+
+        /* Calculamos las fechas iniciales y finales de la reunion*/
+        calculaFechasReunion(this.fechaCalendario, this.horastr, this.minutosstr, this.duracionhorareunion, this.duracionminutosreunion);
+
         creareunion.setFechainicial(this.fechainicial);
         creareunion.setFechafinalestimada(this.fechafinalestimada);
+
+        /*Calculamos la Lista de Filas de Salas disponibles para mostrarlas en el siguiente paso*/
+        List<Salasreuniones> listasalasdisponibles = Consultas.buscaSalasLibreFecha(this.fechainicial, this.fechafinalestimada);
+        List<Fila<Salasreuniones>> filassalasd = new LinkedList<Fila<Salasreuniones>>();
+
+        for (Salasreuniones salas : listasalasdisponibles) {
+            Fila<Salasreuniones> fila = new Fila(salas, false);
+            filassalasd.add(fila);
+        }
+        this.filassalasdisponible = filassalasd;
+        creareunion.setFilassalasdisponible(this.filassalasdisponible);
+
+        if (filassalasd.isEmpty()) {
+            
+            res="salasnodisponibles";
+            
+        } else {
+
+            /*Asignamos los valores calculados a la sesión*/
+
+            creareunion.setFechainicial(this.fechainicial);
+            creareunion.setFechafinalestimada(this.fechafinalestimada);
+            creareunion.setFilassalasdisponible(this.filassalasdisponible);
+
+            session.setAttribute("creaReunionBean", creareunion);
+
+
+
+            res="ok";
+            
+        }
+        System.out.print(res);
+        System.out.print(filassalasdisponible.size());
         
-        session.setAttribute("creaReunionBean", creareunion);
-        
-        List<Salasreuniones> listasalasvacias = Consultas.buscaSalasLibreFecha(this.fechainicial, this.fechafinalestimada);
-        List<Fila<Salasreuniones>> filasreunionesvacias;
-        
-        
-        
-        return "Ok";
-        
-        
+        return res;
+
     }
-    
 }
