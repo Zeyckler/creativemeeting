@@ -33,23 +33,33 @@ a:link:hover, a:visited:hover  {
     text-decoration : underline;
 }
 .antonio {
-   background: #0bbdbd;
+    background: #0bbdbd;
 }
 .antonio .iceCmdLnk {
     background: none;
     border: none;
 }
-    
+
 .juan{
-    
+
     background-color: greenyellow;
 }
 .juan .iceCmdLnk{
-     background:none;
-    
+    background:none;
+
 }
 
 .calendarioReunionesMonthYear .iceCmdLnk{
-    
+
     display: none;
+}
+.iceRowSelSelected .iceOutTxt{
+    color:black!important;
+}
+.iceRowSelSelectedMouseOver{
+    background-color: #FF4673!important;
+}
+
+.iceRowSelSelected{
+    background-color: #FFB500!important;
 }

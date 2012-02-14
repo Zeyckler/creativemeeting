@@ -4,6 +4,7 @@
  */
 package utiles;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,8 +12,9 @@ import java.util.List;
  *
  * @author AntonioCZ
  */
-public class Fila <T> {
-    
+public class Fila <T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private T tipo;
     private boolean seleccionada;
 

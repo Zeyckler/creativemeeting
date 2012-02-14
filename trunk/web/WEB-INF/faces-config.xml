@@ -168,5 +168,18 @@
         <managed-bean-class>beans.CreaReunionBean1</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+     <navigation-rule>
+        <from-view-id>/creareunion.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionPaso1}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/creareunion_2.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionPaso1}</from-action>
+            <from-outcome>salasnodisponibles</from-outcome>
+            <to-view-id>/error_1.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
 
