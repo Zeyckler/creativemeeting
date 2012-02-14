@@ -2,14 +2,17 @@ var puntosdeldia = 1;
 var totalpuntosdeldia = 1;
 
 function anadePuntoDelDia() {
-    var idpuntodeldiaAnterior = "#trpuntodeldia" + (puntosdeldia+1);
-    $(idpuntodeldiaAnterior).show(600);
-    puntosdeldia++;
-    totalpuntosdeldia++;
-    $("#numPuntos").val(totalpuntosdeldia);
-    $("#eliminarultimo").removeAttr('disabled');
-    if (totalpuntosdeldia==10){
-        $("#agregarnuevo").attr('disabled', 'disabled');   
+    
+    if(totalpuntosdeldia<10){
+        var idpuntodeldiaAnterior = "#trpuntodeldia" + (puntosdeldia+1);
+        $(idpuntodeldiaAnterior).show(600);
+        puntosdeldia++;
+        totalpuntosdeldia++;
+        $("#numPuntos").val(totalpuntosdeldia);
+        $("#eliminarultimo").removeAttr('disabled');
+        if (totalpuntosdeldia==10){
+            $("#agregarnuevo").attr('disabled', 'disabled');   
+        }
     }
     
     
