@@ -10,6 +10,8 @@ import bd.Puntosdeldia;
 import bd.Salasreuniones;
 import bd.Tiporeuniones;
 import bd.Usuarios;
+import com.icesoft.faces.component.ext.RowSelectorEvent;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
@@ -17,11 +19,17 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.http.HTTPBinding;
 import utiles.Consultas;
 import utiles.Fila;
+import com.icesoft.faces.component.ext.RowSelector;
+import com.icesoft.faces.component.ext.RowSelectorEvent;
+
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 /**
  *
@@ -30,7 +38,6 @@ import utiles.Fila;
 public class CreaReunionBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
     private Date fechaCalendario = Calendar.getInstance().getTime();
     private Date fechainicial;
     private Date fechafinalestimada;
@@ -47,6 +54,7 @@ public class CreaReunionBean implements Serializable {
     private String duracionminutosreunion;
     private Usuarios dnicreador;
     private List<Fila<Salasreuniones>> filassalasdisponible;
+    private List<Salasreuniones> salaSeleccionada = new LinkedList<Salasreuniones>();
 
     /** Creates a new instance of CreaReunionBean */
     public CreaReunionBean() {
@@ -179,8 +187,14 @@ public class CreaReunionBean implements Serializable {
     public void setFechaCalendario(Date fechaCalendario) {
         this.fechaCalendario = fechaCalendario;
     }
-    
-    
+
+    public List<Salasreuniones> getSalaSeleccionada() {
+        return salaSeleccionada;
+    }
+
+    public void setSalaSeleccionada(List<Salasreuniones> salaSeleccionada) {
+        this.salaSeleccionada = salaSeleccionada;
+    }
 
     public void calculaFechasReunion(Date fechareunion, String horareunion, String minutosreunion, String duracionhorareunion, String duracionminutosreunion) {
 
@@ -204,8 +218,8 @@ public class CreaReunionBean implements Serializable {
     }
 
     public String creaReunionPaso1() {
-        
-        String res= null;
+
+        String res = null;
 
         /* Cogemos la sesión actual*/
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -232,9 +246,9 @@ public class CreaReunionBean implements Serializable {
         creareunion.setFilassalasdisponible(this.filassalasdisponible);
 
         if (filassalasd.isEmpty()) {
-            
-            res="salasnodisponibles";
-            
+
+            res = "salasnodisponibles";
+
         } else {
 
             /*Asignamos los valores calculados a la sesión*/
@@ -247,13 +261,35 @@ public class CreaReunionBean implements Serializable {
 
 
 
-            res="ok";
-            
+            res = "ok";
+
         }
         System.out.print(res);
         System.out.print(filassalasdisponible.size());
-        
+
         return res;
 
     }
+    public String creaReunionPaso2() {
+        
+        return "ok";
+    }
+
+    public void filaSeleccionadaListener(RowSelectorEvent event) {
+
+        this.salaSeleccionada.clear();
+        Integer numerofilas = filassalasdisponible.size();
+
+        for (int i = 0, max = numerofilas; i < max; i++) {
+
+            Fila<Salasreuniones> fila = filassalasdisponible.get(i);
+            if (fila.isSeleccionada()) {
+                this.salaSeleccionada.add(fila.getTipo());
+            }
+
+        }
+
+    }
+
+   
 }

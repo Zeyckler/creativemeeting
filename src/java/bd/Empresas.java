@@ -43,6 +43,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empresas.findByLogotipo", query = "SELECT e FROM Empresas e WHERE e.logotipo = :logotipo")
 })
 public class Empresas implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nif2")
+    private Collection<Empresasamigas> empresasamigasCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nif1")
+    private Collection<Empresasamigas> empresasamigasCollection1;
     
     @OneToMany(mappedBy = "nif")
     private Collection<Salasreuniones> salasreunionesCollection;
@@ -288,6 +292,24 @@ public class Empresas implements Serializable {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    @XmlTransient
+    public Collection<Empresasamigas> getEmpresasamigasCollection() {
+        return empresasamigasCollection;
+    }
+
+    public void setEmpresasamigasCollection(Collection<Empresasamigas> empresasamigasCollection) {
+        this.empresasamigasCollection = empresasamigasCollection;
+    }
+
+    @XmlTransient
+    public Collection<Empresasamigas> getEmpresasamigasCollection1() {
+        return empresasamigasCollection1;
+    }
+
+    public void setEmpresasamigasCollection1(Collection<Empresasamigas> empresasamigasCollection1) {
+        this.empresasamigasCollection1 = empresasamigasCollection1;
     }
     
 }

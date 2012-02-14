@@ -14,23 +14,100 @@
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
 
             <ui:define name="title">
-                title
+
             </ui:define>
 
             <ui:define name="logoempresa">
-                logoempresa
+
             </ui:define>
 
             <ui:define name="left">
-                left
+
             </ui:define>
 
             <ui:define name="right">
-                right
+
             </ui:define>
 
             <ui:define name="content">
-                content
+                <div class="formulario" id="formularioreunion">
+                    <div> 
+                        <ice:form>
+                            <ice:panelGroup styleClass="rowSelectorContainer">
+                                <ice:panelGroup styleClass="exampleBox">
+
+                                    <ice:dataTable id="salasdisponibles" var="salas" value="#{creaReunionBean.filassalasdisponible}"
+                                                   rows="5" columnClasses="tableCol">
+                                        <ice:column>
+                                            <ice:rowSelector id="seleccionado"
+
+                                                             value="#{salas.seleccionada}"
+                                                             multiple="false"                                 
+                                                             selectionListener="#{creaReunionBean.filaSeleccionadaListener}"
+                                                             />
+
+                                            <f:facet name="header">
+                                                <ice:outputText id="column1"
+                                                                value="Dirección Sala"/>
+                                            </f:facet>
+                                            <ice:outputText id="direccionsala" value="#{salas.tipo.direccion}"/>
+
+
+                                        </ice:column>
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <ice:outputText id="column2"
+                                                                value="Nombre"/>
+                                            </f:facet>
+                                            <ice:outputText id="nombresala" value="#{salas.tipo.nombresala}"/>
+                                        </ice:column>
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <ice:outputText id="column3"
+                                                                value="Capacidad"/>
+                                            </f:facet>
+                                            <ice:outputText id="capacidadsala" value="#{salas.tipo.capacidad}"/>
+                                        </ice:column>
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <ice:outputText id="column4"
+                                                                value="Coste €/hora"/>
+                                            </f:facet>
+                                            <ice:outputText id="costesala" value="#{salas.tipo.costealquiler}"/>
+                                        </ice:column>
+                                        <ice:column>
+                                            <f:facet name="header">
+                                                <ice:outputText id="column5"
+                                                                value="Telefono"/>
+                                            </f:facet>
+                                            <ice:outputText id="telefonosala" value="#{salas.tipo.telefono}"/>
+                                        </ice:column>
+                                    </ice:dataTable>
+                                    <ice:dataPaginator id="dataScroll_3" for="salasdisponibles" paginator="true" fastStep="3" paginatorMaxPages="4">
+                                        <f:facet name="first">
+                                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
+                                        </f:facet>
+                                        <f:facet name="last">
+                                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
+                                        </f:facet>
+                                        <f:facet name="previous">
+                                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
+                                        </f:facet>
+                                        <f:facet name="next">
+                                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
+                                        </f:facet>
+                                    </ice:dataPaginator>
+                                    <ice:commandButton id="crearunionpaso2" value="Siguiente paso" action="#{creaReunionBean.creaReunionPaso2}"></ice:commandButton>
+
+                                </ice:panelGroup>
+                            </ice:panelGroup>
+                        </ice:form>
+                    </div>
+                </div>
+
+
+
+
             </ui:define>
 
         </ui:composition>
