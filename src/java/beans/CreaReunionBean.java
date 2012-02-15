@@ -4,14 +4,11 @@
  */
 package beans;
 
-import bd.Adjunto;
 import bd.Asistenciareunion;
 import bd.Puntosdeldia;
 import bd.Salasreuniones;
 import bd.Tiporeuniones;
 import bd.Usuarios;
-import com.icesoft.faces.component.ext.RowSelectorEvent;
-import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
@@ -19,17 +16,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.http.HTTPBinding;
 import utiles.Consultas;
 import utiles.Fila;
-import com.icesoft.faces.component.ext.RowSelector;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 
 /**
  *
@@ -55,9 +47,27 @@ public class CreaReunionBean implements Serializable {
     private Usuarios dnicreador;
     private List<Fila<Salasreuniones>> filassalasdisponible;
     private List<Salasreuniones> salaSeleccionada = new LinkedList<Salasreuniones>();
+    private LinkedList<String> listapuntosdeldia;
+    private LinkedList<String> display;
+    int posicion;
+    boolean eliminaUltimoDisabled = true;
+    boolean agregaNuevoDisabled = false;
+
+    {
+        listapuntosdeldia = new LinkedList<String>();
+        for (int i = 0; i < 10; i++) {
+            listapuntosdeldia.add(i, "");
+            listapuntosdeldia.add(i, "display:none;");
+        }
+        posicion = 0;
+    }
 
     /** Creates a new instance of CreaReunionBean */
     public CreaReunionBean() {
+        listapuntosdeldia = new LinkedList<String>();
+        for (int i = 0; i < 10; i++) {
+            listapuntosdeldia.add(i, "");
+        }
     }
 
     public Date getFechafinalestimada() {
@@ -270,8 +280,13 @@ public class CreaReunionBean implements Serializable {
         return res;
 
     }
+
+    public String creaReunionPaso2Anterior() {
+        return "ok";
+    }
+
     public String creaReunionPaso2() {
-        
+
         return "ok";
     }
 
@@ -291,5 +306,92 @@ public class CreaReunionBean implements Serializable {
 
     }
 
-   
+    public LinkedList<String> getlistapuntosdeldia() {
+        return listapuntosdeldia;
+    }
+
+    public void agregarNuevo() {
+        if (this.posicion < 9) {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+            CreaReunionBean a = (CreaReunionBean) session.getAttribute("creaReunionBean");
+            if (!(a.getListapuntosdeldia().get(this.posicion).equals(""))) {
+
+                this.posicion++;
+                this.display.set(posicion, "");
+                if (this.posicion > 8) {
+                    agregaNuevoDisabled = true;
+                }
+                if (this.posicion > 0) {
+                    eliminaUltimoDisabled = false;
+                }
+            }
+        }
+    }
+
+    public void eliminaUltimo() {
+        if (this.posicion > 0) {
+
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+            CreaReunionBean a = (CreaReunionBean) session.getAttribute("creaReunionBean");
+            a.getListapuntosdeldia().set(this.posicion, "");
+            session.setAttribute("creaReunionBean", a);
+
+            this.posicion--;
+            if (this.posicion == 0) {
+                eliminaUltimoDisabled = true;
+            }
+            if (this.posicion < 9) {
+                agregaNuevoDisabled = false;
+            }
+        }
+
+    }
+
+    public void contenidoLista() {
+        System.out.println("\n======\nDebug\n======");
+        System.out.println("Posicion: " + getPosicion());
+        for (String a : listapuntosdeldia) {
+            System.out.println(a);
+        }
+    }
+
+    public void setlistapuntosdeldia(LinkedList<String> listapuntosdeldia) {
+        this.listapuntosdeldia = listapuntosdeldia;
+    }
+
+    public LinkedList<String> getListapuntosdeldia() {
+        return listapuntosdeldia;
+    }
+
+    public int getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
+    }
+
+    public boolean isAgregaNuevoDisabled() {
+        return agregaNuevoDisabled;
+    }
+
+    public void setAgregaNuevoDisabled(boolean agregaNuevoDisabled) {
+        this.agregaNuevoDisabled = agregaNuevoDisabled;
+    }
+
+    public boolean isEliminaUltimoDisabled() {
+        return eliminaUltimoDisabled;
+    }
+
+    public void setEliminaUltimoDisabled(boolean eliminaUltimoDisabled) {
+        this.eliminaUltimoDisabled = eliminaUltimoDisabled;
+    }
+
+    public LinkedList<String> getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(LinkedList<String> display) {
+        this.display = display;
+    }
 }
