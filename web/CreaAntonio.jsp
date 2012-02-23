@@ -286,7 +286,7 @@
             q1.setParameter("nif", "28500490v");
             int a= q1.getResultList().size();
             out.print(a);*/
-        Date dinicial= new Date(111, 1, 13, 11, 30, 0);
+        /*Date dinicial= new Date(111, 1, 13, 11, 30, 0);
         Date dfinal= new Date(111, 1, 13, 13, 30, 0);
         
         out.print(dinicial);
@@ -300,7 +300,16 @@
         for(Salasreuniones sl:l1){
             out.print(sl.getNombresala());
             out.print("</br>");
+        }*/
+        
+        List<Object[]> empresasa= Consultas.buscaempresasAmigas("28786879z");
+        
+        for(Object[] e: empresasa){
+           out.println(e[0]+ "   " +e[1]);
         }
+                
+        
+       
         %>
         <p>¡¡¡Antonio ha sido grabado :-D!!!</p>
     </body>
