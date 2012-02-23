@@ -31,153 +31,125 @@
 
             <ui:define name="content">
                 <div class="formulario" id="formularioreunion">
-                    <div> 
-                        <ice:form>
-                            <ice:panelGroup styleClass="rowSelectorContainer">
-                                <ice:panelGroup styleClass="exampleBox">
+                    <ice:form>
 
-                                    <ice:dataTable id="salasdisponibles" var="salas" value="#{creaReunionBean.filassalasdisponible}"
-                                                   rows="5" columnClasses="tableCol">
-                                        <ice:column>
-                                            <ice:rowSelector id="seleccionado"
+                        <ice:dataTable id="salasdisponibles"  var="salas" value="#{creaReunionBean.filassalasdisponible}"
+                                       rows="5" columnClasses="tableCol">
+                            <ice:column>
+                                <ice:rowSelector id="seleccionado"
+                                                 
+                                                 value="#{salas.seleccionada}"
+                                                 multiple="false"                                 
+                                                 selectionListener="#{creaReunionBean.filaSeleccionadaListener}"
+                                                 />
 
-                                                             value="#{salas.seleccionada}"
-                                                             multiple="false"                                 
-                                                             selectionListener="#{creaReunionBean.filaSeleccionadaListener}"
-                                                             />
-
-                                            <f:facet name="header">
-                                                <ice:outputText id="column1"
-                                                                value="Dirección Sala"/>
-                                            </f:facet>
-                                            <ice:outputText id="direccionsala" value="#{salas.tipo.direccion}"/>
+                                <f:facet name="header">
+                                    <ice:outputText id="column1"
+                                                    value="Dirección Sala"/>
+                                </f:facet>
+                                <ice:outputText id="direccionsala" value="#{salas.tipo.direccion}"/>
 
 
-                                        </ice:column>
-                                        <ice:column>
-                                            <f:facet name="header">
-                                                <ice:outputText id="column2"
-                                                                value="Nombre"/>
-                                            </f:facet>
-                                            <ice:outputText id="nombresala" value="#{salas.tipo.nombresala}"/>
-                                        </ice:column>
-                                        <ice:column>
-                                            <f:facet name="header">
-                                                <ice:outputText id="column3"
-                                                                value="Capacidad"/>
-                                            </f:facet>
-                                            <ice:outputText id="capacidadsala" value="#{salas.tipo.capacidad}"/>
-                                        </ice:column>
-                                        <ice:column>
-                                            <f:facet name="header">
-                                                <ice:outputText id="column4"
-                                                                value="Coste €/hora"/>
-                                            </f:facet>
-                                            <ice:outputText id="costesala" value="#{salas.tipo.costealquiler}"/>
-                                        </ice:column>
-                                        <ice:column>
-                                            <f:facet name="header">
-                                                <ice:outputText id="column5"
-                                                                value="Telefono"/>
-                                            </f:facet>
-                                            <ice:outputText id="telefonosala" value="#{salas.tipo.telefono}"/>
-                                        </ice:column>
-                                    </ice:dataTable>
-                                    <ice:dataPaginator id="dataScroll_3" for="salasdisponibles" paginator="true" fastStep="3" paginatorMaxPages="4">
-                                        <f:facet name="first">
-                                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
-                                        </f:facet>
-                                        <f:facet name="last">
-                                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
-                                        </f:facet>
-                                        <f:facet name="previous">
-                                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
-                                        </f:facet>
-                                        <f:facet name="next">
-                                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
-                                        </f:facet>
-                                    </ice:dataPaginator>
+                            </ice:column>
+                            <ice:column>
+                                <f:facet name="header">
+                                    <ice:outputText id="column2"
+                                                    value="Nombre"/>
+                                </f:facet>
+                                <ice:outputText id="nombresala" value="#{salas.tipo.nombresala}"/>
+                            </ice:column>
+                            <ice:column>
+                                <f:facet name="header">
+                                    <ice:outputText id="column3"
+                                                    value="Capacidad"/>
+                                </f:facet>
+                                <ice:outputText id="capacidadsala" value="#{salas.tipo.capacidad}"/>
+                            </ice:column>
+                            <ice:column>
+                                <f:facet name="header">
+                                    <ice:outputText id="column4"
+                                                    value="Coste €/hora"/>
+                                </f:facet>
+                                <ice:outputText id="costesala" value="#{salas.tipo.costealquiler}"/>
+                            </ice:column>
+                            <ice:column>
+                                <f:facet name="header">
+                                    <ice:outputText id="column5"
+                                                    value="Telefono"/>
+                                </f:facet>
+                                <ice:outputText id="telefonosala" value="#{salas.tipo.telefono}"/>
+                            </ice:column>
+                        </ice:dataTable>
+                        <ice:dataPaginator id="dataScroll_3" for="salasdisponibles" paginator="true" fastStep="3" paginatorMaxPages="4">
+                            <f:facet name="first">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
+                            </f:facet>
+                            <f:facet name="last">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
+                            </f:facet>
+                            <f:facet name="previous">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
+                            </f:facet>
+                            <f:facet name="next">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
+                            </f:facet>
+                        </ice:dataPaginator>
 
-                                    <ice:commandButton id="crearunionpaso2anterior" value="Paso anterior" action="#{creaReunionBean.creaReunionPaso2Anterior}"></ice:commandButton>
-                                    <ice:commandButton id="crearunionpaso2" value="Paso siguiente" action="#{creaReunionBean.creaReunionPaso2}"></ice:commandButton>
-
-                                </ice:panelGroup>
-                            </ice:panelGroup>
-
-
-                            <table class="tablaformulario" id="tablareunion">
-                                <tr><td colspan="2"><h1>Datos referidos a la reunión</h1></td></tr>
-
-                                <tr id="trpuntodeldia1" class="puntosdeldia">
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia1">Punto del día 1:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia1" value="#{creaReunionBean.listapuntosdeldia[0]}" required="true" maxlength="255" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia1" for="puntodeldia1"></ice:message></div></td>
-                                </tr>
-
-                                <tr id="trpuntodeldia2" class="puntosdeldia" style="#{creaReunionBean.display[1]}" >
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia2">Punto del día 2:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia2" value="#{creaReunionBean.listapuntosdeldia[1]}" maxlength="255"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia2" for="puntodeldia2"></ice:message></div></td>
-                                </tr>
-
-                                <tr id="trpuntodeldia3" class="puntosdeldia" style="#{creaReunionBean.display[2]}" >
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia3">Punto del día 3:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia3" value="#{creaReunionBean.listapuntosdeldia[2]}" maxlength="255"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia3" for="puntodeldia3"></ice:message></div></td>
-                                </tr>
-
-                                <tr id="trpuntodeldia4" class="puntosdeldia" style="#{creaReunionBean.display[3]}" >
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia4">Punto del día 4:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia4" value="#{creaReunionBean.listapuntosdeldia[3]}" maxlength="255"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia4" for="puntodeldia4"></ice:message></div></td>
-                                </tr>
-                                <tr id="trpuntodeldia5" class="puntosdeldia" style="#{creaReunionBean.display[4]}" >
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia5">Punto del día 5:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia5" value="#{creaReunionBean.listapuntosdeldia[4]}" maxlength="255"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia5" for="puntodeldia5"></ice:message></div></td>
-                                </tr>
-                                <tr id="trpuntodeldia6" class="puntosdeldia" style="#{creaReunionBean.display[5]}" >
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia6">Punto del día 6:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia6" value="#{creaReunionBean.listapuntosdeldia[5]}" maxlength="255"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia6" for="puntodeldia6"></ice:message></div></td>
-                                </tr>
-                                <tr id="trpuntodeldia7" class="puntosdeldia" style="#{creaReunionBean.display[6]}" >
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia7">Punto del día 7:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia7" value="#{creaReunionBean.listapuntosdeldia[6]}" maxlength="255"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia7" for="puntodeldia7"></ice:message></div></td>
-                                </tr>
-                                <tr id="trpuntodeldia8" class="puntosdeldia" style="#{creaReunionBean.display[7]}" >
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia8">Punto del día 8:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia8" value="#{creaReunionBean.listapuntosdeldia[7]}" maxlength="255"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia8" for="puntodeldia8"></ice:message></div></td>
-                                </tr>
-                                <tr id="trpuntodeldia9" class="puntosdeldia" style="#{creaReunionBean.display[8]}" >
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia9">Punto del día 9:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia9" value="#{creaReunionBean.listapuntosdeldia[8]}" maxlength="255"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia9" for="puntodeldia9"></ice:message></div></td>
-                                </tr><tr id="trpuntodeldia10" class="puntosdeldia" style="#{creaReunionBean.display[9]}" >
-                                    <td><div class="labelslogin"><ice:outputLabel for="puntodeldia10">Punto del día 10:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="puntodeldia10" value="#{creaReunionBean.listapuntosdeldia[9]}" maxlength="255"></ice:inputText></div></td>
-                                    <td><div class="errorformulario"><ice:message id="errorpuntodeldia10" for="puntodeldia10"></ice:message></div></td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <ice:commandButton disabled="#{creaReunionBean.eliminaUltimoDisabled}" action="#{creaReunionBean.eliminaUltimo}" value="Eliminar último Version ICE"></ice:commandButton>
-                                    </td>
-                                    <td>
-                                        <ice:commandButton disabled="#{creaReunionBean.agregaNuevoDisabled}" action="#{creaReunionBean.agregarNuevo}" value="Agregar Nuevo Version ICE"></ice:commandButton>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">
-                                        <ice:commandButton action="#{creaReunionBean.contenidoLista}" value="Imprimir en consola valores"></ice:commandButton>
-                                    </td>
-                                </tr>
-                            </table>
-                        </ice:form>
-
-                    </div>
+                        <h1>Datos referidos a la reunión</h1>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>=0}" >
+                            <ice:outputLabel for="puntodeldia1">Punto del día 1:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia1" value="#{creaReunionBean.listapuntosdeldia[0]}" required="true" maxlength="255" ></ice:inputText>
+                            <ice:message id="errorpuntodeldia1" errorClass="errorformulario" for="puntodeldia1" ></ice:message>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>0}" >
+                            <ice:outputLabel for="puntodeldia2">Punto del día 2:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia2" value="#{creaReunionBean.listapuntosdeldia[1]}" required="true"  maxlength="255"></ice:inputText>
+                            <ice:message id="errorpuntodeldia2" errorClass="errorformulario" for="puntodeldia2"></ice:message>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>1}">
+                            <ice:outputLabel for="puntodeldia3">Punto del día 3:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia3" value="#{creaReunionBean.listapuntosdeldia[2]}" required="true" maxlength="255"></ice:inputText>
+                            <ice:message id="errorpuntodeldia3" errorClass="errorformulario" for="puntodeldia3"></ice:message>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>2}">
+                            <ice:outputLabel for="puntodeldia4">Punto del día 4:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia4" value="#{creaReunionBean.listapuntosdeldia[3]}" required="true"  maxlength="255"></ice:inputText>
+                            <ice:message id="errorpuntodeldia4" errorClass="errorformulario" for="puntodeldia4"></ice:message>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>3}">
+                            <ice:outputLabel for="puntodeldia5">Punto del día 5:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia5" value="#{creaReunionBean.listapuntosdeldia[4]}" required="true"  maxlength="255" ></ice:inputText>
+                            <ice:message id="errorpuntodeldia5" errorClass="errorformulario" for="puntodeldia5"></ice:message>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>4}">
+                            <ice:outputLabel for="puntodeldia6">Punto del día 6:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia6" value="#{creaReunionBean.listapuntosdeldia[5]}" required="true"  maxlength="255" ></ice:inputText>
+                            <ice:message id="errorpuntodeldia6" errorClass="errorformulario" for="puntodeldia6"></ice:message>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>5}">
+                            <ice:outputLabel for="puntodeldia7">Punto del día 7:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia7" value="#{creaReunionBean.listapuntosdeldia[6]}" required="true" maxlength="255"></ice:inputText>
+                            <ice:message id="errorpuntodeldia7" errorClass="errorformulario" for="puntodeldia7"></ice:message>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>6}">
+                            <ice:outputLabel for="puntodeldia8">Punto del día 8:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia8" value="#{creaReunionBean.listapuntosdeldia[7]}" required="true"  maxlength="255"></ice:inputText> 
+                            <ice:message id="errorpuntodeldia8" errorClass="errorformulario" for="puntodeldia8"></ice:message>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>7}">
+                            <ice:outputLabel for="puntodeldia9">Punto del día 9:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia9" value="#{creaReunionBean.listapuntosdeldia[8]}" required="true" maxlength="255" ></ice:inputText>
+                            <ice:message id="errorpuntodeldia9" errorClass="errorformulario" for="puntodeldia9"></ice:message>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>8}">
+                            <ice:outputLabel for="puntodeldia10">Punto del día 10:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia10" value="#{creaReunionBean.listapuntosdeldia[9]}" required="true" maxlength="255"></ice:inputText>
+                            <ice:message id="errorpuntodeldia10" errorClass="errorformulario" for="puntodeldia10"></ice:message>
+                        </ice:panelGroup>
+                        <ice:commandButton disabled="#{creaReunionBean.eliminaUltimoDisabled}" action="#{creaReunionBean.eliminaUltimo}" value="Eliminar último Version ICE"></ice:commandButton>
+                        <ice:commandButton disabled="#{creaReunionBean.agregaNuevoDisabled}" action="#{creaReunionBean.agregarNuevo}" value="Agregar Nuevo Version ICE"></ice:commandButton>
+                        <ice:commandButton action="#{creaReunionBean.contenidoLista}" value="Imprimir en consola valores"></ice:commandButton>
+                    </ice:form>
                 </div>
 
 

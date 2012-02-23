@@ -178,15 +178,16 @@
     <navigation-rule>
         <from-view-id>/creareunion_2.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{creaReunionBean.creaReunionPaso2Anterior}</from-action>
+            <from-action>#{creaReunionBean.agregarNuevo}</from-action>
             <from-outcome>ok</from-outcome>
-            <to-view-id>/creareunion.xhtml</to-view-id>
+            <to-view-id>/creareunion_2.xhtml</to-view-id>
         </navigation-case>
+        
         <navigation-case>
-            <from-action>#{creaReunionBean.creaReunionPaso2}</from-action>
+            <from-action>#{creaReunionBean.eliminaUltimo}</from-action>
             <from-outcome>ok</from-outcome>
-            <to-view-id>/creareunion_3.xhtml</to-view-id>
+            <to-view-id>/creareunion_2.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule>    
 </faces-config>
 

@@ -43,11 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empresas.findByLogotipo", query = "SELECT e FROM Empresas e WHERE e.logotipo = :logotipo")
 })
 public class Empresas implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nif2")
-    private Collection<Empresasamigas> empresasamigasCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nif1")
-    private Collection<Empresasamigas> empresasamigasCollection1;
-    
+       
     @OneToMany(mappedBy = "nif")
     private Collection<Salasreuniones> salasreunionesCollection;
     @Size(max = 255)
@@ -110,6 +106,10 @@ public class Empresas implements Serializable {
     private Boolean activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nif")
     private Collection<Usuarios> usuariosCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nif2")
+    private Collection<Empresasamigas> empresasamigasCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nif1")
+    private Collection<Empresasamigas> empresasamigasCollection1;
 
     public static final String BUSCAR_EMPRESAS= "Empresas.findAll";
      public static final String BUSCAR_EMPRESAS_ACTIVACION= "Empresas.findByActivarEmpresa";

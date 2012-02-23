@@ -7,6 +7,7 @@ package utiles;
 import bd.Adjunto;
 import bd.Asistenciareunion;
 import bd.Empresas;
+import bd.Empresasamigas;
 import bd.Puntosdeldia;
 import bd.Reuniones;
 import bd.Salasreuniones;
@@ -288,5 +289,47 @@ public class Consultas {
         }
         return salas;
 
+    }
+   private static List<Object[]> buscaEmpresasAmigas1(String nif){
+        
+        List<Object[]> empresas= null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Empresasamigas.BUSCAR_EMPRESAS_AMIGAS_1);
+        q1.setParameter("nifempresa", nif);
+        
+        try{
+            empresas= q1.getResultList();
+        } catch(Exception e){
+            System.out.print(e.toString());
+        
+        }
+        return empresas;
+    }
+    private static List<Object[]> buscaEmpresasAmigas2(String nif){
+        
+        List<Object[]> empresas= null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery(Empresasamigas.BUSCAR_EMPRESAS_AMIGAS_2);
+        q1.setParameter("nifempresa", nif);
+        
+        try{
+            empresas= q1.getResultList();
+        } catch(Exception e){
+            System.out.print(e.toString());
+        
+        }
+        return empresas;
+    }
+    public static List<Object[]> buscaempresasAmigas(String nif){
+        
+        List<Object[]> empresas = null;
+        
+        empresas= buscaEmpresasAmigas1(nif);
+        empresas.addAll(buscaEmpresasAmigas2(nif));
+        
+        return empresas;
+                
+        
+        
     }
 }
