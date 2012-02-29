@@ -119,7 +119,7 @@
 }
 
 .errorformulario{
-    color: red;
+    color: red!important;
 }
 
 /*-----viewcalendar.xhtml-----*/

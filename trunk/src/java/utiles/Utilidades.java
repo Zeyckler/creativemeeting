@@ -5,9 +5,12 @@
 package utiles;
 
 import bd.Usuarios;
+import beans.EmpresaBean;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,34 +38,49 @@ public class Utilidades {
 
 
     }
-    public static String creaNombreUsuario(String nombreUsuario, String apellido1Usuario, String apellido2Usuario){
 
-        
-        String nomUs="";
+    public static String creaNombreUsuario(String nombreUsuario, String apellido1Usuario, String apellido2Usuario) {
+
+
+        String nomUs = "";
         Integer numUs;
         String nombreUs;
         String apellido1Us;
         String apellido2Us;
-        
-        List<Usuarios> listUs= new LinkedList<Usuarios>();
-        
-        nombreUs= nombreUsuario.substring(0, 3).toLowerCase();
-        apellido1Us= apellido1Usuario.substring(0, 3).toLowerCase();
-        apellido2Us= apellido2Usuario.substring(0, 3).toLowerCase();
-        
-        
-        nomUs=nombreUs+apellido1Us+apellido2Us;
-        
-        
-        listUs=Consultas.buscaUsuarioParecidos(nomUs);
-        
-        numUs=listUs.size();
-        
-        if(numUs>0){
-            nomUs=nomUs+numUs.toString();
+
+        List<Usuarios> listUs = new LinkedList<Usuarios>();
+
+        nombreUs = nombreUsuario.substring(0, 3).toLowerCase();
+        apellido1Us = apellido1Usuario.substring(0, 3).toLowerCase();
+        apellido2Us = apellido2Usuario.substring(0, 3).toLowerCase();
+
+
+        nomUs = nombreUs + apellido1Us + apellido2Us;
+
+
+        listUs = Consultas.buscaUsuarioParecidos(nomUs);
+
+        numUs = listUs.size();
+
+        if (numUs > 0) {
+            nomUs = nomUs + numUs.toString();
         }
-        
+
         return nomUs;
-    
-    }   
+
+    }
+
+    public static String getNifEmpresaSesion() {
+
+        String res;
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        
+        EmpresaBean emp= (EmpresaBean)session.getAttribute("empresa");
+        
+        res= emp.getNif();
+        
+        return res;
+    }
 }

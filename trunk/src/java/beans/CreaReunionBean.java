@@ -21,7 +21,10 @@ import utiles.Consultas;
 import utiles.Fila;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 
+import java.awt.BufferCapabilities.FlipContents;
 import javax.faces.context.FacesContext;
+import javax.jms.Session;
+import utiles.Utilidades;
 
 /**
  *
@@ -37,21 +40,23 @@ public class CreaReunionBean implements Serializable {
     private String horastr;
     private String minutosstr;
     private Integer coste;
+    private String tipostr;
+    private String duracionhorareunion;
+    private String duracionminutosreunion;
+    private List<Fila<Salasreuniones>> filassalasdisponible;
+    private List<Fila<Object[]>> filasempresasamigas;
+    private List<Salasreuniones> salaSeleccionada;
+    private List<Object[]> empresasamigasseleccionadas;
+    private List<String> listapuntosdeldia;
+    private int posicion;
+    private boolean eliminaUltimoDisabled;
+    private boolean agregaNuevoDisabled;
+    private boolean errores;
     private Collection<Puntosdeldia> puntosdeldiaCollection;
     private Collection<Asistenciareunion> asistenciareunionCollection;
     private Tiporeuniones idtipo;
-    private String tipostr;
     private Salasreuniones idsalareunion;
-    private String duracionhorareunion;
-    private String duracionminutosreunion;
     private Usuarios dnicreador;
-    private List<Fila<Salasreuniones>> filassalasdisponible;
-    private List<Salasreuniones> salaSeleccionada = new LinkedList<Salasreuniones>();
-    private LinkedList<String> listapuntosdeldia;
-    private LinkedList<String> display;
-    int posicion;
-    boolean eliminaUltimoDisabled = true;
-    boolean agregaNuevoDisabled = false;
 
     {
         listapuntosdeldia = new LinkedList<String>();
@@ -59,6 +64,15 @@ public class CreaReunionBean implements Serializable {
             listapuntosdeldia.add(i, "");
         }
         posicion = 0;
+        errores = false;
+        eliminaUltimoDisabled = true;
+        agregaNuevoDisabled = false;
+        filasempresasamigas = new LinkedList<Fila<Object[]>>();
+        filassalasdisponible = new LinkedList<Fila<Salasreuniones>>();
+        empresasamigasseleccionadas = new LinkedList<Object[]>();
+        salaSeleccionada = new LinkedList<Salasreuniones>();
+
+
     }
 
     /** Creates a new instance of CreaReunionBean */
@@ -67,6 +81,78 @@ public class CreaReunionBean implements Serializable {
         for (int i = 0; i < 10; i++) {
             listapuntosdeldia.add(i, "");
         }
+    }
+
+    public boolean isAgregaNuevoDisabled() {
+        return agregaNuevoDisabled;
+    }
+
+    public void setAgregaNuevoDisabled(boolean agregaNuevoDisabled) {
+        this.agregaNuevoDisabled = agregaNuevoDisabled;
+    }
+
+    public Collection<Asistenciareunion> getAsistenciareunionCollection() {
+        return asistenciareunionCollection;
+    }
+
+    public void setAsistenciareunionCollection(Collection<Asistenciareunion> asistenciareunionCollection) {
+        this.asistenciareunionCollection = asistenciareunionCollection;
+    }
+
+    public Integer getCoste() {
+        return coste;
+    }
+
+    public void setCoste(Integer coste) {
+        this.coste = coste;
+    }
+
+    public Usuarios getDnicreador() {
+        return dnicreador;
+    }
+
+    public void setDnicreador(Usuarios dnicreador) {
+        this.dnicreador = dnicreador;
+    }
+
+    public String getDuracionhorareunion() {
+        return duracionhorareunion;
+    }
+
+    public void setDuracionhorareunion(String duracionhorareunion) {
+        this.duracionhorareunion = duracionhorareunion;
+    }
+
+    public String getDuracionminutosreunion() {
+        return duracionminutosreunion;
+    }
+
+    public void setDuracionminutosreunion(String duracionminutosreunion) {
+        this.duracionminutosreunion = duracionminutosreunion;
+    }
+
+    public boolean isEliminaUltimoDisabled() {
+        return eliminaUltimoDisabled;
+    }
+
+    public void setEliminaUltimoDisabled(boolean eliminaUltimoDisabled) {
+        this.eliminaUltimoDisabled = eliminaUltimoDisabled;
+    }
+
+    public boolean isErrores() {
+        return errores;
+    }
+
+    public void setErrores(boolean errores) {
+        this.errores = errores;
+    }
+
+    public Date getFechaCalendario() {
+        return fechaCalendario;
+    }
+
+    public void setFechaCalendario(Date fechaCalendario) {
+        this.fechaCalendario = fechaCalendario;
     }
 
     public Date getFechafinalestimada() {
@@ -93,20 +179,20 @@ public class CreaReunionBean implements Serializable {
         this.fechainicial = fechainicial;
     }
 
-    public Collection<Asistenciareunion> getAsistenciareunionCollection() {
-        return asistenciareunionCollection;
+    public List<Fila<Salasreuniones>> getFilassalasdisponible() {
+        return filassalasdisponible;
     }
 
-    public void setAsistenciareunionCollection(Collection<Asistenciareunion> asistenciareunionCollection) {
-        this.asistenciareunionCollection = asistenciareunionCollection;
+    public void setFilassalasdisponible(List<Fila<Salasreuniones>> filassalasdisponible) {
+        this.filassalasdisponible = filassalasdisponible;
     }
 
-    public Integer getCoste() {
-        return coste;
+    public String getHorastr() {
+        return horastr;
     }
 
-    public void setCoste(Integer coste) {
-        this.coste = coste;
+    public void setHorastr(String horastr) {
+        this.horastr = horastr;
     }
 
     public Salasreuniones getIdsalareunion() {
@@ -125,28 +211,12 @@ public class CreaReunionBean implements Serializable {
         this.idtipo = idtipo;
     }
 
-    public Collection<Puntosdeldia> getPuntosdeldiaCollection() {
-        return puntosdeldiaCollection;
+    public List<String> getListapuntosdeldia() {
+        return listapuntosdeldia;
     }
 
-    public void setPuntosdeldiaCollection(Collection<Puntosdeldia> puntosdeldiaCollection) {
-        this.puntosdeldiaCollection = puntosdeldiaCollection;
-    }
-
-    public String getTipostr() {
-        return tipostr;
-    }
-
-    public void setTipostr(String tipostr) {
-        this.tipostr = tipostr;
-    }
-
-    public String getHorastr() {
-        return horastr;
-    }
-
-    public void setHorastr(String horastr) {
-        this.horastr = horastr;
+    public void setListapuntosdeldia(List<String> listapuntosdeldia) {
+        this.listapuntosdeldia = listapuntosdeldia;
     }
 
     public String getMinutosstr() {
@@ -157,44 +227,20 @@ public class CreaReunionBean implements Serializable {
         this.minutosstr = minutosstr;
     }
 
-    public String getDuracionhorareunion() {
-        return duracionhorareunion;
+    public int getPosicion() {
+        return posicion;
     }
 
-    public void setDuracionhorareunion(String duracionhorareunion) {
-        this.duracionhorareunion = duracionhorareunion;
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
     }
 
-    public String getDuracionminutosreunion() {
-        return duracionminutosreunion;
+    public Collection<Puntosdeldia> getPuntosdeldiaCollection() {
+        return puntosdeldiaCollection;
     }
 
-    public void setDuracionminutosreunion(String duracionminutosreunion) {
-        this.duracionminutosreunion = duracionminutosreunion;
-    }
-
-    public Usuarios getDnicreador() {
-        return dnicreador;
-    }
-
-    public void setDnicreador(Usuarios dnicreador) {
-        this.dnicreador = dnicreador;
-    }
-
-    public List<Fila<Salasreuniones>> getFilassalasdisponible() {
-        return filassalasdisponible;
-    }
-
-    public void setFilassalasdisponible(List<Fila<Salasreuniones>> filassalasdisponible) {
-        this.filassalasdisponible = filassalasdisponible;
-    }
-
-    public Date getFechaCalendario() {
-        return fechaCalendario;
-    }
-
-    public void setFechaCalendario(Date fechaCalendario) {
-        this.fechaCalendario = fechaCalendario;
+    public void setPuntosdeldiaCollection(Collection<Puntosdeldia> puntosdeldiaCollection) {
+        this.puntosdeldiaCollection = puntosdeldiaCollection;
     }
 
     public List<Salasreuniones> getSalaSeleccionada() {
@@ -205,48 +251,28 @@ public class CreaReunionBean implements Serializable {
         this.salaSeleccionada = salaSeleccionada;
     }
 
-    public LinkedList<String> getlistapuntosdeldia() {
-        return listapuntosdeldia;
+    public String getTipostr() {
+        return tipostr;
     }
 
-    public void setlistapuntosdeldia(LinkedList<String> listapuntosdeldia) {
-        this.listapuntosdeldia = listapuntosdeldia;
+    public void setTipostr(String tipostr) {
+        this.tipostr = tipostr;
     }
 
-    public LinkedList<String> getListapuntosdeldia() {
-        return listapuntosdeldia;
+    public List<Fila<Object[]>> getFilasempresasamigas() {
+        return filasempresasamigas;
     }
 
-    public int getPosicion() {
-        return posicion;
+    public void setFilasempresasamigas(List<Fila<Object[]>> filasempresasamigas) {
+        this.filasempresasamigas = filasempresasamigas;
     }
 
-    public void setPosicion(int posicion) {
-        this.posicion = posicion;
+    public List<Object[]> getEmpresasamigasseleccionadas() {
+        return empresasamigasseleccionadas;
     }
 
-    public boolean isAgregaNuevoDisabled() {
-        return agregaNuevoDisabled;
-    }
-
-    public void setAgregaNuevoDisabled(boolean agregaNuevoDisabled) {
-        this.agregaNuevoDisabled = agregaNuevoDisabled;
-    }
-
-    public boolean isEliminaUltimoDisabled() {
-        return eliminaUltimoDisabled;
-    }
-
-    public void setEliminaUltimoDisabled(boolean eliminaUltimoDisabled) {
-        this.eliminaUltimoDisabled = eliminaUltimoDisabled;
-    }
-
-    public LinkedList<String> getDisplay() {
-        return display;
-    }
-
-    public void setDisplay(LinkedList<String> display) {
-        this.display = display;
+    public void setEmpresasamigasseleccionadas(List<Object[]> empresasamigasseleccionadas) {
+        this.empresasamigasseleccionadas = empresasamigasseleccionadas;
     }
 
     public String creaReunionPaso2Anterior() {
@@ -283,45 +309,37 @@ public class CreaReunionBean implements Serializable {
 
         String res = null;
 
-        /* Cogemos la sesión actual*/
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-
-        /* Cogemos el creaReunionBean de la sesión*/
-        CreaReunionBean creareunion = (CreaReunionBean) session.getAttribute("creaReunionBean");
 
         /* Calculamos las fechas iniciales y finales de la reunion*/
         calculaFechasReunion(this.fechaCalendario, this.horastr, this.minutosstr, this.duracionhorareunion, this.duracionminutosreunion);
 
-        creareunion.setFechainicial(this.fechainicial);
-        creareunion.setFechafinalestimada(this.fechafinalestimada);
 
-        /*Calculamos la Lista de Filas de Salas disponibles para mostrarlas en el siguiente paso*/
+        /*Calculamos la Lista de Filas de Salas disponibles y de Empresas amigas para mostrarlas en el siguiente paso*/
+
         List<Salasreuniones> listasalasdisponibles = Consultas.buscaSalasLibreFecha(this.fechainicial, this.fechafinalestimada);
-        List<Fila<Salasreuniones>> filassalasd = new LinkedList<Fila<Salasreuniones>>();
-
         for (Salasreuniones salas : listasalasdisponibles) {
             Fila<Salasreuniones> fila = new Fila(salas, false);
-            filassalasd.add(fila);
+            this.filassalasdisponible.add(fila);
         }
-        this.filassalasdisponible = filassalasd;
-        creareunion.setFilassalasdisponible(this.filassalasdisponible);
 
-        if (filassalasd.isEmpty()) {
+        List<Object[]> empresasamigas = Consultas.buscaempresasAmigas(Utilidades.getNifEmpresaSesion());
+        for (Object[] emp : empresasamigas) {
+
+            Fila<Object[]> fila2 = new Fila(emp, false);
+            this.filasempresasamigas.add(fila2);
+        }
+
+
+        if (this.filassalasdisponible.isEmpty()) {
 
             res = "salasnodisponibles";
 
+        }
+        if (this.filasempresasamigas.isEmpty()) {
+
+            res = "empresasamigasnodisponibles";
+
         } else {
-
-            /*Asignamos los valores calculados a la sesión*/
-
-            creareunion.setFechainicial(this.fechainicial);
-            creareunion.setFechafinalestimada(this.fechafinalestimada);
-            creareunion.setFilassalasdisponible(this.filassalasdisponible);
-
-            session.setAttribute("creaReunionBean", creareunion);
-
-
 
             res = "ok";
 
@@ -349,62 +367,68 @@ public class CreaReunionBean implements Serializable {
 
     }
 
-    public String agregarNuevo() {
+    public void filaSeleccionadaEmpresasAmigasListener(RowSelectorEvent event) {
 
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        CreaReunionBean a = (CreaReunionBean) session.getAttribute("creaReunionBean");
+        this.empresasamigasseleccionadas.clear();
+        Integer numerofilas = filasempresasamigas.size();
 
-        if (this.posicion < 9) {
+        for (int i = 0, max = numerofilas; i < max; i++) {
 
-            this.posicion++;
-
-
-            //a.setPosicion(a.posicion + 1);
-
-
-            if (this.getPosicion() > 8) {
-                this.setAgregaNuevoDisabled(true);
-            }
-            if (this.getPosicion() > 0) {
-                this.setEliminaUltimoDisabled(false);
+            Fila<Object[]> fila = filasempresasamigas.get(i);
+            if (fila.isSeleccionada()) {
+                this.empresasamigasseleccionadas.add(fila.getTipo());
             }
 
         }
-        System.out.println(a.getPosicion());
-        System.out.println("Sesion: "+ a.getPosicion());
-       
 
+    }
 
+    public String agregarNuevo() {
+
+        this.errores = false;
+        for (int i = 0; i <= this.posicion; i++) {
+            String puntodia = this.listapuntosdeldia.get(i);
+            if (puntodia.equals("")) {
+                this.errores = true;
+            }
+
+        }
+        if (!this.errores) {
+
+            if (this.posicion < 9) {
+
+                this.posicion++;
+
+                if (this.getPosicion() > 8) {
+                    this.setAgregaNuevoDisabled(true);
+                }
+                if (this.getPosicion() > 0) {
+                    this.setEliminaUltimoDisabled(false);
+                }
+
+            }
+        }
         return "ok";
 
     }
 
     public String eliminaUltimo() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        CreaReunionBean a = (CreaReunionBean) session.getAttribute("creaReunionBean");
 
 
-        if (a.posicion > 0) {
-            a.listapuntosdeldia.set(posicion, "");
+        if (this.listapuntosdeldia.get(this.posicion).equals("")) {
+            this.listapuntosdeldia.set(this.posicion, " ");
+        }
+        if (this.posicion > 0) {
+            this.listapuntosdeldia.set(posicion, "");
 
-            a.posicion--;
-            if (a.posicion == 0) {
-                a.setEliminaUltimoDisabled(true);
+            this.posicion--;
+            if (this.posicion == 0) {
+                this.setEliminaUltimoDisabled(true);
             }
-            if (a.posicion < 9) {
-                a.setAgregaNuevoDisabled(false);
+            if (this.posicion < 9) {
+                this.setAgregaNuevoDisabled(false);
             }
         }
-        session.setAttribute("creaReunionBean", a);
-
         return "ok";
-    }
-
-    public void contenidoLista() {
-        System.out.println("\n======\nDebug\n======");
-        System.out.println("Posicion: " + getPosicion());
-        for (String a : listapuntosdeldia) {
-            System.out.println(a);
-        }
     }
 }
