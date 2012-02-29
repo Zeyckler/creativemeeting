@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+
+        <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
+
+            <ui:define name="title">
+
+            </ui:define>
+
+            <ui:define name="logoempresa">
+
+            </ui:define>
+
+            <ui:define name="left">
+
+            </ui:define>
+
+            <ui:define name="right">
+
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="formulario" id="formularioreunion2">
+                    <ice:form>
+                        <h1>Puntos del día de la reunión</h1>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>=0}" >
+                            <ice:outputLabel for="puntodeldia1">Punto del día 1:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia1" value="#{creaReunionBean.listapuntosdeldia[0]}"  maxlength="255" ></ice:inputText>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>0}" >
+                            <ice:outputLabel for="puntodeldia2">Punto del día 2:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia2" value="#{creaReunionBean.listapuntosdeldia[1]}"   maxlength="255"></ice:inputText>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>1}">
+                            <ice:outputLabel for="puntodeldia3">Punto del día 3:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia3" value="#{creaReunionBean.listapuntosdeldia[2]}"  maxlength="255"></ice:inputText>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>2}">
+                            <ice:outputLabel for="puntodeldia4">Punto del día 4:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia4" value="#{creaReunionBean.listapuntosdeldia[3]}"   maxlength="255"></ice:inputText>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>3}">
+                            <ice:outputLabel for="puntodeldia5">Punto del día 5:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia5" value="#{creaReunionBean.listapuntosdeldia[4]}"   maxlength="255" ></ice:inputText>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>4}">
+                            <ice:outputLabel for="puntodeldia6">Punto del día 6:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia6" value="#{creaReunionBean.listapuntosdeldia[5]}"   maxlength="255" ></ice:inputText>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>5}">
+                            <ice:outputLabel for="puntodeldia7">Punto del día 7:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia7" value="#{creaReunionBean.listapuntosdeldia[6]}"  maxlength="255"></ice:inputText>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>6}">
+                            <ice:outputLabel for="puntodeldia8">Punto del día 8:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia8" value="#{creaReunionBean.listapuntosdeldia[7]}"   maxlength="255"></ice:inputText> 
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>7}">
+                            <ice:outputLabel for="puntodeldia9">Punto del día 9:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia9" value="#{creaReunionBean.listapuntosdeldia[8]}"  maxlength="255" ></ice:inputText>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.posicion>8}">
+                            <ice:outputLabel for="puntodeldia10">Punto del día 10:</ice:outputLabel>
+                            <ice:inputText id="puntodeldia10" value="#{creaReunionBean.listapuntosdeldia[9]}"  maxlength="255"></ice:inputText>
+                        </ice:panelGroup>
+                        <ice:panelGroup rendered="#{creaReunionBean.errores}">
+                            <ice:outputText styleClass="errorformulario">No puede estar vacío ningún punto del día </ice:outputText>
+                        </ice:panelGroup>
+                        <ice:commandButton disabled="#{creaReunionBean.eliminaUltimoDisabled}" action="#{creaReunionBean.eliminaUltimo}" value="Eliminar último Version ICE"></ice:commandButton>
+                        <ice:commandButton disabled="#{creaReunionBean.agregaNuevoDisabled}" action="#{creaReunionBean.agregarNuevo}" value="Agregar Nuevo Version ICE"></ice:commandButton>
+                    </ice:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
