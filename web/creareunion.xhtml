@@ -14,7 +14,7 @@
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
 
             <ui:define name="title">
-                Crea Reunón - CreativeMeetings
+                Crea Reunión - CreativeMeetings
             </ui:define>
 
             <ui:define name="logoempresa">
@@ -93,6 +93,11 @@
                                                 <f:selectItems id="duracionminutosreunionl" value="#{horaReunionBean.duracionminutos}"/>
                                             </ice:selectOneMenu>
                                         </div></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ice:outputText rendered="#{creaReunionBean.errorpaso1}" value="#{creaReunionBean.errorstrpaso1}" styleClass="errorformulario"></ice:outputText>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
