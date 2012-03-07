@@ -12,6 +12,7 @@ import bd.Puntosdeldia;
 import bd.Reuniones;
 import bd.Salasreuniones;
 import bd.Usuarios;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -328,6 +329,46 @@ public class Consultas {
         empresas.addAll(buscaEmpresasAmigas2(nif));
         
         return empresas;
+                
+        
+        
+    }
+    public static List<Object[]> buscaUsuariosDisponibleReunion(Date fecha){
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        
+        Date fechinicial = calendar.getTime();
+        
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        
+        Date fechfinal = calendar.getTime();
+        
+        
+        List<Object[]> usuariosdisponibles= null;
+        abrirTransaccion();
+        Query q1= em.createNamedQuery(Usuarios.BUSCAR_USUARIOSDISPONIBLESREUNION);
+        q1.setParameter("fechfinal", fechfinal);
+        q1.setParameter("fechinicial", fechinicial);
+        q1.setParameter("notificacion", false);
+        q1.setParameter("respuesta", false);
+        q1.setParameter("notificaciont", true);
+        
+        
+        try{
+            usuariosdisponibles= q1.getResultList();
+        }
+        catch(Exception e){
+            System.out.print(e.toString());
+        }
+        
+        return usuariosdisponibles;
                 
         
         

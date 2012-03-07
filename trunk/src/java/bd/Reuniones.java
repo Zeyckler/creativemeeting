@@ -42,15 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reuniones.findReunionesdeUsuariosAnio", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND r.fechainicial BETWEEN :fecha1 AND :fecha2 ")
 })
 public class Reuniones implements Serializable {
-  
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "idreunion")
-    private Integer idreunion;
     @Column(name = "fechainicial")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicial;
@@ -60,6 +51,15 @@ public class Reuniones implements Serializable {
     @Column(name = "fechafinalreal")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechafinalreal;
+  
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idreunion")
+    private Integer idreunion;
     @Column(name = "coste")
     private Integer coste;
     @OneToMany(mappedBy = "idreunion")
@@ -99,30 +99,6 @@ public class Reuniones implements Serializable {
 
     public void setIdreunion(Integer idreunion) {
         this.idreunion = idreunion;
-    }
-
-     public Date getFechainicial() {
-        return fechainicial;
-    }
-
-    public void setFechainicial(Date fechainicial) {
-        this.fechainicial = fechainicial;
-    }
-
-    public Date getFechafinalestimada() {
-        return fechafinalestimada;
-    }
-
-    public void setFechafinalestimada(Date fechafinalestimada) {
-        this.fechafinalestimada = fechafinalestimada;
-    }
-
-    public Date getFechafinalreal() {
-        return fechafinalreal;
-    }
-
-    public void setFechafinalreal(Date fechafinalreal) {
-        this.fechafinalreal = fechafinalreal;
     }
     public Integer getCoste() {
         return coste;
@@ -206,6 +182,30 @@ public class Reuniones implements Serializable {
     @Override
     public String toString() {
         return "bd.Reuniones[ idreunion=" + idreunion + " ]";
+    }
+
+    public Date getFechainicial() {
+        return fechainicial;
+    }
+
+    public void setFechainicial(Date fechainicial) {
+        this.fechainicial = fechainicial;
+    }
+
+    public Date getFechafinalestimada() {
+        return fechafinalestimada;
+    }
+
+    public void setFechafinalestimada(Date fechafinalestimada) {
+        this.fechafinalestimada = fechafinalestimada;
+    }
+
+    public Date getFechafinalreal() {
+        return fechafinalreal;
+    }
+
+    public void setFechafinalreal(Date fechafinalreal) {
+        this.fechafinalreal = fechafinalreal;
     }
 
 }

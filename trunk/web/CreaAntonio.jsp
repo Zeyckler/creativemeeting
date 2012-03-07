@@ -3,6 +3,7 @@
     Created on : 03-ago-2011, 18:38:37
     Author     : japarejo
 --%>
+<%@page import="java.util.Calendar"%>
 <%@page import="javax.persistence.Query"%>
 <%@page import="utiles.Utilidades"%>
 <%@page import="utiles.Consultas"%>
@@ -301,14 +302,19 @@
             out.print(sl.getNombresala());
             out.print("</br>");
         }*/
-        
+        /*
         List<Object[]> empresasa= Consultas.buscaempresasAmigas("28786879z");
         
         for(Object[] e: empresasa){
            out.println(e[0]+ "   " +e[1]);
         }
                 
+        */
+        Date d1= Calendar.getInstance().getTime();
         
+        List<Object[]>usuarios = Consultas.buscaUsuariosDisponibleReunion(d1);
+        
+        out.print(usuarios.size());
        
         %>
         <p>¡¡¡Antonio ha sido grabado :-D!!!</p>
