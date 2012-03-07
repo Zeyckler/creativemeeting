@@ -171,8 +171,8 @@
         </navigation-case>
         <navigation-case>
             <from-action>#{creaReunionBean.creaReunionPaso1}</from-action>
-            <from-outcome>salasnodisponibles</from-outcome>
-            <to-view-id>/error_1.xhtml</to-view-id>
+            <from-outcome>errorpaso1</from-outcome>
+            <to-view-id>/creareunion.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

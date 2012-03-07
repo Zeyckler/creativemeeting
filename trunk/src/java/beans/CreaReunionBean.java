@@ -52,6 +52,8 @@ public class CreaReunionBean implements Serializable {
     private boolean eliminaUltimoDisabled;
     private boolean agregaNuevoDisabled;
     private boolean errores;
+    private boolean errorpaso1;
+    private String errorstrpaso1;
     private Collection<Puntosdeldia> puntosdeldiaCollection;
     private Collection<Asistenciareunion> asistenciareunionCollection;
     private Tiporeuniones idtipo;
@@ -71,6 +73,7 @@ public class CreaReunionBean implements Serializable {
         filassalasdisponible = new LinkedList<Fila<Salasreuniones>>();
         empresasamigasseleccionadas = new LinkedList<Object[]>();
         salaSeleccionada = new LinkedList<Salasreuniones>();
+        errorpaso1 = false;
 
 
     }
@@ -275,6 +278,22 @@ public class CreaReunionBean implements Serializable {
         this.empresasamigasseleccionadas = empresasamigasseleccionadas;
     }
 
+    public boolean isErrorpaso1() {
+        return errorpaso1;
+    }
+
+    public void setErrorpaso1(boolean errorpaso1) {
+        this.errorpaso1 = errorpaso1;
+    }
+
+    public String getErrorstrpaso1() {
+        return errorstrpaso1;
+    }
+
+    public void setErrorstrpaso1(String errorstrpaso1) {
+        this.errorstrpaso1 = errorstrpaso1;
+    }
+
     public String creaReunionPaso2Anterior() {
         return "ok";
     }
@@ -291,37 +310,47 @@ public class CreaReunionBean implements Serializable {
         int durhorasreunion = Integer.parseInt(duracionhorareunion);
         int durminutosreunion = Integer.parseInt(duracionminutosreunion);
 
-        Calendar fechinicialestimada = new GregorianCalendar();
-        fechinicialestimada.setTime(fechareunion);
-        fechinicialestimada.set(Calendar.HOUR_OF_DAY, hreunion);
-        fechinicialestimada.set(Calendar.MINUTE, mreunion);
+        if (durhorasreunion <= 0 && durminutosreunion <= 0) {
+            this.errorpaso1 = true;
+            this.errorstrpaso1 = "La duración de una reunión debe ser al menos de 30 minutos";
+        } else {
+            Calendar fechinicialestimada = new GregorianCalendar();
+            fechinicialestimada.setTime(fechareunion);
+            fechinicialestimada.set(Calendar.HOUR_OF_DAY, hreunion);
+            fechinicialestimada.set(Calendar.MINUTE, mreunion);
 
-        Calendar fechfinalestimada = fechinicialestimada;
-        fechfinalestimada.add(Calendar.HOUR_OF_DAY, durhorasreunion);
-        fechfinalestimada.add(Calendar.MINUTE, durminutosreunion);
+            Calendar fechfinalestimada = (Calendar) fechinicialestimada.clone();
+            fechfinalestimada.add(Calendar.HOUR_OF_DAY, durhorasreunion);
+            fechfinalestimada.add(Calendar.MINUTE, durminutosreunion);
 
-        this.fechainicial = fechinicialestimada.getTime();
-        this.fechafinalestimada = fechfinalestimada.getTime();
+            this.fechainicial = fechinicialestimada.getTime();
+            this.fechafinalestimada = fechfinalestimada.getTime();
+
+            if (fechinicialestimada.get(Calendar.DAY_OF_YEAR) != fechfinalestimada.get(Calendar.DAY_OF_YEAR)) {
+                this.errorpaso1 = true;
+                this.errorstrpaso1 = "Una reunión no puede acabar un día distinto al de comienzo";
+            }
+        }
 
     }
 
     public String creaReunionPaso1() {
 
         String res = null;
-
+        this.errorpaso1 = false;
 
         /* Calculamos las fechas iniciales y finales de la reunion*/
         calculaFechasReunion(this.fechaCalendario, this.horastr, this.minutosstr, this.duracionhorareunion, this.duracionminutosreunion);
 
 
         /*Calculamos la Lista de Filas de Salas disponibles y de Empresas amigas para mostrarlas en el siguiente paso*/
-
+        this.filassalasdisponible.clear();
         List<Salasreuniones> listasalasdisponibles = Consultas.buscaSalasLibreFecha(this.fechainicial, this.fechafinalestimada);
         for (Salasreuniones salas : listasalasdisponibles) {
             Fila<Salasreuniones> fila = new Fila(salas, false);
             this.filassalasdisponible.add(fila);
         }
-
+        this.filasempresasamigas.clear();
         List<Object[]> empresasamigas = Consultas.buscaempresasAmigas(Utilidades.getNifEmpresaSesion());
         for (Object[] emp : empresasamigas) {
 
@@ -334,18 +363,19 @@ public class CreaReunionBean implements Serializable {
 
             res = "salasnodisponibles";
 
-        }
-        if (this.filasempresasamigas.isEmpty()) {
+        } else if (this.filasempresasamigas.isEmpty()) {
 
             res = "empresasamigasnodisponibles";
 
+        } else if (this.errorpaso1) {
+            res = "errorpaso1";
         } else {
 
             res = "ok";
 
         }
-        System.out.print(res);
-        System.out.print(filassalasdisponible.size());
+        System.out.println("Fecha inicial: " + this.fechainicial);
+        System.out.println("Fecha final estimada: " + this.fechafinalestimada);
 
         return res;
 
