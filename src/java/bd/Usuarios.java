@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,8 +23,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import org.hibernate.validator.constraints.Length.List;
-import utiles.Consultas;
 
 @ManagedBean(name = "Usuarios")
 @SessionScoped
@@ -56,9 +53,11 @@ import utiles.Consultas;
     @NamedQuery(name = "Usuarios.findByActivo", query = "SELECT u FROM Usuarios u WHERE u.activo = :activo"),
     @NamedQuery(name = "Usuarios.findByIdReunion", query = "SELECT u FROM Usuarios u JOIN u.asistenciareunionCollection arc JOIN arc.idreunion idr WHERE idr.idreunion =:idr1 "),
     @NamedQuery(name = "Usuarios.findUsuarioByEmpresa", query = "SELECT u FROM Usuarios u JOIN u.nif emp WHERE emp.nif = :nifempresa"),
-    @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia")
+    @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia"),
+    @NamedQuery(name = "Usuarios.finDUsuariosDisponiblesReunion", query = "SELECT u.dni, u.nombre, u.apellido1, u.apellido2, emp.nif FROM Usuarios u LEFT JOIN u.asistenciareunionCollection arc LEFT JOIN arc.idreunion idr LEFT JOIN u.nif emp  WHERE (arc.notificacion = :notificacion AND arc.respuesta = :respuesta AND idr.fechainicial> :fechinicial AND idr.fechainicial< :fechfinal) OR (arc.notificacion = :notificaciont AND idr.fechainicial> :fechinicial AND idr.fechainicial< :fechfinal) OR (idr.fechainicial > :fechfinal) OR ( idr.fechainicial < :fechinicial) OR (arc.idasistenciareunion IS NULL) ")
 })
 public class Usuarios implements Serializable {
+   
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -163,6 +162,8 @@ public class Usuarios implements Serializable {
     public static final String BUSCAR_USUARIOSBYEMPRESA = "Usuarios.findUsuarioByEmpresa";
     public static final String BUSCAR_USUARIOYCONTRASENA = "Usuarios.findByUsuarioyContrasena";
     public static final String BUSCAR_USUARIOSPARECIDOS = "Usuarios.findByUsuarioParecidos";
+    public static final String BUSCAR_USUARIOSDISPONIBLESREUNION = "Usuarios.finDUsuariosDisponiblesReunion";
+    
 
     public Usuarios() {
     }
