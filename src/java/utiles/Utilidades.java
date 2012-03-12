@@ -6,6 +6,7 @@ package utiles;
 
 import bd.Usuarios;
 import beans.EmpresaBean;
+import beans.UsuariosBean;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -83,4 +84,18 @@ public class Utilidades {
         
         return res;
     }
+    public static String getDniUsuarioSesion() {
+
+        String res;
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        
+        UsuariosBean usbean= (UsuariosBean)session.getAttribute("usuario");
+        
+        res= usbean.getDni();
+        
+        return res;
+    }
+    
 }

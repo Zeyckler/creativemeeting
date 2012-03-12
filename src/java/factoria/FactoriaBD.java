@@ -18,14 +18,10 @@ import bd.Salasreuniones;
 import bd.Tiporeuniones;
 import bd.Usuarios;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 public class FactoriaBD {
 
@@ -71,6 +67,12 @@ public class FactoriaBD {
         return new Empresas(nif, telefono, razonsocial, direccion, email,
                 localidad, provincia, pais, codigopostal, web, logotipo, fax);
     }
+    
+     public static Empresas creaEmpresa(String nif){
+         
+         return new Empresas(nif);
+         
+     }
 
     public static boolean insertaEmpresa(Empresas emp) {
         EntityManagerFactory emf1;
@@ -104,6 +106,11 @@ public class FactoriaBD {
                 email, usuario, contrasena, localidad,
                 provincia, pais, codigopostal, cargo, salario,
                 privilegios, activo, nif);
+    }
+
+    public static Usuarios creaUsuario(String dni) {
+        return new Usuarios(dni);
+        
     }
 
     public static boolean insertaUsuario(Usuarios us) {
@@ -188,10 +195,15 @@ public class FactoriaBD {
     }
 
     public static Reuniones creaReuniones(Date fechainicial, Date fechafinalestimada, Date fechafinalreal, Integer coste, Salasreuniones idsala) {
-        
-        Reuniones reunion= new Reuniones( fechainicial,fechafinalestimada, fechafinalreal, coste, idsala);
-        
+
+        Reuniones reunion = new Reuniones(fechainicial, fechafinalestimada, fechafinalreal, coste, idsala);
+
         return reunion;
+    }
+
+    public static Reuniones creaReuniones(Date fechainicial, Date fechafinalestimada, Tiporeuniones idtipo, Salasreuniones idsalareunion, Usuarios dnicreador) {
+
+        return new Reuniones(fechainicial, fechafinalestimada, idtipo, idsalareunion, dnicreador);
     }
 
     public static boolean insertaReuniones(Reuniones r1) {
@@ -203,7 +215,9 @@ public class FactoriaBD {
             em.persist(r1);
             terminarTransaccion();
         } catch (Exception e) {
+            System.out.print(e.toString());
             res = false;
+
         }
         return res;
     }
@@ -232,11 +246,14 @@ public class FactoriaBD {
         return res;
     }
 
-    public static Tiporeuniones creaTiporeuniones(Integer idtipo, String tiporeunion) {
+    public static Tiporeuniones creaTiporeuniones(Integer id) {
 
-        Tiporeuniones tpr1 = new Tiporeuniones(idtipo, tiporeunion);
-        return tpr1;
+        return new Tiporeuniones(id);
+    }
+    
+    public static Tiporeuniones creaTiporeuniones(String tiporeunion) {
 
+        return new Tiporeuniones(tiporeunion);
     }
 
     public static boolean insertaTiporeuniones(Tiporeuniones tpr1) {

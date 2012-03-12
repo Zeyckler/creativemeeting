@@ -6,6 +6,7 @@ package beans;
 
 import bd.Asistenciareunion;
 import bd.Puntosdeldia;
+import bd.Reuniones;
 import bd.Salasreuniones;
 import bd.Tiporeuniones;
 import bd.Usuarios;
@@ -21,6 +22,7 @@ import utiles.Consultas;
 import utiles.Fila;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 
+import factoria.FactoriaBD;
 import java.awt.BufferCapabilities.FlipContents;
 import javax.faces.context.FacesContext;
 import javax.jms.Session;
@@ -45,8 +47,10 @@ public class CreaReunionBean implements Serializable {
     private String duracionminutosreunion;
     private List<Fila<Salasreuniones>> filassalasdisponible;
     private List<Fila<Object[]>> filasempresasamigas;
+    private List<Fila<Object[]>> filausuariosdisponibles;
     private List<Salasreuniones> salaSeleccionada;
     private List<Object[]> empresasamigasseleccionadas;
+    private List<Object[]> usuariosdisponibleseleccionados;
     private List<String> listapuntosdeldia;
     private int posicion;
     private boolean eliminaUltimoDisabled;
@@ -54,6 +58,8 @@ public class CreaReunionBean implements Serializable {
     private boolean errores;
     private boolean errorpaso1;
     private String errorstrpaso1;
+    private boolean errorpaso2;
+    private String errorstrpaso2;
     private Collection<Puntosdeldia> puntosdeldiaCollection;
     private Collection<Asistenciareunion> asistenciareunionCollection;
     private Tiporeuniones idtipo;
@@ -71,9 +77,12 @@ public class CreaReunionBean implements Serializable {
         agregaNuevoDisabled = false;
         filasempresasamigas = new LinkedList<Fila<Object[]>>();
         filassalasdisponible = new LinkedList<Fila<Salasreuniones>>();
+        filausuariosdisponibles = new LinkedList<Fila<Object[]>>();
         empresasamigasseleccionadas = new LinkedList<Object[]>();
         salaSeleccionada = new LinkedList<Salasreuniones>();
+        usuariosdisponibleseleccionados = new LinkedList<Object[]>();
         errorpaso1 = false;
+        errorpaso2 = false;
 
 
     }
@@ -278,6 +287,22 @@ public class CreaReunionBean implements Serializable {
         this.empresasamigasseleccionadas = empresasamigasseleccionadas;
     }
 
+    public List<Fila<Object[]>> getFilausuariosdisponibles() {
+        return filausuariosdisponibles;
+    }
+
+    public void setFilausuariosdisponibles(List<Fila<Object[]>> filausuariosdisponibles) {
+        this.filausuariosdisponibles = filausuariosdisponibles;
+    }
+
+    public List<Object[]> getUsuariosdisponibleseleccionados() {
+        return usuariosdisponibleseleccionados;
+    }
+
+    public void setUsuariosdisponibleseleccionados(List<Object[]> usuariosdisponibleseleccionados) {
+        this.usuariosdisponibleseleccionados = usuariosdisponibleseleccionados;
+    }
+
     public boolean isErrorpaso1() {
         return errorpaso1;
     }
@@ -294,13 +319,20 @@ public class CreaReunionBean implements Serializable {
         this.errorstrpaso1 = errorstrpaso1;
     }
 
-    public String creaReunionPaso2Anterior() {
-        return "ok";
+    public boolean isErrorpaso2() {
+        return errorpaso2;
     }
 
-    public String creaReunionPaso2() {
+    public void setErrorpaso2(boolean errorpaso2) {
+        this.errorpaso2 = errorpaso2;
+    }
 
-        return "ok";
+    public String getErrorstrpaso2() {
+        return errorstrpaso2;
+    }
+
+    public void setErrorstrpaso2(String errorstrpaso2) {
+        this.errorstrpaso2 = errorstrpaso2;
     }
 
     public void calculaFechasReunion(Date fechareunion, String horareunion, String minutosreunion, String duracionhorareunion, String duracionminutosreunion) {
@@ -381,6 +413,93 @@ public class CreaReunionBean implements Serializable {
 
     }
 
+    public String creaReunionPaso2() {
+        String res = null;
+        this.errorpaso2 = false;
+        this.errores=false;
+
+        if (this.salaSeleccionada.isEmpty()) {
+            this.errorpaso2 = true;
+            this.errorstrpaso2 = "Debes seleccionar obligatoriamente una sala de reunión";
+            res = "salanoseleccionada";
+        } else {
+            List<Object[]> listusuariosdisp = Consultas.buscaUsuariosDisponibleReunion(this.fechainicial, Utilidades.getNifEmpresaSesion());
+
+            if (!this.empresasamigasseleccionadas.isEmpty()) {
+
+                for (Object[] empresas : empresasamigasseleccionadas) {
+
+                    String nifemp = (String) empresas[0];
+                    listusuariosdisp.addAll(Consultas.buscaUsuariosDisponibleReunion(this.fechainicial, nifemp));
+
+                }
+
+            }
+            this.filausuariosdisponibles.clear();
+            for (Object[] usuarios : listusuariosdisp) {
+
+
+                Fila f = new Fila<Object[]>(usuarios, false);
+
+                this.filausuariosdisponibles.add(f);
+
+            }
+            System.out.print(this.filausuariosdisponibles.size());
+            res = "ok";
+        }
+
+        return res;
+    }
+
+    public String creaReunionFinal() {
+
+        String res = null;
+        this.errores = false;
+
+        for (int i = 0; i <= this.posicion; i++) {
+            String puntodia = this.listapuntosdeldia.get(i);
+            if (puntodia.equals("")) {
+                this.errores = true;
+                res = "puntosdiavacio";
+            }
+
+        }
+
+        if (!this.errores) {
+            if (this.usuariosdisponibleseleccionados.size() > this.salaSeleccionada.get(0).getCapacidad()) {
+                res = "overbooking";
+            } else {
+
+
+                Salasreuniones idsalareunion1 = salaSeleccionada.get(0);
+                Tiporeuniones idtipo1 = FactoriaBD.creaTiporeuniones(new Integer(2));
+                Usuarios dnicreador1 = FactoriaBD.creaUsuario(Utilidades.getDniUsuarioSesion());
+
+
+
+
+                Reuniones reunion = FactoriaBD.creaReuniones(this.fechainicial, this.fechafinalestimada, idtipo1, idsalareunion1, dnicreador1);
+                
+                System.out.println("Dni Usuario Sesion" + dnicreador1.getDni());
+                System.out.println("Sala Seleccionada" + idsalareunion1.getCodigopostal() + "  " + idsalareunion1.getIdsalareunion() + idsalareunion1.getNombresala());
+                System.out.println("Id tipo reunion: " + idtipo1.getIdtipo());
+                System.out.println("Fecha Inicial: " + this.fechainicial);
+                System.out.println("Fecha Final: " + this.fechafinalestimada);
+                boolean a = FactoriaBD.insertaReuniones(reunion);
+                System.out.print(a);
+                res = "ok";
+
+
+
+
+            }
+
+        }
+        return res;
+
+
+    }
+
     public void filaSeleccionadaListener(RowSelectorEvent event) {
 
         this.salaSeleccionada.clear();
@@ -392,6 +511,7 @@ public class CreaReunionBean implements Serializable {
             if (fila.isSeleccionada()) {
                 this.salaSeleccionada.add(fila.getTipo());
             }
+            System.out.print("Tamño de la salas seleccionadas" + this.salaSeleccionada.size());
 
         }
 
@@ -411,6 +531,39 @@ public class CreaReunionBean implements Serializable {
 
         }
 
+    }
+
+    public void usuarioSeleccionadaListener(RowSelectorEvent event) {
+
+        this.usuariosdisponibleseleccionados.clear();
+        Integer numerofilas = filausuariosdisponibles.size();
+
+        for (int i = 0, max = numerofilas; i < max; i++) {
+
+            Fila<Object[]> fila = filausuariosdisponibles.get(i);
+            if (fila.isSeleccionada()) {
+                this.usuariosdisponibleseleccionados.add(fila.getTipo());
+            }
+
+        }
+
+    }
+
+    public String creaReunionPaso2Anterior() {
+        return "ok";
+    }
+
+    public String creaReunionPaso3Anterior() {
+
+        filassalasdisponible.clear();
+        salaSeleccionada.clear();
+        List<Salasreuniones> listasalasdisponibles = Consultas.buscaSalasLibreFecha(this.fechainicial, this.fechafinalestimada);
+        for (Salasreuniones salas : listasalasdisponibles) {
+            Fila<Salasreuniones> fila = new Fila(salas, false);
+            this.filassalasdisponible.add(fila);
+        }
+
+        return "ok";
     }
 
     public String agregarNuevo() {

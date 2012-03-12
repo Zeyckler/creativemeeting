@@ -85,13 +85,23 @@ public class Reuniones implements Serializable {
 
     public Reuniones() {
     }
-    public Reuniones(Date fechainicial, Date fechafinalestimada, Date fechafinalreal, Integer coste, Salasreuniones idsala ){
+    public Reuniones(Date fechainicial, Date fechafinalestimada, Date fechafinalreal, Integer coste, Salasreuniones idsala){
         this.fechainicial= fechainicial;
         this.fechafinalestimada= fechafinalestimada;
         this.fechafinalreal= fechafinalreal;
         this.coste= coste;
         this.idsalareunion= idsala;
     }
+
+    public Reuniones(Date fechainicial, Date fechafinalestimada, Tiporeuniones idtipo, Salasreuniones idsalareunion, Usuarios dnicreador) {
+        this.fechainicial = fechainicial;
+        this.fechafinalestimada = fechafinalestimada;
+        this.idtipo = idtipo;
+        this.idsalareunion = idsalareunion;
+        this.dnicreador = dnicreador;
+        this.idreunion= new Integer(1);
+    }
+    
 
     public Integer getIdreunion() {
         return idreunion;
