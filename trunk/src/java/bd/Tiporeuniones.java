@@ -51,18 +51,15 @@ public class Tiporeuniones implements Serializable {
     public Tiporeuniones() {
     }
 
-    public Tiporeuniones(Integer idtipo) {
-        this.idtipo = idtipo;
-    }
-
-    public Tiporeuniones(Integer idtipo, String tiporeunion) {
-        this.idtipo = idtipo;
-        this.tiporeunion = tiporeunion;
-    }
 
     public Tiporeuniones(String tiporeunion) {
         this.tiporeunion = tiporeunion;
     }
+
+    public Tiporeuniones(Integer idtipo) {
+        this.idtipo = idtipo;
+    }
+    
     
 
     public Integer getIdtipo() {

@@ -11,6 +11,7 @@ import bd.Empresasamigas;
 import bd.Puntosdeldia;
 import bd.Reuniones;
 import bd.Salasreuniones;
+import bd.Tiporeuniones;
 import bd.Usuarios;
 import java.util.Calendar;
 import java.util.Collection;
@@ -273,7 +274,7 @@ public class Consultas {
         return listareuniones;
 
     }
-    
+
     public static List<Salasreuniones> buscaSalasLibreFecha(Date fechainicial, Date fechafinal) {
 
         List<Salasreuniones> salas = null;
@@ -281,7 +282,7 @@ public class Consultas {
         Query q1 = em.createNamedQuery(Salasreuniones.BUSCAR_SALASLIBREFECHA);
         q1.setParameter("fechinicial", fechainicial);
         q1.setParameter("fechfinal", fechafinal);
-        
+
 
         try {
             salas = q1.getResultList();
@@ -291,86 +292,120 @@ public class Consultas {
         return salas;
 
     }
-   private static List<Object[]> buscaEmpresasAmigas1(String nif){
-        
-        List<Object[]> empresas= null;
+
+    private static List<Object[]> buscaEmpresasAmigas1(String nif) {
+
+        List<Object[]> empresas = null;
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Empresasamigas.BUSCAR_EMPRESAS_AMIGAS_1);
         q1.setParameter("nifempresa", nif);
-        
-        try{
-            empresas= q1.getResultList();
-        } catch(Exception e){
+
+        try {
+            empresas = q1.getResultList();
+        } catch (Exception e) {
             System.out.print(e.toString());
-        
+
         }
         return empresas;
     }
-    private static List<Object[]> buscaEmpresasAmigas2(String nif){
-        
-        List<Object[]> empresas= null;
+
+    private static List<Object[]> buscaEmpresasAmigas2(String nif) {
+
+        List<Object[]> empresas = null;
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Empresasamigas.BUSCAR_EMPRESAS_AMIGAS_2);
         q1.setParameter("nifempresa", nif);
-        
-        try{
-            empresas= q1.getResultList();
-        } catch(Exception e){
+
+        try {
+            empresas = q1.getResultList();
+        } catch (Exception e) {
             System.out.print(e.toString());
-        
+
         }
         return empresas;
     }
-    public static List<Object[]> buscaempresasAmigas(String nif){
-        
+
+    public static List<Object[]> buscaempresasAmigas(String nif) {
+
         List<Object[]> empresas = null;
-        
-        empresas= buscaEmpresasAmigas1(nif);
+
+        empresas = buscaEmpresasAmigas1(nif);
         empresas.addAll(buscaEmpresasAmigas2(nif));
-        
+
         return empresas;
-                
-        
-        
+
+
+
     }
-    public static List<Object[]> buscaUsuariosDisponibleReunion(Date fecha){
-        
+
+    public static List<Object[]> buscaUsuariosDisponibleReunion(Date fecha, String nif) {
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha);
-        
+
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
-        
+
         Date fechinicial = calendar.getTime();
-        
+
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
-        
+
         Date fechfinal = calendar.getTime();
-        
-        
-        List<Object[]> usuariosdisponibles= null;
+
+
+        List<Object[]> usuariosdisponibles = null;
         abrirTransaccion();
-        Query q1= em.createNamedQuery(Usuarios.BUSCAR_USUARIOSDISPONIBLESREUNION);
+        Query q1 = em.createNamedQuery(Usuarios.BUSCAR_USUARIOSDISPONIBLESREUNION);
         q1.setParameter("fechfinal", fechfinal);
         q1.setParameter("fechinicial", fechinicial);
         q1.setParameter("notificacion", false);
         q1.setParameter("respuesta", false);
         q1.setParameter("notificaciont", true);
-        
-        
-        try{
-            usuariosdisponibles= q1.getResultList();
-        }
-        catch(Exception e){
+        q1.setParameter("nifemp", nif);
+        q1.setParameter("dniadmin", Utilidades.getDniUsuarioSesion());
+
+
+        try {
+            usuariosdisponibles = q1.getResultList();
+        } catch (Exception e) {
             System.out.print(e.toString());
         }
-        
+
         return usuariosdisponibles;
-                
+
+
+
+    }
+
+    public static Tiporeuniones buscarTipoReuniones(Integer id) {
+
+        Tiporeuniones tipo = null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery("Tiporeuniones.findByIdtipo");
+        q1.setParameter("idtipo", id);
+
+        try {
+            tipo = (Tiporeuniones) q1.getSingleResult();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+        }
+        return tipo;
+    }
+    
+    public static Usuarios buscarUsuario(String dni){
+        Usuarios usuario = null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery("Usuarios.findByDni");
+        q1.setParameter("dni", dni);
         
-        
+        try {
+            usuario = (Usuarios) q1.getSingleResult();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+        }
+        return usuario;
     }
 }

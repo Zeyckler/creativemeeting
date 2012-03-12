@@ -39,7 +39,7 @@
                                 <ice:rowSelector id="seleccionado"
 
                                                  value="#{salas.seleccionada}"
-                                                 multiple="false"                                 
+                                                 multiple="false" 
                                                  selectionListener="#{creaReunionBean.filaSeleccionadaListener}"
                                                  />
 
@@ -80,7 +80,7 @@
                                 <ice:outputText id="telefonosala" value="#{salas.tipo.telefono}"/>
                             </ice:column>
                         </ice:dataTable>
-                        <ice:dataPaginator id="dataScroll_3" for="salasdisponibles" paginator="true" fastStep="3" paginatorMaxPages="4">
+                        <ice:dataPaginator id="paginadorsalasdisponibles" for="salasdisponibles" paginator="true" fastStep="3" paginatorMaxPages="4">
                             <f:facet name="first">
                                 <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
                             </f:facet>
@@ -115,11 +115,27 @@
 
                             </ice:column>
                         </ice:dataTable>
-
-
+                        <ice:dataPaginator id="paginadorempresasamigas" for="empresasamigas" paginator="true" fastStep="3" paginatorMaxPages="4">
+                            <f:facet name="first">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
+                            </f:facet>
+                            <f:facet name="last">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
+                            </f:facet>
+                            <f:facet name="previous">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
+                            </f:facet>
+                            <f:facet name="next">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
+                            </f:facet>
+                        </ice:dataPaginator>
+                        <ice:outputText rendered="#{creaReunionBean.errorpaso2}" value="#{creaReunionBean.errorstrpaso2}" styleClass="errorformulario"></ice:outputText>
+                        <ice:commandButton id="creareunionpaso2atras" value="Paso anterior" action="#{creaReunionBean.creaReunionPaso2Anterior}"></ice:commandButton>
+                        <ice:commandButton id="creareunionpaso2" value="Siguiente paso" action="#{creaReunionBean.creaReunionPaso2}"></ice:commandButton>
 
                     </ice:form>
                 </div>
+
 
 
 
