@@ -19,6 +19,7 @@ import bd.Tiporeuniones;
 import bd.Usuarios;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -67,12 +68,12 @@ public class FactoriaBD {
         return new Empresas(nif, telefono, razonsocial, direccion, email,
                 localidad, provincia, pais, codigopostal, web, logotipo, fax);
     }
-    
-     public static Empresas creaEmpresa(String nif){
-         
-         return new Empresas(nif);
-         
-     }
+
+    public static Empresas creaEmpresa(String nif) {
+
+        return new Empresas(nif);
+
+    }
 
     public static boolean insertaEmpresa(Empresas emp) {
         EntityManagerFactory emf1;
@@ -110,7 +111,7 @@ public class FactoriaBD {
 
     public static Usuarios creaUsuario(String dni) {
         return new Usuarios(dni);
-        
+
     }
 
     public static boolean insertaUsuario(Usuarios us) {
@@ -127,10 +128,9 @@ public class FactoriaBD {
         return res;
     }
 
-    public static Asistenciareunion creaAsistenciareunion(Integer idasistenciareunion,
-            Reuniones idreunion, Usuarios dni) {
+    public static Asistenciareunion creaAsistenciareunion(Reuniones idreunion, Usuarios dni) {
 
-        Asistenciareunion asr = new Asistenciareunion(idasistenciareunion, idreunion, dni);
+        Asistenciareunion asr = new Asistenciareunion(dni, idreunion);
         return asr;
     }
 
@@ -145,6 +145,25 @@ public class FactoriaBD {
         } catch (Exception e) {
             res = false;
         }
+        return res;
+
+    }
+
+    public static boolean insertaListaAsistenciareunion(List<Asistenciareunion> listasistenciareunion) {
+
+        boolean res = true;
+
+        for (Asistenciareunion ar : listasistenciareunion) {
+            try {
+                abrirTransaccion();
+                em.persist(ar);
+                terminarTransaccion();
+            } catch (Exception e) {
+                System.out.print(e.toString());
+                res = false;
+            }
+        }
+        
         return res;
 
     }
@@ -173,9 +192,9 @@ public class FactoriaBD {
 
     }
 
-    public static Puntosdeldia creaPuntosdeldia(Integer idpuntodeldia, String titulopunto, Reuniones idreunion) {
+    public static Puntosdeldia creaPuntosdeldia(String titulopunto, Reuniones idreunion) {
 
-        Puntosdeldia pt1 = new Puntosdeldia(idpuntodeldia, titulopunto, idreunion);
+        Puntosdeldia pt1 = new Puntosdeldia(titulopunto, idreunion);
         return pt1;
 
     }
@@ -192,6 +211,23 @@ public class FactoriaBD {
             res = false;
         }
         return res;
+    }
+
+    public static boolean insertaListaPuntosdelDia(List<Puntosdeldia> listapuntosdia) {
+        boolean res = true;
+
+        for (Puntosdeldia pd : listapuntosdia) {
+            try {
+                abrirTransaccion();
+                em.persist(pd);
+                terminarTransaccion();
+            } catch (Exception e) {
+                System.out.print(e.toString());
+                res = false;
+            }
+        }
+        return res;
+
     }
 
     public static Reuniones creaReuniones(Date fechainicial, Date fechafinalestimada, Date fechafinalreal, Integer coste, Salasreuniones idsala) {
@@ -250,7 +286,7 @@ public class FactoriaBD {
 
         return new Tiporeuniones(id);
     }
-    
+
     public static Tiporeuniones creaTiporeuniones(String tiporeunion) {
 
         return new Tiporeuniones(tiporeunion);

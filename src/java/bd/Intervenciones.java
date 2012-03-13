@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Intervenciones.findByIdintervenciones", query = "SELECT i FROM Intervenciones i WHERE i.idintervenciones = :idintervenciones"),
     @NamedQuery(name = "Intervenciones.findByMomentointervencion", query = "SELECT i FROM Intervenciones i WHERE i.momentointervencion = :momentointervencion")})
 public class Intervenciones implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,14 +89,6 @@ public class Intervenciones implements Serializable {
         this.idintervenciones = idintervenciones;
     }
 
-    public Date getMomentointervencion() {
-        return momentointervencion;
-    }
-
-    public void setMomentointervencion(Date momentointervencion) {
-        this.momentointervencion = momentointervencion;
-    }
-
     public String getIntervencion() {
         return intervencion;
     }
@@ -143,6 +136,14 @@ public class Intervenciones implements Serializable {
     @Override
     public String toString() {
         return "bd.Intervenciones[ idintervenciones=" + idintervenciones + " ]";
+    }
+
+    public Date getMomentointervencion() {
+        return momentointervencion;
+    }
+
+    public void setMomentointervencion(Date momentointervencion) {
+        this.momentointervencion = momentointervencion;
     }
     
 }

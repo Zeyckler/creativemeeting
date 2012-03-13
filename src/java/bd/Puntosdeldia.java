@@ -64,12 +64,7 @@ public class Puntosdeldia implements Serializable {
     }
 
     public Puntosdeldia(String titulopunto, Reuniones idreunion) {
-        this.titulopunto = titulopunto;
-        this.idreunion = idreunion;
-    }
-
-    public Puntosdeldia(Integer idpuntodeldia, String titulopunto, Reuniones idreunion) {
-        this.idpuntodeldia = idpuntodeldia;
+        this.idpuntodeldia = new Integer(1);
         this.titulopunto = titulopunto;
         this.idreunion = idreunion;
     }
