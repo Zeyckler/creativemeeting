@@ -10,10 +10,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
-import javax.servlet.http.HttpSession;
 import utiles.Consultas;
+import utiles.Utilidades;
 
 /**
  *
@@ -23,15 +21,15 @@ public class CalendarioUsuarioBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private List<Reuniones> listareuniones;
-    private List<Reuniones> listareunionescreareunion;
+
     private String reunionescadena;
-    private String reunionescadenacreareunion;
+
     private Integer anio;
-    private Integer aniocreareunion;
+
     private Date fecha;
     private Integer listaanios[];
-    private Integer listaanioscreareunion[];
 
+    
     /** Creates a new instance of CalendarioUsuarioBean */
     public CalendarioUsuarioBean() {
     }
@@ -39,19 +37,19 @@ public class CalendarioUsuarioBean implements Serializable {
     public CalendarioUsuarioBean(String dniusuario) {
 
         this.anio = Calendar.getInstance().get(Calendar.YEAR);
-        this.aniocreareunion= Calendar.getInstance().get(Calendar.YEAR);
+
         //Lista de reuniones por el año actual inicialmente
         this.listareuniones = Consultas.buscaReunionesUsuarioAnio(dniusuario, anio);
-        this.listareunionescreareunion = Consultas.buscaReunionesUsuarioAnio(dniusuario, anio);
+
         //String con los dias del año que tienes reunión
-        this.reunionescadena = this.trasformaListaFechaCadena(this.listareuniones);
-        this.reunionescadenacreareunion = this.trasformaListaFechaCadena(this.listareuniones);
+        this.reunionescadena = Utilidades.trasformaListaFechaCadena(this.listareuniones);
+
         //Primer dia del año que se marcara el el calendario
         this.fecha = new Date(Calendar.getInstance().get(Calendar.YEAR) - 1900, 0, 2);
         //Lista por defecto para elegir el año de las reuniones
         this.listaanios = new Integer[]{Calendar.getInstance().get(Calendar.YEAR),
             Calendar.getInstance().get(Calendar.YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR) + 1};
-        this.listaanioscreareunion= new Integer[]{Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.YEAR) + 1};
+        
     }
 
     public String getReunionescadena() {
@@ -95,99 +93,23 @@ public class CalendarioUsuarioBean implements Serializable {
         this.listareuniones = listareuniones;
     }
 
-    public Integer[] getListaanioscreareunion() {
-        return listaanioscreareunion;
-    }
-
-    public void setListaanioscreareunion(Integer[] listaanioscreareunion) {
-        this.listaanioscreareunion = listaanioscreareunion;
-    }
-
-    public Integer getAniocreareunion() {
-        return aniocreareunion;
-    }
-
-    public void setAniocreareunion(Integer aniocreareunion) {
-        this.aniocreareunion = aniocreareunion;
-    }
-
-    public List<Reuniones> getListareunionescreareunion() {
-        return listareunionescreareunion;
-    }
-
-    public void setListareunionescreareunion(List<Reuniones> listareunionescreareunion) {
-        this.listareunionescreareunion = listareunionescreareunion;
-    }
-
-    public String getReunionescadenacreareunion() {
-        return reunionescadenacreareunion;
-    }
-
-    public void setReunionescadenacreareunion(String reunionescadenacreareunion) {
-        this.reunionescadenacreareunion = reunionescadenacreareunion;
-    }
+   
     
     
 
     public String irAnio() {
-        
-        //Coger el Dni de Usuario para actualizar lista reuniones
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        UsuariosBean usBean = (UsuariosBean) session.getAttribute("usuario");
-        String dni = usBean.getDni();
+       Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.DAY_OF_YEAR, 1);
+        cal.set(Calendar.MONTH, 0);
+        cal.set(Calendar.YEAR, this.anio);
 
         
-        setFecha(new Date(anio - 1900, 0, 2));
-        setListareuniones(Consultas.buscaReunionesUsuarioAnio(dni, anio));
-        setReunionescadena(trasformaListaFechaCadena(this.listareuniones));
-        
-        return "ok";
-
-    }
-    public String irAnioCreaReunion() {
-        
-        //Coger el Dni de Usuario para actualizar lista reuniones
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        UsuariosBean usBean = (UsuariosBean) session.getAttribute("usuario");
-        String dni = usBean.getDni();
-        
-        CreaReunionBean creareunionb= (CreaReunionBean) session.getAttribute("creaReunionBean");
-        creareunionb.setFechaCalendario(new Date(this.aniocreareunion - 1900, 0, 2));
-        session.setAttribute("creaReunionBean", creareunionb);
-        
-        
-        setListareunionescreareunion(Consultas.buscaReunionesUsuarioAnio(dni, this.aniocreareunion));
-        setReunionescadenacreareunion(trasformaListaFechaCadena(this.listareuniones));
+        setFecha(cal.getTime());
+        setListareuniones(Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), anio));
+        setReunionescadena(Utilidades.trasformaListaFechaCadena(this.listareuniones));
         
         return "ok";
 
     }
 
-    public String trasformaListaFechaCadena(List<Reuniones> listaReuniones) {
-
-        String res = "";
-        int i = 0;
-
-        for (Reuniones d : listaReuniones) {
-
-            i++;
-            Calendar c1 = new GregorianCalendar();
-            c1.setTime(d.getFechainicial());
-            int formatday = Calendar.DAY_OF_YEAR;
-            int dia_ano = c1.get(formatday);
-
-            if (i < listaReuniones.size()) {
-                res = res + dia_ano + ",";
-            } else {
-                res = res + dia_ano;
-            }
-
-
-        }
-
-        reunionescadena = res;
-        return res;
-    }
 }

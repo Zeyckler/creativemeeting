@@ -41,10 +41,10 @@
                                     <td><div class="labelslogin"><ice:outputLabel for="nif">Selecciona año Reunión:</ice:outputLabel></div></td>
                                     <td>
                                         <div  class="inputslogin" >
-                                            <ice:selectOneMenu value="#{calendarioUsuarioBean.aniocreareunion}" >
-                                                <f:selectItems value="#{calendarioUsuarioBean.listaanioscreareunion}" ></f:selectItems>
+                                            <ice:selectOneMenu value="#{creaReunionBean.aniocreareunion}" >
+                                                <f:selectItems value="#{creaReunionBean.listaanioscreareunion}" ></f:selectItems>
                                             </ice:selectOneMenu>
-                                            <ice:commandButton action="#{calendarioUsuarioBean.irAnioCreaReunion}" value="Cambiar a&ntilde;o"></ice:commandButton>
+                                            <ice:commandButton action="#{creaReunionBean.irAnioCreaReunion}" value="Cambiar a&ntilde;o"></ice:commandButton>
                                         </div>
                                     </td>
 
@@ -55,7 +55,7 @@
                                         <ice:selectInputDate  styleClass="calendarioReuniones"  id="anoreunion" partialSubmit="true"
                                                               required="true" renderMonthAsDropdown="true" renderYearAsDropdown="false" 
                                                               highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK :MONTH: DAY_OF_YEAR" 
-                                                              highlightValue="1,7: : #{calendarioUsuarioBean.reunionescadenacreareunion}" 
+                                                              highlightValue="1,7: : #{creaReunionBean.reunionescadenacreareunion}" 
                                                               value="#{creaReunionBean.fechaCalendario}">
                                             <f:converter converterId="javax.faces.DateTime"/> 
                                             <f:convertDateTime pattern="dd/MM/yyyy"/>

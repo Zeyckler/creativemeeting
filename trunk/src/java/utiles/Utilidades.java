@@ -4,10 +4,13 @@
  */
 package utiles;
 
+import bd.Reuniones;
 import bd.Usuarios;
 import beans.EmpresaBean;
 import beans.UsuariosBean;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.context.FacesContext;
@@ -95,6 +98,31 @@ public class Utilidades {
         
         res= usbean.getDni();
         
+        return res;
+    }
+    
+    public static String trasformaListaFechaCadena(List<Reuniones> listaReuniones) {
+
+        String res = "";
+        int i = 0;
+
+        for (Reuniones d : listaReuniones) {
+
+            i++;
+            Calendar c1 = new GregorianCalendar();
+            c1.setTime(d.getFechainicial());
+            int formatday = Calendar.DAY_OF_YEAR;
+            int dia_ano = c1.get(formatday);
+
+            if (i < listaReuniones.size()) {
+                res = res + dia_ano + ",";
+            } else {
+                res = res + dia_ano;
+            }
+
+
+        }
+
         return res;
     }
     

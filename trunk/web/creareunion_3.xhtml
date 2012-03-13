@@ -136,6 +136,8 @@
                                 <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
                             </f:facet>
                         </ice:dataPaginator>
+                        
+                        <ice:outputText rendered="#{creaReunionBean.errorusuariovacio}" value="#{creaReunionBean.errorstrusuariovacio}" styleClass="errorformulario"></ice:outputText>
                         <ice:commandButton id="creareunionpaso3atras" value="Paso anterior" action="#{creaReunionBean.creaReunionPaso3Anterior}"></ice:commandButton>
                         <ice:commandButton id="creareunionfinal" value="Crear reunión" action="#{creaReunionBean.creaReunionFinal}"></ice:commandButton>
 

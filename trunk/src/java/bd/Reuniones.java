@@ -42,15 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reuniones.findReunionesdeUsuariosAnio", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND r.fechainicial BETWEEN :fecha1 AND :fecha2 ")
 })
 public class Reuniones implements Serializable {
-    @Column(name = "fechainicial")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechainicial;
-    @Column(name = "fechafinalestimada")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinalestimada;
-    @Column(name = "fechafinalreal")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinalreal;
+    
   
 
     private static final long serialVersionUID = 1L;
@@ -62,6 +54,15 @@ public class Reuniones implements Serializable {
     private Integer idreunion;
     @Column(name = "coste")
     private Integer coste;
+    @Column(name =     "fechainicial")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicial;
+    @Column(name =     "fechafinalestimada")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalestimada;
+    @Column(name =     "fechafinalreal")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalreal;
     @OneToMany(mappedBy = "idreunion")
     private Collection<Puntosdeldia> puntosdeldiaCollection;
     @OneToMany(mappedBy = "idreunion")

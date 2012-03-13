@@ -33,12 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Asistenciareunion.findAll", query = "SELECT a FROM Asistenciareunion a"),
     @NamedQuery(name = "Asistenciareunion.findByIdasistenciareunion", query = "SELECT a FROM Asistenciareunion a WHERE a.idasistenciareunion = :idasistenciareunion")})
 public class Asistenciareunion implements Serializable {
-    @Column(name = "notificacion")
-    private Boolean notificacion;
-    @Column(name = "respuesta")
-    private Boolean respuesta;
-    @Column(name = "asistencia")
-    private Boolean asistencia;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +41,12 @@ public class Asistenciareunion implements Serializable {
     @NotNull
     @Column(name = "idasistenciareunion")
     private Integer idasistenciareunion;
+    @Column(name = "notificacion")
+    private Boolean notificacion;
+    @Column(name = "respuesta")
+    private Boolean respuesta;
+    @Column(name = "asistencia")
+    private Boolean asistencia;
     @JoinColumn(name = "idreunion", referencedColumnName = "idreunion")
     @ManyToOne
     private Reuniones idreunion;
@@ -63,15 +64,12 @@ public class Asistenciareunion implements Serializable {
     }
     
     public Asistenciareunion(Usuarios usuario, Reuniones reunion ){
+        this.idasistenciareunion= new Integer(1);
         this.dni=usuario;
         this.idreunion=reunion;
+        this.notificacion = true;
     }
 
-    public Asistenciareunion(Integer idasistenciareunion, Reuniones idreunion, Usuarios dni) {
-        this.idasistenciareunion = idasistenciareunion;
-        this.idreunion = idreunion;
-        this.dni = dni;
-    }
     
 
     public Integer getIdasistenciareunion() {

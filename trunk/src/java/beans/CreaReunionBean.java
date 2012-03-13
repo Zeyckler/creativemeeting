@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package beans;
 
 import bd.Asistenciareunion;
@@ -12,20 +8,17 @@ import bd.Tiporeuniones;
 import bd.Usuarios;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
-import javax.servlet.http.HttpSession;
 import utiles.Consultas;
 import utiles.Fila;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 
 import factoria.FactoriaBD;
-import java.awt.BufferCapabilities.FlipContents;
 import javax.faces.context.FacesContext;
-import javax.jms.Session;
+import javax.servlet.http.HttpSession;
 import utiles.Utilidades;
 
 /**
@@ -35,7 +28,11 @@ import utiles.Utilidades;
 public class CreaReunionBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private Date fechaCalendario = Calendar.getInstance().getTime();
+    private Date fechaCalendario;
+    private List<Reuniones> listareunionescreareunion;
+    private String reunionescadenacreareunion;
+    private Integer aniocreareunion;
+    private Integer listaanioscreareunion[];
     private Date fechainicial;
     private Date fechafinalestimada;
     private Date fechafinalreal;
@@ -60,11 +57,8 @@ public class CreaReunionBean implements Serializable {
     private String errorstrpaso1;
     private boolean errorpaso2;
     private String errorstrpaso2;
-    private Collection<Puntosdeldia> puntosdeldiaCollection;
-    private Collection<Asistenciareunion> asistenciareunionCollection;
-    private Tiporeuniones idtipo;
-    private Salasreuniones idsalareunion;
-    private Usuarios dnicreador;
+    private boolean errorusuariovacio;
+    private String errorstrusuariovacio;
 
     {
         listapuntosdeldia = new LinkedList<String>();
@@ -83,16 +77,21 @@ public class CreaReunionBean implements Serializable {
         usuariosdisponibleseleccionados = new LinkedList<Object[]>();
         errorpaso1 = false;
         errorpaso2 = false;
+        errorusuariovacio = false;
+
+
+        fechaCalendario = Calendar.getInstance().getTime();
+        aniocreareunion = Calendar.getInstance().get(Calendar.YEAR);
+        listareunionescreareunion = Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), aniocreareunion);
+        reunionescadenacreareunion = Utilidades.trasformaListaFechaCadena(listareunionescreareunion);
+        listaanioscreareunion = new Integer[]{Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR) + 1};
+
 
 
     }
 
     /** Creates a new instance of CreaReunionBean */
     public CreaReunionBean() {
-        listapuntosdeldia = new LinkedList<String>();
-        for (int i = 0; i < 10; i++) {
-            listapuntosdeldia.add(i, "");
-        }
     }
 
     public boolean isAgregaNuevoDisabled() {
@@ -103,28 +102,12 @@ public class CreaReunionBean implements Serializable {
         this.agregaNuevoDisabled = agregaNuevoDisabled;
     }
 
-    public Collection<Asistenciareunion> getAsistenciareunionCollection() {
-        return asistenciareunionCollection;
-    }
-
-    public void setAsistenciareunionCollection(Collection<Asistenciareunion> asistenciareunionCollection) {
-        this.asistenciareunionCollection = asistenciareunionCollection;
-    }
-
     public Integer getCoste() {
         return coste;
     }
 
     public void setCoste(Integer coste) {
         this.coste = coste;
-    }
-
-    public Usuarios getDnicreador() {
-        return dnicreador;
-    }
-
-    public void setDnicreador(Usuarios dnicreador) {
-        this.dnicreador = dnicreador;
     }
 
     public String getDuracionhorareunion() {
@@ -167,6 +150,38 @@ public class CreaReunionBean implements Serializable {
         this.fechaCalendario = fechaCalendario;
     }
 
+    public Integer getAniocreareunion() {
+        return aniocreareunion;
+    }
+
+    public void setAniocreareunion(Integer aniocreareunion) {
+        this.aniocreareunion = aniocreareunion;
+    }
+
+    public Integer[] getListaanioscreareunion() {
+        return listaanioscreareunion;
+    }
+
+    public void setListaanioscreareunion(Integer[] listaanioscreareunion) {
+        this.listaanioscreareunion = listaanioscreareunion;
+    }
+
+    public List<Reuniones> getListareunionescreareunion() {
+        return listareunionescreareunion;
+    }
+
+    public void setListareunionescreareunion(List<Reuniones> listareunionescreareunion) {
+        this.listareunionescreareunion = listareunionescreareunion;
+    }
+
+    public String getReunionescadenacreareunion() {
+        return reunionescadenacreareunion;
+    }
+
+    public void setReunionescadenacreareunion(String reunionescadenacreareunion) {
+        this.reunionescadenacreareunion = reunionescadenacreareunion;
+    }
+
     public Date getFechafinalestimada() {
         return fechafinalestimada;
     }
@@ -207,22 +222,6 @@ public class CreaReunionBean implements Serializable {
         this.horastr = horastr;
     }
 
-    public Salasreuniones getIdsalareunion() {
-        return idsalareunion;
-    }
-
-    public void setIdsalareunion(Salasreuniones idsalareunion) {
-        this.idsalareunion = idsalareunion;
-    }
-
-    public Tiporeuniones getIdtipo() {
-        return idtipo;
-    }
-
-    public void setIdtipo(Tiporeuniones idtipo) {
-        this.idtipo = idtipo;
-    }
-
     public List<String> getListapuntosdeldia() {
         return listapuntosdeldia;
     }
@@ -245,14 +244,6 @@ public class CreaReunionBean implements Serializable {
 
     public void setPosicion(int posicion) {
         this.posicion = posicion;
-    }
-
-    public Collection<Puntosdeldia> getPuntosdeldiaCollection() {
-        return puntosdeldiaCollection;
-    }
-
-    public void setPuntosdeldiaCollection(Collection<Puntosdeldia> puntosdeldiaCollection) {
-        this.puntosdeldiaCollection = puntosdeldiaCollection;
     }
 
     public List<Salasreuniones> getSalaSeleccionada() {
@@ -333,6 +324,22 @@ public class CreaReunionBean implements Serializable {
 
     public void setErrorstrpaso2(String errorstrpaso2) {
         this.errorstrpaso2 = errorstrpaso2;
+    }
+
+    public String getErrorstrusuariovacio() {
+        return errorstrusuariovacio;
+    }
+
+    public void setErrorstrusuariovacio(String errorstrusuariovacio) {
+        this.errorstrusuariovacio = errorstrusuariovacio;
+    }
+
+    public boolean isErrorusuariovacio() {
+        return errorusuariovacio;
+    }
+
+    public void setErrorusuariovacio(boolean errorusuariovacio) {
+        this.errorusuariovacio = errorusuariovacio;
     }
 
     public void calculaFechasReunion(Date fechareunion, String horareunion, String minutosreunion, String duracionhorareunion, String duracionminutosreunion) {
@@ -416,7 +423,7 @@ public class CreaReunionBean implements Serializable {
     public String creaReunionPaso2() {
         String res = null;
         this.errorpaso2 = false;
-        this.errores=false;
+        this.errores = false;
 
         if (this.salaSeleccionada.isEmpty()) {
             this.errorpaso2 = true;
@@ -455,6 +462,7 @@ public class CreaReunionBean implements Serializable {
 
         String res = null;
         this.errores = false;
+        this.errorusuariovacio = false;
 
         for (int i = 0; i <= this.posicion; i++) {
             String puntodia = this.listapuntosdeldia.get(i);
@@ -469,28 +477,58 @@ public class CreaReunionBean implements Serializable {
             if (this.usuariosdisponibleseleccionados.size() > this.salaSeleccionada.get(0).getCapacidad()) {
                 res = "overbooking";
             } else {
+                if (usuariosdisponibleseleccionados.size() <= 0) {
+                    res = "usuariosvacio";
+                    this.errorusuariovacio = true;
+                    this.errorstrusuariovacio = "Debe seleccionar al menos un usuario";
+                    //hacer error en la pagina y redirigir el face config        
+                } else {
+                    Salasreuniones idsalareunion1 = salaSeleccionada.get(0);
+                    Tiporeuniones idtipo1 = FactoriaBD.creaTiporeuniones(new Integer(2));
+                    Usuarios dnicreador1 = FactoriaBD.creaUsuario(Utilidades.getDniUsuarioSesion());
+
+                    Reuniones reunion = FactoriaBD.creaReuniones(this.fechainicial, this.fechafinalestimada, idtipo1, idsalareunion1, dnicreador1);
+
+                    boolean a = FactoriaBD.insertaReuniones(reunion);
+
+                    List<Puntosdeldia> puntosdia = new LinkedList<Puntosdeldia>();
+
+                    for (int i = 0; i <= this.posicion; i++) {
+
+                        String pd = this.listapuntosdeldia.get(i);
+                        Puntosdeldia puntod = FactoriaBD.creaPuntosdeldia(pd, reunion);
+                        puntosdia.add(puntod);
+                    }
+                    boolean b = FactoriaBD.insertaListaPuntosdelDia(puntosdia);
+
+                    List<Asistenciareunion> asistenciareunion = new LinkedList<Asistenciareunion>();
+
+                    Asistenciareunion aistenciacreador = FactoriaBD.creaAsistenciareunion(reunion, dnicreador1);
+                    asistenciareunion.add(aistenciacreador);
+
+                    for (Object[] usuariosd : this.usuariosdisponibleseleccionados) {
+
+                        Usuarios us = FactoriaBD.creaUsuario((String) usuariosd[0]);
+                        Asistenciareunion asistencia = FactoriaBD.creaAsistenciareunion(reunion, us);
+                        asistenciareunion.add(asistencia);
+                    }
+
+                    boolean c = FactoriaBD.insertaListaAsistenciareunion(asistenciareunion);
+                    // reunion.setAsistenciareunionCollection(asistenciareunion);
+
+                    System.out.print(a);
+                    System.out.print(b);
+                    System.out.print(c);
+                    res = "ok";
 
 
-                Salasreuniones idsalareunion1 = salaSeleccionada.get(0);
-                Tiporeuniones idtipo1 = FactoriaBD.creaTiporeuniones(new Integer(2));
-                Usuarios dnicreador1 = FactoriaBD.creaUsuario(Utilidades.getDniUsuarioSesion());
+
+                    setListareunionescreareunion(Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), this.aniocreareunion));
+                    setReunionescadenacreareunion(Utilidades.trasformaListaFechaCadena(listareunionescreareunion));
 
 
 
-
-                Reuniones reunion = FactoriaBD.creaReuniones(this.fechainicial, this.fechafinalestimada, idtipo1, idsalareunion1, dnicreador1);
-                
-                System.out.println("Dni Usuario Sesion" + dnicreador1.getDni());
-                System.out.println("Sala Seleccionada" + idsalareunion1.getCodigopostal() + "  " + idsalareunion1.getIdsalareunion() + idsalareunion1.getNombresala());
-                System.out.println("Id tipo reunion: " + idtipo1.getIdtipo());
-                System.out.println("Fecha Inicial: " + this.fechainicial);
-                System.out.println("Fecha Final: " + this.fechafinalestimada);
-                boolean a = FactoriaBD.insertaReuniones(reunion);
-                System.out.print(a);
-                res = "ok";
-
-
-
+                }
 
             }
 
@@ -511,7 +549,6 @@ public class CreaReunionBean implements Serializable {
             if (fila.isSeleccionada()) {
                 this.salaSeleccionada.add(fila.getTipo());
             }
-            System.out.print("Tamño de la salas seleccionadas" + this.salaSeleccionada.size());
 
         }
 
@@ -613,5 +650,21 @@ public class CreaReunionBean implements Serializable {
             }
         }
         return "ok";
+    }
+
+    public String irAnioCreaReunion() {
+
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.DAY_OF_YEAR, 1);
+        cal.set(Calendar.MONTH, 0);
+        cal.set(Calendar.YEAR, this.aniocreareunion);
+        this.fechaCalendario=cal.getTime();
+
+        this.listareunionescreareunion.clear();
+        setListareunionescreareunion(Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), this.aniocreareunion));
+        setReunionescadenacreareunion(Utilidades.trasformaListaFechaCadena(listareunionescreareunion));
+
+        return "ok";
+
     }
 }
