@@ -54,7 +54,8 @@ import javax.faces.bean.SessionScoped;
     @NamedQuery(name = "Usuarios.findByIdReunion", query = "SELECT u FROM Usuarios u JOIN u.asistenciareunionCollection arc JOIN arc.idreunion idr WHERE idr.idreunion =:idr1 "),
     @NamedQuery(name = "Usuarios.findUsuarioByEmpresa", query = "SELECT u FROM Usuarios u JOIN u.nif emp WHERE emp.nif = :nifempresa"),
     @NamedQuery(name = "Usuarios.findByUsuarioyContrasena", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario AND u.contrasena = :contasenia"),
-    @NamedQuery(name = "Usuarios.finDUsuariosDisponiblesReunion", query = "SELECT DISTINCT u.dni, u.nombre, u.apellido1, u.apellido2, emp.nif, emp.razonsocial FROM Usuarios u LEFT JOIN u.asistenciareunionCollection arc LEFT JOIN arc.idreunion idr LEFT JOIN u.nif emp  WHERE (arc.notificacion = :notificacion AND arc.respuesta = :respuesta AND idr.fechainicial> :fechinicial AND idr.fechainicial< :fechfinal AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) OR (arc.notificacion = :notificaciont AND idr.fechainicial> :fechinicial AND idr.fechainicial< :fechfinal AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) OR (idr.fechainicial > :fechfinal AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) OR ( idr.fechainicial < :fechinicial AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) OR (arc.idasistenciareunion IS NULL AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) ")
+    @NamedQuery(name = "Usuarios.finDUsuariosDisponiblesReunion", query = "SELECT u.dni, u.nombre, u.apellido1, u.apellido2, emp.nif, emp.razonsocial FROM Usuarios u LEFT JOIN u.asistenciareunionCollection arc LEFT JOIN arc.idreunion idr LEFT JOIN u.nif emp  WHERE (arc.notificacion = :notificacion AND arc.respuesta = :respuesta AND idr.fechainicial> :fechinicial AND idr.fechainicial< :fechfinal AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) OR (arc.notificacion = :notificaciont AND idr.fechainicial> :fechinicial AND idr.fechainicial< :fechfinal AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) OR (idr.fechainicial > :fechfinal AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) OR ( idr.fechainicial < :fechinicial AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) OR (arc.idasistenciareunion IS NULL AND emp.nif = :nifemp AND NOT u.dni= :dniadmin) "),
+    @NamedQuery(name = "Usuarios.findUsuariosNuevosPorActivarAE", query = "SELECT u.dni, u.nombre, u.apellido1, u.apellido2 FROM Usuarios u JOIN u.nif emp WHERE u.activacioninicial = :actini AND emp.nif = :empnif ")
 })
 public class Usuarios implements Serializable {
     
@@ -175,8 +176,6 @@ public class Usuarios implements Serializable {
     public Usuarios(String dni) {
         this.dni = dni;
     }
-    
-    
 
     public Usuarios(String dni, String nombre, String apellido1, String apellido2,
             Date fechanacimiento, String direccion, Integer telefono, Integer movil,

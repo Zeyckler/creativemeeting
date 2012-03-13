@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
+
+            <ui:define name="title">
+                Cerrar sesión - CreativeMeetings
+            </ui:define>
+
+            <ui:define name="logoempresa">
+                logoempresa
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="right">
+
+            </ui:define>
+
+            <ui:define name="content">
+                <ice:form>
+                    <h1>¿Realmente desea cerrar sesión?</h1>
+                    <p>
+                        <ice:commandButton id="botoncerrarsesion" value="Sí" action="#{login.cerrarSesion}"></ice:commandButton>
+                        <ice:commandButton id="botonnocerrarsesion" value="No" action="#{login.noCerrarSesion}"></ice:commandButton>
+                    </p>
+                </ice:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

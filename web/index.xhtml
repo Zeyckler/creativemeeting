@@ -40,7 +40,8 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="labelslogin">
-                                    <ice:graphicImage id="loading" alt="Cargando..." title="Cargando..." visible="false" url="#{resource['images:loading.gif']}"></ice:graphicImage>
+                                    <link rel='stylesheet' type='text/css' href='./xmlhttp/css/xp/xp.css'/>
+                                    <ice:outputConnectionStatus/>
                                     <ice:commandButton id="acceder" value="Acceder" action="#{login.compruebaLogin}" ></ice:commandButton></td>
                             </tr>
                             <tr><td colspan="2"><div id="errorlogin" class="errorformulario">
