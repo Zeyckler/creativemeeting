@@ -56,34 +56,33 @@ public class LoginBean implements Serializable {
             context.addMessage(validate.getClientId(context), msg);
 
         }
-        this.usuario=nomUsuario;
+        this.usuario = nomUsuario;
 
     }
 
     public void validarContrasena(FacesContext context, UIComponent validate, Object value) {
 
         String clave = (String) value;
-        Usuarios a=null;
-        
+        Usuarios a = null;
+
         if (clave.equals("")) {
             ((UIInput) validate).setValid(false);
             FacesMessage msg = new FacesMessage("No puede estar vacía");
             context.addMessage(validate.getClientId(context), msg);
         }
-        
-        try{
-             
+
+        try {
+
             a = Consultas.buscaUsuarioContrasena(this.usuario, clave);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        catch(Exception e){
-            System.out.println(e.getMessage());   
-        }
-        if(a==null){
+        if (a == null) {
             ((UIInput) validate).setValid(false);
             FacesMessage msg = new FacesMessage("Nombre de Usuario o contraseña no válidos");
             context.addMessage(validate.getClientId(context), msg);
-            
-            
+
+
         }
     }
 
@@ -97,15 +96,14 @@ public class LoginBean implements Serializable {
 
     public String compruebaLogin() {
 
-        Usuarios a=null;
-        try{
+        Usuarios a = null;
+        try {
             a = Consultas.buscaUsuarioContrasena(this.usuario, this.contrasena);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            
+
         }
-        
+
 
         if (a != null) {
             UsuariosBean user = new UsuariosBean(a);
@@ -121,7 +119,7 @@ public class LoginBean implements Serializable {
             session.setAttribute("usuario", user);
             session.setAttribute("empresa", emp);
             session.setAttribute("calendarioUsuarioBean", calendariouserbean);
-            
+
             // -----------------
 
 
@@ -162,9 +160,11 @@ public class LoginBean implements Serializable {
     }
 
     public String cerrarSesion() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        externalContext.invalidateSession();
-        return "cerrarsesion";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index.xhtml?faces-redirect=true";
+    }
+
+    public String noCerrarSesion() {
+        return "nocerrarsesion";
     }
 }

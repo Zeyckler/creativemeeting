@@ -20,7 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -394,18 +393,32 @@ public class Consultas {
         }
         return tipo;
     }
-    
-    public static Usuarios buscarUsuario(String dni){
+
+    public static Usuarios buscarUsuario(String dni) {
         Usuarios usuario = null;
         abrirTransaccion();
         Query q1 = em.createNamedQuery("Usuarios.findByDni");
         q1.setParameter("dni", dni);
-        
+
         try {
             usuario = (Usuarios) q1.getSingleResult();
         } catch (Exception e) {
             System.out.print(e.toString());
         }
         return usuario;
+    }
+
+    public static List<Object[]> buscarUsuariosporActivarAE(String nif) {
+        List<Object[]> usuarios = null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery("Usuarios.findUsuariosNuevosPorActivarAE");
+        q1.setParameter("empnif", nif);
+        q1.setParameter("actini", true);
+        try {
+            usuarios = (List<Object[]>) q1.getResultList();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+        }
+        return usuarios;
     }
 }

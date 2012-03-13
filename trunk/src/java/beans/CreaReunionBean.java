@@ -15,10 +15,7 @@ import java.util.List;
 import utiles.Consultas;
 import utiles.Fila;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
-
 import factoria.FactoriaBD;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import utiles.Utilidades;
 
 /**
