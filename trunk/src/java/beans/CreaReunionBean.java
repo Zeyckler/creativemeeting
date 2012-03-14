@@ -486,7 +486,7 @@ public class CreaReunionBean implements Serializable {
 
                     Reuniones reunion = FactoriaBD.creaReuniones(this.fechainicial, this.fechafinalestimada, idtipo1, idsalareunion1, dnicreador1);
 
-                    boolean a = FactoriaBD.insertaReuniones(reunion);
+                    //boolean a = FactoriaBD.insertaReuniones(reunion);
 
                     List<Puntosdeldia> puntosdia = new LinkedList<Puntosdeldia>();
 
@@ -496,7 +496,8 @@ public class CreaReunionBean implements Serializable {
                         Puntosdeldia puntod = FactoriaBD.creaPuntosdeldia(pd, reunion);
                         puntosdia.add(puntod);
                     }
-                    boolean b = FactoriaBD.insertaListaPuntosdelDia(puntosdia);
+                    reunion.setPuntosdeldiaCollection(puntosdia);
+                    //boolean b = FactoriaBD.insertaListaPuntosdelDia(puntosdia);
 
                     List<Asistenciareunion> asistenciareunion = new LinkedList<Asistenciareunion>();
 
@@ -510,12 +511,14 @@ public class CreaReunionBean implements Serializable {
                         asistenciareunion.add(asistencia);
                     }
 
-                    boolean c = FactoriaBD.insertaListaAsistenciareunion(asistenciareunion);
-                    // reunion.setAsistenciareunionCollection(asistenciareunion);
+                    //boolean c = FactoriaBD.insertaListaAsistenciareunion(asistenciareunion);
+                    reunion.setAsistenciareunionCollection(asistenciareunion);
+                    
+                    boolean a = FactoriaBD.insertaReuniones(reunion);
 
                     System.out.print(a);
-                    System.out.print(b);
-                    System.out.print(c);
+                    //System.out.print(b);
+                    //System.out.print(c);
                     res = "ok";
 
 
