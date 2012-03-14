@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
         <title><ui:insert name="title"/></title>
         <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==3}">
-                    
+              #{facesContext.externalContext.redirect("/index.xhtml")}      
         </c:if>
     </h:head>
 

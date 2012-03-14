@@ -4,7 +4,9 @@
  */
 package beans;
 
+import bd.Usuarios;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
+import factoria.FactoriaBD;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,5 +67,57 @@ public class VerNotificacionesAEBean implements Serializable {
 
         }
 
+    }
+
+    public String aceptarUsuarios() {
+        String res = "";
+        try {
+
+            for (Object[] o : this.usuariosnuevosseleccionados) {
+                Usuarios u = Consultas.buscarUsuario((String) o[0]);
+                FactoriaBD.preActualizarDato(u);
+                u.setActivacioninicial(false);
+                u.setActivo(true);
+                FactoriaBD.posActualizarDato(u);
+
+            }
+            this.filasusuariosnuevos.clear();
+            this.usuariosnuevosseleccionados.clear();
+            List<Object[]> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
+            for (Object[] fila : aux) {
+                this.filasusuariosnuevos.add(new Fila(fila, false));
+            }
+            res = "ok";
+        } catch (Exception e) {
+            res = "error";
+            System.out.println(e.toString());
+        }
+        return res;
+    }
+
+    public String rechazarUsuarios() {
+        String res = "";
+        try {
+
+            for (Object[] o : this.usuariosnuevosseleccionados) {
+                Usuarios u = Consultas.buscarUsuario((String) o[0]);
+                FactoriaBD.preActualizarDato(u);
+                u.setActivacioninicial(false);
+                u.setActivo(false);
+                FactoriaBD.posActualizarDato(u);
+
+            }
+            this.filasusuariosnuevos.clear();
+            this.usuariosnuevosseleccionados.clear();
+            List<Object[]> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
+            for (Object[] fila : aux) {
+                this.filasusuariosnuevos.add(new Fila(fila, false));
+            }
+            res = "ok";
+        } catch (Exception e) {
+            res = "error";
+            System.out.println(e.toString());
+        }
+        return res;
     }
 }
