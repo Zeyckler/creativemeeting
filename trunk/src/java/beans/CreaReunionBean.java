@@ -56,6 +56,7 @@ public class CreaReunionBean implements Serializable {
     private String errorstrpaso2;
     private boolean errorusuariovacio;
     private String errorstrusuariovacio;
+    private boolean errorfecha;
 
     {
         listapuntosdeldia = new LinkedList<String>();
@@ -75,7 +76,7 @@ public class CreaReunionBean implements Serializable {
         errorpaso1 = false;
         errorpaso2 = false;
         errorusuariovacio = false;
-
+        errorfecha = false;
 
         fechaCalendario = Calendar.getInstance().getTime();
         aniocreareunion = Calendar.getInstance().get(Calendar.YEAR);
@@ -339,6 +340,15 @@ public class CreaReunionBean implements Serializable {
         this.errorusuariovacio = errorusuariovacio;
     }
 
+    public boolean isErrorfecha() {
+        return errorfecha;
+    }
+
+    public void setErrorfecha(boolean errorfecha) {
+        this.errorfecha = errorfecha;
+    }
+    
+
     public void calculaFechasReunion(Date fechareunion, String horareunion, String minutosreunion, String duracionhorareunion, String duracionminutosreunion) {
 
         int hreunion = Integer.parseInt(horareunion);
@@ -374,45 +384,62 @@ public class CreaReunionBean implements Serializable {
 
         String res = null;
         this.errorpaso1 = false;
+        this.errorfecha = false;
 
-        /* Calculamos las fechas iniciales y finales de la reunion*/
-        calculaFechasReunion(this.fechaCalendario, this.horastr, this.minutosstr, this.duracionhorareunion, this.duracionminutosreunion);
+        Calendar a = new GregorianCalendar();
+        a.setTime(fechaCalendario);
+        Integer diaanio = a.get(Calendar.DAY_OF_YEAR);
+        String dianiostr = Integer.toString(diaanio);
+
+        String[] listadias = this.reunionescadenacreareunion.split(",");
+        for (String dia : listadias) {
+            if (dia.equals(dianiostr)) {
+                this.errorfecha = true;
+                res= "errorfecha";
+            }
 
 
-        /*Calculamos la Lista de Filas de Salas disponibles y de Empresas amigas para mostrarlas en el siguiente paso*/
-        this.filassalasdisponible.clear();
-        List<Salasreuniones> listasalasdisponibles = Consultas.buscaSalasLibreFecha(this.fechainicial, this.fechafinalestimada);
-        for (Salasreuniones salas : listasalasdisponibles) {
-            Fila<Salasreuniones> fila = new Fila(salas, false);
-            this.filassalasdisponible.add(fila);
-        }
-        this.filasempresasamigas.clear();
-        List<Object[]> empresasamigas = Consultas.buscaempresasAmigas(Utilidades.getNifEmpresaSesion());
-        for (Object[] emp : empresasamigas) {
-
-            Fila<Object[]> fila2 = new Fila(emp, false);
-            this.filasempresasamigas.add(fila2);
         }
 
+        if (!this.errorfecha) {
+            /* Calculamos las fechas iniciales y finales de la reunion*/
+            calculaFechasReunion(this.fechaCalendario, this.horastr, this.minutosstr, this.duracionhorareunion, this.duracionminutosreunion);
 
-        if (this.filassalasdisponible.isEmpty()) {
 
-            res = "salasnodisponibles";
+            /*Calculamos la Lista de Filas de Salas disponibles y de Empresas amigas para mostrarlas en el siguiente paso*/
+            this.filassalasdisponible.clear();
+            List<Salasreuniones> listasalasdisponibles = Consultas.buscaSalasLibreFecha(this.fechainicial, this.fechafinalestimada);
+            for (Salasreuniones salas : listasalasdisponibles) {
+                Fila<Salasreuniones> fila = new Fila(salas, false);
+                this.filassalasdisponible.add(fila);
+            }
+            this.filasempresasamigas.clear();
+            List<Object[]> empresasamigas = Consultas.buscaempresasAmigas(Utilidades.getNifEmpresaSesion());
+            for (Object[] emp : empresasamigas) {
 
-        } else if (this.filasempresasamigas.isEmpty()) {
+                Fila<Object[]> fila2 = new Fila(emp, false);
+                this.filasempresasamigas.add(fila2);
+            }
 
-            res = "empresasamigasnodisponibles";
 
-        } else if (this.errorpaso1) {
-            res = "errorpaso1";
-        } else {
+            if (this.filassalasdisponible.isEmpty()) {
 
-            res = "ok";
+                res = "salasnodisponibles";
 
+            } else if (this.filasempresasamigas.isEmpty()) {
+
+                res = "empresasamigasnodisponibles";
+
+            } else if (this.errorpaso1) {
+                res = "errorpaso1";
+            } else {
+
+                res = "ok";
+
+            }
+            System.out.println("Fecha inicial: " + this.fechainicial);
+            System.out.println("Fecha final estimada: " + this.fechafinalestimada);
         }
-        System.out.println("Fecha inicial: " + this.fechainicial);
-        System.out.println("Fecha final estimada: " + this.fechafinalestimada);
-
         return res;
 
     }
@@ -513,7 +540,7 @@ public class CreaReunionBean implements Serializable {
 
                     //boolean c = FactoriaBD.insertaListaAsistenciareunion(asistenciareunion);
                     reunion.setAsistenciareunionCollection(asistenciareunion);
-                    
+
                     boolean a = FactoriaBD.insertaReuniones(reunion);
 
                     System.out.print(a);
@@ -658,7 +685,7 @@ public class CreaReunionBean implements Serializable {
         cal.set(Calendar.DAY_OF_YEAR, 1);
         cal.set(Calendar.MONTH, 0);
         cal.set(Calendar.YEAR, this.aniocreareunion);
-        this.fechaCalendario=cal.getTime();
+        this.fechaCalendario = cal.getTime();
 
         this.listareunionescreareunion.clear();
         setListareunionescreareunion(Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), this.aniocreareunion));

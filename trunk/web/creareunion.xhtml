@@ -60,7 +60,15 @@
                                             <f:converter converterId="javax.faces.DateTime"/> 
                                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                                         </ice:selectInputDate>
+                                        
                                     </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ice:outputText rendered="#{creaReunionBean.errorfecha}" value="Solo puede tener una reunión al dia." styleClass="errorformulario"></ice:outputText>
+                                    </td>
+                                    
                                 </tr>
 
                                 <tr>
