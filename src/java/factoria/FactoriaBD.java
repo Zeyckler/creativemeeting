@@ -128,6 +128,32 @@ public class FactoriaBD {
         return res;
     }
 
+    public static boolean preActualizarDato(Object o) {
+
+        boolean res = true;
+
+        try {
+            abrirTransaccion();
+            em.detach(o);
+        } catch (Exception e) {
+            res = false;
+        }
+        return res;
+    }
+
+    public static boolean posActualizarDato(Object o) {
+
+        boolean res = true;
+
+        try {
+            em.merge(o);
+            terminarTransaccion();
+        } catch (Exception e) {
+            res = false;
+        }
+        return res;
+    }
+
     public static Asistenciareunion creaAsistenciareunion(Reuniones idreunion, Usuarios dni) {
 
         Asistenciareunion asr = new Asistenciareunion(dni, idreunion);
@@ -163,7 +189,7 @@ public class FactoriaBD {
                 res = false;
             }
         }
-        
+
         return res;
 
     }
