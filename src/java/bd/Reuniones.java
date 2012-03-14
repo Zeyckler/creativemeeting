@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -63,11 +64,11 @@ public class Reuniones implements Serializable {
     @Column(name =     "fechafinalreal")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechafinalreal;
-    @OneToMany(mappedBy = "idreunion")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idreunion")
     private Collection<Puntosdeldia> puntosdeldiaCollection;
     @OneToMany(mappedBy = "idreunion")
     private Collection<Adjunto> adjuntoCollection;
-    @OneToMany(mappedBy = "idreunion")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idreunion")
     private Collection<Asistenciareunion> asistenciareunionCollection;
     @JoinColumn(name = "idtipo", referencedColumnName = "idtipo")
     @ManyToOne
