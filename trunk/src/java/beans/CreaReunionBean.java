@@ -16,6 +16,9 @@ import utiles.Consultas;
 import utiles.Fila;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 import factoria.FactoriaBD;
+import javax.faces.context.FacesContext;
+import javax.jms.Session;
+import javax.servlet.http.HttpSession;
 import utiles.Utilidades;
 
 /**
@@ -57,6 +60,7 @@ public class CreaReunionBean implements Serializable {
     private boolean errorusuariovacio;
     private String errorstrusuariovacio;
     private boolean errorfecha;
+    private String errorstrfecha;
 
     {
         listapuntosdeldia = new LinkedList<String>();
@@ -347,7 +351,14 @@ public class CreaReunionBean implements Serializable {
     public void setErrorfecha(boolean errorfecha) {
         this.errorfecha = errorfecha;
     }
-    
+
+    public String getErrorstrfecha() {
+        return errorstrfecha;
+    }
+
+    public void setErrorstrfecha(String errorstrfecha) {
+        this.errorstrfecha = errorstrfecha;
+    }
 
     public void calculaFechasReunion(Date fechareunion, String horareunion, String minutosreunion, String duracionhorareunion, String duracionminutosreunion) {
 
@@ -359,24 +370,24 @@ public class CreaReunionBean implements Serializable {
         if (durhorasreunion <= 0 && durminutosreunion <= 0) {
             this.errorpaso1 = true;
             this.errorstrpaso1 = "La duración de una reunión debe ser al menos de 30 minutos";
-        } else {
-            Calendar fechinicialestimada = new GregorianCalendar();
-            fechinicialestimada.setTime(fechareunion);
-            fechinicialestimada.set(Calendar.HOUR_OF_DAY, hreunion);
-            fechinicialestimada.set(Calendar.MINUTE, mreunion);
-
-            Calendar fechfinalestimada = (Calendar) fechinicialestimada.clone();
-            fechfinalestimada.add(Calendar.HOUR_OF_DAY, durhorasreunion);
-            fechfinalestimada.add(Calendar.MINUTE, durminutosreunion);
-
-            this.fechainicial = fechinicialestimada.getTime();
-            this.fechafinalestimada = fechfinalestimada.getTime();
-
-            if (fechinicialestimada.get(Calendar.DAY_OF_YEAR) != fechfinalestimada.get(Calendar.DAY_OF_YEAR)) {
-                this.errorpaso1 = true;
-                this.errorstrpaso1 = "Una reunión no puede acabar un día distinto al de comienzo";
-            }
         }
+        Calendar fechinicialestimada = new GregorianCalendar();
+        fechinicialestimada.setTime(fechareunion);
+        fechinicialestimada.set(Calendar.HOUR_OF_DAY, hreunion);
+        fechinicialestimada.set(Calendar.MINUTE, mreunion);
+
+        Calendar fechfinalestimada = (Calendar) fechinicialestimada.clone();
+        fechfinalestimada.add(Calendar.HOUR_OF_DAY, durhorasreunion);
+        fechfinalestimada.add(Calendar.MINUTE, durminutosreunion);
+
+        this.fechainicial = fechinicialestimada.getTime();
+        this.fechafinalestimada = fechfinalestimada.getTime();
+
+        if (fechinicialestimada.get(Calendar.DAY_OF_YEAR) != fechfinalestimada.get(Calendar.DAY_OF_YEAR)) {
+            this.errorpaso1 = true;
+            this.errorstrpaso1 = "Una reunión no puede acabar un día distinto al de comienzo";
+        }
+
 
     }
 
@@ -386,25 +397,37 @@ public class CreaReunionBean implements Serializable {
         this.errorpaso1 = false;
         this.errorfecha = false;
 
-        Calendar a = new GregorianCalendar();
-        a.setTime(fechaCalendario);
-        Integer diaanio = a.get(Calendar.DAY_OF_YEAR);
-        String dianiostr = Integer.toString(diaanio);
 
-        String[] listadias = this.reunionescadenacreareunion.split(",");
-        for (String dia : listadias) {
-            if (dia.equals(dianiostr)) {
-                this.errorfecha = true;
-                res= "errorfecha";
-            }
+        calculaFechasReunion(this.fechaCalendario, this.horastr, this.minutosstr, this.duracionhorareunion, this.duracionminutosreunion);
 
+        System.out.print(this.fechainicial);
 
+        Calendar hoy = Calendar.getInstance();
+        hoy.setTime(this.fechainicial);
+
+        if (hoy.compareTo(Calendar.getInstance()) < 0) {
+            this.errorfecha = true;
+            this.errorstrfecha = "No puedes crear una reunión anterior a la fecha actual";
+            res = "errorfecha";
         }
+        System.out.print(errorfecha + ": " + errorstrpaso1);
+        if (!errorfecha || !errorpaso1) {
 
-        if (!this.errorfecha) {
-            /* Calculamos las fechas iniciales y finales de la reunion*/
-            calculaFechasReunion(this.fechaCalendario, this.horastr, this.minutosstr, this.duracionhorareunion, this.duracionminutosreunion);
+            Calendar a = new GregorianCalendar();
+            a.setTime(fechaCalendario);
+            Integer diaanio = a.get(Calendar.DAY_OF_YEAR);
+            String dianiostr = Integer.toString(diaanio);
 
+            String[] listadias = this.reunionescadenacreareunion.split(",");
+            for (String dia : listadias) {
+                if (dia.equals(dianiostr)) {
+                    this.errorfecha = true;
+                    this.errorstrfecha = "Solo puede tener una reunión al dia";
+                    res = "errorfecha";
+                }
+
+
+            }
 
             /*Calculamos la Lista de Filas de Salas disponibles y de Empresas amigas para mostrarlas en el siguiente paso*/
             this.filassalasdisponible.clear();
@@ -430,15 +453,16 @@ public class CreaReunionBean implements Serializable {
 
                 res = "empresasamigasnodisponibles";
 
-            } else if (this.errorpaso1) {
-                res = "errorpaso1";
-            } else {
-
-                res = "ok";
-
             }
-            System.out.println("Fecha inicial: " + this.fechainicial);
-            System.out.println("Fecha final estimada: " + this.fechafinalestimada);
+
+        }
+        if (this.errorpaso1) {
+            res = "errorpaso1";
+        } else if (this.errorfecha) {
+            res = "errorpaso1";
+        } else {
+
+            res = "ok";
         }
         return res;
 
@@ -544,14 +568,15 @@ public class CreaReunionBean implements Serializable {
                     boolean a = FactoriaBD.insertaReuniones(reunion);
 
                     System.out.print(a);
-                    //System.out.print(b);
-                    //System.out.print(c);
                     res = "ok";
 
 
+                    FacesContext ctx = FacesContext.getCurrentInstance();
+                    HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+                    session.removeAttribute("creaReunionBean");
 
-                    setListareunionescreareunion(Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), this.aniocreareunion));
-                    setReunionescadenacreareunion(Utilidades.trasformaListaFechaCadena(listareunionescreareunion));
+                    //setListareunionescreareunion(Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), this.aniocreareunion));
+                    //setReunionescadenacreareunion(Utilidades.trasformaListaFechaCadena(listareunionescreareunion));
 
 
 

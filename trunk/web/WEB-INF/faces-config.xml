@@ -269,5 +269,10 @@
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+     <managed-bean>
+        <managed-bean-name>relacionesEmpresarialesBean</managed-bean-name>
+        <managed-bean-class>beans.relacionesEmpresarialesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
 
