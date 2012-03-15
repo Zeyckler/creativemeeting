@@ -421,4 +421,22 @@ public class Consultas {
         }
         return usuarios;
     }
+
+    public static List<Reuniones> buscaReunionesNotificacionesporUsuario(String dni) {
+        Date hoy = Calendar.getInstance().getTime();
+        boolean notificacion = true;
+        List<Reuniones> reuniones = null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery("Reuniones.findReunionesNotificacionesPorUsuario");
+        q1.setParameter("dni", dni);
+        q1.setParameter("noti", notificacion);
+        q1.setParameter("hoy", hoy);
+        try {
+            reuniones = q1.getResultList();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+
+        }
+        return reuniones;
+    }
 }

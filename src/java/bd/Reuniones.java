@@ -35,16 +35,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Reuniones.findAll", query = "SELECT r FROM Reuniones r"),
-    @NamedQuery(name = "Reuniones.findByIdreunion", query = "SELECT r FROM Reuniones r WHERE r.idreunion = :idreunion"),  
-    @NamedQuery(name = "Reuniones.findByCoste", query = "SELECT r FROM Reuniones r WHERE r.coste = :coste"), 
+    @NamedQuery(name = "Reuniones.findByIdreunion", query = "SELECT r FROM Reuniones r WHERE r.idreunion = :idreunion"),
+    @NamedQuery(name = "Reuniones.findByCoste", query = "SELECT r FROM Reuniones r WHERE r.coste = :coste"),
     @NamedQuery(name = "Reuniones.findByReunionCreador", query = "SELECT r FROM Reuniones r JOIN r.dnicreador usuario WHERE usuario.dni= :creador AND r.fechainicial> :fechaactual"),
     @NamedQuery(name = "Reuniones.findIntervencionesByIdreunion", query = "SELECT u , intervenciones FROM Usuarios u JOIN u.asistenciareunionCollection asistencia JOIN asistencia.idreunion reunion JOIN asistencia.intervencionesCollection intervenciones WHERE reunion.idreunion =:idre ORDER BY intervenciones.momentointervencion"),
     @NamedQuery(name = "Reuniones.findReunionesdeUsuarios", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni"),
-    @NamedQuery(name = "Reuniones.findReunionesdeUsuariosAnio", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND r.fechainicial BETWEEN :fecha1 AND :fecha2 ")
+    @NamedQuery(name = "Reuniones.findReunionesdeUsuariosAnio", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND r.fechainicial BETWEEN :fecha1 AND :fecha2 "),
+    @NamedQuery(name = "Reuniones.findReunionesNotificacionesPorUsuario", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND asistencia.notificacion =:noti AND r.fechainicial >=:hoy")
 })
 public class Reuniones implements Serializable {
-    
-  
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,13 +54,13 @@ public class Reuniones implements Serializable {
     private Integer idreunion;
     @Column(name = "coste")
     private Integer coste;
-    @Column(name =     "fechainicial")
+    @Column(name = "fechainicial")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicial;
-    @Column(name =     "fechafinalestimada")
+    @Column(name = "fechafinalestimada")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechafinalestimada;
-    @Column(name =     "fechafinalreal")
+    @Column(name = "fechafinalreal")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechafinalreal;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idreunion")
@@ -87,12 +86,13 @@ public class Reuniones implements Serializable {
 
     public Reuniones() {
     }
-    public Reuniones(Date fechainicial, Date fechafinalestimada, Date fechafinalreal, Integer coste, Salasreuniones idsala){
-        this.fechainicial= fechainicial;
-        this.fechafinalestimada= fechafinalestimada;
-        this.fechafinalreal= fechafinalreal;
-        this.coste= coste;
-        this.idsalareunion= idsala;
+
+    public Reuniones(Date fechainicial, Date fechafinalestimada, Date fechafinalreal, Integer coste, Salasreuniones idsala) {
+        this.fechainicial = fechainicial;
+        this.fechafinalestimada = fechafinalestimada;
+        this.fechafinalreal = fechafinalreal;
+        this.coste = coste;
+        this.idsalareunion = idsala;
     }
 
     public Reuniones(Date fechainicial, Date fechafinalestimada, Tiporeuniones idtipo, Salasreuniones idsalareunion, Usuarios dnicreador) {
@@ -101,9 +101,8 @@ public class Reuniones implements Serializable {
         this.idtipo = idtipo;
         this.idsalareunion = idsalareunion;
         this.dnicreador = dnicreador;
-        this.idreunion= new Integer(1);
+        this.idreunion = new Integer(1);
     }
-    
 
     public Integer getIdreunion() {
         return idreunion;
@@ -112,6 +111,7 @@ public class Reuniones implements Serializable {
     public void setIdreunion(Integer idreunion) {
         this.idreunion = idreunion;
     }
+
     public Integer getCoste() {
         return coste;
     }
@@ -119,7 +119,7 @@ public class Reuniones implements Serializable {
     public void setCoste(Integer coste) {
         this.coste = coste;
     }
-    
+
     @XmlTransient
     public Collection<Puntosdeldia> getPuntosdeldiaCollection() {
         return puntosdeldiaCollection;
@@ -219,5 +219,4 @@ public class Reuniones implements Serializable {
     public void setFechafinalreal(Date fechafinalreal) {
         this.fechafinalreal = fechafinalreal;
     }
-
 }
