@@ -10,6 +10,7 @@ import beans.EmpresaBean;
 import beans.UsuariosBean;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -80,27 +81,28 @@ public class Utilidades {
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        
-        EmpresaBean emp= (EmpresaBean)session.getAttribute("empresa");
-        
-        res= emp.getNif();
-        
+
+        EmpresaBean emp = (EmpresaBean) session.getAttribute("empresa");
+
+        res = emp.getNif();
+
         return res;
     }
+
     public static String getDniUsuarioSesion() {
 
         String res;
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        
-        UsuariosBean usbean= (UsuariosBean)session.getAttribute("usuario");
-        
-        res= usbean.getDni();
-        
+
+        UsuariosBean usbean = (UsuariosBean) session.getAttribute("usuario");
+
+        res = usbean.getDni();
+
         return res;
     }
-    
+
     public static String trasformaListaFechaCadena(List<Reuniones> listaReuniones) {
 
         String res = "";
@@ -125,5 +127,5 @@ public class Utilidades {
 
         return res;
     }
-    
+
 }

@@ -310,12 +310,8 @@
         }
                 
         */
-        Date d1= Calendar.getInstance().getTime();
-        
-        List<Object[]>usuarios = Consultas.buscaUsuariosDisponibleReunion(d1);
-        
-        out.print(usuarios.size());
-       
+        boolean a= Utilidades.compruebaSession();
+        out.print(a);
         %>
         <p>¡¡¡Antonio ha sido grabado :-D!!!</p>
     </body>
