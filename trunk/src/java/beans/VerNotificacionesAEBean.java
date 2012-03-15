@@ -4,6 +4,7 @@
  */
 package beans;
 
+import bd.Reuniones;
 import bd.Usuarios;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 import factoria.FactoriaBD;
@@ -23,10 +24,16 @@ public class VerNotificacionesAEBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private List<Fila<Object[]>> filasusuariosnuevos;
     private List<Object[]> usuariosnuevosseleccionados;
+    private List<Reuniones> listadereunionesnotificacion;
 
     {
         this.usuariosnuevosseleccionados = new LinkedList<Object[]>();
         this.filasusuariosnuevos = new LinkedList<Fila<Object[]>>();
+        this.listadereunionesnotificacion = new LinkedList<Reuniones>();
+        List<Reuniones> auxreu = Consultas.buscaReunionesNotificacionesporUsuario(Utilidades.getDniUsuarioSesion());
+        for (Reuniones reu : auxreu) {
+            this.listadereunionesnotificacion.add(reu);
+        }
         List<Object[]> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
         for (Object[] fila : aux) {
             this.filasusuariosnuevos.add(new Fila(fila, false));
@@ -51,6 +58,14 @@ public class VerNotificacionesAEBean implements Serializable {
 
     public void setUsuariosnuevosseleccionados(List<Object[]> usuariosnuevosseleccionados) {
         this.usuariosnuevosseleccionados = usuariosnuevosseleccionados;
+    }
+
+    public List<Reuniones> getListadereunionesnotificacion() {
+        return listadereunionesnotificacion;
+    }
+
+    public void setListadereunionesnotificacion(List<Reuniones> listadereunionesnotificacion) {
+        this.listadereunionesnotificacion = listadereunionesnotificacion;
     }
 
     public void usuarioSeleccionadaListener(RowSelectorEvent event) {
