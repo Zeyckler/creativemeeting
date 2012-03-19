@@ -552,8 +552,10 @@ public class CreaReunionBean implements Serializable {
 
                     List<Asistenciareunion> asistenciareunion = new LinkedList<Asistenciareunion>();
 
-                    Asistenciareunion aistenciacreador = FactoriaBD.creaAsistenciareunion(reunion, dnicreador1);
-                    asistenciareunion.add(aistenciacreador);
+                    Asistenciareunion asitenciacreador = FactoriaBD.creaAsistenciareunion(reunion, dnicreador1);
+                    asitenciacreador.setNotificacion(false);
+                    asitenciacreador.setRespuesta(true);              
+                    asistenciareunion.add(asitenciacreador);
 
                     for (Object[] usuariosd : this.usuariosdisponibleseleccionados) {
 
