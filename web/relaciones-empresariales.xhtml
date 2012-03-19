@@ -6,7 +6,8 @@
       xmlns:icecore="http://www.icefaces.org/icefaces/core"
       xmlns:ace="http://www.icefaces.org/icefaces/components"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
     <body>
@@ -22,22 +23,92 @@
             </ui:define>
 
             <ui:define name="left">
-            
+
             </ui:define>
 
             <ui:define name="right">
-                
+
             </ui:define>
 
             <ui:define name="content">
-                
-                <h1> Relaciones empresariales </h1>
-                
-                
-                
-                
-                
-                
+                <div class="formulario" id="formularioreunion">
+                    <div> 
+                        <ice:form>
+                            <ice:panelGroup>
+                                <h1> 
+                                    Relaciones empresariales 
+                                </h1>
+                                <h2>
+                                    Empresas vinculadas:
+                                </h2>
+                                <ice:dataTable id="empresasamigast"   var="empresasamigast" value="#{relacionesEmpresarialesBean.filasempresasamigas}"
+                                               rows="5" columnClasses="tableCol">
+                                    <ice:column>
+                                        <f:facet name="header">
+                                            <ice:outputText id="column1t"
+                                                            value="Nombre de la empresa"/>
+                                        </f:facet>
+                                        <ice:outputText id="nombreempresat" value="#{empresasamigast.tipo[1]}"/>
+
+
+
+                                    </ice:column>
+                                </ice:dataTable>
+
+                                <ice:outputText value=" Si desea desvincular una empresa pulse"/>
+                                <ice:commandButton id="desvincularempresa" value="Aquí" action="#{relacionesEmpresarialesBean.mostrarlistadesvincular}"></ice:commandButton>
+                                <!--<c:if test="#{relacionesEmpresarialesBean.mostrarlistadesvincular}">-->
+                                    <ice:dataTable id="empresasamigas"   var="empresasamigas" value="#{relacionesEmpresarialesBean.filasempresasamigas}"
+                                                   rows="5" columnClasses="tableCol">
+                                        <ice:column>
+                                            <ice:rowSelector id="seleccionadoempresa"
+
+                                                             value="#{empresasamigas.seleccionada}"
+                                                             multiple="true"                                 
+                                                             selectionListener="#{relacionesEmpresarialesBean.filaSeleccionadaEmpresasAmigasListener}"
+                                                             />
+
+                                            <f:facet name="header">
+                                                <ice:outputText id="column1"
+                                                                value="Nombre de la empresa"/>
+                                            </f:facet>
+                                            <ice:outputText id="nombreempresa" value="#{empresasamigas.tipo[1]}"/>
+
+
+                                        </ice:column>
+                                    </ice:dataTable>
+                                   <!-- <c:if test="#{relacionesEmpresarialesBean.filasempresasamigas.size()>5}"> -->
+                                        <ice:dataPaginator id="paginadorempresasamigas" for="empresasamigas" paginator="true" fastStep="3" paginatorMaxPages="4">
+                                            <f:facet name="first">
+                                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
+                                            </f:facet>
+                                            <f:facet name="last">
+                                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
+                                            </f:facet>
+                                            <f:facet name="previous">
+                                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
+                                            </f:facet>
+                                            <f:facet name="next">
+                                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
+                                            </f:facet>
+                                        </ice:dataPaginator>
+                                    <!--</c:if>-->
+                                <!--</c:if> -->
+
+
+
+                            </ice:panelGroup>
+
+
+                        </ice:form>
+                    </div>
+                </div>
+
+
+
+
+
+
             </ui:define>
 
         </ui:composition>

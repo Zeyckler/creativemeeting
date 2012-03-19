@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Empresasamigas.findByIdempresasamigas", query = "SELECT e FROM Empresasamigas e WHERE e.idempresasamigas = :idempresasamigas"),
     @NamedQuery(name = "Empresasamigas.findByActivacioninicial", query = "SELECT e FROM Empresasamigas e WHERE e.activacioninicial = :activacioninicial"),
     @NamedQuery(name = "Empresasamigas.findByActivo", query = "SELECT e FROM Empresasamigas e WHERE e.activo = :activo"),
-    @NamedQuery(name = "Empresasamigas.findEmpresasAmigas1", query = "SELECT e.nif2.nif, e.nif2.razonsocial FROM Empresasamigas e JOIN e.nif1 empresa WHERE empresa.nif = :nifempresa"),
-    @NamedQuery(name = "Empresasamigas.findEmpresasAmigas2", query = "SELECT e.nif1.nif, e.nif1.razonsocial FROM Empresasamigas e JOIN e.nif2 empresa WHERE empresa.nif = :nifempresa"),
+    @NamedQuery(name = "Empresasamigas.findEmpresasAmigas1", query = "SELECT e.nif2.nif, e.nif2.razonsocial FROM Empresasamigas e JOIN e.nif1 empresa WHERE empresa.nif = :nifempresa AND e.activacioninicial= :activacion AND e.activo = :activo"),
+    @NamedQuery(name = "Empresasamigas.findEmpresasAmigas2", query = "SELECT e.nif1.nif, e.nif1.razonsocial FROM Empresasamigas e JOIN e.nif2 empresa WHERE empresa.nif = :nifempresa AND e.activacioninicial= :activacion AND e.activo = :activo")
 
 })
 public class Empresasamigas implements Serializable {
