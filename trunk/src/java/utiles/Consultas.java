@@ -298,6 +298,8 @@ public class Consultas {
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Empresasamigas.BUSCAR_EMPRESAS_AMIGAS_1);
         q1.setParameter("nifempresa", nif);
+        q1.setParameter("activacion", false);
+        q1.setParameter("activo", true);
 
         try {
             empresas = q1.getResultList();
@@ -314,6 +316,8 @@ public class Consultas {
         abrirTransaccion();
         Query q1 = em.createNamedQuery(Empresasamigas.BUSCAR_EMPRESAS_AMIGAS_2);
         q1.setParameter("nifempresa", nif);
+        q1.setParameter("activacion", false);
+        q1.setParameter("activo", true);
 
         try {
             empresas = q1.getResultList();
