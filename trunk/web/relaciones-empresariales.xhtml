@@ -41,65 +41,14 @@
                                 <h2>
                                     Empresas vinculadas:
                                 </h2>
-                                <ice:dataTable id="empresasamigast"   var="empresasamigast" value="#{relacionesEmpresarialesBean.filasempresasamigas}"
-                                               rows="5" columnClasses="tableCol">
-                                    <ice:column>
-                                        <f:facet name="header">
-                                            <ice:outputText id="column1t"
-                                                            value="Nombre de la empresa"/>
-                                        </f:facet>
-                                        <ice:outputText id="nombreempresat" value="#{empresasamigast.tipo[1]}"/>
-
-
-
-                                    </ice:column>
-                                </ice:dataTable>
-
-                                <ice:outputText value=" Si desea desvincular una empresa pulse"/>
-                                <ice:commandButton id="desvincularempresa" value="Aquí" action="#{relacionesEmpresarialesBean.mostrarlistadesvincular}"></ice:commandButton>
-                                <!--<c:if test="#{relacionesEmpresarialesBean.mostrarlistadesvincular}">-->
-                                    <ice:dataTable id="empresasamigas"   var="empresasamigas" value="#{relacionesEmpresarialesBean.filasempresasamigas}"
-                                                   rows="5" columnClasses="tableCol">
-                                        <ice:column>
-                                            <ice:rowSelector id="seleccionadoempresa"
-
-                                                             value="#{empresasamigas.seleccionada}"
-                                                             multiple="true"                                 
-                                                             selectionListener="#{relacionesEmpresarialesBean.filaSeleccionadaEmpresasAmigasListener}"
-                                                             />
-
-                                            <f:facet name="header">
-                                                <ice:outputText id="column1"
-                                                                value="Nombre de la empresa"/>
-                                            </f:facet>
-                                            <ice:outputText id="nombreempresa" value="#{empresasamigas.tipo[1]}"/>
-
-
-                                        </ice:column>
-                                    </ice:dataTable>
-                                   <!-- <c:if test="#{relacionesEmpresarialesBean.filasempresasamigas.size()>5}"> -->
-                                        <ice:dataPaginator id="paginadorempresasamigas" for="empresasamigas" paginator="true" fastStep="3" paginatorMaxPages="4">
-                                            <f:facet name="first">
-                                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
-                                            </f:facet>
-                                            <f:facet name="last">
-                                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
-                                            </f:facet>
-                                            <f:facet name="previous">
-                                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
-                                            </f:facet>
-                                            <f:facet name="next">
-                                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
-                                            </f:facet>
-                                        </ice:dataPaginator>
-                                    <!--</c:if>-->
-                                <!--</c:if> -->
-
-
-
+                                <c:forEach var="i" begin="0" end="#{relacionesEmpresarialesBean.empresasamigas.size()}" step="1">
+                                
+                                    <ice:outputText value="Nombre de la Empresa: "></ice:outputText>
+                                    <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(i)[1]}"></ice:outputText>
+                                
+                                
+                                </c:forEach>
                             </ice:panelGroup>
-
-
                         </ice:form>
                     </div>
                 </div>

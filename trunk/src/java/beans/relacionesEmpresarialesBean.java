@@ -22,12 +22,13 @@ public class relacionesEmpresarialesBean implements Serializable {
     private List<Fila<Object[]>> filasempresasamigas;
     private List<Object[]> empresasamigasseleccionadas;
     private boolean mostrarlistadesvincular;
+    private List<Object[]> empresasamigas ;
 
     {
         mostrarlistadesvincular = false;
         empresasamigasseleccionadas = new LinkedList<Object[]>();
         filasempresasamigas = new LinkedList<Fila<Object[]>>();
-        List<Object[]> empresasamigas = Consultas.buscaempresasAmigas(Utilidades.getNifEmpresaSesion());
+        empresasamigas = Consultas.buscaempresasAmigas(Utilidades.getNifEmpresaSesion());
         for (Object[] emp : empresasamigas) {
             Fila<Object[]> fila2 = new Fila(emp, false);
             this.filasempresasamigas.add(fila2);
@@ -62,6 +63,16 @@ public class relacionesEmpresarialesBean implements Serializable {
     public void setMostrarlistadesvincular(boolean mostrarlistadesvincular) {
         this.mostrarlistadesvincular = mostrarlistadesvincular;
     }
+
+    public List<Object[]> getEmpresasamigas() {
+        return empresasamigas;
+    }
+
+    public void setEmpresasamigas(List<Object[]> empresasamigas) {
+        this.empresasamigas = empresasamigas;
+    }
+    
+    
     
 
     public void filaSeleccionadaEmpresasAmigasListener(RowSelectorEvent event) {
