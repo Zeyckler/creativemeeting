@@ -36,10 +36,15 @@ public class Utilidades {
     }
 
     public static String getFormatoFechaHora(Date fecha) {
+        String hora = "", min = "";
+        if (fecha.getHours() <= 9) {
+            hora = "0" + fecha.getHours();
+        }
+        if (fecha.getMinutes() <= 9) {
+            min = "0" + fecha.getMinutes();
+        }
 
-        String hora = "";
-        hora = hora + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
-        return hora;
+        return hora + ":" + min;
 
 
     }
@@ -91,14 +96,16 @@ public class Utilidades {
 
     public static String getDniUsuarioSesion() {
 
-        String res;
+        String res = null;
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
 
         UsuariosBean usbean = (UsuariosBean) session.getAttribute("usuario");
 
-        res = usbean.getDni();
+        if (usbean != null) {
+            res = usbean.getDni();
+        }
 
         return res;
     }
@@ -127,5 +134,4 @@ public class Utilidades {
 
         return res;
     }
-
 }

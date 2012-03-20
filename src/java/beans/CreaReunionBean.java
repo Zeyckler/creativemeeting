@@ -81,7 +81,6 @@ public class CreaReunionBean implements Serializable {
         errorpaso2 = false;
         errorusuariovacio = false;
         errorfecha = false;
-
         fechaCalendario = Calendar.getInstance().getTime();
         aniocreareunion = Calendar.getInstance().get(Calendar.YEAR);
         listareunionescreareunion = Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), aniocreareunion);
