@@ -3,6 +3,7 @@
     Created on : 03-ago-2011, 18:38:37
     Author     : japarejo
 --%>
+<%@page import="bd.Empresasamigas"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="javax.persistence.Query"%>
 <%@page import="utiles.Utilidades"%>
@@ -310,8 +311,11 @@
         }
                 
         */
-        boolean a= Utilidades.compruebaSession();
-        out.print(a);
+        String nif1= "11111111H";
+        String nif2= "28786879z";
+        Empresasamigas emp = Consultas.buscaParejaEmpresasAmigas(nif1,nif2);
+        out.println("Empresa 1: "+ emp.getNif1().getRazonsocial()+ "Empresa 2: "+ emp.getNif2().getRazonsocial() );
+        
         %>
         <p>¡¡¡Antonio ha sido grabado :-D!!!</p>
     </body>

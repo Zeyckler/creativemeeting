@@ -264,28 +264,47 @@
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
+            <from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
             <from-outcome>error</from-outcome>
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.aceptaReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
-     <managed-bean>
+    
+
+    <managed-bean>
         <managed-bean-name>relacionesEmpresarialesBean</managed-bean-name>
         <managed-bean-class>beans.relacionesEmpresarialesBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     
     <navigation-rule>
         <from-view-id>/relaciones-empresariales.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{relacionesEmpresarialesBean.mostrarlistadesvincular}</from-action>
+            <from-action>#{relacionesEmpresarialesBean.desvincularEmpresa}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/relaciones-empresariales.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-action>#{relacionesEmpresarialesBean.desvincularEmpresa}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{relacionesEmpresarialesBean.vincularEmpresas}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/relaciones-empresariales.xhtml</to-view-id>
+        </navigation-case>
+        
     </navigation-rule>
-    
-    
-    
-    
+  
 </faces-config>
-

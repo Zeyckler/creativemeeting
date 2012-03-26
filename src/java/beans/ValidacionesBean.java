@@ -16,6 +16,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import utiles.Consultas;
+import utiles.Utilidades;
 
 /**
  *
@@ -45,10 +46,9 @@ public class ValidacionesBean implements Serializable {
         }
     }
 
-    public void validarNif(FacesContext context, UIComponent validate, Object value) {
-
+    public boolean validarNifStr(String nifEmp) {
         boolean res = true;
-        String nifEmp = (String) value;
+
 
         if (nifEmp.toUpperCase().startsWith("X") || nifEmp.toUpperCase().startsWith("Y") || nifEmp.toUpperCase().startsWith("Z")) {
             nifEmp = nifEmp.substring(1);
@@ -75,6 +75,17 @@ public class ValidacionesBean implements Serializable {
         } else {
             res = false;
         }
+        return res;
+
+    }
+
+    public void validarNif(FacesContext context, UIComponent validate, Object value) {
+
+        boolean res = true;
+        String nifEmp = (String) value;
+
+        res = validarNifStr(nifEmp);
+
         if (!res) {
 
             ((UIInput) validate).setValid(false);
@@ -89,31 +100,8 @@ public class ValidacionesBean implements Serializable {
         boolean res = true;
         String nifEmp = (String) value;
 
-        if (nifEmp.toUpperCase().startsWith("X") || nifEmp.toUpperCase().startsWith("Y") || nifEmp.toUpperCase().startsWith("Z")) {
-            nifEmp = nifEmp.substring(1);
-        }
-
-        Pattern nifPattern =
-                Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
-        Matcher m = nifPattern.matcher(nifEmp);
-        if (m.matches()) {
-            String letra = m.group(2);
-
-            //Extraer letra del NIF
-
-            String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
-            int dni = Integer.parseInt(m.group(1));
-            dni = dni % 23;
-            String reference = letras.substring(dni, dni + 1);
-
-            if (reference.equalsIgnoreCase(letra)) {
-                res = true;
-            } else {
-                res = false;
-            }
-        } else {
-            res = false;
-        }
+        res=validarNifStr(nifEmp);
+        
         if (!res) {
 
             ((UIInput) validate).setValid(false);
@@ -121,17 +109,57 @@ public class ValidacionesBean implements Serializable {
             context.addMessage(validate.getClientId(context), msg);
 
         }
-        
-        boolean existemp=Consultas.existeEmpresa(nifEmp);
-        if(existemp==false){
+
+        boolean existemp = Consultas.existeEmpresa(nifEmp);
+        if (existemp == false) {
             ((UIInput) validate).setValid(false);
             FacesMessage msg = new FacesMessage("N.I.F no registrado");
             context.addMessage(validate.getClientId(context), msg);
         }
-        
+
     }
     
-    
+    public void validarNifNuevoVinculo(FacesContext context, UIComponent validate, Object value) {
+
+        boolean res = true;
+        String nifEmp = (String) value;
+
+        res=validarNifStr(nifEmp);
+        
+        if (!res) {
+
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("N.I.F no válido");
+            context.addMessage(validate.getClientId(context), msg);
+
+        }
+
+        boolean existemp = Consultas.existeEmpresa(nifEmp);
+        if (existemp == false) {
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("N.I.F no registrado");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+        boolean existvinc = Consultas.existeParejaEmpresasAmigas(nifEmp, Utilidades.getNifEmpresaSesion(), false, true);
+        
+        if (existvinc == false) {
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("Actualmente existe un vinculo con la empresa del N.I.F introducido");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+        
+        boolean existvincnot= Consultas.existeParejaEmpresasAmigas(nifEmp, Utilidades.getNifEmpresaSesion(), true, false);
+        if (existvincnot == false) {
+            ((UIInput) validate).setValid(false);
+            FacesMessage msg = new FacesMessage("La solicitud de vinculación se ha mandado, revise el apartado de notificaciones o ponganse en contacto "+
+                    " con la empresa con N.I.F "+ nifEmp +" para que acepte su solicitud");
+            context.addMessage(validate.getClientId(context), msg);
+        }
+
+                
+
+    }
+
     public void ValidarFecha(FacesContext context, UIComponent validate, Object value) {
         boolean res = true;
         String fecha = (String) value;
@@ -210,29 +238,28 @@ public class ValidacionesBean implements Serializable {
     }
 
     public void validarCodigoPostal(FacesContext context, UIComponent validate, Object value) {
-        
+
 
         boolean res = true;
-        
-        try{
-            int cp = Integer.parseInt(((Integer)value).toString());
-        }
-        catch(Exception e){
+
+        try {
+            int cp = Integer.parseInt(((Integer) value).toString());
+        } catch (Exception e) {
             ((UIInput) validate).setValid(false);
             FacesMessage msg = new FacesMessage("Debe ser un número");
             context.addMessage(validate.getClientId(context), msg);
         }
-        
-        /*String cp = String.valueOf((Integer) value);
 
+        /*String cp = String.valueOf((Integer) value);
+        
         Pattern p = Pattern.compile("^\\d{5}$");
         Matcher m = p.matcher(cp);
         res = m.matches();
-
+        
         if (!res) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Debe ser un número");
-            context.addMessage(validate.getClientId(context), msg);
+        ((UIInput) validate).setValid(false);
+        FacesMessage msg = new FacesMessage("Debe ser un número");
+        context.addMessage(validate.getClientId(context), msg);
         }*/
     }
 
