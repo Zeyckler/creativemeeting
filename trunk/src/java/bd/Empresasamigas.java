@@ -32,8 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Empresasamigas.findByActivacioninicial", query = "SELECT e FROM Empresasamigas e WHERE e.activacioninicial = :activacioninicial"),
     @NamedQuery(name = "Empresasamigas.findByActivo", query = "SELECT e FROM Empresasamigas e WHERE e.activo = :activo"),
     @NamedQuery(name = "Empresasamigas.findEmpresasAmigas1", query = "SELECT e.nif2.nif, e.nif2.razonsocial, e.nif2.telefono, e.nif2.fax, e.nif2.direccion, e.nif2.email, e.nif2.localidad, e.nif2.provincia, e.nif2.pais, e.nif2.codigopostal, e.nif2.web   FROM Empresasamigas e JOIN e.nif1 empresa WHERE empresa.nif = :nifempresa AND e.activacioninicial= :activacion AND e.activo = :activo"),
-    @NamedQuery(name = "Empresasamigas.findEmpresasAmigas2", query = "SELECT e.nif1.nif, e.nif1.razonsocial, e.nif1.telefono, e.nif1.fax, e.nif1.direccion, e.nif1.email, e.nif1.localidad, e.nif1.provincia, e.nif1.pais, e.nif1.codigopostal, e.nif1.web   FROM Empresasamigas e JOIN e.nif2 empresa WHERE empresa.nif = :nifempresa AND e.activacioninicial= :activacion AND e.activo = :activo")
-
+    @NamedQuery(name = "Empresasamigas.findEmpresasAmigas2", query = "SELECT e.nif1.nif, e.nif1.razonsocial, e.nif1.telefono, e.nif1.fax, e.nif1.direccion, e.nif1.email, e.nif1.localidad, e.nif1.provincia, e.nif1.pais, e.nif1.codigopostal, e.nif1.web   FROM Empresasamigas e JOIN e.nif2 empresa WHERE empresa.nif = :nifempresa AND e.activacioninicial= :activacion AND e.activo = :activo"),
+    @NamedQuery(name = "Empresasamigas.findParejaEmpresasAmigas", query = "SELECT e FROM Empresasamigas e WHERE (e.nif1.nif= :nif1 AND e.nif2.nif= :nif2 AND e.activacioninicial= :activacion AND e.activo = :activo ) OR (e.nif1.nif= :nif2 AND e.nif2.nif= :nif1 AND e.activacioninicial= :activacion AND e.activo = :activo)"),
+    @NamedQuery(name = "Empresasamigas.findEmpresasAmigasInactivas", query = "SELECT e FROM Empresasamigas e WHERE (e.nif1.nif= :nif1 AND e.nif2.nif= :nif2 AND e.activacioninicial= :activacion AND e.activo = :activo ) OR (e.nif1.nif= :nif2 AND e.nif2.nif= :nif1 AND e.activacioninicial= :activacion AND e.activo = :activo)")
+    
 })
 public class Empresasamigas implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -59,6 +61,16 @@ public class Empresasamigas implements Serializable {
 
     public Empresasamigas() {
     }
+
+    public Empresasamigas(Empresas nif2, Empresas nif1) {
+        this.idempresasamigas= new Integer(1);
+        this.activacioninicial = true;
+        this.activo= false;
+        this.nif2 = nif2;
+        this.nif1 = nif1;
+    }
+    
+    
 
     public Empresasamigas(Integer idempresasamigas) {
         this.idempresasamigas = idempresasamigas;

@@ -11,6 +11,7 @@ package factoria;
 import bd.Adjunto;
 import bd.Asistenciareunion;
 import bd.Empresas;
+import bd.Empresasamigas;
 import bd.Intervenciones;
 import bd.Puntosdeldia;
 import bd.Reuniones;
@@ -332,5 +333,25 @@ public class FactoriaBD {
         return res;
 
 
+    }
+    public static Empresasamigas creaEmpresasAmigas(Empresas emp1, Empresas emp2){
+           
+            return new Empresasamigas(emp1, emp2);
+        
+        
+    }
+    
+    public static boolean insertaEmpresasAmigas(Empresasamigas empa){
+        boolean res = true;
+
+        try {
+            abrirTransaccion();
+            em.persist(empa);
+            terminarTransaccion();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+            res = false;
+        }
+        return res;
     }
 }

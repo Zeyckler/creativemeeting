@@ -88,27 +88,26 @@ public class VerNotificacionesAEBean implements Serializable {
 
     public String aceptarUsuarios() {
         String res = "";
-        try {
+        
+        for (Object[] o : this.usuariosnuevosseleccionados) {
+            Usuarios u = Consultas.buscarUsuario((String) o[0]);
+            boolean a =FactoriaBD.preActualizarDato(u);
+            u.setActivacioninicial(false);
+            u.setActivo(true);
+            boolean b=FactoriaBD.posActualizarDato(u);
+            
+            System.out.print(a+"    "+ b);
 
-            for (Object[] o : this.usuariosnuevosseleccionados) {
-                Usuarios u = Consultas.buscarUsuario((String) o[0]);
-                FactoriaBD.preActualizarDato(u);
-                u.setActivacioninicial(false);
-                u.setActivo(true);
-                FactoriaBD.posActualizarDato(u);
-
-            }
-            this.filasusuariosnuevos.clear();
-            this.usuariosnuevosseleccionados.clear();
-            List<Object[]> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
-            for (Object[] fila : aux) {
-                this.filasusuariosnuevos.add(new Fila(fila, false));
-            }
-            res = "ok";
-        } catch (Exception e) {
-            res = "error";
-            System.out.println(e.toString());
         }
+        this.filasusuariosnuevos.clear();
+        this.usuariosnuevosseleccionados.clear();
+        List<Object[]> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
+        for (Object[] fila : aux) {
+            this.filasusuariosnuevos.add(new Fila(fila, false));
+        }
+        res = "ok";
+        
+        System.out.print(res);
         return res;
     }
 
@@ -166,11 +165,15 @@ public class VerNotificacionesAEBean implements Serializable {
         return Utilidades.getFormatoFecha(fecha) + " " + Utilidades.getFormatoFechaHora(fecha);
     }
 
-    public String aceptarReunion(int indice) {
-        return null;
+    public String aceptaReunion(int indice) {
+        System.out.print(indice);
+        String res = "ok";
+        System.out.print(res);
+
+        return res;
     }
 
-    public String rechazarReunion(int indice) {
-        return null;
+    public String rechazaReunion(int indice) {
+        return "ok";
     }
 }
