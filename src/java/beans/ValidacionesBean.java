@@ -5,6 +5,7 @@
 package beans;
 
 import bd.Empresas;
+import bd.Empresasamigas;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
@@ -100,8 +101,8 @@ public class ValidacionesBean implements Serializable {
         boolean res = true;
         String nifEmp = (String) value;
 
-        res=validarNifStr(nifEmp);
-        
+        res = validarNifStr(nifEmp);
+
         if (!res) {
 
             ((UIInput) validate).setValid(false);
@@ -118,14 +119,15 @@ public class ValidacionesBean implements Serializable {
         }
 
     }
-    
+
     public void validarNifNuevoVinculo(FacesContext context, UIComponent validate, Object value) {
 
         boolean res = true;
         String nifEmp = (String) value;
+        nifEmp= nifEmp.toLowerCase();
 
-        res=validarNifStr(nifEmp);
-        
+        res = validarNifStr(nifEmp);
+
         if (!res) {
 
             ((UIInput) validate).setValid(false);
@@ -141,22 +143,34 @@ public class ValidacionesBean implements Serializable {
             context.addMessage(validate.getClientId(context), msg);
         }
         boolean existvinc = Consultas.existeParejaEmpresasAmigas(nifEmp, Utilidades.getNifEmpresaSesion(), false, true);
-        
+
         if (existvinc == false) {
             ((UIInput) validate).setValid(false);
             FacesMessage msg = new FacesMessage("Actualmente existe un vinculo con la empresa del N.I.F introducido");
             context.addMessage(validate.getClientId(context), msg);
         }
-        
-        boolean existvincnot= Consultas.existeParejaEmpresasAmigas(nifEmp, Utilidades.getNifEmpresaSesion(), true, false);
+
+        boolean existvincnot = Consultas.existeParejaEmpresasAmigas(nifEmp, Utilidades.getNifEmpresaSesion(), true, false);
         if (existvincnot == false) {
-            ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("La solicitud de vinculación se ha mandado, revise el apartado de notificaciones o ponganse en contacto "+
-                    " con la empresa con N.I.F "+ nifEmp +" para que acepte su solicitud");
-            context.addMessage(validate.getClientId(context), msg);
+            Empresasamigas empa = Consultas.buscaParejaEmpresasAmigasAmistad(Utilidades.getNifEmpresaSesion(), nifEmp, true, false);
+            if (empa.getNif1().getNif().equals(Utilidades.getNifEmpresaSesion())) {
+                ((UIInput) validate).setValid(false);
+                FacesMessage msg = new FacesMessage("La solicitud de vinculación ya ha sido mandada. Ponganse en contacto "
+                        + " con la empresa con N.I.F " + nifEmp + " para que acepte su solicitud");
+                context.addMessage(validate.getClientId(context), msg);
+            }
+            if (empa.getNif1().getNif().equals(nifEmp)) {
+                ((UIInput) validate).setValid(false);
+                FacesMessage msg = new FacesMessage("La empresa con nif "+ nifEmp+ " le ha mandado una solicitud de amistad. Consulte el apartado de notificaciones y aceptela");
+                context.addMessage(validate.getClientId(context), msg);
+            }else{
+                ((UIInput) validate).setValid(false);
+                FacesMessage msg = new FacesMessage("Error identificado");
+                context.addMessage(validate.getClientId(context), msg);
+            }
         }
 
-                
+
 
     }
 

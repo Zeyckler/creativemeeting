@@ -311,10 +311,11 @@
         }
                 
         */
-        String nif1= "11111111H";
-        String nif2= "28786879z";
-        Empresasamigas emp = Consultas.buscaParejaEmpresasAmigas(nif1,nif2);
-        out.println("Empresa 1: "+ emp.getNif1().getRazonsocial()+ "Empresa 2: "+ emp.getNif2().getRazonsocial() );
+        List<Empresasamigas> emp = Consultas.buscaEmpresasAmigasNotificacion("28786879z");
+        
+        for(Empresasamigas e: emp){
+            out.println(e.getNif1().getRazonsocial());
+        }
         
         %>
         <p>¡¡¡Antonio ha sido grabado :-D!!!</p>

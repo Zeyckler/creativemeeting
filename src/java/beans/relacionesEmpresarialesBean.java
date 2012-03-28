@@ -30,7 +30,7 @@ public class relacionesEmpresarialesBean implements Serializable {
     {
         vernotificacionvinculo = false;
         empresasamigas = Consultas.buscaempresasAmigas(Utilidades.getNifEmpresaSesion());
-        notificacionstr= "";
+        notificacionstr = "";
 
     }
 
@@ -69,8 +69,6 @@ public class relacionesEmpresarialesBean implements Serializable {
     public void setNotificacionstr(String notificacionstr) {
         this.notificacionstr = notificacionstr;
     }
-    
-    
 
     public String desvincularEmpresa(int indice) {
         String res = null;
@@ -97,9 +95,12 @@ public class relacionesEmpresarialesBean implements Serializable {
 
         String res = null;
         this.vernotificacionvinculo = false;
-        this.notificacionstr="";
-
+        this.notificacionstr = "";
         String nifempresa = Utilidades.getNifEmpresaSesion();
+        Empresas emp1 = FactoriaBD.creaEmpresa(nifempresa);
+        Empresas emp2 = FactoriaBD.creaEmpresa(this.nifempresavinculo);
+
+        
 
 
         Empresasamigas empainactivas = Consultas.buscaParejaEmpresasAmigasInactivas(nifempresa, this.nifempresavinculo);
@@ -109,38 +110,39 @@ public class relacionesEmpresarialesBean implements Serializable {
 
             boolean pre = FactoriaBD.preActualizarDato(empainactivas);
             empainactivas.setActivacioninicial(true);
+            empainactivas.setNif1(emp1);
+            empainactivas.setNif2(emp2);
             boolean post = FactoriaBD.posActualizarDato(empainactivas);
 
             if (pre && post) {
                 this.vernotificacionvinculo = true;
-                this.notificacionstr= "El vinculo con la empresa con N.I.F " +this.nifempresavinculo+ " está inactivo. Se ha vuelto a enviar la solicitud de vinculo. "
-                      +"Si desea añadir otro vinculo inserte otro N.I.F distinto"  ;
+                this.notificacionstr = "El vinculo con la empresa con N.I.F " + this.nifempresavinculo + " está inactivo. Se ha vuelto a enviar la solicitud de vinculo. "
+                        + "Si desea añadir otro vinculo inserte otro N.I.F distinto";
                 res = "ok";
                 this.empresasamigas.clear();
                 this.empresasamigas = Consultas.buscaempresasAmigas(Utilidades.getNifEmpresaSesion());
-                this.nifempresavinculo="";
+                this.nifempresavinculo = "";
             } else {
                 res = "error";
             }
 
         } else {
-            
+
             //Si el vinculo no está creado se crea de nuevo
-            
-            Empresas emp1 = FactoriaBD.creaEmpresa(nifempresa);
-            Empresas emp2 = FactoriaBD.creaEmpresa(this.nifempresavinculo);
+
+
             Empresasamigas empa = FactoriaBD.creaEmpresasAmigas(emp1, emp2);
 
             boolean a = FactoriaBD.insertaEmpresasAmigas(empa);
 
             if (a) {
                 this.vernotificacionvinculo = true;
-                this.notificacionstr= "Se ha enviado la la solicitud de vinculo a la empresa con N.I.F "+this.nifempresavinculo
-                        +". Si desea añadir otro vinculo inserte otro N.I.F distinto";
+                this.notificacionstr = "Se ha enviado la la solicitud de vinculo a la empresa con N.I.F " + this.nifempresavinculo
+                        + ". Si desea añadir otro vinculo inserte otro N.I.F distinto";
                 res = "ok";
                 this.empresasamigas.clear();
                 this.empresasamigas = Consultas.buscaempresasAmigas(Utilidades.getNifEmpresaSesion());
-                this.nifempresavinculo="";
+                this.nifempresavinculo = "";
 
             } else {
                 res = "error";
