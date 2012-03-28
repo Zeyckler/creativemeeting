@@ -1,25 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <faces-config version="2.0"
-    xmlns="http://java.sun.com/xml/ns/javaee" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <managed-bean>
         <managed-bean-name>login</managed-bean-name>
         <managed-bean-class>beans.LoginBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-        
-        <managed-bean-property> 
+        <managed-bean-property>
             <property-name>usuario</property-name>
             <property-class>java.lang.String</property-class>
             <value>#{LoginBean.usuario}</value>
         </managed-bean-property>
-        <managed-bean-property> 
+        <managed-bean-property>
             <property-name>contrasena</property-name>
             <property-class>java.lang.String</property-class>
             <value>#{LoginBean.contrasena}</value>
         </managed-bean-property>
     </managed-bean>
-    
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
@@ -33,17 +31,14 @@
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
     <navigation-rule>
         <from-view-id>/cerrarsesion.xhtml</from-view-id>
-        
         <navigation-case>
             <from-action>#{login.noCerrarSesion}</from-action>
             <from-outcome>nocerrarsesion</from-outcome>
             <to-view-id>/home.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
     <navigation-rule>
         <from-view-id>/viewcalendar.xhtml</from-view-id>
         <navigation-case>
@@ -52,7 +47,6 @@
             <to-view-id>/viewcalendar.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
     <navigation-rule>
         <from-view-id>/creareunion.xhtml</from-view-id>
         <navigation-case>
@@ -61,7 +55,6 @@
             <to-view-id>/creareunion.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
     <managed-bean>
         <managed-bean-name>holaBean</managed-bean-name>
         <managed-bean-class>beans.HolaBean</managed-bean-class>
@@ -82,8 +75,6 @@
         <managed-bean-class>beans.ValidacionesBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-    
-    
     <application>
         <message-bundle>mensajeserror.erroresValidacion</message-bundle>
     </application>
@@ -105,7 +96,6 @@
             <to-view-id>/error_1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
     <managed-bean>
         <managed-bean-name>listapaises</managed-bean-name>
         <managed-bean-class>beans.PaisesBean</managed-bean-class>
@@ -197,14 +187,12 @@
             <from-outcome>ok</from-outcome>
             <to-view-id>/creareunion_3.xhtml</to-view-id>
         </navigation-case>
-        
         <navigation-case>
             <from-action>#{creaReunionBean.eliminaUltimo}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/creareunion_3.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
     <navigation-rule>
         <from-view-id>/creareunion_2.xhtml</from-view-id>
         <navigation-case>
@@ -259,6 +247,16 @@
     <navigation-rule>
         <from-view-id>/vernotificaciones-ae.xhtml</from-view-id>
         <navigation-case>
+            <from-action>#{verNotificacionesAEBean.aceptaReunion}</from-action>
+            <from-outcome>aceptarok</from-outcome>
+            <to-view-id>home.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.rechazaReunion(int)}</from-action>
+            <from-outcome>rechazarok</from-outcome>
+            <to-view-id>home.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
@@ -273,26 +271,12 @@
             <from-outcome>error</from-outcome>
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
         </navigation-case>
-        <navigation-case>
-            <from-action>#{verNotificacionesAEBean.aceptaReunion}</from-action>
-            <from-outcome>ok</from-outcome>
-            <to-view-id>/error.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-action>#{verNotificacionesAEBean.rechazaReunion}</from-action>
-            <from-outcome>ok</from-outcome>
-            <to-view-id>/error.xhtml</to-view-id>
-        </navigation-case>
-        
     </navigation-rule>
-    
-
     <managed-bean>
         <managed-bean-name>relacionesEmpresarialesBean</managed-bean-name>
         <managed-bean-class>beans.relacionesEmpresarialesBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-    
     <navigation-rule>
         <from-view-id>/relaciones-empresariales.xhtml</from-view-id>
         <navigation-case>
@@ -309,7 +293,6 @@
             <from-action>#{relacionesEmpresarialesBean.vincularEmpresas}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/relaciones-empresariales.xhtml</to-view-id>
-        </navigation-case>        
+        </navigation-case>
     </navigation-rule>
-  
 </faces-config>
