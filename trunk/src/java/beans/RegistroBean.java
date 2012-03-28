@@ -31,7 +31,7 @@ public class RegistroBean implements Serializable {
         UsuariosBean usuario = (UsuariosBean) sesion.get("usuario");
 
 
-        Empresas emp = FactoriaBD.creaEmpresa(empresa.getNif(), empresa.getTelefono(), empresa.getRazonsocial(),
+        Empresas emp = FactoriaBD.creaEmpresa(empresa.getNif().toLowerCase(), empresa.getTelefono(), empresa.getRazonsocial(),
                 empresa.getDireccion(), empresa.getEmail(), empresa.getLocalidad(), empresa.getProvincia(),
                 empresa.getPais(), empresa.getCodigopostal(), empresa.getWeb(), "ljcnsdljn", empresa.getFax());
 

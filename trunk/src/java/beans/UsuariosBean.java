@@ -274,7 +274,7 @@ public class UsuariosBean implements Serializable {
 
         if (tipo.intValue() == 0) {
             //Usuario Master
-            us = FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
+            us = FactoriaBD.creaUsuario(this.dni.toLowerCase(), this.nombre, this.apellido1,
                     this.apellido2, this.fechanacimiento, this.direccion, this.telefono,
                     this.movil, this.email, nomUsuario, "123445", this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 0, false, nif);
@@ -282,7 +282,7 @@ public class UsuariosBean implements Serializable {
         if (tipo.intValue() == 1) {
             //Usuario Administrador de Empresa
 
-            us = FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
+            us = FactoriaBD.creaUsuario(this.dni.toLowerCase(), this.nombre, this.apellido1,
                     this.apellido2, this.fechanacimiento, this.direccion, this.telefono,
                     this.movil, this.email, nomUsuario, "123445", this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 1, false, nif);
@@ -290,7 +290,7 @@ public class UsuariosBean implements Serializable {
         if (tipo.intValue() == 2) {
             //Usuario Registrado perteneciente a una empresa
 
-            us = FactoriaBD.creaUsuario(this.dni, this.nombre, this.apellido1,
+            us = FactoriaBD.creaUsuario(this.dni.toLowerCase(), this.nombre, this.apellido1,
                     this.apellido2, this.fechanacimiento, this.direccion, this.telefono,
                     this.movil, this.email, nomUsuario, "123445", this.localidad,
                     this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 2, false, nif);

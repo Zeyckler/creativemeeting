@@ -462,6 +462,24 @@ public class Consultas {
         }
         return empresasamigas;
     }
+    public static Empresasamigas buscaParejaEmpresasAmigasAmistad(String nif1, String nif2, boolean activacioninicial, boolean activo) {
+
+        Empresasamigas empresasamigas = null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery("Empresasamigas.findParejaEmpresasAmigas");
+        q1.setParameter("nif1", nif1);
+        q1.setParameter("nif2", nif2);
+        q1.setParameter("activacion", activacioninicial);
+        q1.setParameter("activo", activo);
+
+        try {
+            empresasamigas =(Empresasamigas) q1.getSingleResult();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+
+        }
+        return empresasamigas;
+    }
     public static boolean existeParejaEmpresasAmigas(String nif1, String nif2, boolean activacion, boolean activo) {
 
         int empresasamigas = 0;
@@ -501,6 +519,23 @@ public class Consultas {
             System.out.print(e.toString());
 
         }
+        return empresasamigas;
+    }
+    public static List<Empresasamigas> buscaEmpresasAmigasNotificacion(String nif2) {
+
+        List<Empresasamigas> empresasamigas;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery("Empresasamigas.findEmpresasAmigasNotificacion");
+        q1.setParameter("nif2", nif2);
+        q1.setParameter("activacion",true );
+        q1.setParameter("activo", false);
+
+        try {
+            empresasamigas = q1.getResultList();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+            empresasamigas=null;
+        }   
         return empresasamigas;
     }
     
