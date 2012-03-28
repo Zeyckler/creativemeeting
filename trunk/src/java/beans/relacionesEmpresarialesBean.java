@@ -6,13 +6,10 @@ package beans;
 
 import bd.Empresas;
 import bd.Empresasamigas;
-import com.icesoft.faces.component.ext.RowSelectorEvent;
 import factoria.FactoriaBD;
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 import utiles.Consultas;
-import utiles.Fila;
 import utiles.Utilidades;
 
 /**
@@ -99,9 +96,6 @@ public class relacionesEmpresarialesBean implements Serializable {
         String nifempresa = Utilidades.getNifEmpresaSesion();
         Empresas emp1 = FactoriaBD.creaEmpresa(nifempresa);
         Empresas emp2 = FactoriaBD.creaEmpresa(this.nifempresavinculo);
-
-        
-
 
         Empresasamigas empainactivas = Consultas.buscaParejaEmpresasAmigasInactivas(nifempresa, this.nifempresavinculo);
 
