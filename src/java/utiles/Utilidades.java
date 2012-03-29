@@ -29,22 +29,48 @@ public class Utilidades {
     public static String getFormatoFecha(Date fecha) {
 
         String fec = "";
+        String dias = "";
+        String meses = "";
+        String anios = "";
+        int mes;
 
-        int dia = fecha.getDate();
-        int mes = fecha.getMonth() + 1;
-        int año = fecha.getYear() + 1900;
-        fec = fec + dia + "-" + mes + "-" + año;
+        Calendar c = Calendar.getInstance();
+        c.setTime(fecha);
+        if (c.get(Calendar.DAY_OF_MONTH) <= 9) {
+
+            dias = "0" + c.get(Calendar.DAY_OF_MONTH);
+
+        } else {
+            dias = dias + c.get(Calendar.DAY_OF_MONTH);
+        }
+        if (c.get(Calendar.MONTH) + 1 <= 9) {
+            mes= c.get(Calendar.MONTH) + 1;
+            meses = "0" + mes;
+        } else {
+             mes=c.get(Calendar.MONTH) + 1;
+            meses = meses + mes;
+        }
+        anios = anios + c.get(Calendar.YEAR);
+
+        fec = fec + dias + "-" + meses + "-" + anios;
 
         return fec;
     }
 
     public static String getFormatoFechaHora(Date fecha) {
         String hora = "", min = "";
-        if (fecha.getHours() <= 9) {
-            hora = "0" + fecha.getHours();
+        Calendar c = Calendar.getInstance();
+        c.setTime(fecha);
+
+        if (c.get(Calendar.HOUR_OF_DAY) <= 9) {
+            hora = "0" + c.get(Calendar.HOUR_OF_DAY);
+        } else {
+            hora = hora + c.get(Calendar.HOUR_OF_DAY);
         }
-        if (fecha.getMinutes() <= 9) {
-            min = "0" + fecha.getMinutes();
+        if (c.get(Calendar.MINUTE) <= 9) {
+            min = "0" + c.get(Calendar.MINUTE);
+        } else {
+            min = min + c.get(Calendar.MINUTE);
         }
 
         return hora + ":" + min;

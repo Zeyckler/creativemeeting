@@ -26,15 +26,13 @@
             </ui:define>
 
             <ui:define name="right">
-
+                
             </ui:define>
 
             <ui:define name="content">
 
                 <ice:form id="formulariocalendario">
                     <div id="calendario">
-                        <!--<c:set var="calendarioUsuarioBean" value="#{usuario.calusuario}">
-                        </c:set>-->
                         <ice:selectOneMenu value="#{calendarioUsuarioBean.anio}" >
                             <f:selectItems value="#{calendarioUsuarioBean.listaanios}" ></f:selectItems>
                         </ice:selectOneMenu> 
@@ -47,6 +45,12 @@
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </ice:selectInputDate>
                     </div>
+                    
+                    <ice:commandButton value="Información Reunión" action="#{calendarioUsuarioBean.informacionReunion}"/>
+                    <ice:panelGroup rendered="#{calendarioUsuarioBean.verinformacion==true}">
+                        <ice:outputText value="#{calendarioUsuarioBean.reunion.idreunion}"/>
+                        
+                    </ice:panelGroup>
                 </ice:form>
             </ui:define>
 

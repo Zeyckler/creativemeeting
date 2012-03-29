@@ -29,8 +29,10 @@
             <ui:define name="content">
                 <ice:form>
                     <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==1}">
+                        
                         <h2>Solicitudes de nuevos usuarios</h2>
-                        <ice:dataTable id="usuariosdisponibles" var="usuarios" value="#{verNotificacionesAEBean.filasusuariosnuevos}"
+                        <ice:panelGroup rendered="#{verNotificacionesAEBean.filasusuariosnuevos.size()>0}">
+                        <ice:dataTable rendered="" id="usuariosdisponibles" var="usuarios" value="#{verNotificacionesAEBean.filasusuariosnuevos}"
                                        rows="10" columnClasses="tableCol">
                             <ice:column>
                                 <ice:rowSelector id="seleccionado"
@@ -85,7 +87,8 @@
                         </ice:dataPaginator>
                         <ice:commandButton value="Aceptar usuarios seleccionados" action="#{verNotificacionesAEBean.aceptarUsuarios}"></ice:commandButton>
                         <ice:commandButton  value="Rechazados usuarios seleccionados" action="#{verNotificacionesAEBean.rechazarUsuarios}"></ice:commandButton>
-                        <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.filasusuariosnuevos.size()<=0}" value="Actualmente no tiene ninguna solicitud nueva"/>
+                        </ice:panelGroup>
+                        <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.filasusuariosnuevos.size()==0}" value="Actualmente no tiene ninguna solicitud nueva"/>
                     </ice:panelGroup>
                     
                 </ice:form>
@@ -98,24 +101,26 @@
                                     <tr>
                                         <td colspan="2"> 
                                             <ice:outputText value ="Nombre: "/>
-                                            <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[1]}"/>
+                                            <ice:outputText value="#{empresas.nif1.razonsocial}"/>
                                         </td>
                                     </tr>
+                                   
                                     <tr>
                                         <td>
                                             <ice:outputText value ="Dirección: "/>
-                                            <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[4]}"/>
+                                            <ice:outputText value="#{empresas.nif1.direccion}"/>
                                         </td>
                                         <td>
                                             <ice:outputText value ="Teléfono: "/>
-                                            <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[2]}"/>
+                                            <ice:outputText value="#{empresas.nif1.telefono}"/>
                                         </td>
 
                                     </tr>
+                                    <!--
                                     <tr>
                                         <td>
                                             <ice:outputText value ="Código Postal: "/>
-                                            <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[9]}"/>
+                                            <ice:outputText value="#{empresas.nif1.codigopostal}"/>
                                         </td>
                                         <td>
                                             <ice:panelGroup rendered="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[3] != null}">
@@ -162,13 +167,13 @@
 
                                     </tr>
 
-
+                                    -->
                                 </table>
 
                             </ice:panelGroup>
 
                         </ice:panelSeries>
-                        <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.size()<=0}" value="Actualmente no tiene ninguna solicitud nueva"/>
+                        <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.size()==0}" value="Actualmente no tiene ninguna solicitud nueva"/>
                     </ice:panelGroup>
 
                 </ice:form>
