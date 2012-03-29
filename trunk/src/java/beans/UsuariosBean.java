@@ -301,27 +301,5 @@ public class UsuariosBean implements Serializable {
         return res;
     }
 
-    public CalendarioUsuarioBean creCalendarioUsuario() {
-
-
   
-        CalendarioUsuarioBean calbean;
-        /*try {
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        
-        UsuariosBean usBean = (UsuariosBean) session.getAttribute("usuario");
-        String dniUsuario = usBean.getDni();*/
-        calbean = new CalendarioUsuarioBean(this.dni);
-        /*session.setAttribute("calendarioUsuarioBean", calbean);
-        res= "ok"*/;
-
-        /*}catch(Exception e){
-        calbean= null;
-        }*/
-
-        return calbean;
-
-
-    }
 }

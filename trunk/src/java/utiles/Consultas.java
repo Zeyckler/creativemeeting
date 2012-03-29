@@ -255,8 +255,7 @@ public class Consultas {
         Date finicio = new Date(anio - 1901, 11, 31);
         Date ffinal = new Date(anio - 1900, 11, 31);
 
-        System.out.print(finicio.toString());
-        System.out.print(ffinal.toString());
+
 
 
         List<Reuniones> listareuniones = null;
@@ -265,12 +264,33 @@ public class Consultas {
         q1.setParameter("dni", dniusuario);
         q1.setParameter("fecha1", finicio);
         q1.setParameter("fecha2", ffinal);
+        q1.setParameter("notificacion", false);
+        q1.setParameter("respuesta", true);
         try {
             listareuniones = q1.getResultList();
         } catch (Exception e) {
             System.out.print(e.toString());
         }
         return listareuniones;
+
+    }
+    public static Reuniones buscaReunionesUsuarioInformacion(String dniusuario, Date fecha1, Date fecha2) {
+
+
+        Reuniones reuniones = null;
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery("Reuniones.findReunionesUsuarioInformacion");
+        q1.setParameter("dni", dniusuario);
+        q1.setParameter("fecha1", fecha1);
+        q1.setParameter("fecha2", fecha2);
+        q1.setParameter("notificacion", false);
+        q1.setParameter("respuesta", true);
+        try {
+            reuniones = (Reuniones)q1.getSingleResult();
+        } catch (Exception e) {
+            System.out.print(e.toString());
+        }
+        return reuniones;
 
     }
 
