@@ -131,7 +131,7 @@ public class CalendarioUsuarioBean implements Serializable {
         
         this.reunion = Consultas.buscaReunionesUsuarioInformacion(dniusuario, d1, d2);
         
-        if(fecha!=null){
+        if(this.reunion!=null){
             this.verinformacion=true;
             res="ok";
         }else{

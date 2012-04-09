@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Salasreuniones.findByCostealquiler", query = "SELECT s FROM Salasreuniones s WHERE s.costealquiler = :costealquiler"),
     @NamedQuery(name = "Salasreuniones.findByTelefono", query = "SELECT s FROM Salasreuniones s WHERE s.telefono = :telefono"),
     @NamedQuery(name = "Salasreuniones.findsalaslibresreunion1", query = "SELECT s FROM Salasreuniones s LEFT JOIN s.reunionesCollection reunion WHERE ( reunion.fechainicial NOT BETWEEN :fechinicial  AND :fechfinal) OR (reunion.fechafinalestimada  NOT BETWEEN :fechinicial  AND :fechfinal ) OR reunion.fechainicial IS NULL OR reunion.fechafinalestimada IS NULL   "),
-    @NamedQuery(name = "Salasreuniones.findsalaslibresreunion", query = "SELECT s FROM Salasreuniones s LEFT JOIN s.reunionesCollection reunion WHERE ( :fechinicial < reunion.fechainicial   AND :fechfinal <= reunion.fechainicial ) OR ( :fechfinal > reunion.fechafinalestimada   AND  :fechinicial >= reunion.fechafinalestimada ) OR reunion.fechainicial IS NULL OR reunion.fechafinalestimada IS NULL   ")
+    @NamedQuery(name = "Salasreuniones.findsalaslibresreunion", query = "SELECT DISTINCT s FROM Salasreuniones s LEFT JOIN s.reunionesCollection reunion WHERE ( :fechinicial < reunion.fechainicial   AND :fechfinal <= reunion.fechainicial ) OR ( :fechfinal > reunion.fechafinalestimada   AND  :fechinicial >= reunion.fechafinalestimada ) OR reunion.fechainicial IS NULL OR reunion.fechafinalestimada IS NULL   ")
 
 
 })
