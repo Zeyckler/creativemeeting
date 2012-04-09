@@ -5,12 +5,14 @@
 package beans;
 
 import bd.Empresasamigas;
+import bd.Puntosdeldia;
 import bd.Reuniones;
 import bd.Usuarios;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 import factoria.FactoriaBD;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -188,5 +190,19 @@ public class VerNotificacionesAEBean implements Serializable {
 
     public String aceptarEmpresa(int indice) {
         return "ok";
+    }
+
+    public Collection<Puntosdeldia> puntosDelDiaOrdenados(Collection<Puntosdeldia> lpdd) {
+        System.out.print("Size: " + lpdd.size());
+        System.out.print("List: " + lpdd.toString());
+        List<Puntosdeldia> lista = new LinkedList<Puntosdeldia>();
+        //Reuniones reunion = this.listadereunionesnotificacion.get(indice);
+        //lista.addAll(reunion.getPuntosdeldiaCollection());
+        List<Puntosdeldia> listaordenada = new LinkedList<Puntosdeldia>();
+        for (int i = lista.size(); i >= 0; i--) {
+            listaordenada.add(lista.get(i));
+        }
+        System.out.print("*****************************************");
+        return listaordenada;
     }
 }

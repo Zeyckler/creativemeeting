@@ -13,11 +13,10 @@
         <!--<link href="#{resource['css:./xmlhttp/css/rime/rime.css']}" rel="stylesheet" type="text/css"/>-->
         <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
         <title><ui:insert name="title"/></title>
-       <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==3}">
-              #{facesContext.externalContext.redirect("index.xhtml")}      
+        <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==3}">
+            #{facesContext.externalContext.redirect("index.xhtml")}      
         </c:if>
     </h:head>
-
     <h:body>
         <div class="wrapper">
             <div id="top">
@@ -26,48 +25,36 @@
                 <div><ui:insert name="logoempresa"></ui:insert></div>
 
             </div>
-            <c:if test="${privilegiosBean.compruebaPrivilegiosSesion()==1}">
-                <ice:outputText value="Hola #{usuario.nombre}"/>
-            </c:if>
             <div>
                 <div id="left">
-                    <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0||privilegiosBean.compruebaPrivilegiosSesion()==1||privilegiosBean.compruebaPrivilegiosSesion()==2}">
-                        <ice:outputLink value="home.xhtml">Inicio</ice:outputLink>
-                        <ice:form>
-                            <c:choose >
-                                <c:when test="#{privilegiosBean.compruebaPrivilegiosSesion()==0}">
-                                    <ice:commandLink action="#" value="Ver notificaciones"></ice:commandLink><br/>
-                                    <ice:commandLink action="#" value="Administrar empresas"></ice:commandLink><br/>
-                                    <ice:commandLink action="#" value="Administrar usuarios"></ice:commandLink><br/>
-                                </c:when>
-                                <c:when test="#{privilegiosBean.compruebaPrivilegiosSesion()==1}">
-                                    <ice:outputLink value="vernotificaciones-ae.xhtml">Ver notificaciones</ice:outputLink><br/>
-                                    <ice:outputLink value="viewcalendar.xhtml">Ver calendario</ice:outputLink><br/>
-                                    <ice:outputLink value="creareunion.xhtml">Crear reunión</ice:outputLink><br/> 
-                                    <ice:commandLink action="#" value="Administrar reuniones"></ice:commandLink><br/>
-                                    <ice:commandLink action="#" value="Administrar empleados"></ice:commandLink><br/>
-                                    <ice:commandLink action="#" value="Administrar salas de reunión"></ice:commandLink><br/>
-                                    <ice:outputLink value="relaciones-empresariales.xhtml">Relaciones empresariales</ice:outputLink><br/>
-                                </c:when>
-                                <c:when test="#{privilegiosBean.compruebaPrivilegiosSesion()==2}">
-                                    <ice:commandLink action="#" value="Ver notificaciones"></ice:commandLink><br/>
-                                    <!--<ice:commandLink action="#{usuario.insertarCalendarioSesion}" value="Ver calendario" partialSubmit="true"></ice:commandLink><br/>-->
-                                    <ice:outputLink value="viewcalendar.xhtml">Ver calendario</ice:outputLink><br/>
-                                    <ice:outputLink value="creareunion.xhtml">Crear reunión</ice:outputLink><br/>                                                                                         
-                                </c:when>
+                    <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==0||privilegiosBean.compruebaPrivilegiosSesion()==1||privilegiosBean.compruebaPrivilegiosSesion()==2}">
+                        <lu>
+                            <li><ice:outputText value="Hola #{usuario.nombre}"/></li>
+                            <li><ice:outputLink value="home.xhtml">Inicio</ice:outputLink></li>
+                            <li><ice:outputLink value="vernotificaciones-ae.xhtml">Ver notificaciones</ice:outputLink></li>
+                            <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==0}">
+                                <li><ice:outputLink  value="#">Administrar empresas</ice:outputLink></li>
+                                <li><ice:outputLink  value="#">Administrar usuarios</ice:outputLink></li>
+                            </ice:panelGroup>
+                            <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==1}">
+                                <li><ice:outputLink value="viewcalendar.xhtml">Ver calendario</ice:outputLink></li>
+                                <li><ice:outputLink value="creareunion.xhtml">Crear reunión</ice:outputLink></li>
+                                <li><ice:outputLink value="#">Administrar reuniones</ice:outputLink></li>
+                                <li><ice:outputLink value="#">Administrar empleados</ice:outputLink></li>
+                                <li><ice:outputLink value="#">Administrar salas de reunión</ice:outputLink></li>
+                                <li><ice:outputLink value="relaciones-empresariales.xhtml">Relaciones empresariales</ice:outputLink></li>
+                            </ice:panelGroup>
+                            <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==2}">
+                                <li><ice:outputLink value="viewcalendar.xhtml">Ver calendario</ice:outputLink></li>
+                                <li><ice:outputLink value="creareunion.xhtml">Crear reunión</ice:outputLink></li>
+                            </ice:panelGroup>
+                            <li><ice:outputLink  value="#">Ayuda</ice:outputLink></li>                                                  
+                            <li><ice:outputLink  value="#">Modificar mis datos</ice:outputLink></li>
+                            <li><ice:outputLink value="cerrarsesion.xhtml">Cerrar sesión</ice:outputLink></li>
+                        </lu>
+                    </ice:panelGroup>
 
-                            </c:choose>
-                            <ice:commandLink action="#" value="Ayuda"></ice:commandLink><br/>                                                       
-                            <ice:commandLink action="#" value="Modificar mis datos"></ice:commandLink><br/>
-                            <ice:outputLink value="cerrarsesion.xhtml">Cerrar sesión</ice:outputLink><br/>
-                        </ice:form>
-
-                    </c:if>
-                    <!-- -->
                     <ui:insert name="left">
-
-                        <!---->
-
 
                     </ui:insert>
                 </div>
@@ -76,9 +63,9 @@
                 </div>
                 <div id="content" class="right_content">
 
-                    <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==3}">
+                    <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==3}">
                         <h1 style="color: red;">ERROR, NO TIENE PERMISO PARA ENTRAR AQU&Iacute;</h1>
-                    </c:if>
+                    </ice:panelGroup>
                     <ui:insert name="content">
 
                     </ui:insert>
