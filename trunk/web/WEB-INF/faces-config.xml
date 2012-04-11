@@ -264,12 +264,12 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <navigation-case>
             <from-action>#{verNotificacionesAEBean.aceptaReunion(indice.index)}</from-action>
             <from-outcome>aceptarok</from-outcome>
-            <to-view-id>home.xhtml</to-view-id>
+            <to-view-id>/home.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-action>#{verNotificacionesAEBean.rechazaReunion(indice.index)}</from-action>
             <from-outcome>rechazarok</from-outcome>
-            <to-view-id>home.xhtml</to-view-id>
+            <to-view-id>/home.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
