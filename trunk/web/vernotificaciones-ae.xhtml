@@ -3,9 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
-
+      xmlns:f="http://java.sun.com/jsf/core">
     <body>
 
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
@@ -27,6 +25,7 @@
             </ui:define>
 
             <ui:define name="content">
+                
                 <ice:form>
                     <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==1}">
 
@@ -116,7 +115,7 @@
                                         </td>
 
                                     </tr>
-                                    
+
                                     <tr>
                                         <td>
                                             <ice:outputText value ="Código Postal: "/>
@@ -161,10 +160,14 @@
                                             <ice:outputText value ="Pais: "/>
                                             <ice:outputText value="#{empresas.nif1.pais}"/>
                                         </td>
+                                    </tr>
+                                    <tr>
                                         <td>
                                             <ice:commandButton value="Aceptar empresa" action="#{verNotificacionesAEBean.aceptarEmpresa(indice.index)}"/>
                                         </td>
-
+                                        <td>
+                                            <ice:commandButton value="Rechazar empresa" action="#{verNotificacionesAEBean.rechazarEmpresa(indice.index)}"/>
+                                        </td>
                                     </tr>
                                 </table>
 

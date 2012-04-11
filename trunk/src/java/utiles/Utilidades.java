@@ -44,10 +44,10 @@ public class Utilidades {
             dias = dias + c.get(Calendar.DAY_OF_MONTH);
         }
         if (c.get(Calendar.MONTH) + 1 <= 9) {
-            mes= c.get(Calendar.MONTH) + 1;
+            mes = c.get(Calendar.MONTH) + 1;
             meses = "0" + mes;
         } else {
-             mes=c.get(Calendar.MONTH) + 1;
+            mes = c.get(Calendar.MONTH) + 1;
             meses = meses + mes;
         }
         anios = anios + c.get(Calendar.YEAR);
@@ -111,15 +111,15 @@ public class Utilidades {
 
     public static String getNifEmpresaSesion() {
 
-        String res;
+        String res=null;
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
 
         EmpresaBean emp = (EmpresaBean) session.getAttribute("empresa");
-
-        res = emp.getNif();
-
+        if (emp != null) {
+            res = emp.getNif();
+        }
         return res;
     }
 
