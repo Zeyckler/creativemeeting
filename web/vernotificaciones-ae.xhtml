@@ -116,16 +116,16 @@
                                         </td>
 
                                     </tr>
-                                    <!--
+                                    
                                     <tr>
                                         <td>
                                             <ice:outputText value ="Código Postal: "/>
                                             <ice:outputText value="#{empresas.nif1.codigopostal}"/>
                                         </td>
                                         <td>
-                                            <ice:panelGroup rendered="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[3] != null}">
+                                            <ice:panelGroup rendered="#{empresas.nif1.fax!=null}">
                                                 <ice:outputText value ="Fax: "/>
-                                                <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[3]}"/>
+                                                <ice:outputText value="#{empresas.nif1.fax}"/>
                                             </ice:panelGroup>
                                         </td>
 
@@ -133,25 +133,25 @@
                                     <tr>
                                         <td>
                                             <ice:outputText value ="Localidad: "/>
-                                            <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[6]}"/>
+                                            <ice:outputText value="#{empresas.nif1.localidad}"/>
 
                                         </td>
                                         <td>
-                                            <ice:panelGroup rendered="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[10] != null}">
+                                            <ice:panelGroup rendered="#{empresas.nif1.web != null}">
                                                 <ice:outputText value ="Página Web: "/>
-                                                <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[10]}"/>
+                                                <ice:outputText value="#{empresas.nif1.web}"/>
                                             </ice:panelGroup>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <ice:outputText value ="Provincia: "/>
-                                            <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[7]}"/>
+                                            <ice:outputText value="#{empresas.nif1.provincia}"/>
                                         </td>
                                         <td>
-                                            <ice:panelGroup rendered="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[5] != null}">
+                                            <ice:panelGroup rendered="#{empresas.nif1.email!= null}">
                                                 <ice:outputText value ="Email: "/>
-                                                <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[5]}"/>
+                                                <ice:outputText value="#{empresas.nif1.email}"/>
                                             </ice:panelGroup>
                                         </td>
 
@@ -159,15 +159,13 @@
                                     <tr>
                                         <td>
                                             <ice:outputText value ="Pais: "/>
-                                            <ice:outputText value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.get(indice.index)[8]}"/>
+                                            <ice:outputText value="#{empresas.nif1.pais}"/>
                                         </td>
                                         <td>
                                             <ice:commandButton value="Aceptar empresa" action="#{verNotificacionesAEBean.aceptarEmpresa(indice.index)}"/>
                                         </td>
 
                                     </tr>
-
-                                    -->
                                 </table>
 
                             </ice:panelGroup>

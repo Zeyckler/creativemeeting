@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     
 })
 public class Reuniones implements Serializable {
+    
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,16 +58,8 @@ public class Reuniones implements Serializable {
     private Integer idreunion;
     @Column(name = "coste")
     private Integer coste;
-    @Column(name = "fechainicial")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechainicial;
-    @Column(name = "fechafinalestimada")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinalestimada;
-    @Column(name = "fechafinalreal")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinalreal;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idreunion")
+    @OrderBy("idpuntodeldia")
     private Collection<Puntosdeldia> puntosdeldiaCollection;
     @OneToMany(mappedBy = "idreunion")
     private Collection<Adjunto> adjuntoCollection;
@@ -80,6 +74,18 @@ public class Reuniones implements Serializable {
     @JoinColumn(name = "dnicreador", referencedColumnName = "dni")
     @ManyToOne
     private Usuarios dnicreador;
+    @Column(name = "fechainicial")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicial;
+    @Column(name = "fechafinalestimada")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalestimada;
+    @Column(name = "fechafinalreal")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalreal;
+    @Column(name = "fechainicialreal")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicialreal;
     public static final String BUSCAR_REUNIONES = "Reuniones.findByIdreunion";
     public static final String BUSCAR_REUNIONESCREADOR = "Reuniones.findByReunionCreador";
     public static final String BUSCAR_INTERVENCIONESPORREUNION = "Reuniones.findIntervencionesByIdreunion";
@@ -172,6 +178,37 @@ public class Reuniones implements Serializable {
     public void setDnicreador(Usuarios dnicreador) {
         this.dnicreador = dnicreador;
     }
+     public Date getFechainicial() {
+        return fechainicial;
+    }
+
+    public void setFechainicial(Date fechainicial) {
+        this.fechainicial = fechainicial;
+    }
+
+    public Date getFechafinalestimada() {
+        return fechafinalestimada;
+    }
+
+    public void setFechafinalestimada(Date fechafinalestimada) {
+        this.fechafinalestimada = fechafinalestimada;
+    }
+
+    public Date getFechafinalreal() {
+        return fechafinalreal;
+    }
+
+    public void setFechafinalreal(Date fechafinalreal) {
+        this.fechafinalreal = fechafinalreal;
+    }
+
+    public Date getFechainicialreal() {
+        return fechainicialreal;
+    }
+
+    public void setFechainicialreal(Date fechainicialreal) {
+        this.fechainicialreal = fechainicialreal;
+    }
 
     @Override
     public int hashCode() {
@@ -198,27 +235,5 @@ public class Reuniones implements Serializable {
         return "bd.Reuniones[ idreunion=" + idreunion + " ]";
     }
 
-    public Date getFechainicial() {
-        return fechainicial;
-    }
-
-    public void setFechainicial(Date fechainicial) {
-        this.fechainicial = fechainicial;
-    }
-
-    public Date getFechafinalestimada() {
-        return fechafinalestimada;
-    }
-
-    public void setFechafinalestimada(Date fechafinalestimada) {
-        this.fechafinalestimada = fechafinalestimada;
-    }
-
-    public Date getFechafinalreal() {
-        return fechafinalreal;
-    }
-
-    public void setFechafinalreal(Date fechafinalreal) {
-        this.fechafinalreal = fechafinalreal;
-    }
+   
 }
