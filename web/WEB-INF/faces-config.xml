@@ -4,11 +4,6 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <managed-bean>
-        <managed-bean-name>holaBean</managed-bean-name>
-        <managed-bean-class>beans.HolaBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>usuario</managed-bean-name>
         <managed-bean-class>beans.UsuariosBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
@@ -277,6 +272,11 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
@@ -284,6 +284,11 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <navigation-case>
             <from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
             <from-outcome>error</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.aceptarEmpresa}</from-action>
+            <from-outcome>ok</from-outcome>
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>

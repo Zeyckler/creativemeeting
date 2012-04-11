@@ -310,11 +310,26 @@ public class UsuariosBean implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
         CalendarioUsuarioBean calUsBean = (CalendarioUsuarioBean) session.getAttribute("calendarioUsuarioBean");
-        if (calUsBean==null || calUsBean.getListareuniones().isEmpty()) {
+        if (calUsBean == null || calUsBean.getListareuniones().isEmpty()) {
             calUsBean = new CalendarioUsuarioBean();
             session.removeAttribute("calendarioUsuarioBean");
             session.setAttribute("calendarioUsuarioBean", calUsBean);
         }
+    }
 
+    public void creaVerNotificacionesAEBean() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        VerNotificacionesAEBean verNot = (VerNotificacionesAEBean) session.getAttribute("verNotificacionesAEBean");
+        boolean iniciovacio = false;
+        if (verNot != null) {
+            iniciovacio = verNot.isIniciovacio();
+        }
+        if (verNot == null || iniciovacio) {
+            verNot = new VerNotificacionesAEBean();
+            verNot.inicializaVerNotificacionesAEBean();
+            session.removeAttribute("verNotificacionesAEBean");
+            session.setAttribute("verNotificacionesAEBean", verNot);
+        }
     }
 }

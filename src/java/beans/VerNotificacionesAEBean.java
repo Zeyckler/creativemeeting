@@ -27,24 +27,28 @@ import utiles.Utilidades;
 public class VerNotificacionesAEBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private boolean iniciovacio;
     private List<Fila<Object[]>> filasusuariosnuevos;
     private List<Object[]> usuariosnuevosseleccionados;
     private List<Reuniones> listadereunionesnotificacion;
     private List<Empresasamigas> listanotificacionesrelacionesempresariales;
 
-    {
+    public VerNotificacionesAEBean() {
+        this.iniciovacio = true;
+    }
+
+    public void inicializaVerNotificacionesAEBean() {
+        this.iniciovacio = false;
         this.usuariosnuevosseleccionados = new LinkedList<Object[]>();
         this.filasusuariosnuevos = new LinkedList<Fila<Object[]>>();
-        this.listadereunionesnotificacion = Consultas.buscaReunionesNotificacionesporUsuario(Utilidades.getDniUsuarioSesion());
-        this.listanotificacionesrelacionesempresariales = Consultas.buscaEmpresasAmigasNotificacion(Utilidades.getNifEmpresaSesion());
+        String dni = Utilidades.getDniUsuarioSesion();
+        String nif = Utilidades.getNifEmpresaSesion();
+        this.listadereunionesnotificacion = Consultas.buscaReunionesNotificacionesporUsuario(dni);
+        this.listanotificacionesrelacionesempresariales = Consultas.buscaEmpresasAmigasNotificacion(nif);
         List<Object[]> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
         for (Object[] fila : aux) {
             this.filasusuariosnuevos.add(new Fila(fila, false));
         }
-    }
-
-    /** Creates a new instance of VerNotificacionesAEBean */
-    public VerNotificacionesAEBean() {
     }
 
     public List<Fila<Object[]>> getFilasusuariosnuevos() {
@@ -79,6 +83,16 @@ public class VerNotificacionesAEBean implements Serializable {
         this.listanotificacionesrelacionesempresariales = listanotificacionesrelacionesempresariales;
     }
 
+    public boolean isIniciovacio() {
+        return iniciovacio;
+    }
+
+    public void setIniciovacio(boolean iniciovacio) {
+        this.iniciovacio = iniciovacio;
+    }
+    
+    
+
     public void usuarioSeleccionadaListener(RowSelectorEvent event) {
 
         this.usuariosnuevosseleccionados.clear();
@@ -96,17 +110,20 @@ public class VerNotificacionesAEBean implements Serializable {
     }
 
     public String aceptarUsuarios() {
+
         String res = "";
-
-        for (Object[] o : this.usuariosnuevosseleccionados) {
-            Usuarios u = Consultas.buscarUsuario((String) o[0]);
-            boolean a = FactoriaBD.preActualizarDato(u);
-            u.setActivacioninicial(false);
-            u.setActivo(true);
-            boolean b = FactoriaBD.posActualizarDato(u);
-
-            System.out.print(a + "    " + b);
-
+        try {
+            for (Object[] o : this.usuariosnuevosseleccionados) {
+                Usuarios u = Consultas.buscarUsuario((String) o[0]);
+                FactoriaBD.preActualizarDato(u);
+                u.setActivacioninicial(false);
+                u.setActivo(true);
+                FactoriaBD.posActualizarDato(u);
+                res = "ok";
+            }
+        } catch (Exception e) {
+            res = "error";
+            System.out.println(e);
         }
         this.filasusuariosnuevos.clear();
         this.usuariosnuevosseleccionados.clear();
@@ -114,9 +131,6 @@ public class VerNotificacionesAEBean implements Serializable {
         for (Object[] fila : aux) {
             this.filasusuariosnuevos.add(new Fila(fila, false));
         }
-        res = "ok";
-
-        System.out.print(res);
         return res;
     }
 
@@ -189,20 +203,37 @@ public class VerNotificacionesAEBean implements Serializable {
     }
 
     public String aceptarEmpresa(int indice) {
-        return "ok";
+        String res = "";
+        try {
+            Empresasamigas ea = this.listanotificacionesrelacionesempresariales.get(indice);
+            FactoriaBD.preActualizarDato(ea);
+            ea.setActivacioninicial(false);
+            ea.setActivo(true);
+            FactoriaBD.posActualizarDato(ea);
+            res = "ok";
+        } catch (Exception e) {
+            res = "error";
+            System.out.println(e);
+        }
+        this.listanotificacionesrelacionesempresariales.clear();
+        this.listanotificacionesrelacionesempresariales = Consultas.buscaEmpresasAmigasNotificacion(Utilidades.getNifEmpresaSesion());
+        return res;
     }
 
-    public Collection<Puntosdeldia> puntosDelDiaOrdenados(Collection<Puntosdeldia> lpdd) {
-        System.out.print("Size: " + lpdd.size());
-        System.out.print("List: " + lpdd.toString());
-        List<Puntosdeldia> lista = new LinkedList<Puntosdeldia>();
-        //Reuniones reunion = this.listadereunionesnotificacion.get(indice);
-        //lista.addAll(reunion.getPuntosdeldiaCollection());
-        List<Puntosdeldia> listaordenada = new LinkedList<Puntosdeldia>();
-        for (int i = lista.size(); i >= 0; i--) {
-            listaordenada.add(lista.get(i));
+    public String rechazarEmpresa(int indice) {
+        String res = "";
+        try {
+            Empresasamigas ea = this.listanotificacionesrelacionesempresariales.get(indice);
+            FactoriaBD.preActualizarDato(ea);
+            ea.setActivacioninicial(false);
+            FactoriaBD.posActualizarDato(ea);
+            res = "ok";
+        } catch (Exception e) {
+            res = "error";
+            System.out.println(e);
         }
-        System.out.print("*****************************************");
-        return listaordenada;
+        this.listanotificacionesrelacionesempresariales.clear();
+        this.listanotificacionesrelacionesempresariales = Consultas.buscaEmpresasAmigasNotificacion(Utilidades.getNifEmpresaSesion());
+        return res;
     }
 }
