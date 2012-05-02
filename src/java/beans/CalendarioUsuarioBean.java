@@ -30,25 +30,29 @@ public class CalendarioUsuarioBean implements Serializable {
     private Integer listaanios[];
     private Reuniones reunion;
     private boolean verinformacion;
-    private boolean errorinformacion ;
+    private boolean errorinformacion;
 
     {
     }
 
     public CalendarioUsuarioBean() {
+        this.fecha = Calendar.getInstance().getTime();
+    }
 
-            this.anio = Calendar.getInstance().get(Calendar.YEAR);
-            String dniusuario = Utilidades.getDniUsuarioSesion();
-            this.listareuniones = Consultas.buscaReunionesUsuarioAnio(dniusuario, anio);
-            this.reunionescadena = Utilidades.trasformaListaFechaCadena(this.listareuniones);
-            this.fecha = Calendar.getInstance().getTime();
-            this.listaanios = new Integer[]{Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR) + 1};
-            //System.out.print(reunionescadena.toString
-            System.out.print("Se ha ejecutado CalendarioUsuarioBean" + listareuniones.size());
-            System.out.print("Tamaño lista reuniones" + listareuniones.size());
-            this.verinformacion = false;
-            this.errorinformacion  = false;
+    public void inicializaCalendarioUsuarioBean() {
+        this.anio = Calendar.getInstance().get(Calendar.YEAR);
+        String dniusuario = Utilidades.getDniUsuarioSesion();
+        this.listareuniones = Consultas.buscaReunionesUsuarioAnio(dniusuario, anio);
+        this.reunionescadena = Utilidades.trasformaListaFechaCadena(this.listareuniones);
+        
+        this.listaanios = new Integer[]{Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR) + 1};
+        //System.out.print(reunionescadena.toString
+        System.out.print("Se ha ejecutado CalendarioUsuarioBean" + listareuniones.size());
+        System.out.print("Tamaño lista reuniones" + listareuniones.size());
+        this.verinformacion = false;
+        this.errorinformacion = false;
+
     }
 
     public String getReunionescadena() {
@@ -114,8 +118,6 @@ public class CalendarioUsuarioBean implements Serializable {
     public void setErrorinformacion(boolean errorinformacion) {
         this.errorinformacion = errorinformacion;
     }
-    
-    
 
     public String irAnio() {
         Calendar cal = new GregorianCalendar();
@@ -131,7 +133,7 @@ public class CalendarioUsuarioBean implements Serializable {
     }
 
     public String informacionReunion() {
-        
+
         this.errorinformacion = false;
         this.verinformacion = false;
         String res = null;

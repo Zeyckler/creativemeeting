@@ -10,6 +10,7 @@ import bd.Usuarios;
 import factoria.FactoriaBD;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.LinkedList;
@@ -308,11 +309,11 @@ public class UsuariosBean implements Serializable {
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        CalendarioUsuarioBean calUsBean = (CalendarioUsuarioBean) session.getAttribute("calendarioUsuarioBean");
-        if (calUsBean == null || calUsBean.getListareuniones().isEmpty()) {
-            calUsBean = new CalendarioUsuarioBean();
-            session.removeAttribute("calendarioUsuarioBean");
-            session.setAttribute("calendarioUsuarioBean", calUsBean);
+        CalendarioUsuarioBean cal =(CalendarioUsuarioBean) session.getAttribute("calendarioUsuarioBean");
+        if(cal.getFecha().equals(Calendar.getInstance().getTime())){
+        CalendarioUsuarioBean calUsBean = new CalendarioUsuarioBean();
+        calUsBean.inicializaCalendarioUsuarioBean();
+        session.setAttribute("calendarioUsuarioBean", calUsBean);
         }
     }
 
