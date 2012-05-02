@@ -108,18 +108,10 @@ public class LoginBean implements Serializable {
         if (a != null) {
             UsuariosBean user = new UsuariosBean(a);
             EmpresaBean emp = new EmpresaBean(a.getNif());
-
-
-            // -----------------Nuevo 8-11-11
-
             FacesContext ctx = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-
             session.setAttribute("usuario", user);
             session.setAttribute("empresa", emp);
-
-            // -----------------
-
 
             return "ok";
 
@@ -127,10 +119,6 @@ public class LoginBean implements Serializable {
             return "error";
 
         }
-
-
-
-
     }
 
     public String getContrasena() {

@@ -30,6 +30,7 @@ public class CalendarioUsuarioBean implements Serializable {
     private Integer listaanios[];
     private Reuniones reunion;
     private boolean verinformacion;
+    private boolean errorinformacion ;
 
     {
     }
@@ -47,8 +48,7 @@ public class CalendarioUsuarioBean implements Serializable {
             System.out.print("Se ha ejecutado CalendarioUsuarioBean" + listareuniones.size());
             System.out.print("Tamaño lista reuniones" + listareuniones.size());
             this.verinformacion = false;
-        
-
+            this.errorinformacion  = false;
     }
 
     public String getReunionescadena() {
@@ -107,6 +107,16 @@ public class CalendarioUsuarioBean implements Serializable {
         this.verinformacion = verinformacion;
     }
 
+    public boolean isErrorinformacion() {
+        return errorinformacion;
+    }
+
+    public void setErrorinformacion(boolean errorinformacion) {
+        this.errorinformacion = errorinformacion;
+    }
+    
+    
+
     public String irAnio() {
         Calendar cal = new GregorianCalendar();
         cal.set(Calendar.DAY_OF_YEAR, 1);
@@ -121,7 +131,8 @@ public class CalendarioUsuarioBean implements Serializable {
     }
 
     public String informacionReunion() {
-
+        
+        this.errorinformacion = false;
         this.verinformacion = false;
         String res = null;
         String dniusuario = Utilidades.getDniUsuarioSesion();
@@ -142,7 +153,7 @@ public class CalendarioUsuarioBean implements Serializable {
             System.out.print("Verificaciones " + this.verinformacion);
             System.out.print("Reunion: " + this.reunion.getFechainicial());
         } else {
-            System.out.print("He entrado en el error");
+            this.errorinformacion = true;
             res = "error";
         }
 

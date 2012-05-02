@@ -293,6 +293,29 @@ public class Consultas {
         return reuniones;
 
     }
+    public static Reuniones buscaReunionesUsuarioInformacionHoy(String dniusuario) {
+
+        Reuniones r = null;
+        
+        Calendar c1 = Calendar.getInstance();
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.SECOND, 0);
+        Date hoyinicial= c1.getTime();
+        
+        c1.set(Calendar.HOUR_OF_DAY, 23);
+        c1.set(Calendar.MINUTE, 59);
+        c1.set(Calendar.SECOND, 59);
+        Date hoyfinal = c1.getTime();
+        
+        try{
+            r= buscaReunionesUsuarioInformacion(dniusuario, hoyinicial, hoyfinal);
+        }catch(Exception e){
+            r=null;
+        }
+        return r;
+
+    }
 
     public static List<Salasreuniones> buscaSalasLibreFecha(Date fechainicial, Date fechafinal) {
 

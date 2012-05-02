@@ -36,85 +36,87 @@
                 <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
                     #{usuario.creaCalendarioUsuarioBean()}
                 </ice:panelGroup>
-                    <ice:form id="formulariocalendario" rendered="#{calendarioUsuarioBean.listareuniones.size()>0}">
-                        
-                        <div id="calendario">
-                            <ice:selectOneMenu value="#{calendarioUsuarioBean.anio}" >
-                                <f:selectItems value="#{calendarioUsuarioBean.listaanios}" ></f:selectItems>
-                            </ice:selectOneMenu> 
-                            <ice:commandButton action="#{calendarioUsuarioBean.irAnio}" value="Cambiar a&ntilde;o"></ice:commandButton>
-                            <ice:selectInputDate  styleClass="calendarioReuniones" partialSubmit="false"
-                                                  renderMonthAsDropdown="true" renderYearAsDropdown="false" 
-                                                  highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK: MONTH: DAY_OF_YEAR" 
-                                                  highlightValue="1,7: 8: #{calendarioUsuarioBean.reunionescadena}" value="#{calendarioUsuarioBean.fecha}"
-                                                  >
-                                <f:converter converterId="javax.faces.DateTime"/> 
-                                <f:convertDateTime pattern="dd/MM/yyyy"/>
-                            </ice:selectInputDate>
-                        </div>
+                <ice:form id="formulariocalendario" rendered="#{calendarioUsuarioBean.listareuniones.size()>0}">
 
-                        <ice:commandButton value="Información Reunión" action="#{calendarioUsuarioBean.informacionReunion}"/>
-                        <ice:panelGroup rendered="#{calendarioUsuarioBean.verinformacion==true}">
-                            <ice:panelGroup>
-                                <table>
-                                    <tr>
-                                        <td colspan="1">
+                    <div id="calendario">
+                        <ice:selectOneMenu value="#{calendarioUsuarioBean.anio}" >
+                            <f:selectItems value="#{calendarioUsuarioBean.listaanios}" ></f:selectItems>
+                        </ice:selectOneMenu> 
+                        <ice:commandButton action="#{calendarioUsuarioBean.irAnio}" value="Cambiar a&ntilde;o"></ice:commandButton>
+                        <ice:selectInputDate  styleClass="calendarioReuniones" partialSubmit="false"
+                                              renderMonthAsDropdown="true" renderYearAsDropdown="false" 
+                                              highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK: MONTH: DAY_OF_YEAR" 
+                                              highlightValue="1,7: 8: #{calendarioUsuarioBean.reunionescadena}" value="#{calendarioUsuarioBean.fecha}"
+                                              >
+                            <f:converter converterId="javax.faces.DateTime"/> 
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </ice:selectInputDate>
+                    </div>
 
-                                            <ice:outputText value="Fecha: " ></ice:outputText>
-                                            <ice:outputText value="#{calendarioUsuarioBean.formatoFecha(calendarioUsuarioBean.reunion.fechainicial)}" ></ice:outputText>
-                                        </td>
-                                        <td colspan="3">
-                                            <ice:outputText value="Sala: " />
-                                            <ice:outputText value="#{calendarioUsuarioBean.reunion.idsalareunion.nombresala} - " />
-                                            <ice:outputText value="#{calendarioUsuarioBean.reunion.idsalareunion.direccion} - " />
-                                            <ice:outputText value="#{calendarioUsuarioBean.reunion.idsalareunion.localidad} (#{reunion.getIdsalareunion().provincia}) - " />
-                                            <ice:outputText value="#{calendarioUsuarioBean.reunion.idsalareunion.pais} " />
-                                        </td>
-                                    </tr> 
-                                    <tr>
-                                        <td colspan="1">
-                                            <ice:outputText value="Duración: " />
-                                            <ice:outputText value="#{calendarioUsuarioBean.calcularDuracionReunion()}"></ice:outputText>
-                                        </td>
-                                        <td colspan="3">
-                                            <ice:outputText value="Solicitante: " />
-                                            <ice:outputText value="#{calendarioUsuarioBean.reunion.dnicreador.nombre} " />
-                                            <ice:outputText value="#{calendarioUsuarioBean.reunion.dnicreador.apellido1} " />
-                                            <ice:outputText value="#{calendarioUsuarioBean.reunion.dnicreador.apellido2} - " />
-                                            <ice:outputText value="#{calendarioUsuarioBean.reunion.dnicreador.nif.razonsocial}" />
-                                        </td>
-                                    </tr> 
-                                    <tr>
-                                        <td colspan="2">
-                                            <ice:outputText value="Asistentes: " />
-                                        </td>
-                                        <td colspan="2">
-                                            <ice:outputText value="Puntos del día: " /><br/>   
-                                        </td>
-                                    </tr>
+                    <ice:commandButton value="Información Reunión" action="#{calendarioUsuarioBean.informacionReunion}"/>
+                    <ice:panelGroup rendered="#{calendarioUsuarioBean.verinformacion==true}">
+                        <ice:panelGroup>
+                            <table>
+                                <tr>
+                                    <td colspan="1">
 
-                                    <tr>
-                                        <td colspan="2">
-                                            <ice:panelSeries varStatus="u" var="usuarios" value="#{calendarioUsuarioBean.reunion.asistenciareunionCollection}">
-                                                <ice:outputText value="- #{usuarios.dni.nombre} " />
-                                                <ice:outputText value="#{usuarios.dni.apellido1} " />
-                                                <ice:outputText value="#{usuarios.dni.apellido2}" /><br/>
-                                            </ice:panelSeries>
-                                        </td>
-                                        <td colspan="2">
-                                            <ice:panelSeries varStatus="p" var="puntosdia" value="#{calendarioUsuarioBean.reunion.puntosdeldiaCollection}">
-                                                <ice:outputText value="#{p.index+1}.- #{puntosdia.titulopunto}" /><br/>
-                                            </ice:panelSeries>
-                                        </td>
-                                    </tr>
-                                    <!--
-                                        boton para ver el acta de la reunion
-                                    -->
-                                </table>
-                            </ice:panelGroup>
+                                        <ice:outputText value="Fecha: " ></ice:outputText>
+                                        <ice:outputText value="#{calendarioUsuarioBean.formatoFecha(calendarioUsuarioBean.reunion.fechainicial)}" ></ice:outputText>
+                                    </td>
+                                    <td colspan="3">
+                                        <ice:outputText value="Sala: " />
+                                        <ice:outputText value="#{calendarioUsuarioBean.reunion.idsalareunion.nombresala} - " />
+                                        <ice:outputText value="#{calendarioUsuarioBean.reunion.idsalareunion.direccion} - " />
+                                        <ice:outputText value="#{calendarioUsuarioBean.reunion.idsalareunion.localidad} (#{reunion.getIdsalareunion().provincia}) - " />
+                                        <ice:outputText value="#{calendarioUsuarioBean.reunion.idsalareunion.pais} " />
+                                    </td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1">
+                                        <ice:outputText value="Duración: " />
+                                        <ice:outputText value="#{calendarioUsuarioBean.calcularDuracionReunion()}"></ice:outputText>
+                                    </td>
+                                    <td colspan="3">
+                                        <ice:outputText value="Solicitante: " />
+                                        <ice:outputText value="#{calendarioUsuarioBean.reunion.dnicreador.nombre} " />
+                                        <ice:outputText value="#{calendarioUsuarioBean.reunion.dnicreador.apellido1} " />
+                                        <ice:outputText value="#{calendarioUsuarioBean.reunion.dnicreador.apellido2} - " />
+                                        <ice:outputText value="#{calendarioUsuarioBean.reunion.dnicreador.nif.razonsocial}" />
+                                    </td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="2">
+                                        <ice:outputText value="Asistentes: " />
+                                    </td>
+                                    <td colspan="2">
+                                        <ice:outputText value="Puntos del día: " /><br/>   
+                                    </td>
+                                </tr>
 
+                                <tr>
+                                    <td colspan="2">
+                                        <ice:panelSeries varStatus="u" var="usuarios" value="#{calendarioUsuarioBean.reunion.asistenciareunionCollection}">
+                                            <ice:outputText value="- #{usuarios.dni.nombre} " />
+                                            <ice:outputText value="#{usuarios.dni.apellido1} " />
+                                            <ice:outputText value="#{usuarios.dni.apellido2}" /><br/>
+                                        </ice:panelSeries>
+                                    </td>
+                                    <td colspan="2">
+                                        <ice:panelSeries varStatus="p" var="puntosdia" value="#{calendarioUsuarioBean.reunion.puntosdeldiaCollection}">
+                                            <ice:outputText value="#{p.index+1}.- #{puntosdia.titulopunto}" /><br/>
+                                        </ice:panelSeries>
+                                    </td>
+                                </tr>
+                                <!--
+                                    boton para ver el acta de la reunion
+                                -->
+                            </table>
                         </ice:panelGroup>
-                    </ice:form>
+
+                    </ice:panelGroup>
+                </ice:form>
+                <ice:outputLabel styleClass="errorformulario" rendered="#{calendarioUsuarioBean.errorinformacion}" value="No hay hay ninguna reunión el dia seleccionada"/>
+                <ice:outputLabel styleClass="errorformulario" rendered="#{calendarioUsuarioBean.listareuniones.size()==0}" value="No tiene tiene ninguna reunion"/>
             </ui:define>
 
         </ui:composition>

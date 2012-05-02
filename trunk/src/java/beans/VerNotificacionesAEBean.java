@@ -4,6 +4,7 @@
  */
 package beans;
 
+import bd.Asistenciareunion;
 import bd.Empresasamigas;
 import bd.Puntosdeldia;
 import bd.Reuniones;
@@ -27,18 +28,19 @@ import utiles.Utilidades;
 public class VerNotificacionesAEBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private boolean iniciovacio;
     private List<Fila<Object[]>> filasusuariosnuevos;
     private List<Object[]> usuariosnuevosseleccionados;
     private List<Reuniones> listadereunionesnotificacion;
     private List<Empresasamigas> listanotificacionesrelacionesempresariales;
+    boolean errorsolicitudusuario;
+    boolean errorsolicitudreunion;
+    boolean errorsolicitudempresa;
 
     public VerNotificacionesAEBean() {
-        this.iniciovacio = true;
     }
 
     public void inicializaVerNotificacionesAEBean() {
-        this.iniciovacio = false;
+
         this.usuariosnuevosseleccionados = new LinkedList<Object[]>();
         this.filasusuariosnuevos = new LinkedList<Fila<Object[]>>();
         String dni = Utilidades.getDniUsuarioSesion();
@@ -49,6 +51,7 @@ public class VerNotificacionesAEBean implements Serializable {
         for (Object[] fila : aux) {
             this.filasusuariosnuevos.add(new Fila(fila, false));
         }
+
     }
 
     public List<Fila<Object[]>> getFilasusuariosnuevos() {
@@ -83,14 +86,29 @@ public class VerNotificacionesAEBean implements Serializable {
         this.listanotificacionesrelacionesempresariales = listanotificacionesrelacionesempresariales;
     }
 
-    public boolean isIniciovacio() {
-        return iniciovacio;
+    public boolean isErrorsolicitudempresa() {
+        return errorsolicitudempresa;
     }
 
-    public void setIniciovacio(boolean iniciovacio) {
-        this.iniciovacio = iniciovacio;
+    public void setErrorsolicitudempresa(boolean errorsolicitudempresa) {
+        this.errorsolicitudempresa = errorsolicitudempresa;
     }
-    
+
+    public boolean isErrorsolicitudreunion() {
+        return errorsolicitudreunion;
+    }
+
+    public void setErrorsolicitudreunion(boolean errorsolicitudreunion) {
+        this.errorsolicitudreunion = errorsolicitudreunion;
+    }
+
+    public boolean isErrorsolicitudusuario() {
+        return errorsolicitudusuario;
+    }
+
+    public void setErrorsolicitudusuario(boolean errorsolicitudusuario) {
+        this.errorsolicitudusuario = errorsolicitudusuario;
+    }
     
 
     public void usuarioSeleccionadaListener(RowSelectorEvent event) {
@@ -112,6 +130,7 @@ public class VerNotificacionesAEBean implements Serializable {
     public String aceptarUsuarios() {
 
         String res = "";
+        this.errorsolicitudusuario=false;
         try {
             for (Object[] o : this.usuariosnuevosseleccionados) {
                 Usuarios u = Consultas.buscarUsuario((String) o[0]);
@@ -123,19 +142,15 @@ public class VerNotificacionesAEBean implements Serializable {
             }
         } catch (Exception e) {
             res = "error";
+            this.errorsolicitudusuario = true;
             System.out.println(e);
-        }
-        this.filasusuariosnuevos.clear();
-        this.usuariosnuevosseleccionados.clear();
-        List<Object[]> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
-        for (Object[] fila : aux) {
-            this.filasusuariosnuevos.add(new Fila(fila, false));
         }
         return res;
     }
 
     public String rechazarUsuarios() {
         String res = "";
+        this.errorsolicitudusuario= false;
         try {
 
             for (Object[] o : this.usuariosnuevosseleccionados) {
@@ -146,15 +161,10 @@ public class VerNotificacionesAEBean implements Serializable {
                 FactoriaBD.posActualizarDato(u);
 
             }
-            this.filasusuariosnuevos.clear();
-            this.usuariosnuevosseleccionados.clear();
-            List<Object[]> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
-            for (Object[] fila : aux) {
-                this.filasusuariosnuevos.add(new Fila(fila, false));
-            }
             res = "ok";
         } catch (Exception e) {
             res = "error";
+            this.errorsolicitudusuario=true;
             System.out.println(e.toString());
         }
         return res;
@@ -189,21 +199,80 @@ public class VerNotificacionesAEBean implements Serializable {
     }
 
     public String aceptaReunion(int indice) {
-        System.out.print(indice);
-        String res = "aceptarok";
-        System.out.print(res);
 
+        String res = "";
+        this.errorsolicitudreunion=false;
+        String dniusuario = Utilidades.getDniUsuarioSesion();
+        Reuniones reunion = this.listadereunionesnotificacion.get(indice);
+        Integer id = reunion.getIdreunion();
+        System.out.print("Indice de la lista de reuniones" + indice);
+
+        System.out.print(Utilidades.getFormatoFecha(reunion.getFechainicial()));
+        Collection<Asistenciareunion> asistencia = reunion.getAsistenciareunionCollection();
+        System.out.print(asistencia.size());
+        for (Asistenciareunion asis : asistencia) {
+            Usuarios usuario = asis.getDni();
+            System.out.print("Usuarios que asisten a la reunion :" + usuario.getDni());
+            if (usuario.getDni().equals(dniusuario) && id == asis.getIdreunion().getIdreunion()) {
+                try {
+                    FactoriaBD.preActualizarDato(asis);
+                    asis.setNotificacion(false);
+                    asis.setRespuesta(true);
+                    FactoriaBD.posActualizarDato(asis);
+                    res = "aceptarok";
+                    System.out.print("Se ha entrado en el try");
+                } catch (Exception e) {
+                    System.out.print(e.toString());
+                    res = "aceptarerror";
+                    this.errorsolicitudreunion=true;
+
+                }
+            }
+        }
+        System.out.print(res);
         return res;
     }
 
     public String rechazaReunion(int indice) {
-        System.out.print("Indice de rechazar:" + indice);
-        return "rechazarok";
+        
+        String res = "";
+        this.errorsolicitudreunion=false;
+        String dniusuario = Utilidades.getDniUsuarioSesion();
+        Reuniones reunion = this.listadereunionesnotificacion.get(indice);
+        Integer id = reunion.getIdreunion();
+        System.out.print("Indice de la lista de reuniones" + indice);
+
+        System.out.print(Utilidades.getFormatoFecha(reunion.getFechainicial()));
+        Collection<Asistenciareunion> asistencia = reunion.getAsistenciareunionCollection();
+        System.out.print(asistencia.size());
+        for (Asistenciareunion asis : asistencia) {
+            Usuarios usuario = asis.getDni();
+            System.out.print("Usuarios que asisten a la reunion :" + usuario.getDni());
+            if (usuario.getDni().equals(dniusuario) && id == asis.getIdreunion().getIdreunion()) {
+                try {
+                    FactoriaBD.preActualizarDato(asis);
+                    asis.setNotificacion(false);
+                    asis.setRespuesta(false);
+                    asis.setAsistencia(false);
+                    FactoriaBD.posActualizarDato(asis);
+                    res = "rechazarok";
+                    System.out.print("Se ha entrado en el try");
+                } catch (Exception e) {
+                    System.out.print(e.toString());
+                    res = "rechazarerror";
+                    this.errorsolicitudreunion=true;
+
+                }
+            }
+        }
+        System.out.print(res);
+        return res;
 
     }
 
     public String aceptarEmpresa(int indice) {
         String res = "";
+        this.errorsolicitudempresa=false;
         try {
             Empresasamigas ea = this.listanotificacionesrelacionesempresariales.get(indice);
             FactoriaBD.preActualizarDato(ea);
@@ -214,14 +283,14 @@ public class VerNotificacionesAEBean implements Serializable {
         } catch (Exception e) {
             res = "error";
             System.out.println(e);
+            this.errorsolicitudempresa=true;
         }
-        this.listanotificacionesrelacionesempresariales.clear();
-        this.listanotificacionesrelacionesempresariales = Consultas.buscaEmpresasAmigasNotificacion(Utilidades.getNifEmpresaSesion());
         return res;
     }
 
     public String rechazarEmpresa(int indice) {
         String res = "";
+        this.errorsolicitudempresa=false;
         try {
             Empresasamigas ea = this.listanotificacionesrelacionesempresariales.get(indice);
             FactoriaBD.preActualizarDato(ea);
@@ -231,9 +300,8 @@ public class VerNotificacionesAEBean implements Serializable {
         } catch (Exception e) {
             res = "error";
             System.out.println(e);
+            this.errorsolicitudempresa=true;
         }
-        this.listanotificacionesrelacionesempresariales.clear();
-        this.listanotificacionesrelacionesempresariales = Consultas.buscaEmpresasAmigasNotificacion(Utilidades.getNifEmpresaSesion());
         return res;
     }
 }

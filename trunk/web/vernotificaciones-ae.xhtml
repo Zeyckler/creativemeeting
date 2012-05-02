@@ -3,12 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
     <body>
 
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
 
+
             <ui:define name="title">
+                <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
+                    #{usuario.creaVerNotificacionesAEBean()}
+                </c:if>
                 Ver Notificaciones - CreativeMeetings
             </ui:define>
 
@@ -25,7 +31,8 @@
             </ui:define>
 
             <ui:define name="content">
-                
+
+
                 <ice:form>
                     <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==1}">
 
@@ -88,6 +95,7 @@
                             <ice:commandButton  value="Rechazados usuarios seleccionados" action="#{verNotificacionesAEBean.rechazarUsuarios}"></ice:commandButton>
                         </ice:panelGroup>
                         <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.filasusuariosnuevos.size()==0}" value="Actualmente no tiene ninguna solicitud nueva"/>
+                        <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.errorsolicitudusuario}" value="Error al aceptar/rechazar el usuario"/>
                     </ice:panelGroup>
 
                 </ice:form>
@@ -175,6 +183,7 @@
 
                         </ice:panelSeries>
                         <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.size()==0}" value="Actualmente no tiene ninguna solicitud nueva"/>
+                        <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.errorsolicitudempresa}" value="Error al aceptar/rechazar la empresa"/>
                     </ice:panelGroup>
 
                 </ice:form>
@@ -248,8 +257,10 @@
 
                             </table>
                         </ice:panelGroup>
-                        <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.listadereunionesnotificacion.size()==0}" value="Actualmente no tiene ninguna solicitud nueva"/>
+
                     </ice:panelSeries>
+                    <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.listadereunionesnotificacion.size()==0}" value="Actualmente no tiene ninguna solicitud nueva"/>
+                    <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.errorsolicitudreunion}" value="Error al aceptar/rechazar la reunión"/>
 
                 </ice:form>
             </ui:define>
