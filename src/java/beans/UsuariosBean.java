@@ -5,6 +5,7 @@
 package beans;
 
 import bd.Empresas;
+import bd.Reuniones;
 import bd.Usuarios;
 import factoria.FactoriaBD;
 import java.io.Serializable;
@@ -26,44 +27,28 @@ public class UsuariosBean implements Serializable {
 
     private final static long serialVersionUID = 1L;
     private String dni;
-    //ValidarNif
     private String nombre;
-    //ValidarCadena255
     private String apellido1;
-    //ValidarCadena255
     private String apellido2;
-    //No es requerido
     private Date fechanacimiento;
-    //ValidarFechas ¡¡¡Sin hacer!!!
     private String direccion;
-    //ValidarCadena255
     private Integer telefono;
-    //validarTelefono
     private Integer movil;
-    //validarMovil
     private String email;
-    //ValidarEmail
     private String usuario;
-    //No Necesita Validador
     private String provincia;
-    //ValidarCadena255
     private String contrasena;
-    //ValidarCadena255
     private String localidad;
-    //ValidarCadena255
     private String pais;
-    //ValidarCadena255
     private Integer codigopostal;
-    //validarCodigoPostal
     private String cargo;
-    //ValidarCadena255
     private BigDecimal salario;
     private int privilegios;
-    //ValidarCadena255
     private boolean activo;
-    //No necesita validacion
     private Empresas nif;
     private String niftmp;
+    private Reuniones reunionhoy;
+    private List<Reuniones> proximasreuniones;
 
     public UsuariosBean() {
     }
@@ -89,11 +74,8 @@ public class UsuariosBean implements Serializable {
         this.provincia = us.getProvincia();
         this.salario = us.getSalario();
         this.telefono = us.getTelefono();
-        this.usuario = us.getUsuario();
-
-
-
-
+        this.usuario = us.getUsuario();      
+        this.reunionhoy= Consultas.buscaReunionesUsuarioInformacionHoy(this.dni);
     }
 
     public boolean isActivo() {
@@ -264,6 +246,23 @@ public class UsuariosBean implements Serializable {
         this.niftmp = niftmp;
     }
 
+    public List<Reuniones> getProximasreuniones() {
+        return proximasreuniones;
+    }
+
+    public void setProximasreuniones(List<Reuniones> proximasreuniones) {
+        this.proximasreuniones = proximasreuniones;
+    }
+
+    public Reuniones getReunionhoy() {
+        return reunionhoy;
+    }
+
+    public void setReunionhoy(Reuniones reunionhoy) {
+        this.reunionhoy = reunionhoy;
+    }
+    
+
     public boolean insertaUsuario(Integer tipo, Empresas nif) {
         //TODO
 
@@ -318,18 +317,14 @@ public class UsuariosBean implements Serializable {
     }
 
     public void creaVerNotificacionesAEBean() {
+
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        VerNotificacionesAEBean verNot = (VerNotificacionesAEBean) session.getAttribute("verNotificacionesAEBean");
-        boolean iniciovacio = false;
-        if (verNot != null) {
-            iniciovacio = verNot.isIniciovacio();
-        }
-        if (verNot == null || iniciovacio) {
-            verNot = new VerNotificacionesAEBean();
-            verNot.inicializaVerNotificacionesAEBean();
-            session.removeAttribute("verNotificacionesAEBean");
-            session.setAttribute("verNotificacionesAEBean", verNot);
-        }
+        VerNotificacionesAEBean verNot = new VerNotificacionesAEBean();
+        verNot.inicializaVerNotificacionesAEBean();
+        session.setAttribute("verNotificacionesAEBean", verNot);
+
     }
+    
+    
 }
