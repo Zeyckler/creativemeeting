@@ -36,6 +36,7 @@ public class CalendarioUsuarioBean implements Serializable {
     }
 
     public CalendarioUsuarioBean() {
+        System.out.print("Ha entradoen el constructor");
         this.fecha = Calendar.getInstance().getTime();
     }
 
