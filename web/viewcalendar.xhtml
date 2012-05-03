@@ -32,7 +32,7 @@
                 <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
                     #{usuario.creaCalendarioUsuarioBean()}
                 </ice:panelGroup>
-                <ice:form id="formulariocalendario" rendered="#{calendarioUsuarioBean.listareuniones.size()>0}">
+                <ice:form id="formulariocalendario">
 
                     <div id="calendario">
                         <ice:selectOneMenu value="#{calendarioUsuarioBean.anio}" >
@@ -112,7 +112,7 @@
                     </ice:panelGroup>
                 </ice:form>
                 <ice:outputLabel styleClass="errorformulario" rendered="#{calendarioUsuarioBean.errorinformacion}" value="No hay hay ninguna reunión el dia seleccionada"/>
-                <ice:outputLabel styleClass="errorformulario" rendered="#{calendarioUsuarioBean.listareuniones.size()==0}" value="No tiene tiene ninguna reunion"/>
+
             </ui:define>
 
         </ui:composition>
