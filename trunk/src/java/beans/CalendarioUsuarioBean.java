@@ -37,19 +37,23 @@ public class CalendarioUsuarioBean implements Serializable {
 
     public CalendarioUsuarioBean() {
         System.out.print("Ha entradoen el constructor");
-        this.fecha = Calendar.getInstance().getTime();
+        if (this.fecha == null) {
+
+            System.out.print("Fecha nula");
+        }
     }
 
     public void inicializaCalendarioUsuarioBean() {
+
+        this.fecha = Calendar.getInstance().getTime();
         this.anio = Calendar.getInstance().get(Calendar.YEAR);
         String dniusuario = Utilidades.getDniUsuarioSesion();
         this.listareuniones = Consultas.buscaReunionesUsuarioAnio(dniusuario, anio);
         this.reunionescadena = Utilidades.trasformaListaFechaCadena(this.listareuniones);
-        
         this.listaanios = new Integer[]{Calendar.getInstance().get(Calendar.YEAR),
             Calendar.getInstance().get(Calendar.YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR) + 1};
         //System.out.print(reunionescadena.toString
-        System.out.print("Se ha ejecutado CalendarioUsuarioBean" + listareuniones.size());
+        System.out.print("Se ha ejecutado inicializaCalendarioUsuarioBean");
         System.out.print("Tamaño lista reuniones" + listareuniones.size());
         this.verinformacion = false;
         this.errorinformacion = false;
