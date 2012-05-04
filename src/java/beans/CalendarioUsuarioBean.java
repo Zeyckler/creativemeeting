@@ -36,11 +36,6 @@ public class CalendarioUsuarioBean implements Serializable {
     }
 
     public CalendarioUsuarioBean() {
-        System.out.print("Ha entradoen el constructor");
-        if (this.fecha == null) {
-
-            System.out.print("Fecha nula");
-        }
     }
 
     public void inicializaCalendarioUsuarioBean() {
