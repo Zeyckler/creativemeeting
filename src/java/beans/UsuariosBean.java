@@ -302,11 +302,7 @@ public class UsuariosBean implements Serializable {
     }
 
     public void creaCalendarioUsuarioBean() {
-
-        System.out.println("Se ha ejecutado CreaCalendarioUsuarioBean");
-
-
-
+        
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
         CalendarioUsuarioBean cal = (CalendarioUsuarioBean) session.getAttribute("calendarioUsuarioBean");
@@ -326,5 +322,16 @@ public class UsuariosBean implements Serializable {
         verNot.inicializaVerNotificacionesAEBean();
         session.setAttribute("verNotificacionesAEBean", verNot);
 
+    }
+    public void creaReunionBean() {
+        
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        CreaReunionBean creunion = (CreaReunionBean)session.getAttribute("creaReunionBean");
+        if (creunion == null || creunion.getFechaCalendario() == null) {
+            CreaReunionBean crn = new CreaReunionBean();
+            crn.inicializaCreaReunionBean();
+            session.setAttribute("creaReunionBean", crn);
+        }
     }
 }

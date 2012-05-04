@@ -12,6 +12,12 @@
     <body>
 
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
+            
+            <ui:define name="sesion">
+                <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
+                    #{usuario.creaReunionBean()}
+                </c:if>
+            </ui:define>
 
             <ui:define name="title">
                 Crea Reunión - CreativeMeetings
