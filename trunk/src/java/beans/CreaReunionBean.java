@@ -63,6 +63,13 @@ public class CreaReunionBean implements Serializable {
     private String errorstrfecha;
 
     {
+    }
+    
+
+    /** Creates a new instance of CreaReunionBean */
+    public CreaReunionBean() {
+    }
+    public void inicializaCreaReunionBean(){
         listapuntosdeldia = new LinkedList<String>();
         for (int i = 0; i < 10; i++) {
             listapuntosdeldia.add(i, "");
@@ -86,13 +93,7 @@ public class CreaReunionBean implements Serializable {
         listareunionescreareunion = Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), aniocreareunion);
         reunionescadenacreareunion = Utilidades.trasformaListaFechaCadena(listareunionescreareunion);
         listaanioscreareunion = new Integer[]{Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.YEAR) + 1};
-
-
-
-    }
-
-    /** Creates a new instance of CreaReunionBean */
-    public CreaReunionBean() {
+        
     }
 
     public boolean isAgregaNuevoDisabled() {
@@ -575,6 +576,7 @@ public class CreaReunionBean implements Serializable {
                     FacesContext ctx = FacesContext.getCurrentInstance();
                     HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
                     session.removeAttribute("creaReunionBean");
+                    session.removeAttribute("calendarioUsuarioBean");
 
                     //setListareunionescreareunion(Consultas.buscaReunionesUsuarioAnio(Utilidades.getDniUsuarioSesion(), this.aniocreareunion));
                     //setReunionescadenacreareunion(Utilidades.trasformaListaFechaCadena(listareunionescreareunion));
