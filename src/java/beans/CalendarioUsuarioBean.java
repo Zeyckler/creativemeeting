@@ -32,9 +32,6 @@ public class CalendarioUsuarioBean implements Serializable {
     private boolean verinformacion;
     private boolean errorinformacion;
 
-    {
-    }
-
     public CalendarioUsuarioBean() {
     }
 
