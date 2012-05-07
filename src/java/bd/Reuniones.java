@@ -43,7 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reuniones.findReunionesdeUsuarios", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni"),
     @NamedQuery(name = "Reuniones.findReunionesdeUsuariosAnio", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND r.fechainicial BETWEEN :fecha1 AND :fecha2 AND asistencia.notificacion = :notificacion AND asistencia.respuesta= :respuesta"),
     @NamedQuery(name = "Reuniones.findReunionesNotificacionesPorUsuario", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia WHERE asistencia.dni.dni = :dni AND asistencia.notificacion =:noti AND r.fechainicial >=:hoy ORDER BY r.fechainicial ASC"),
-    @NamedQuery(name = "Reuniones.findReunionesUsuarioInformacion", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND asistencia.notificacion =:notificacion AND asistencia.respuesta = :respuesta  AND r.fechainicial BETWEEN :fecha1 AND :fecha2")    
+    @NamedQuery(name = "Reuniones.findReunionesUsuarioInformacion", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND asistencia.notificacion =:notificacion AND asistencia.respuesta = :respuesta  AND r.fechainicial BETWEEN :fecha1 AND :fecha2"),
+    @NamedQuery(name = "Reuniones.findReunionesUsuarioProximasInformacion", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND asistencia.notificacion =:notificacion AND asistencia.respuesta = :respuesta  AND r.fechainicial> :fechamanana ORDER BY r.fechainicial")
+    
 })
 public class Reuniones implements Serializable {
 

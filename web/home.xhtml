@@ -2,10 +2,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:ice="http://www.icesoft.com/icefaces/component">
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <body>
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
+
+            <ui:define name="sesion">
+                <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
+                    #{usuario.creaUsuario()}
+                </c:if>
+            </ui:define>
 
             <ui:define name="title">
                 Inicio - CreativeMeetings
@@ -28,14 +35,78 @@
                 <ice:form>
 
                     <h2>Hoy:</h2>
-                    <ice:panelSeries  varStatus="indice" var="reunion" value="#{verNotificacionesAEBean.listadereunionesnotificacion}">
+                    <ice:panelGroup rendered="#{usuario.reunionhoy!=null}">
                         <ice:panelGroup>
                             <table>
                                 <tr>
                                     <td colspan="1">
 
                                         <ice:outputText value="Fecha: " ></ice:outputText>
-                                        <ice:outputText value="#{verNotificacionesAEBean.formatoFecha(reunion.fechainicial)}" ></ice:outputText>
+                                        <ice:outputText value="#{usuario.formatoFecha(usuario.reunionhoy.fechainicial)}" ></ice:outputText>
+                                    </td>
+                                    <td colspan="3">
+                                        <ice:outputText value="Sala: " />
+                                        <ice:outputText value="#{usuario.reunionhoy.idsalareunion.nombresala} - " />
+                                        <ice:outputText value="#{usuario.reunionhoy.idsalareunion.direccion} - " />
+                                        <ice:outputText value="#{usuario.reunionhoy.idsalareunion.localidad} (#{usuario.reunionhoy.idsalareunion.provincia}) - " />
+                                        <ice:outputText value="#{usuario.reunionhoy.idsalareunion.pais} " />
+                                    </td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="1">
+                                        <ice:outputText value="Duración: " />
+                                        <ice:outputText value="#{usuario.calcularDuracionReunion()}"></ice:outputText>
+                                    </td>
+                                    <td colspan="3">
+                                        <ice:outputText value="Solicitante: " />
+                                        <ice:outputText value="#{usuario.reunionhoy.dnicreador.nombre} " />
+                                        <ice:outputText value="#{usuario.reunionhoy.dnicreador.apellido1} " />
+                                        <ice:outputText value="#{usuario.reunionhoy.dnicreador.apellido2} - " />
+                                        <ice:outputText value="#{usuario.reunionhoy.dnicreador.nif.razonsocial}" />
+                                    </td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="2">
+                                        <ice:outputText value="Asistentes: " />
+                                    </td>
+                                    <td colspan="2">
+                                        <ice:outputText value="Puntos del día: " /><br/>   
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <ice:panelSeries varStatus="u" var="usuarios" value="#{usuario.reunionhoy.asistenciareunionCollection}">
+                                            <ice:outputText value="- #{usuarios.dni.nombre} " />
+                                            <ice:outputText value="#{usuarios.dni.apellido1} " />
+                                            <ice:outputText value="#{usuarios.dni.apellido2}" /><br/>
+                                        </ice:panelSeries>
+                                    </td>
+                                    <td colspan="2">
+                                        <ice:panelSeries varStatus="p" var="puntosdia" value="#{usuario.reunionhoy.puntosdeldiaCollection}">
+                                            <ice:outputText value="#{p.index+1}.- #{puntosdia.titulopunto}" /><br/>
+                                        </ice:panelSeries>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <ice:commandButton rendered="#{usuario.reunionhoy.dnicreador.dni == usuario.dni}" disabled="#{usuario.activarBotonComenzarReunion()}" value="Empezar Reunion"/>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </ice:panelGroup>
+                    </ice:panelGroup>
+
+                    <h2>Próximas reuniones:</h2>
+                    <ice:panelSeries  varStatus="indice" var="reunion" value="#{usuario.proximasreuniones}">
+                        <ice:panelGroup>
+                            <table>
+                                <tr>
+                                    <td colspan="1">
+
+                                        <ice:outputText value="Fecha: " ></ice:outputText>
+                                        <ice:outputText value="#{usuario.formatoFecha(reunion.fechainicial)}" ></ice:outputText>
                                     </td>
                                     <td colspan="3">
                                         <ice:outputText value="Sala: " />
@@ -46,10 +117,11 @@
                                     </td>
                                 </tr> 
                                 <tr>
-                                    <td colspan="1">
-                                        <ice:outputText value="Duración: " />
-                                        <ice:outputText value="#{verNotificacionesAEBean.calcularDuracionReunion(i.index)}"></ice:outputText>
-                                    </td>
+                                    <!-- <td colspan="1">
+                                         <ice:outputText value="Duración: " />
+                                         <ice:outputText value="#{verNotificacionesAEBean.calcularDuracionReunion(i.index)}"></ice:outputText>
+                                     </td>
+                                    -->
                                     <td colspan="3">
                                         <ice:outputText value="Solicitante: " />
                                         <ice:outputText value="#{reunion.dnicreador.nombre} " />
@@ -82,28 +154,14 @@
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td colspan="2">
-                                        <ice:commandButton id="aceptareunion" action="#{verNotificacionesAEBean.aceptaReunion(indice.index)}" value="Aceptar invitación"  />
-                                    </td>
-
-                                    <td colspan="2">
-                                        <ice:commandButton id="rechazareunion" action="#{verNotificacionesAEBean.rechazaReunion(indice.index)}" value="Rechazar invitación"  />    
-                                    </td>
-
-                                </tr>
-
                             </table>
                         </ice:panelGroup>
 
-                    </ice:panelSeries>
-                    <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.listadereunionesnotificacion.size()==0}" value="Actualmente no tiene ninguna solicitud nueva"/>
-                    <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.errorsolicitudreunion}" value="Error al aceptar/rechazar la reunión"/>
 
+                    </ice:panelSeries>
+                    
+                    <ice:outputText styleClass="error" rendered="#{usuario.reunionhoy==null}" value="No tiene reuniones para hoy"/>
                 </ice:form>
-                
-                
-                
             </ui:define>
 
         </ui:composition>
