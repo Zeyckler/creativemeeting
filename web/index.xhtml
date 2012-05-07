@@ -10,9 +10,7 @@
     <body>
         <ui:composition template="./WEB-INF/facelets/templates/plantilla.xhtml">
 
-            <ui:define name="title">
-                Creative Meetings
-            </ui:define>
+            <ui:define name="title">Creative Meetings</ui:define>
 
             <ui:define name="logoempresa">
             </ui:define>
@@ -30,19 +28,19 @@
                         <table class="tablaformulario" id="tablalogin">
                             <tr>
                                 <td><div class="labelslogin"><ice:outputLabel for="usuario">Nombre de usuario:</ice:outputLabel></div></td>
-                                <td><div class="inputslogin"><ice:inputText  id="usuario" value="#{login.usuario}" validator="#{login.validarUsuario}" required="true"></ice:inputText></div></td>
+                                <td><div class="inputslogin"><ice:inputText  styleClass="input-medium" id="usuario" value="#{login.usuario}" validator="#{login.validarUsuario}" required="true"></ice:inputText></div></td>
                                 <td><div class="errorformulario"><ice:message id="errorusuario" for="usuario"></ice:message></div></td>
                             </tr>
                             <tr>
                                 <td><div class="labelslogin"><ice:outputLabel for="clave">Contrase&ntilde;a:</ice:outputLabel></div></td>
-                                <td><div class="inputslogin"><ice:inputSecret id="clave" value="#{login.contrasena}" validator="#{login.validarContrasena}" required="true"></ice:inputSecret></div></td>
+                                <td><div class="inputslogin"><ice:inputSecret styleClass="input-medium" id="clave" value="#{login.contrasena}" validator="#{login.validarContrasena}" required="true"></ice:inputSecret></div></td>
                                 <td><div class="errorformulario"><ice:message id="errorclave" for="clave"></ice:message></div></td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="labelslogin">
-                                    <link rel='stylesheet' type='text/css' href='./xmlhttp/css/xp/xp.css'/>
+
                                     <ice:outputConnectionStatus/>
-                                    <ice:commandButton id="acceder" value="Acceder" action="#{login.compruebaLogin}" ></ice:commandButton></td>
+                                    <ice:commandButton styleClass="btn" id="acceder" value="Acceder" action="#{login.compruebaLogin}" ></ice:commandButton></td>
                             </tr>
                             <tr><td colspan="2"><div id="errorlogin" class="errorformulario">
                                         <ice:outputText value="#{login.errorlogin}">
