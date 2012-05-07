@@ -111,7 +111,7 @@ public class Utilidades {
 
     public static String getNifEmpresaSesion() {
 
-        String res=null;
+        String res = null;
 
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
@@ -192,5 +192,15 @@ public class Utilidades {
         md.update(text.getBytes("iso-8859-1"), 0, text.length());
         sha1hash = md.digest();
         return convertToHex(sha1hash);
+    }
+
+    /**
+     * Hacer un casting del Bean al que queramos referenciar.
+     */
+    public static Object getSessionBean(String nombrebean) {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        Object sesion = session.getAttribute("nombrebean");
+        return sesion;
     }
 }
