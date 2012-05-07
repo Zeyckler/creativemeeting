@@ -274,6 +274,7 @@ public class Consultas {
         return listareuniones;
 
     }
+
     public static Reuniones buscaReunionesUsuarioInformacion(String dniusuario, Date fecha1, Date fecha2) {
 
 
@@ -286,32 +287,33 @@ public class Consultas {
         q1.setParameter("notificacion", false);
         q1.setParameter("respuesta", true);
         try {
-            reuniones = (Reuniones)q1.getSingleResult();
+            reuniones = (Reuniones) q1.getSingleResult();
         } catch (Exception e) {
-            System.out.print(e.toString());
+            reuniones = null;
         }
         return reuniones;
 
     }
+
     public static Reuniones buscaReunionesUsuarioInformacionHoy(String dniusuario) {
 
         Reuniones r = null;
-        
+
         Calendar c1 = Calendar.getInstance();
         c1.set(Calendar.HOUR_OF_DAY, 0);
         c1.set(Calendar.MINUTE, 0);
         c1.set(Calendar.SECOND, 0);
-        Date hoyinicial= c1.getTime();
-        
+        Date hoyinicial = c1.getTime();
+
         c1.set(Calendar.HOUR_OF_DAY, 23);
         c1.set(Calendar.MINUTE, 59);
         c1.set(Calendar.SECOND, 59);
         Date hoyfinal = c1.getTime();
-        
-        try{
-            r= buscaReunionesUsuarioInformacion(dniusuario, hoyinicial, hoyfinal);
-        }catch(Exception e){
-            r=null;
+
+        try {
+            r = buscaReunionesUsuarioInformacion(dniusuario, hoyinicial, hoyfinal);
+        } catch (Exception e) {
+            r = null;
         }
         return r;
 
@@ -486,7 +488,7 @@ public class Consultas {
         }
         return reuniones;
     }
-    
+
     public static Empresasamigas buscaParejaEmpresasAmigas(String nif1, String nif2) {
 
         Empresasamigas empresasamigas = null;
@@ -498,13 +500,14 @@ public class Consultas {
         q1.setParameter("activo", true);
 
         try {
-            empresasamigas =(Empresasamigas) q1.getSingleResult();
+            empresasamigas = (Empresasamigas) q1.getSingleResult();
         } catch (Exception e) {
             System.out.print(e.toString());
 
         }
         return empresasamigas;
     }
+
     public static Empresasamigas buscaParejaEmpresasAmigasAmistad(String nif1, String nif2, boolean activacioninicial, boolean activo) {
 
         Empresasamigas empresasamigas = null;
@@ -516,18 +519,19 @@ public class Consultas {
         q1.setParameter("activo", activo);
 
         try {
-            empresasamigas =(Empresasamigas) q1.getSingleResult();
+            empresasamigas = (Empresasamigas) q1.getSingleResult();
         } catch (Exception e) {
             System.out.print(e.toString());
 
         }
         return empresasamigas;
     }
+
     public static boolean existeParejaEmpresasAmigas(String nif1, String nif2, boolean activacion, boolean activo) {
 
         int empresasamigas = 0;
-        boolean res=true;
-        
+        boolean res = true;
+
         abrirTransaccion();
         Query q1 = em.createNamedQuery("Empresasamigas.findParejaEmpresasAmigas");
         q1.setParameter("nif1", nif1);
@@ -536,16 +540,17 @@ public class Consultas {
         q1.setParameter("activo", activo);
 
         try {
-            empresasamigas =q1.getResultList().size();
+            empresasamigas = q1.getResultList().size();
         } catch (Exception e) {
             System.out.print(e.toString());
         }
-        if(empresasamigas>0){
-            res=false;      
+        if (empresasamigas > 0) {
+            res = false;
         }
-        
+
         return res;
     }
+
     public static Empresasamigas buscaParejaEmpresasAmigasInactivas(String nif1, String nif2) {
 
         Empresasamigas empresasamigas = null;
@@ -557,30 +562,56 @@ public class Consultas {
         q1.setParameter("activo", false);
 
         try {
-            empresasamigas =(Empresasamigas) q1.getSingleResult();
+            empresasamigas = (Empresasamigas) q1.getSingleResult();
         } catch (Exception e) {
             System.out.print(e.toString());
 
         }
         return empresasamigas;
     }
+
     public static List<Empresasamigas> buscaEmpresasAmigasNotificacion(String nif2) {
 
         List<Empresasamigas> empresasamigas;
         abrirTransaccion();
         Query q1 = em.createNamedQuery("Empresasamigas.findEmpresasAmigasNotificacion");
         q1.setParameter("nif2", nif2);
-        q1.setParameter("activacion",true );
+        q1.setParameter("activacion", true);
         q1.setParameter("activo", false);
 
         try {
             empresasamigas = q1.getResultList();
         } catch (Exception e) {
             System.out.print(e.toString());
-            empresasamigas=null;
-        }   
+            empresasamigas = null;
+        }
         return empresasamigas;
     }
-    
 
+    public static List<Reuniones> buscaProximasReunionesAceptada(String dni) {
+
+        List<Reuniones> reuniones = null;
+
+        Calendar manana = Calendar.getInstance();
+        manana.add(Calendar.DAY_OF_YEAR, 1);
+        manana.set(Calendar.HOUR_OF_DAY, 0);
+        manana.set(Calendar.MINUTE, 0);
+        manana.set(Calendar.SECOND, 1);
+        Date fecha = manana.getTime();
+
+
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery("Reuniones.findReunionesUsuarioProximasInformacion");
+        q1.setParameter("dni", dni);
+        q1.setParameter("fechamanana", fecha );
+        q1.setParameter("notificacion", false);
+        q1.setParameter("respuesta", true);
+        try {
+            reuniones =  q1.getResultList();
+        } catch (Exception e) {
+            reuniones = null;
+        }
+        return reuniones;
+
+    }
 }

@@ -12,9 +12,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -54,7 +52,6 @@ public class UsuariosBean implements Serializable {
 
     public UsuariosBean() {
     }
-    //Hay que crear un Constructor con una entrada de usuario
 
     public UsuariosBean(Usuarios us) {
         this.activo = us.getActivo();
@@ -77,7 +74,13 @@ public class UsuariosBean implements Serializable {
         this.salario = us.getSalario();
         this.telefono = us.getTelefono();
         this.usuario = us.getUsuario();
+
+
+    }
+
+    public void inicializaUsuariosBean() {
         this.reunionhoy = Consultas.buscaReunionesUsuarioInformacionHoy(this.dni);
+        this.proximasreuniones = Consultas.buscaProximasReunionesAceptada(this.dni);
     }
 
     public boolean isActivo() {
@@ -300,9 +303,36 @@ public class UsuariosBean implements Serializable {
         res = FactoriaBD.insertaUsuario(us);
         return res;
     }
+     public String formatoFecha(Date fecha) {
+        return Utilidades.getFormatoFecha(fecha) + " " + Utilidades.getFormatoFechaHora(fecha);
+    }
+
+    public String calcularDuracionReunion() {
+        String minutostr = null;
+        Calendar calini = Calendar.getInstance();
+        Date fechini = this.reunionhoy.getFechainicial();
+        calini.setTime(fechini);
+
+        Calendar calfin = Calendar.getInstance();
+        Date fechfin = this.reunionhoy.getFechafinalestimada();
+        calfin.setTime(fechfin);
+
+        long a = calini.getTimeInMillis();
+        long b = calfin.getTimeInMillis();
+        long hora = (b - a) / 3600000;
+        long restohora = (b - a) % 3600000;
+        long minuto = restohora / 60000;
+
+        if (minuto <= 9) {
+            minutostr = "0" + minuto;
+        } else {
+            minutostr = Long.toString(minuto);
+        }
+        return hora + ":" + minutostr;
+    }
 
     public void creaCalendarioUsuarioBean() {
-        
+
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
         CalendarioUsuarioBean cal = (CalendarioUsuarioBean) session.getAttribute("calendarioUsuarioBean");
@@ -323,15 +353,70 @@ public class UsuariosBean implements Serializable {
         session.setAttribute("verNotificacionesAEBean", verNot);
 
     }
+
     public void creaReunionBean() {
-        
+
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        CreaReunionBean creunion = (CreaReunionBean)session.getAttribute("creaReunionBean");
+        CreaReunionBean creunion = (CreaReunionBean) session.getAttribute("creaReunionBean");
         if (creunion == null || creunion.getFechaCalendario() == null) {
             CreaReunionBean crn = new CreaReunionBean();
             crn.inicializaCreaReunionBean();
             session.setAttribute("creaReunionBean", crn);
         }
     }
+    public void creaDesarrolloReunion() {
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        DesarrolloReunionBean desreu = (DesarrolloReunionBean) session.getAttribute("desarrolloReunionBean");
+        if (desreu == null || desreu.getReunion() == null) {
+            DesarrolloReunionBean desreunion = new DesarrolloReunionBean();
+            desreunion.inicializaDesarrolloReunion();
+            session.setAttribute("desarrolloReunionBean", desreunion);
+        }
+    }
+
+    public void creaUsuario() {
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        UsuariosBean us = (UsuariosBean) session.getAttribute("usuario");
+        us.inicializaUsuariosBean();
+        session.setAttribute("usuario", us);
+
+    }
+
+   
+
+    public boolean activarBotonComenzarReunion() {
+
+        boolean res = true;
+        Calendar fechainicialest = new GregorianCalendar();
+        fechainicialest.setTime(this.reunionhoy.getFechainicial());
+        Calendar fechafinalest = new GregorianCalendar();
+        fechafinalest.setTime(this.reunionhoy.getFechafinalestimada());
+        Calendar actual = Calendar.getInstance();
+
+        if (actual.compareTo(fechainicialest) > 0 && actual.compareTo(fechafinalest) < 0) {
+            res = false;
+        }
+
+        return res;
+    }
+    public String comenzarReunion(){
+        
+        String res ="";
+        Calendar c1 = new GregorianCalendar();
+        c1.setTime(this.reunionhoy.getFechainicial());
+        Calendar c2 = Calendar.getInstance();
+        
+        if (c1.get(Calendar.DAY_OF_YEAR)== c2.get(Calendar.DAY_OF_YEAR)){
+            
+        }
+        
+       return res;
+        
+    }
+    
 }

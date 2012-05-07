@@ -325,4 +325,9 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
             <to-view-id>/relaciones-empresariales.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>desarrolloReunionBean</managed-bean-name>
+        <managed-bean-class>beans.DesarrolloReunionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

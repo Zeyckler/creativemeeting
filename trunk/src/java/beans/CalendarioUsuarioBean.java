@@ -8,13 +8,10 @@ import bd.Reuniones;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.List;
 import utiles.Consultas;
 import utiles.Utilidades;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 /**
  *
