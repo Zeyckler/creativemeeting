@@ -6,8 +6,6 @@ package beans;
 
 import bd.Reuniones;
 import java.io.Serializable;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import utiles.Utilidades;
 
 /**
