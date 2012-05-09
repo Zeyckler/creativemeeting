@@ -6,6 +6,7 @@ package bd;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -33,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Asistenciareunion.findAll", query = "SELECT a FROM Asistenciareunion a"),
     @NamedQuery(name = "Asistenciareunion.findByIdasistenciareunion", query = "SELECT a FROM Asistenciareunion a WHERE a.idasistenciareunion = :idasistenciareunion")})
 public class Asistenciareunion implements Serializable {
+    @Column(name = "horaentrada")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date horaentrada;
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -152,6 +158,14 @@ public class Asistenciareunion implements Serializable {
 
     public void setAsistencia(Boolean asistencia) {
         this.asistencia = asistencia;
+    }
+
+    public Date getHoraentrada() {
+        return horaentrada;
+    }
+
+    public void setHoraentrada(Date horaentrada) {
+        this.horaentrada = horaentrada;
     }
     
 }

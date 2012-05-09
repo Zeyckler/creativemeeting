@@ -330,4 +330,33 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <managed-bean-class>beans.DesarrolloReunionBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <navigation-rule>
+        <from-view-id>/home.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{usuario.comenzarReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/confirmarasistenciareunion.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{usuario.comenzarReunion}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/home.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/confirmarasistenciareunion.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.confirmarAsistenciaReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.confirmarAsistenciaReunion}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/confirmarasistenciareunion.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    
 </faces-config>

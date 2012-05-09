@@ -58,6 +58,11 @@ import javax.faces.bean.SessionScoped;
     @NamedQuery(name = "Usuarios.findUsuariosNuevosPorActivarAE", query = "SELECT u.dni, u.nombre, u.apellido1, u.apellido2 FROM Usuarios u JOIN u.nif emp WHERE u.activacioninicial = :actini AND emp.nif = :empnif ")
 })
 public class Usuarios implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fechanacimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechanacimiento;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,11 +84,6 @@ public class Usuarios implements Serializable {
     @Size(max = 45)
     @Column(name = "apellido2")
     private String apellido2;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fechanacimiento")
-    @Temporal(TemporalType.DATE)
-    private Date fechanacimiento;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 80)
