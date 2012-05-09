@@ -2,11 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:icecore="http://www.icefaces.org/icefaces/core"
-      xmlns:ace="http://www.icefaces.org/icefaces/components"
       xmlns:ice="http://www.icesoft.com/icefaces/component">
-
     <body>
         <ui:composition template="./WEB-INF/facelets/templates/plantilla.xhtml">
 
@@ -22,42 +18,31 @@
             </ui:define>
 
             <ui:define name="content">
-                <div class="formulario" id="login">
+                <div class="logindiv" id="login">
                     <ice:form id="form">
-                        <div class="encabezado" id="iniciosesion"><ice:outputText>Inicio de sesi&oacute;n</ice:outputText></div>
-                        <table class="tablaformulario" id="tablalogin">
-                            <tr>
-                                <td><div class="labelslogin"><ice:outputLabel for="usuario">Nombre de usuario:</ice:outputLabel></div></td>
-                                <td><div class="inputslogin"><ice:inputText  styleClass="input-medium" id="usuario" value="#{login.usuario}" validator="#{login.validarUsuario}" required="true"></ice:inputText></div></td>
-                                <td><div class="errorformulario"><ice:message id="errorusuario" for="usuario"></ice:message></div></td>
-                            </tr>
-                            <tr>
-                                <td><div class="labelslogin"><ice:outputLabel for="clave">Contrase&ntilde;a:</ice:outputLabel></div></td>
-                                <td><div class="inputslogin"><ice:inputSecret styleClass="input-medium" id="clave" value="#{login.contrasena}" validator="#{login.validarContrasena}" required="true"></ice:inputSecret></div></td>
-                                <td><div class="errorformulario"><ice:message id="errorclave" for="clave"></ice:message></div></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="labelslogin">
+                        <div class="encabezado" id="iniciosesion"><h2>Inicio de sesi&oacute;n</h2></div>
+                        <div class="cuerpo">
+                            <div class="clearfix"><ice:outputLabel for="usuario">Nombre de usuario:</ice:outputLabel></div>
+                            <div class="clearfix"><ice:inputText  styleClass="span4" id="usuario" value="#{login.usuario}" validator="#{login.validarUsuario}" required="true"></ice:inputText></div>
 
-                                    <ice:outputConnectionStatus/>
-                                    <ice:commandButton styleClass="btn" id="acceder" value="Acceder" action="#{login.compruebaLogin}" ></ice:commandButton></td>
-                            </tr>
-                            <tr><td colspan="2"><div id="errorlogin" class="errorformulario">
-                                        <ice:outputText value="#{login.errorlogin}">
-                                        </ice:outputText></div></td>
-                            </tr>
-                            <tr><td colspan="2"><div id="pregunta"><ice:outputText>&iquest;No est&aacute;s registrado?</ice:outputText></div></td>
-                            </tr>
+                            <div class="clearfix"><ice:outputLabel for="clave">Contrase&ntilde;a:</ice:outputLabel></div>
+                            <div class="clearfix"> <ice:inputSecret styleClass="span4" id="clave" value="#{login.contrasena}" validator="#{login.validarContrasena}" required="true" /></div>
 
-                            <tr>
+                            <div class="clearfix">
+                                <ice:commandButton styleClass="btn btn-primary acceder" value="Acceder" action="#{login.compruebaLogin}" />
+                                <ice:outputConnectionStatus styleClass="connectionstatus"/>
+                            </div>
 
-                                <td><div class="enlaces"><ice:outputLink value="registrousuario.xhtml">Soy un usuario</ice:outputLink></div></td>
-                                <td><div class="enlaces"><ice:outputLink value="registrarempresa.xhtml">Soy una empresa</ice:outputLink></div></td>
+                            <div class="message errormsg">
+                                <ice:message styleClass="errorformulario" id="errorusuario" for="usuario" />
+                                <ice:message styleClass="errorformulario" id="errorclave" for="clave" />
+                            </div>
 
-                            </tr>
+                            <div class="clearfix center"><ice:outputText>&iquest;No est&aacute;s registrado?</ice:outputText></div>
+                            <div class="center"><ice:outputLink value="registrousuario.xhtml">Soy un usuario</ice:outputLink> | <ice:outputLink value="registrarempresa.xhtml">Soy una empresa</ice:outputLink></div>
 
 
-                        </table>
+                        </div>
                     </ice:form>
                 </div>
             </ui:define>

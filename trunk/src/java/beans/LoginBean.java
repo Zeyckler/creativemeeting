@@ -11,7 +11,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import utiles.Consultas;
@@ -27,7 +26,6 @@ public class LoginBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private String usuario;
     private String contrasena;
-    private String errorlogin;
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
@@ -41,7 +39,7 @@ public class LoginBean implements Serializable {
 
         if (nomUsuario.length() <= 0) {
             ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("No puede estar vac&iacute;o");
+            FacesMessage msg = new FacesMessage("El nombre de usuario no puede estar vacío");
             context.addMessage(validate.getClientId(context), msg);
         }
         if (nomUsuario.length() > 11) {
@@ -67,7 +65,7 @@ public class LoginBean implements Serializable {
 
         if (clave.equals("")) {
             ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("No puede estar vacía");
+            FacesMessage msg = new FacesMessage("La contraseña no puede estar vacía");
             context.addMessage(validate.getClientId(context), msg);
         }
 
@@ -79,7 +77,7 @@ public class LoginBean implements Serializable {
         }
         if (a == null) {
             ((UIInput) validate).setValid(false);
-            FacesMessage msg = new FacesMessage("Nombre de Usuario o contraseña no válidos");
+            FacesMessage msg = new FacesMessage("Nombre de usuario y/o contraseña no válidos");
             context.addMessage(validate.getClientId(context), msg);
 
 
@@ -135,14 +133,6 @@ public class LoginBean implements Serializable {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
-
-    public String getErrorlogin() {
-        return errorlogin;
-    }
-
-    public void setErrorlogin(String errorlogin) {
-        this.errorlogin = errorlogin;
     }
 
     public String cerrarSesion() {

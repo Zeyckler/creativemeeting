@@ -15,9 +15,10 @@
         <link href="#{resource['css:cssLayout.css']}" rel="stylesheet" type="text/css" />
         <link href="#{resource['css:bootstrap.css']}" rel="stylesheet" type="text/css" />
         <link href="#{resource['css:bootstrap-responsive.css']}" rel="stylesheet" type="text/css" />
-        <link href="#{resource['images:favicon.ico']}" rel="icon" />
+        <link href="#{resource['img:favicon.ico']}" rel="icon" />
         <!--<link href="#{resource['css:./xmlhttp/css/rime/rime.css']}" rel="stylesheet" type="text/css"/>-->
         <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+        <!--[if gte IE 9]><style type="text/css">.gradient {filter: none;}</style><![endif]-->
         <title><ui:insert name="title"/></title>
     </h:head>
 
@@ -36,7 +37,7 @@
                     <div id="right">
                         <ui:insert name="right">Right</ui:insert>
                     </div>
-                    <div id="content" class="right_content">
+                    <div id="content">
                         <ui:insert name="content">Content</ui:insert>
                     </div>
                 </div>
