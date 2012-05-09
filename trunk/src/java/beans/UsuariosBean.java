@@ -47,8 +47,11 @@ public class UsuariosBean implements Serializable {
     private boolean activo;
     private Empresas nif;
     private String niftmp;
+    
     private Reuniones reunionhoy;
     private List<Reuniones> proximasreuniones;
+    private boolean falloinicioreunion;
+    private String falloinicioreunionstr;
 
     public UsuariosBean() {
     }
@@ -74,6 +77,7 @@ public class UsuariosBean implements Serializable {
         this.salario = us.getSalario();
         this.telefono = us.getTelefono();
         this.usuario = us.getUsuario();
+        this.falloinicioreunion = false;
 
 
     }
@@ -267,6 +271,24 @@ public class UsuariosBean implements Serializable {
         this.reunionhoy = reunionhoy;
     }
 
+    public boolean isFalloinicioreunion() {
+        return falloinicioreunion;
+    }
+
+    public void setFalloinicioreunion(boolean falloinicioreunion) {
+        this.falloinicioreunion = falloinicioreunion;
+    }
+
+    public String getFalloinicioreunionstr() {
+        return falloinicioreunionstr;
+    }
+
+    public void setFalloinicioreunionstr(String falloinicioreunionstr) {
+        this.falloinicioreunionstr = falloinicioreunionstr;
+    }
+    
+    
+
     public boolean insertaUsuario(Integer tipo, Empresas nif) {
         //TODO
 
@@ -303,7 +325,8 @@ public class UsuariosBean implements Serializable {
         res = FactoriaBD.insertaUsuario(us);
         return res;
     }
-     public String formatoFecha(Date fecha) {
+
+    public String formatoFecha(Date fecha) {
         return Utilidades.getFormatoFecha(fecha) + " " + Utilidades.getFormatoFechaHora(fecha);
     }
 
@@ -365,6 +388,7 @@ public class UsuariosBean implements Serializable {
             session.setAttribute("creaReunionBean", crn);
         }
     }
+
     public void creaDesarrolloReunion() {
 
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -387,8 +411,6 @@ public class UsuariosBean implements Serializable {
 
     }
 
-   
-
     public boolean activarBotonComenzarReunion() {
 
         boolean res = true;
@@ -404,19 +426,27 @@ public class UsuariosBean implements Serializable {
 
         return res;
     }
-    public String comenzarReunion(){
-        
-        String res ="";
+
+    public String comenzarReunion() {
+
+        String res = "";
         Calendar c1 = new GregorianCalendar();
         c1.setTime(this.reunionhoy.getFechainicial());
         Calendar c2 = Calendar.getInstance();
-        
-        if (c1.get(Calendar.DAY_OF_YEAR)== c2.get(Calendar.DAY_OF_YEAR)){
+        this.falloinicioreunion = false;
+        this.falloinicioreunionstr = "";
+
+        if (c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR)) {
+            res = "ok";
+        } else {
+            this.falloinicioreunion = true;
+            this.falloinicioreunionstr   = "No se puede comenzar la reunión";
+            this.creaUsuario();
+            res = "error";
             
         }
-        
-       return res;
-        
+        System.out.print(res);
+        return res;
+
     }
-    
 }

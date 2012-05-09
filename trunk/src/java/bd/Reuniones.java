@@ -48,6 +48,18 @@ import javax.xml.bind.annotation.XmlTransient;
     
 })
 public class Reuniones implements Serializable {
+    @Column(name = "fechainicial")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicial;
+    @Column(name = "fechafinalestimada")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalestimada;
+    @Column(name = "fechafinalreal")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalreal;
+    @Column(name = "fechainicialreal")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicialreal;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -74,18 +86,6 @@ public class Reuniones implements Serializable {
     @JoinColumn(name = "dnicreador", referencedColumnName = "dni")
     @ManyToOne
     private Usuarios dnicreador;
-    @Column(name = "fechainicial")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechainicial;
-    @Column(name = "fechafinalestimada")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinalestimada;
-    @Column(name = "fechafinalreal")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinalreal;
-    @Column(name = "fechainicialreal")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechainicialreal;
     public static final String BUSCAR_REUNIONES = "Reuniones.findByIdreunion";
     public static final String BUSCAR_REUNIONESCREADOR = "Reuniones.findByReunionCreador";
     public static final String BUSCAR_INTERVENCIONESPORREUNION = "Reuniones.findIntervencionesByIdreunion";
@@ -179,6 +179,31 @@ public class Reuniones implements Serializable {
         this.dnicreador = dnicreador;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idreunion != null ? idreunion.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Reuniones)) {
+            return false;
+        }
+        Reuniones other = (Reuniones) object;
+        if ((this.idreunion == null && other.idreunion != null) || (this.idreunion != null && !this.idreunion.equals(other.idreunion))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "bd.Reuniones[ idreunion=" + idreunion + " ]";
+    }
+
     public Date getFechainicial() {
         return fechainicial;
     }
@@ -209,30 +234,5 @@ public class Reuniones implements Serializable {
 
     public void setFechainicialreal(Date fechainicialreal) {
         this.fechainicialreal = fechainicialreal;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idreunion != null ? idreunion.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Reuniones)) {
-            return false;
-        }
-        Reuniones other = (Reuniones) object;
-        if ((this.idreunion == null && other.idreunion != null) || (this.idreunion != null && !this.idreunion.equals(other.idreunion))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "bd.Reuniones[ idreunion=" + idreunion + " ]";
     }
 }

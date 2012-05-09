@@ -66,7 +66,7 @@ public class Empresas implements Serializable {
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "razonsocial")
-    private String razonsocial;
+        private String razonsocial;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
