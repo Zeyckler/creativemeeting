@@ -11,13 +11,13 @@
 
 
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
-            
+
 
             <ui:define name="sesion">
                 <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
                     #{usuario.creaDesarrolloReunion()}
                 </c:if>
-                <script src="#{resource['js:reunion.js']}" type="text/javascript" />
+                
             </ui:define>
 
             <ui:define name="title">
@@ -34,39 +34,46 @@
             </ui:define>
 
             <ui:define name="right">
-                
+
             </ui:define>
 
             <ui:define name="content">
+                <ice:form>
+
+                    
+                </ice:form>
 
                 <ice:form styleClass="form-inline">
                     <div id="panelsuperior">
-                        
+
                         <div id="panelhoras" style="float: left;">
                             <div class="clearfix">
                                 <ice:outputLabel value="Hora de inicio" for="horainicio"/>
-                                <input class="horainicio" id="horainicio" value="#{desarrolloReunionBean.formatoHora(desarrolloReunionBean.reunion.fechainicialreal)}"/>
+                                <ice:inputText styleClass="horainicio"  id="horainicio" value="#{desarrolloReunionBean.formatoHora(desarrolloReunionBean.reunion.fechainicialreal)}"/>
                             </div>
 
                             <div class="clearfix">
                                 <ice:outputLabel value="Hora de final" for="horafinal"/>
-                                <input Class="horafinal" id="horafinal" value="#{desarrolloReunionBean.formatoHora(desarrolloReunionBean.reunion.fechafinalestimada)}"/>
+                                <ice:inputText styleClass="horafinal" id="horafinal" value="#{desarrolloReunionBean.formatoHora(desarrolloReunionBean.reunion.fechafinalestimada)}"/>
                             </div>
 
                             <div class="clearfix">
                                 <ice:outputLabel value="Tiempo transcurrido" for="tiempo"/>
-                                <input class="tiempotranscurrido" id="tiempo" value="00:00:00"/>
+                                <ice:inputText styleClass="tiempotranscurrido" id="tiempo" value="00:00:00"/>
                             </div>
 
                             <div class="clearfix">
                                 <ice:outputLabel value="Tiempo restante" for="tiemporestante"/>
-                                <input class="tiemporestante" id="tiemporestante" value=""/>
+                                <ice:inputText styleClass="tiemporestante" id="tiemporestante" value=""/>
                             </div>
 
                         </div>
 
 
                     </div>
+                    <script type="text/javascript">
+                       diferenciarestante();
+                    </script>
 
 
 
