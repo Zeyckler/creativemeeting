@@ -77,32 +77,34 @@ public class Utilidades {
 
 
     }
+
     public static String getFormatoFechaHoraSegundo(Date fecha) {
         String hora = "", min = "", seg = "";
         Calendar c = Calendar.getInstance();
-        c.setTime(fecha);
+        if (fecha != null) {
+            c.setTime(fecha);
 
-        if (c.get(Calendar.HOUR_OF_DAY) <= 9) {
-            hora = "0" + c.get(Calendar.HOUR_OF_DAY);
-        } else {
-            hora = hora + c.get(Calendar.HOUR_OF_DAY);
-        }
-        if (c.get(Calendar.MINUTE) <= 9) {
-            min = "0" + c.get(Calendar.MINUTE);
-        } else {
-            min = min + c.get(Calendar.MINUTE);
-        }
-        if (c.get(Calendar.SECOND) <= 9) {
-            seg = "0" + c.get(Calendar.SECOND);
-        } else {
-            seg = seg + c.get(Calendar.SECOND);
+            if (c.get(Calendar.HOUR_OF_DAY) <= 9) {
+                hora = "0" + c.get(Calendar.HOUR_OF_DAY);
+            } else {
+                hora = hora + c.get(Calendar.HOUR_OF_DAY);
+            }
+            if (c.get(Calendar.MINUTE) <= 9) {
+                min = "0" + c.get(Calendar.MINUTE);
+            } else {
+                min = min + c.get(Calendar.MINUTE);
+            }
+            if (c.get(Calendar.SECOND) <= 9) {
+                seg = "0" + c.get(Calendar.SECOND);
+            } else {
+                seg = seg + c.get(Calendar.SECOND);
+            }
         }
 
-        return hora + ":" + min + ":"+ seg;
+        return hora + ":" + min + ":" + seg;
 
 
     }
-
 
     public static String creaNombreUsuario(String nombreUsuario, String apellido1Usuario, String apellido2Usuario) {
 
