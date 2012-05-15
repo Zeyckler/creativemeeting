@@ -182,3 +182,61 @@ body{
 
     height: 40px;
 }
+
+/*Calendario*/
+
+.antonio {
+    background: #0bbdbd;
+}
+.antonio .iceCmdLnk {
+    background: none;
+    border: none;
+}
+
+.juan{
+
+    background-color: greenyellow;
+}
+.juan .iceCmdLnk{
+    background:none;
+
+}
+.inputsrelaciones{
+
+    text-align: center;
+}
+
+.calendarioReunionesMonthYear .iceCmdLnk{
+
+    display: none;
+}
+.iceRowSelSelected .iceOutTxt{
+    color:black!important;
+}
+.iceRowSelSelectedMouseOver{
+    background-color: #FF4673!important;
+}
+
+.iceRowSelSelected{
+    background-color: #FFB500!important;
+}
+
+/*Plantilla logueado*/
+/*Header*/
+/*Menu header*/
+.navbar-inner{min-width: 960px}
+.container{width:960px!important}
+/*Cuerpo*/
+.content{
+    width:960px;
+    margin:0 auto;
+    clear:both;
+    background:#fff;
+    padding: 9px 10px 11px;
+    border-radius:5px;
+}
+.sectiontittle{
+    border-bottom: 1px solid #EFEFEF;
+
+}
+/*Fin plantilla logueado*/
