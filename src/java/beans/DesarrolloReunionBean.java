@@ -5,6 +5,7 @@
 package beans;
 
 import bd.Asistenciareunion;
+import bd.Empresas;
 import bd.Reuniones;
 import bd.Usuarios;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
@@ -12,8 +13,11 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
 import utiles.Fila;
 import utiles.Utilidades;
 
@@ -29,6 +33,7 @@ public class DesarrolloReunionBean implements Serializable {
     private List<Usuarios> usuariosasistentesconf;
     private boolean errorconfirmarasist;
     private String errorasistencia;
+    private Set<Empresas> empresasasistentes;
 
     /** Creates a new instance of DesarrolloReunionBean */
     public DesarrolloReunionBean() {
@@ -51,6 +56,7 @@ public class DesarrolloReunionBean implements Serializable {
                 usuariosasistentes.add(f);
             }
         }
+        this.empresasasistentes = new HashSet<Empresas>();
 
 
 
@@ -139,6 +145,10 @@ public class DesarrolloReunionBean implements Serializable {
                 res = "error";
             } else {
                 res = "ok";
+                for(Usuarios us : this.usuariosasistentesconf){
+                    this.empresasasistentes.add(us.getNif());
+                    
+                }
             }
         }
 

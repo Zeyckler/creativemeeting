@@ -1,61 +1,32 @@
-function tiempoRestante(fechini, fechfin) {
+function tiempoRestante( fechfin) {
 
-    var arrayhora = fechini.split(":");
     var arrayhoraf = fechfin.split(":");
-
+    
     var fechaini = new Date();
-
-    var fechafin = new Date();
-	
-    fechafin.setHours(arrayhoraf[0], arrayhoraf[1], arrayhoraf[2], 0);
-
-    var seg = fechafin.getSeconds()-fechaini.getSeconds();
-    var rmin=0;
-    if(seg<0){
-        seg = 60+fechafin.getSeconds()+seg;
-        rmin = 1;
-    }
-        
-    var min = fechafin.getMinutes()-fechaini.getMinutes();
-    var rhora=0;
-    if(min<0){ 
-        min = fechafin.getMinutes()+60+min;
-        rhora = 1;
-    }
-    if(min>0){
-        min = min - rmin;
-    }
-   
-  
-    var hora = fechafin.getHours()-fechaini.getHours();
-    if(hora){
-        hora = hora - rhora; 
-    }
+    var seginiciales = fechaini.getHours()*3600+ fechaini.getMinutes()*60+ fechaini.getSeconds() ;
     
+    var segfin = arrayhoraf[2];
+    var segminfin = parseInt(arrayhoraf[1])*60;
+    var seghorfin = parseInt(arrayhoraf[0])*3600;
+    var segfinales = parseInt(segfin)+parseInt(segminfin)+parseInt(seghorfin);
     
-    if (seg<=9){
-        seg  = "0"+seg;
-    }
-    if (min<=9){
-        min  = "0"+min;
-    }
-    if (hora<=9){
-        hora = "0"+hora;
-    }
-           
-       
-        
-    var restante = hora+":"+min+":"+seg;
+    var segrestantes = 0;
+    segrestantes= parseInt( segfinales )- parseInt(seginiciales);
+    
+    var segundos = pad(segrestantes%60);
+    var minutos = pad(parseInt((segrestantes/60)%60));
+    var horas = pad(parseInt(segrestantes/3600));
+
+    var restante = horas+":"+minutos+":"+segundos;
     return restante;
 }
 
 function diferenciarestante() {
 
-    var hinicio = getElementsByClass("horainicio")[0].value;
 
     var hfin = getElementsByClass("horafinal")[0].value;
 
-    var aux = tiempoRestante(hinicio, hfin);
+    var aux = tiempoRestante(hfin);
     var aux2 = getElementsByClass("tiemporestante");
     aux2[0].value = aux;
     setTimeout("diferenciarestante()", 1000);
@@ -88,7 +59,7 @@ function tiemporeunion(){
     
     
 
-    return segrestantes
+    return segrestantes;
 
 
 }
@@ -141,3 +112,33 @@ function getElementsByClass(searchClass, node, tag) {
     return classElements;
 }
 
+function costesReunionEmpleados(){
+    
+    var arraySalarios = getElementsByClass("salarioasist");
+    var arrayCoste = getElementsByClass("costeasist");
+    var tamS = arraySalarios.length;
+    var totalSegundos = tiemporeunion();
+
+    
+    for(var i = 0; i<tamS; i++ ){
+        
+        var salasis = arraySalarios[i].firstChild.nodeValue;
+        var costeSegAsis =((salasis/160))/3600;
+        var costeAsisReun = arrayCoste[i].firstChild.nodeValue;
+        
+        
+     
+        costeAsisReun = parseFloat(costeSegAsis)* parseFloat(totalSegundos);
+        costeAsisReun= costeAsisReun.toFixed(2);
+        
+        getElementsByClass("costeasist")[i].firstChild.nodeValue = costeAsisReun;
+           
+    }
+    
+    
+}
+function costes(){
+    
+    costesReunionEmpleados(); 
+    setInterval(costesReunionEmpleados, 15000);
+}

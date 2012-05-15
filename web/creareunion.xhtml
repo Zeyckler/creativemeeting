@@ -13,6 +13,7 @@
                 <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
                     #{usuario.creaReunionBean()}
                 </c:if>
+                <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
             </ui:define>
 
             <ui:define name="title">
