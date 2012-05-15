@@ -31,10 +31,10 @@
             </ui:define>
 
             <ui:define name="content">
-                <ice:outputText>Bienvenido a la pagina</ice:outputText>
+                <h2 class="sectiontittle">Inicio</h2>
                 <ice:form>
 
-                    <h2>Hoy:</h2>
+                    <h3>Hoy:</h3>
                         <ice:panelGroup rendered="#{usuario.reunionhoy!=null}">
                             <ice:panelGroup>
                                 <table>
@@ -102,7 +102,7 @@
                         </ice:panelGroup>
                     
 
-                    <h2>Próximas reuniones:</h2>
+                    <h3>Próximas reuniones:</h3>
                     <ice:panelSeries  varStatus="indice" var="reunion" value="#{usuario.proximasreuniones}">
                         <ice:panelGroup>
                             <table>

@@ -11,7 +11,6 @@
         </c:if>
         <ui:insert name="sesion"></ui:insert>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="#{resource['css:default.css']}" rel="stylesheet" type="text/css" />
         <link href="#{resource['css:cssLayout.css']}" rel="stylesheet" type="text/css" />
         <link href="#{resource['css:bootstrap.css']}" rel="stylesheet" type="text/css" />
         <link href="#{resource['css:bootstrap-responsive.css']}" rel="stylesheet" type="text/css" />
@@ -19,69 +18,85 @@
         <!--<link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>-->
         <!--[if gte IE 9]><style type="text/css">.gradient {filter: none;}</style><![endif]-->
         <script src="#{resource['js:reunion.js']}" type="text/javascript" />
+        <script src="#{resource['js:jquery-1.7.1.min.js']}" type="text/javascript" />
+        <script src="#{resource['js:bootstrap.min.js']}" type="text/javascript" />
+        <script>jQuery.noConflict();</script>
         <title><ui:insert name="title"/></title>
 
     </h:head>
     <h:body>
         <div class="wrapper">
             <div id="top">
-
-
-
-                <div id="fancyClock"></div>
                 <div id="logocm"><ice:graphicImage alt="Logo CreativeMeetings" title="CreativeMeetings" url="#{resource['img:logo-creativemeeting.png']}"></ice:graphicImage></div>
                 <div><ui:insert name="logoempresa"></ui:insert></div>
-
             </div>
-            <div>
-                <div id="left">
-                    <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==0||privilegiosBean.compruebaPrivilegiosSesion()==1||privilegiosBean.compruebaPrivilegiosSesion()==2}">
-                        <lu>
-                            <li><ice:outputText value="Hola #{usuario.nombre}"/></li>
+
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+
+                        <ul class="nav">
+
                             <li><ice:outputLink value="home.xhtml">Inicio</ice:outputLink></li>
                             <li><ice:outputLink value="vernotificaciones-ae.xhtml">Ver notificaciones</ice:outputLink></li>
-                            <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==0}">
+                            <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0}">
                                 <li><ice:outputLink  value="#">Administrar empresas</ice:outputLink></li>
                                 <li><ice:outputLink  value="#">Administrar usuarios</ice:outputLink></li>
-                            </ice:panelGroup>
-                            <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==1}">
+                            </c:if>
+                            <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==1}">
+                                <li><ice:outputLink value="viewcalendar.xhtml">Ver calendario</ice:outputLink></li>
+                                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Reuni&oacute;n<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><ice:outputLink value="creareunion.xhtml">Crear reunión</ice:outputLink></li>
+                                        <li><ice:outputLink value="#">Administrar reuniones</ice:outputLink></li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Empleados<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><ice:outputLink value="#">Administrar empleados</ice:outputLink></li>
+
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Salas reuni&oacute;n<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><ice:outputLink value="#">Administrar salas de reunión</ice:outputLink></li>
+
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Empresas<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><ice:outputLink value="relaciones-empresariales.xhtml">Relaciones empresariales</ice:outputLink></li>
+                                    </ul>
+                                </li>
+                            </c:if>
+                            <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==2}">
                                 <li><ice:outputLink value="viewcalendar.xhtml">Ver calendario</ice:outputLink></li>
                                 <li><ice:outputLink value="creareunion.xhtml">Crear reunión</ice:outputLink></li>
-                                <li><ice:outputLink value="#">Administrar reuniones</ice:outputLink></li>
-                                <li><ice:outputLink value="#">Administrar empleados</ice:outputLink></li>
-                                <li><ice:outputLink value="#">Administrar salas de reunión</ice:outputLink></li>
-                                <li><ice:outputLink value="relaciones-empresariales.xhtml">Relaciones empresariales</ice:outputLink></li>
-                            </ice:panelGroup>
-                            <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==2}">
-                                <li><ice:outputLink value="viewcalendar.xhtml">Ver calendario</ice:outputLink></li>
-                                <li><ice:outputLink value="creareunion.xhtml">Crear reunión</ice:outputLink></li>
-                            </ice:panelGroup>
-                            <li><ice:outputLink  value="#">Ayuda</ice:outputLink></li>                                                  
-                            <li><ice:outputLink  value="#">Modificar mis datos</ice:outputLink></li>
-                            <li><ice:outputLink value="cerrarsesion.xhtml">Cerrar sesión</ice:outputLink></li>
-                        </lu>
-                    </ice:panelGroup>
+                            </c:if>
 
-                    <ui:insert name="left">
 
-                    </ui:insert>
+                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Hola, #{usuario.nombre}<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><ice:outputLink  value="#">Ayuda</ice:outputLink></li>                                                  
+                                    <li><ice:outputLink  value="#">Modificar mis datos</ice:outputLink></li>
+                                    <li><ice:outputLink value="cerrarsesion.xhtml">Cerrar sesión</ice:outputLink></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div id="right">
-                    <ui:insert name="right">Right</ui:insert>
-                </div>
-                <div id="content" style="margin: 0pt 155px; width: auto;">
+            </div>
+            <ui:insert name="left"></ui:insert>
+            <ui:insert name="right"></ui:insert>
 
-                    <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==3}">
-                        <h1 style="color: red;">ERROR, NO TIENE PERMISO PARA ENTRAR AQU&Iacute;</h1>
-                    </ice:panelGroup>
-                    <ui:insert name="content">
-
-                    </ui:insert>
-                </div>
-
-                <div class="push"></div> 
+            <div id="content" class="content">
+                <ui:insert name="content">
+                </ui:insert>
             </div>
 
+            <div class="push"></div> 
         </div>
         <div class="footer" id="bottom">
             <ice:graphicImage alt="Tecnologias utilizadas" url="#{resource['img:banner-logos.gif']}"></ice:graphicImage>

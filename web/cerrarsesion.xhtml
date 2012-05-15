@@ -14,21 +14,16 @@
                 Cerrar sesión - CreativeMeetings
             </ui:define>
 
-            <ui:define name="logoempresa">
-                logoempresa
-            </ui:define>
+            <ui:define name="logoempresa"></ui:define>
 
-            <ui:define name="left">
-                left
-            </ui:define>
+            <ui:define name="left"></ui:define>
 
-            <ui:define name="right">
-
-            </ui:define>
+            <ui:define name="right"></ui:define>
 
             <ui:define name="content">
+                <h2 class="sectiontittle">Cerrar sesi&oacute;n</h2>
                 <ice:form>
-                    <h1>¿Realmente desea cerrar sesión?</h1>
+                    <h3>¿Realmente desea cerrar sesión?</h3>
                     <p>
                         <ice:commandButton styleClass="btn" id="botoncerrarsesion" value="Sí" action="#{login.cerrarSesion}"></ice:commandButton>
                         <ice:commandButton styleClass="btn" id="botonnocerrarsesion" value="No" action="#{login.noCerrarSesion}"></ice:commandButton>
