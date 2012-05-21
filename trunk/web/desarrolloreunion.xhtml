@@ -93,8 +93,20 @@
                         </ice:column>
                         <ice:column>
                             <f:facet name="header">Coste</f:facet>
-                            <ice:outputText styleClass="costeasist #{asistentes.nif.nif}" value="0" />
+                            <ice:outputText styleClass="costeasist #{asistentes.nif.razonsocial}" value="0" />
                         </ice:column>
+
+                    </ice:dataTable>
+                    <ice:dataTable var="empresas" value="#{desarrolloReunionBean.empresasasistentes}" styleClass="table table-bordered table-striped" >
+                        <ice:column>
+                            <f:facet name="header">Nombre empresa</f:facet>
+                            <ice:outputText styleClass="empresasAsis" value="#{empresas.razonsocial}" />   
+                        </ice:column>
+                        <ice:column>
+                            <f:facet name="header">Coste</f:facet>
+                            <ice:outputText styleClass="cos#{empresas.razonsocial}" value="0" />
+                        </ice:column>
+                        
 
                     </ice:dataTable>
                     
@@ -102,6 +114,7 @@
                        diferenciarestante();
                        contador();
                        costes();
+                       costeEmpresas();
                     </script>
 
 

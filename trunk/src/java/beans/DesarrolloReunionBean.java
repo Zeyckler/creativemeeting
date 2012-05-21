@@ -104,6 +104,16 @@ public class DesarrolloReunionBean implements Serializable {
         this.errorconfirmarasist = errorconfirmarasist;
     }
 
+    public Set<Empresas> getEmpresasasistentes() {
+        return empresasasistentes;
+    }
+
+    public void setEmpresasasistentes(Set<Empresas> empresasasistentes) {
+        this.empresasasistentes = empresasasistentes;
+    }
+    
+    
+
     public void usuarioSeleccionadaListener(RowSelectorEvent event) {
 
         this.usuariosasistentesconf.clear();
