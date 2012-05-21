@@ -22,8 +22,7 @@ function tiempoRestante( fechfin) {
 }
 
 function diferenciarestante() {
-
-
+    
     var hfin = getElementsByClass("horafinal")[0].value;
 
     var aux = tiempoRestante(hfin);
@@ -48,21 +47,15 @@ function tiemporeunion(){
     var segrestantes = 0;
     segrestantes= parseInt( segfinales )- parseInt(seginiciales);
     
-
-    
     var segundos = pad(segrestantes%60);
     var minutos = pad(parseInt((segrestantes/60)%60));
     var horas = pad(parseInt(segrestantes/3600));
     
     getElementsByClass("tiempotranscurrido")[0].value = horas +":"+ minutos +":"+ segundos;
-    
-    
-    
-
     return segrestantes;
-
-
+    
 }
+
 function contador(){
    
     setInterval(setTime , 1000);
@@ -89,10 +82,7 @@ function pad(val)
         return val;
     }
 }
-    
-    
-    
-
+   
 function getElementsByClass(searchClass, node, tag) {
     var classElements = new Array();
     if(node == null)
@@ -137,8 +127,40 @@ function costesReunionEmpleados(){
     
     
 }
+function costesReunionEmpresas(){
+    
+    var arrayEmpresas = getElementsByClass("empresasAsis");
+    var numEmpresas = arrayEmpresas.length;
+   
+    for(var i = 0; i<numEmpresas; i++){
+        
+        var nombreEmpresa  = arrayEmpresas[i].firstChild.nodeValue;
+        var arrayCostesEmpresas = getElementsByClass(nombreEmpresa);
+        var numCostes = arrayCostesEmpresas.length;
+        var costePorEmpresa = 0;
+        
+        for (var j= 0; j<numCostes; j++){
+            
+            var coste = arrayCostesEmpresas[j].firstChild.nodeValue;
+            costePorEmpresa = parseFloat(costePorEmpresa) + parseFloat(coste) ;
+            
+        }
+        var claseCambio = "cos"+arrayEmpresas[i].firstChild.nodeValue;
+        
+        getElementsByClass(claseCambio)[0].firstChild.nodeValue= costePorEmpresa;
+   
+    }
+   
+}
 function costes(){
     
     costesReunionEmpleados(); 
     setInterval(costesReunionEmpleados, 15000);
+    
+}
+function costeEmpresas(){
+    
+    costesReunionEmpresas();
+    setInterval(costesReunionEmpresas, 15000)
+    
 }
