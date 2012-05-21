@@ -363,5 +363,18 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         </navigation-case>
         
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/desarrolloreunion.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.empezarPuntoDia(int indice)}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.terminarPuntoDia(int indice)}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+        </navigation-case> 
+    </navigation-rule>
     
 </faces-config>
