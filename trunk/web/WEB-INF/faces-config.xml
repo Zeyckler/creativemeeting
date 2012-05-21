@@ -173,6 +173,11 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
             <from-outcome>error</from-outcome>
             <to-view-id>/error_1.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-action>#{registroBean.volver}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
     
