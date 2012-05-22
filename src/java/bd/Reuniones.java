@@ -7,6 +7,7 @@ package bd;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,16 +49,16 @@ import javax.xml.bind.annotation.XmlTransient;
     
 })
 public class Reuniones implements Serializable {
-    @Column(name = "fechainicial")
+    @Column(name =     "fechainicial")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicial;
-    @Column(name = "fechafinalestimada")
+    @Column(name =     "fechafinalestimada")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechafinalestimada;
-    @Column(name = "fechafinalreal")
+    @Column(name =     "fechafinalreal")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechafinalreal;
-    @Column(name = "fechainicialreal")
+    @Column(name =     "fechainicialreal")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechainicialreal;
 
@@ -72,11 +73,11 @@ public class Reuniones implements Serializable {
     private Integer coste;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idreunion")
     @OrderBy("idpuntodeldia")
-    private Collection<Puntosdeldia> puntosdeldiaCollection;
+    private List<Puntosdeldia> puntosdeldiaCollection;
     @OneToMany(mappedBy = "idreunion")
-    private Collection<Adjunto> adjuntoCollection;
+    private List<Adjunto> adjuntoCollection;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idreunion")
-    private Collection<Asistenciareunion> asistenciareunionCollection;
+    private List<Asistenciareunion> asistenciareunionCollection;
     @JoinColumn(name = "idtipo", referencedColumnName = "idtipo")
     @ManyToOne
     private Tiporeuniones idtipo;
@@ -112,12 +113,20 @@ public class Reuniones implements Serializable {
         this.idreunion = new Integer(1);
     }
 
-    public Integer getIdreunion() {
-        return idreunion;
+    public List<Adjunto> getAdjuntoCollection() {
+        return adjuntoCollection;
     }
 
-    public void setIdreunion(Integer idreunion) {
-        this.idreunion = idreunion;
+    public void setAdjuntoCollection(List<Adjunto> adjuntoCollection) {
+        this.adjuntoCollection = adjuntoCollection;
+    }
+
+    public List<Asistenciareunion> getAsistenciareunionCollection() {
+        return asistenciareunionCollection;
+    }
+
+    public void setAsistenciareunionCollection(List<Asistenciareunion> asistenciareunionCollection) {
+        this.asistenciareunionCollection = asistenciareunionCollection;
     }
 
     public Integer getCoste() {
@@ -128,39 +137,52 @@ public class Reuniones implements Serializable {
         this.coste = coste;
     }
 
-    @XmlTransient
-    public Collection<Puntosdeldia> getPuntosdeldiaCollection() {
-        return puntosdeldiaCollection;
+    public Usuarios getDnicreador() {
+        return dnicreador;
     }
 
-    public void setPuntosdeldiaCollection(Collection<Puntosdeldia> puntosdeldiaCollection) {
-        this.puntosdeldiaCollection = puntosdeldiaCollection;
+    public void setDnicreador(Usuarios dnicreador) {
+        this.dnicreador = dnicreador;
     }
 
-    @XmlTransient
-    public Collection<Adjunto> getAdjuntoCollection() {
-        return adjuntoCollection;
+    public Date getFechafinalestimada() {
+        return fechafinalestimada;
     }
 
-    public void setAdjuntoCollection(Collection<Adjunto> adjuntoCollection) {
-        this.adjuntoCollection = adjuntoCollection;
+    public void setFechafinalestimada(Date fechafinalestimada) {
+        this.fechafinalestimada = fechafinalestimada;
     }
 
-    @XmlTransient
-    public Collection<Asistenciareunion> getAsistenciareunionCollection() {
-        return asistenciareunionCollection;
+    public Date getFechafinalreal() {
+        return fechafinalreal;
     }
 
-    public void setAsistenciareunionCollection(Collection<Asistenciareunion> asistenciareunionCollection) {
-        this.asistenciareunionCollection = asistenciareunionCollection;
+    public void setFechafinalreal(Date fechafinalreal) {
+        this.fechafinalreal = fechafinalreal;
     }
 
-    public Tiporeuniones getIdtipo() {
-        return idtipo;
+    public Date getFechainicial() {
+        return fechainicial;
     }
 
-    public void setIdtipo(Tiporeuniones idtipo) {
-        this.idtipo = idtipo;
+    public void setFechainicial(Date fechainicial) {
+        this.fechainicial = fechainicial;
+    }
+
+    public Date getFechainicialreal() {
+        return fechainicialreal;
+    }
+
+    public void setFechainicialreal(Date fechainicialreal) {
+        this.fechainicialreal = fechainicialreal;
+    }
+
+    public Integer getIdreunion() {
+        return idreunion;
+    }
+
+    public void setIdreunion(Integer idreunion) {
+        this.idreunion = idreunion;
     }
 
     public Salasreuniones getIdsalareunion() {
@@ -171,13 +193,23 @@ public class Reuniones implements Serializable {
         this.idsalareunion = idsalareunion;
     }
 
-    public Usuarios getDnicreador() {
-        return dnicreador;
+    public Tiporeuniones getIdtipo() {
+        return idtipo;
     }
 
-    public void setDnicreador(Usuarios dnicreador) {
-        this.dnicreador = dnicreador;
+    public void setIdtipo(Tiporeuniones idtipo) {
+        this.idtipo = idtipo;
     }
+
+    public List<Puntosdeldia> getPuntosdeldiaCollection() {
+        return puntosdeldiaCollection;
+    }
+
+    public void setPuntosdeldiaCollection(List<Puntosdeldia> puntosdeldiaCollection) {
+        this.puntosdeldiaCollection = puntosdeldiaCollection;
+    }
+
+   
 
     @Override
     public int hashCode() {
@@ -204,35 +236,4 @@ public class Reuniones implements Serializable {
         return "bd.Reuniones[ idreunion=" + idreunion + " ]";
     }
 
-    public Date getFechainicial() {
-        return fechainicial;
-    }
-
-    public void setFechainicial(Date fechainicial) {
-        this.fechainicial = fechainicial;
-    }
-
-    public Date getFechafinalestimada() {
-        return fechafinalestimada;
-    }
-
-    public void setFechafinalestimada(Date fechafinalestimada) {
-        this.fechafinalestimada = fechafinalestimada;
-    }
-
-    public Date getFechafinalreal() {
-        return fechafinalreal;
-    }
-
-    public void setFechafinalreal(Date fechafinalreal) {
-        this.fechafinalreal = fechafinalreal;
-    }
-
-    public Date getFechainicialreal() {
-        return fechainicialreal;
-    }
-
-    public void setFechainicialreal(Date fechainicialreal) {
-        this.fechainicialreal = fechainicialreal;
-    }
 }

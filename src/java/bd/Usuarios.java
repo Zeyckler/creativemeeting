@@ -58,7 +58,7 @@ import javax.faces.bean.SessionScoped;
     @NamedQuery(name = "Usuarios.findUsuariosNuevosPorActivarAE", query = "SELECT u.dni, u.nombre, u.apellido1, u.apellido2 FROM Usuarios u JOIN u.nif emp WHERE u.activacioninicial = :actini AND emp.nif = :empnif ")
 })
 public class Usuarios implements Serializable {
-    @Basic(optional = false)
+    @Basic(optional =     false)
     @NotNull
     @Column(name = "fechanacimiento")
     @Temporal(TemporalType.DATE)
