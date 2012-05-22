@@ -4,7 +4,6 @@
  */
 package beans;
 
-import bd.Empresas;
 import bd.Empresasamigas;
 import java.io.Serializable;
 import java.math.BigDecimal;

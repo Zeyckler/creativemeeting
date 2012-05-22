@@ -10,7 +10,7 @@ body{
 }
 
 .footer, .push {
-    height: 26px;
+    height: 30px;
     text-align:right;
     width: 100%;
 }
@@ -221,6 +221,10 @@ body{
     background-color: #FFB500!important;
 }
 
+.iceSelInpDateOpenPopup{
+    height: 18px!important;
+}
+
 /*Plantilla logueado*/
 /*Header*/
 /*Menu header*/
@@ -237,6 +241,8 @@ body{
 }
 .sectiontittle{
     border-bottom: 1px solid #EFEFEF;
-
+}
+.tdcenter{
+    text-align: center;
 }
 /*Fin plantilla logueado*/

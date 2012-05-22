@@ -47,7 +47,6 @@ public class UsuariosBean implements Serializable {
     private boolean activo;
     private Empresas nif;
     private String niftmp;
-    
     private Reuniones reunionhoy;
     private List<Reuniones> proximasreuniones;
     private boolean falloinicioreunion;
@@ -286,45 +285,8 @@ public class UsuariosBean implements Serializable {
     public void setFalloinicioreunionstr(String falloinicioreunionstr) {
         this.falloinicioreunionstr = falloinicioreunionstr;
     }
+
     
-    
-
-    public boolean insertaUsuario(Integer tipo, Empresas nif) {
-        //TODO
-
-        String nomUsuario = Utilidades.creaNombreUsuario(this.nombre, this.apellido1, this.apellido2);
-        Usuarios us = new Usuarios();
-        boolean res = false;
-
-
-        if (tipo.intValue() == 0) {
-            //Usuario Master
-            us = FactoriaBD.creaUsuario(this.dni.toLowerCase(), this.nombre, this.apellido1,
-                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono,
-                    this.movil, this.email, nomUsuario, "123445", this.localidad,
-                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 0, false, nif);
-        }
-        if (tipo.intValue() == 1) {
-            //Usuario Administrador de Empresa
-
-            us = FactoriaBD.creaUsuario(this.dni.toLowerCase(), this.nombre, this.apellido1,
-                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono,
-                    this.movil, this.email, nomUsuario, "123445", this.localidad,
-                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 1, false, nif);
-        }
-        if (tipo.intValue() == 2) {
-            //Usuario Registrado perteneciente a una empresa
-
-            us = FactoriaBD.creaUsuario(this.dni.toLowerCase(), this.nombre, this.apellido1,
-                    this.apellido2, this.fechanacimiento, this.direccion, this.telefono,
-                    this.movil, this.email, nomUsuario, "123445", this.localidad,
-                    this.provincia, this.pais, this.codigopostal, this.cargo, this.salario, 2, false, nif);
-
-
-        }
-        res = FactoriaBD.insertaUsuario(us);
-        return res;
-    }
 
     public String formatoFecha(Date fecha) {
         return Utilidades.getFormatoFecha(fecha) + " " + Utilidades.getFormatoFechaHora(fecha);
@@ -440,10 +402,10 @@ public class UsuariosBean implements Serializable {
             res = "ok";
         } else {
             this.falloinicioreunion = true;
-            this.falloinicioreunionstr   = "No se puede comenzar la reunión";
+            this.falloinicioreunionstr = "No se puede comenzar la reunión";
             this.creaUsuario();
             res = "error";
-            
+
         }
         System.out.print(res);
         return res;

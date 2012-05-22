@@ -18,82 +18,79 @@
             </ui:define>
 
             <ui:define name="logoempresa">
-                logoempresa
             </ui:define>
 
             <ui:define name="left">
-                left
             </ui:define>
 
             <ui:define name="right">
-                right
             </ui:define>
 
             <ui:define name="content">
-                <div class="formulario" id="formularioempresa">
-                    <div class="encabezado">Registro de empresa</div>
-                    <div>
-                        <ice:form>
-                            <table class="tablaformulario" id="tablaempresa">
-                                <tr><td colspan="2"><h1>Datos referidos a la empresa</h1></td></tr>
+                <div class="logindiv" id="formularioempresa">
+                    <div class="encabezado" id="iniciosesion"><h2>Registro de empresa</h2></div>
+                    <div class="cuerpo">
+                        <table class="tablaformulario" id="tablaempresa">
+                            <ice:form>
+                                <tr><td colspan="2" class="tdcenter"><h3>Datos referidos a la empresa</h3></td></tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="nif">N.I.F.:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="nif" value="#{empresa.nif}" required="true" validator="#{validaciones.validarNif}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="nif" value="#{registroBean.nif}" required="true" validator="#{validaciones.validarNif}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errornif" for="nif"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="razonsocial">Raz&oacute;n social:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="razonsocial" value="#{empresa.razonsocial}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="razonsocial" value="#{registroBean.razonsocial}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorrazonsocial" for="razonsocial"></ice:message></div></td>
                                 </tr>
 
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel  for="direccion">Direcci&oacute;n:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="direccion" value="#{empresa.direccion}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="direccion" value="#{registroBean.direccion}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errordireccion" for="direccion"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="localidad">Localidad:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="localidad" value="#{empresa.localidad}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="localidad" value="#{registroBean.localidad}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorlocalidad" for="localidad"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="codigopostal">C&oacute;digo postal:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="codigopostal" value="#{empresa.codigopostal}" required="true" validator="#{validaciones.validarCodigoPostal}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="codigopostal" value="#{registroBean.codigopostal}" required="true" validator="#{validaciones.validarCodigoPostal}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorcodigopostal" for="codigopostal"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="provincia">Provincia:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="provincia" value="#{empresa.provincia}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="provincia" value="#{registroBean.provincia}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorprovincia" for="provincia"></ice:message></div></td>
                                 </tr>
 
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="pais">Pa&iacute;s:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:selectOneMenu id="pais" value="#{empresa.pais}" partialSubmit="false">
+                                    <td><div class="inputslogin"><ice:selectOneMenu id="pais" value="#{registroBean.pais}" partialSubmit="false">
                                                 <f:selectItems id="listapaisesemp" value="#{listapaises.paises}"/>
                                             </ice:selectOneMenu></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorpais" for="paisusuario"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="telefono">Tel&eacute;fono:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="telefono" value="#{empresa.telefono}" required="true" validator="#{validaciones.validarTelefono}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="telefono" value="#{registroBean.telefono}" required="true" validator="#{validaciones.validarTelefono}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errortelefono" for="telefono"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="fax">Fax:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="fax" value="#{empresa.fax}" validator="#{validaciones.validarTelefono}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="fax" value="#{registroBean.fax}" validator="#{validaciones.validarTelefono}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorfax" for="fax"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="email">Correo electr&oacute;nico:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="email" value="#{empresa.email}" required="true" validator="#{validaciones.validarEmail}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="email" value="#{registroBean.email}" required="true" validator="#{validaciones.validarEmail}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="erroremail" for="email"></ice:message></div></td>
                                 </tr>
 
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="web">P&aacute;gina web:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="web" value="#{empresa.web}" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="web" value="#{registroBean.web}" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorweb" for="web"></ice:message></div></td>
                                 </tr>
                                 <!--<tr>
@@ -101,100 +98,113 @@
                                     <td><div class="inputslogin"><ace:fileEntry id="logo" maxFileSize="10485760" useOriginalFilename="false" absolutePath="C:\\Temp" fileEntryListener="#{subirarchivobean.subirLogo(event)}"></ace:fileEntry></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorlogo" for="logo"></ice:message></div></td>
                                 </tr>-->
-                                <tr><td colspan="2"><h1>Datos referidos al administrador de la empresa</h1></td></tr>
+                                <tr><td colspan="2" class="tdcenter"><h3>Datos referidos al administrador de la empresa</h3></td></tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="nombre">Nombre:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="nombre" value="#{usuario.nombre}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="nombre" value="#{registroEmpresaBean.nombreusuario}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errornombre" for="nombre"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="apellido1">Primer apellido:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="apellido1"  value="#{usuario.apellido1}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="apellido1"  value="#{registroEmpresaBean.apellido1usuario}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorapellido1" for="apellido1"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="apellido2">Segundo apellido:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="apellido2" value="#{usuario.apellido2}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="apellido2" value="#{registroEmpresaBean.apellido2usuario}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorapellido2" for="apellido2"></ice:message></div></td>
                                 </tr>
                                 <tr>
+                                    <td><div class="labelslogin"><ice:outputLabel for="contrasena" title="Su nombre de usuario será autogenerado">Contraseña usuario:</ice:outputLabel></div></td>
+                                    <td><div class="inputslogin"><ice:inputHidden id="contrasena" value="#{registroEmpresaBean.contrasenausuario}" required="true" validator="#{validaciones.validarCadena255}" /></div></td>
+                                    <td><div class="errorformulario"><ice:message id="errorcontrasena" for="contrasena"></ice:message></div></td>
+                                </tr>
+                                <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="dni">DNI:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="dni" value="#{usuario.dni}" required="true" validator="#{validaciones.validarNif}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="dni" value="#{registroEmpresaBean.dniusuario}" required="true" validator="#{validaciones.validarNif}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errordni" for="dni"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="fechanacimiento">Fecha de nacimiento:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:selectInputDate id="fechanacimiento" value="#{usuario.fechanacimiento}" partialSubmit="false" required="true" renderAsPopup="true" renderMonthAsDropdown="true" renderYearAsDropdown="true"><f:converter converterId="javax.faces.DateTime"/> 
+                                    <td><div class="inputslogin"><ice:selectInputDate id="fechanacimiento" value="#{registroEmpresaBean.fechanacimientousuario}" partialSubmit="false" required="true" renderAsPopup="true" renderMonthAsDropdown="true" renderYearAsDropdown="true"><f:converter converterId="javax.faces.DateTime"/> 
                                                 <f:convertDateTime pattern="dd/MM/yyyy"/></ice:selectInputDate></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorfechanacimiento" for="fechanacimiento"></ice:message></div></td>
 
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="direccionusuario">Direcci&oacute;n:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="direccionusuario" value="#{usuario.direccion}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="direccionusuario" value="#{registroEmpresaBean.direccionusuario}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errordireccionusuario" for="direccionusuario"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="localidadusuario">Localidad:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="localidadusuario" value="#{usuario.localidad}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="localidadusuario" value="#{registroEmpresaBean.localidadusuario}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorlocalidadusuario" for="localidadusuario"></ice:message></div></td>
                                 </tr>
 
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="codigopostalusuario">C&oacute;digo postal:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="codigopostalusuario" value="#{usuario.codigopostal}" required="true" validator="#{validaciones.validarCodigoPostal}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="codigopostalusuario" value="#{registroEmpresaBean.codigopostalusuario}" required="true" validator="#{validaciones.validarCodigoPostal}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorcodigopostalusuario" for="codigopostalusuario"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="provinciausuario">Provincia:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="provinciausuario" value="#{usuario.provincia}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="provinciausuario" value="#{registroEmpresaBean.provinciausuario}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorprivinciausuario" for="provinciausuario"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="paisusuario">Pa&iacute;s:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:selectOneMenu id="paisusuario" value="#{usuario.pais}" partialSubmit="false">
+                                    <td><div class="inputslogin"><ice:selectOneMenu id="paisusuario" value="#{registroEmpresaBean.paisusuario}" partialSubmit="false">
                                                 <f:selectItems id="listapaises" value="#{listapaises.paises}"/>
                                             </ice:selectOneMenu></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorpaisusuario" for="paisusuario"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="telefonousuario">Tel&eacute;fono:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="telefonousuario" value="#{usuario.telefono}" validator="#{validaciones.validarTelefono}" required="true"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="telefonousuario" value="#{registroEmpresaBean.telefonousuario}" validator="#{validaciones.validarTelefono}" required="true"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errortelefonousuario" for="telefonousuario"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="movil">Tel&eacute;fono m&oacute;vil:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="movil" value="#{usuario.movil}" validator="#{validaciones.validarMovil}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="movil" value="#{registroEmpresaBean.movilusuario}" validator="#{validaciones.validarMovil}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errormovil" for="movil"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="emailusuario">Correo electr&oacute;nico:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="emailusuario" value="#{usuario.email}" required="true" validator="#{validaciones.validarEmail}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="emailusuario" value="#{registroEmpresaBean.emailusuario}" required="true" validator="#{validaciones.validarEmail}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="erroremailusuario" for="emailusuario"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="cargo">Cargo:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="cargo" value="#{usuario.cargo}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="cargo" value="#{registroEmpresaBean.cargousuario}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorcargo" for="cargo"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td><div class="labelslogin"><ice:outputLabel for="salario">Salario mensual:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:inputText id="salario" value="#{usuario.salario}" required="true" validator="#{validaciones.validarSalario}"></ice:inputText></div></td>
+                                    <td><div class="inputslogin"><ice:inputText id="salario" value="#{registroEmpresaBean.salariousuario}" required="true" validator="#{validaciones.validarSalario}"></ice:inputText></div></td>
                                     <td><div class="errorformulario"><ice:message id="errorsalario" for="salario"></ice:message></div></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2"><hr/></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <ice:commandButton id="botondardealta" value="Dar de alta" action="#{registroBean.registraEmpresayUsuario}"></ice:commandButton>
+                                    <td colspan="2" class="tdcenter">
+                                        <ice:commandButton styleClass="btn" id="botondardealta" value="Registrarse" action="#{registroBean.registraEmpresayUsuario}"></ice:commandButton>
                                     </td>
                                 </tr>
-                            </table>
+                            </ice:form>
+                            <tr>
+                                <td colspan="2" class="tdcenter">
+                                    <ice:form>
+                                        <ice:commandButton styleClass="btn" id="botonvolver" value="Volver" action="#{registroBean.volver}"></ice:commandButton>
+                                    </ice:form>
+                                </td>
+                            </tr>
+                        </table>
 
-                        </ice:form>
                     </div>
                 </div>
+
             </ui:define>
 
         </ui:composition>
