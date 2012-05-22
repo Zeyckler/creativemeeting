@@ -6,6 +6,7 @@ package bd;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,6 +41,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 })
 public class Puntosdeldia implements Serializable {
+    @Column(name = "horainicio")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date horainicio;
+    @Column(name = "horafin")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date horafin;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -126,6 +135,22 @@ public class Puntosdeldia implements Serializable {
     @Override
     public String toString() {
         return "bd.Puntosdeldia[ idpuntodeldia=" + idpuntodeldia + " ]";
+    }
+
+    public Date getHorainicio() {
+        return horainicio;
+    }
+
+    public void setHorainicio(Date horainicio) {
+        this.horainicio = horainicio;
+    }
+
+    public Date getHorafin() {
+        return horafin;
+    }
+
+    public void setHorafin(Date horafin) {
+        this.horafin = horafin;
     }
     
 }
