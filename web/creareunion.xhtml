@@ -33,95 +33,91 @@
             </ui:define>
 
             <ui:define name="content">
-               <!-- <c:set var="calendarioUsuarioBean" value="#{usuario.calusuario}"></c:set>-->                     
-                <div class="formulario" id="formularioreunion">
-                    <div> 
-                        <ice:form>
-                            <table class="tablaformulario" id="tablareunion">
-                                <tr><td colspan="2"><h1>Datos referidos a la fecha y los puntos de día de la reunión</h1></td></tr> 
-
-                                <tr>
-                                    <td><div class="labelslogin"><ice:outputLabel for="nif">Selecciona año Reunión:</ice:outputLabel></div></td>
-                                    <td>
-                                        <div  class="inputslogin" >
-                                            <ice:selectOneMenu styleClass="span2" value="#{creaReunionBean.aniocreareunion}" >
-                                                <f:selectItems value="#{creaReunionBean.listaanioscreareunion}" ></f:selectItems>
-                                            </ice:selectOneMenu>
-                                            <ice:commandButton styleClass="btn" action="#{creaReunionBean.irAnioCreaReunion}" value="Cambiar a&ntilde;o"></ice:commandButton>
-                                        </div>
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-                                    <td  colspan="3">   
-                                        <ice:selectInputDate  styleClass="calendarioReuniones"  id="anoreunion" partialSubmit="true"
-                                                              required="true" renderMonthAsDropdown="true" renderYearAsDropdown="false" 
-                                                              highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK :MONTH: DAY_OF_YEAR" 
-                                                              highlightValue="1,7: : #{creaReunionBean.reunionescadenacreareunion}" 
-                                                              value="#{creaReunionBean.fechaCalendario}">
-                                            <f:converter converterId="javax.faces.DateTime"/> 
-                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                        </ice:selectInputDate>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <ice:outputText rendered="#{creaReunionBean.errorfecha}" value="#{creaReunionBean.errorstrfecha}" styleClass="errorformulario"></ice:outputText>
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-                                    <td><div class="labelslogin"><ice:outputLabel for="tiporeunion">Tipo de reunión:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin"><ice:selectOneMenu styleClass="span2" id="tiporeunion" value="#{creaReunionBean.tipostr}" partialSubmit="false">
-                                                <f:selectItems id="listatiposreunion" value="#{listaTipoReunion.tipos}"/>
-                                            </ice:selectOneMenu></div></td>
-                                </tr>
-
-                                <tr>
-                                    <td><div class="labelslogin"><ice:outputLabel for="listahorasreunion">Hora de comienzo:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin">
-                                            <ice:selectOneMenu styleClass="span1" id="listahorasreunion" value="#{creaReunionBean.horastr}" partialSubmit="false">
-                                                <f:selectItems id="horasreunion" value="#{horaReunionBean.horas}"/>
-                                            </ice:selectOneMenu>
-                                            <ice:selectOneMenu styleClass="span1" id="listaminutosreunion" value="#{creaReunionBean.minutosstr}" partialSubmit="false">
-                                                <f:selectItems id="minutosreunion" value="#{horaReunionBean.minutos}"/>
-                                            </ice:selectOneMenu>
-                                        </div></td>
-                                </tr>
+                <h2 class="sectiontittle">Crear reuni&oacute;n - Paso 1</h2>
 
 
-                                <tr>
-                                    <td><div class="labelslogin"><ice:outputLabel for="listaduracionhorareunion">Duración de reunion:</ice:outputLabel></div></td>
-                                    <td><div class="inputslogin">
-                                            <ice:selectOneMenu styleClass="span1" id="listaduracionhorareunion" value="#{creaReunionBean.duracionhorareunion}" partialSubmit="false">
-                                                <f:selectItems id="duracionhorasreunionl" value="#{horaReunionBean.duracionhoras}"/>
-                                            </ice:selectOneMenu>
-                                            <ice:selectOneMenu styleClass="span1" id="listaduracionminutosreunion" value="#{creaReunionBean.duracionminutosreunion}" partialSubmit="false">
-                                                <f:selectItems id="duracionminutosreunionl" value="#{horaReunionBean.duracionminutos}"/>
-                                            </ice:selectOneMenu>
-                                        </div></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <ice:outputText rendered="#{creaReunionBean.errorpaso1}" value="#{creaReunionBean.errorstrpaso1}" styleClass="errorformulario"></ice:outputText>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <ice:commandButton id="creareunionpaso1" value="Siguiente paso" action="#{creaReunionBean.creaReunionPaso1}"></ice:commandButton>
-                                    </td>
-                                </tr>
+                <ice:form>
+                    <table class="tablaformulario" id="tablareunion">
+                        <tr><td colspan="2"><h1>Datos referidos a la fecha y los puntos de día de la reunión</h1></td></tr> 
 
-                            </table>
-                        </ice:form>
+                        <tr>
+                            <td><div class="labelslogin"><ice:outputLabel for="nif">Selecciona año Reunión:</ice:outputLabel></div></td>
+                            <td>
+                                <div  class="inputslogin" >
+                                    <ice:selectOneMenu styleClass="span2" value="#{creaReunionBean.aniocreareunion}" >
+                                        <f:selectItems value="#{creaReunionBean.listaanioscreareunion}" ></f:selectItems>
+                                    </ice:selectOneMenu>
+                                    <ice:commandButton styleClass="btn" action="#{creaReunionBean.irAnioCreaReunion}" value="Cambiar a&ntilde;o"></ice:commandButton>
+                                </div>
+                            </td>
 
-                    </div>
+                        </tr>
 
-                </div>
+                        <tr>
+                            <td  colspan="3">   
+                                <ice:selectInputDate  styleClass="calendarioReuniones"  id="anoreunion" partialSubmit="true"
+                                                      required="true" renderMonthAsDropdown="true" renderYearAsDropdown="false" 
+                                                      highlightClass="antonio: juan: juan" highlightUnit="DAY_OF_WEEK :MONTH: DAY_OF_YEAR" 
+                                                      highlightValue="1,7: : #{creaReunionBean.reunionescadenacreareunion}" 
+                                                      value="#{creaReunionBean.fechaCalendario}">
+                                    <f:converter converterId="javax.faces.DateTime"/> 
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </ice:selectInputDate>
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <ice:outputText rendered="#{creaReunionBean.errorfecha}" value="#{creaReunionBean.errorstrfecha}" styleClass="errorformulario"></ice:outputText>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td><div class="labelslogin"><ice:outputLabel for="tiporeunion">Tipo de reunión:</ice:outputLabel></div></td>
+                            <td><div class="inputslogin"><ice:selectOneMenu styleClass="span2" id="tiporeunion" value="#{creaReunionBean.tipostr}" partialSubmit="false">
+                                        <f:selectItems id="listatiposreunion" value="#{listaTipoReunion.tipos}"/>
+                                    </ice:selectOneMenu></div></td>
+                        </tr>
+
+                        <tr>
+                            <td><div class="labelslogin"><ice:outputLabel for="listahorasreunion">Hora de comienzo:</ice:outputLabel></div></td>
+                            <td><div class="inputslogin">
+                                    <ice:selectOneMenu styleClass="span1" id="listahorasreunion" value="#{creaReunionBean.horastr}" partialSubmit="false">
+                                        <f:selectItems id="horasreunion" value="#{horaReunionBean.horas}"/>
+                                    </ice:selectOneMenu>
+                                    <ice:selectOneMenu styleClass="span1" id="listaminutosreunion" value="#{creaReunionBean.minutosstr}" partialSubmit="false">
+                                        <f:selectItems id="minutosreunion" value="#{horaReunionBean.minutos}"/>
+                                    </ice:selectOneMenu>
+                                </div></td>
+                        </tr>
+
+
+                        <tr>
+                            <td><div class="labelslogin"><ice:outputLabel for="listaduracionhorareunion">Duración de reunion:</ice:outputLabel></div></td>
+                            <td><div class="inputslogin">
+                                    <ice:selectOneMenu styleClass="span1" id="listaduracionhorareunion" value="#{creaReunionBean.duracionhorareunion}" partialSubmit="false">
+                                        <f:selectItems id="duracionhorasreunionl" value="#{horaReunionBean.duracionhoras}"/>
+                                    </ice:selectOneMenu>
+                                    <ice:selectOneMenu styleClass="span1" id="listaduracionminutosreunion" value="#{creaReunionBean.duracionminutosreunion}" partialSubmit="false">
+                                        <f:selectItems id="duracionminutosreunionl" value="#{horaReunionBean.duracionminutos}"/>
+                                    </ice:selectOneMenu>
+                                </div></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ice:outputText rendered="#{creaReunionBean.errorpaso1}" value="#{creaReunionBean.errorstrpaso1}" styleClass="errorformulario"></ice:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <ice:commandButton id="creareunionpaso1" value="Siguiente paso" action="#{creaReunionBean.creaReunionPaso1}"></ice:commandButton>
+                            </td>
+                        </tr>
+
+                    </table>
+                </ice:form>
 
             </ui:define>
 
