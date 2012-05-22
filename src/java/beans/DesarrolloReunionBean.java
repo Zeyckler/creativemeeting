@@ -6,6 +6,7 @@ package beans;
 
 import bd.Asistenciareunion;
 import bd.Empresas;
+import bd.Puntosdeldia;
 import bd.Reuniones;
 import bd.Usuarios;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
@@ -34,6 +35,9 @@ public class DesarrolloReunionBean implements Serializable {
     private boolean errorconfirmarasist;
     private String errorasistencia;
     private Set<Empresas> empresasasistentes;
+    private Puntosdeldia puntoactual;
+    private boolean arraydisabledaceptar[];
+    private boolean arraydisabledrechazar[];
 
     /** Creates a new instance of DesarrolloReunionBean */
     public DesarrolloReunionBean() {
@@ -58,10 +62,21 @@ public class DesarrolloReunionBean implements Serializable {
         }
         this.empresasasistentes = new HashSet<Empresas>();
 
+        int tampuntosdia = reunion.getPuntosdeldiaCollection().size();
 
+        this.arraydisabledaceptar = new boolean[tampuntosdia];
+        this.arraydisabledrechazar = new boolean[tampuntosdia];
 
+        for (int i = 0; i < tampuntosdia; i++) {
+            if (i == 0) {
+                this.arraydisabledaceptar[i] = false;
+                this.arraydisabledrechazar[i] = true;
+            } else {
+                this.arraydisabledaceptar[i] = true;
+                this.arraydisabledrechazar[i] = true;
+            }
 
-
+        }
     }
 
     public Reuniones getReunion() {
@@ -111,8 +126,30 @@ public class DesarrolloReunionBean implements Serializable {
     public void setEmpresasasistentes(Set<Empresas> empresasasistentes) {
         this.empresasasistentes = empresasasistentes;
     }
-    
-    
+
+    public boolean[] getArraydisabledaceptar() {
+        return arraydisabledaceptar;
+    }
+
+    public void setArraydisabledaceptar(boolean[] arraydisabledaceptar) {
+        this.arraydisabledaceptar = arraydisabledaceptar;
+    }
+
+    public boolean[] getArraydisabledrechazar() {
+        return arraydisabledrechazar;
+    }
+
+    public void setArraydisabledrechazar(boolean[] arraydisabledrechazar) {
+        this.arraydisabledrechazar = arraydisabledrechazar;
+    }
+
+    public Puntosdeldia getPuntoactual() {
+        return puntoactual;
+    }
+
+    public void setPuntoactual(Puntosdeldia puntoactual) {
+        this.puntoactual = puntoactual;
+    }
 
     public void usuarioSeleccionadaListener(RowSelectorEvent event) {
 
@@ -155,25 +192,76 @@ public class DesarrolloReunionBean implements Serializable {
                 res = "error";
             } else {
                 res = "ok";
-                for(Usuarios us : this.usuariosasistentesconf){
+                for (Usuarios us : this.usuariosasistentesconf) {
                     this.empresasasistentes.add(us.getNif());
-                    
+
                 }
             }
         }
 
         Calendar c1 = Calendar.getInstance();
         this.reunion.setFechainicialreal(c1.getTime());
-        System.out.print(c1.getTime().toString());
+        System.out.print(c1.get(Calendar.HOUR_OF_DAY)+":"+ c1.get(Calendar.MINUTE)+":"+ c1.get(Calendar.SECOND));
+
         return res;
 
     }
 
     public String formatoHora(Date a) {
-        
-        String fecha;
+
+        String fecha ="";
         fecha = Utilidades.getFormatoFechaHoraSegundo(a);
 
         return fecha;
+    }
+
+    public boolean visibilidadAceptar(int indice) {
+
+        return arraydisabledaceptar[indice];
+    }
+
+    public boolean visibilidadRechazar(int indice) {
+
+        return arraydisabledrechazar[indice];
+    }
+
+    public String empezarPuntoDia(int indice) {
+        String res = "";
+        
+        System.out.print(indice);
+
+        this.puntoactual = reunion.getPuntosdeldiaCollection().get(indice);
+        
+        System.out.print(this.puntoactual.getTitulopunto());
+        
+        this.arraydisabledaceptar[indice] = true;
+        this.arraydisabledrechazar[indice] = false;
+        this.reunion.getPuntosdeldiaCollection().get(indice).setHorainicio(Calendar.getInstance().getTime());
+        res = "ok";
+
+
+        return res;
+    }
+
+    public String terminarPuntoDia(int indice) {
+        String res = "";
+        if (indice == this.arraydisabledaceptar.length - 1 || indice == this.arraydisabledrechazar.length - 1) {
+            this.puntoactual = null;
+            this.arraydisabledrechazar[indice] = true;
+            this.reunion.getPuntosdeldiaCollection().get(indice).setHorafin(Calendar.getInstance().getTime());
+            res = "ok";
+
+        } else {
+            this.puntoactual = null;
+            this.arraydisabledrechazar[indice] = true;
+            this.arraydisabledaceptar[indice + 1] = false;
+            this.reunion.getPuntosdeldiaCollection().get(indice).setHorafin(Calendar.getInstance().getTime());
+            res = "ok";
+
+        }
+
+
+
+        return res;
     }
 }
