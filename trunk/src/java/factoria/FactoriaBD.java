@@ -125,6 +125,7 @@ public class FactoriaBD {
             terminarTransaccion();
         } catch (Exception e) {
             res = false;
+            System.out.println("EXCEPCION - "+e.toString());
         }
         return res;
     }

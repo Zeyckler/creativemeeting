@@ -37,6 +37,10 @@
                                 <ice:message styleClass="errorformulario" id="errorusuario" for="usuario" />
                                 <ice:message styleClass="errorformulario" id="errorclave" for="clave" />
                             </div>
+                            <div>
+                                <ice:outputText rendered="#{registroEmpresaBean.exitoregistro}" value="Se ha registrado con éxito. Se le enviará un correo cuando su usuario y empresa sean activadas."/>
+                                #{registroEmpresaBean.setExitoregistro(false)}
+                            </div>
 
                             <div class="clearfix center"><ice:outputText>&iquest;No est&aacute;s registrado?</ice:outputText></div>
                             <div class="center"><ice:outputLink value="registrousuario.xhtml">Soy un usuario</ice:outputLink> | <ice:outputLink value="registrarempresa.xhtml">Soy una empresa</ice:outputLink></div>

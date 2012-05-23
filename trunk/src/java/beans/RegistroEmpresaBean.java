@@ -10,8 +10,6 @@ import factoria.FactoriaBD;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Map;
-import javax.faces.context.FacesContext;
 import utiles.Utilidades;
 
 /**
@@ -50,6 +48,8 @@ public class RegistroEmpresaBean implements Serializable {
     private Integer codigopostalusuario;
     private String cargousuario;
     private BigDecimal salariousuario;
+    private boolean errorregistro;
+    private boolean exitoregistro;
 
     /** Creates a new instance of RegistroEmpresaBean */
     public RegistroEmpresaBean() {
@@ -287,9 +287,27 @@ public class RegistroEmpresaBean implements Serializable {
         this.web = web;
     }
 
+    public boolean isErrorregistro() {
+        return errorregistro;
+    }
+
+    public void setErrorregistro(boolean errorregistro) {
+        this.errorregistro = errorregistro;
+    }
+
+    public boolean isExitoregistro() {
+        return exitoregistro;
+    }
+
+    public void setExitoregistro(boolean exitoregistro) {
+        this.exitoregistro = exitoregistro;
+    }
+
     public String registraEmpresayUsuario() {
         boolean usuarioOK = false;
         boolean empresaOK = false;
+        this.exitoregistro = false;
+        this.errorregistro = false;
         Empresas emp = FactoriaBD.creaEmpresa(this.nif.toLowerCase(), this.telefono, this.razonsocial,
                 this.direccion, this.email, this.localidad, this.provincia,
                 this.pais, this.codigopostal, this.web, "", this.fax);
@@ -298,8 +316,10 @@ public class RegistroEmpresaBean implements Serializable {
             usuarioOK = insertaUsuario(emp);
         }
         if (empresaOK && usuarioOK) {
+            this.exitoregistro = true;
             return "ok";
         } else {
+            this.errorregistro = true;
             return "error";
         }
     }
