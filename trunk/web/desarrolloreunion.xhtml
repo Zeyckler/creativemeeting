@@ -104,27 +104,31 @@
                     <h3>Puntos del d&iacute;a</h3>
                     <ice:panelSeries value="#{desarrolloReunionBean.reunion.puntosdeldiaCollection}" var="puntos" varStatus="indice">
                         <table>
-                            <td>
-                                <tr>
+                            <tr>
+                                <td>
                                     <ice:outputText value="#{puntos.titulopunto}"/>
-                                </tr>
-                                <tr>
+                                </td>
+                                <td>
                                     <ice:commandButton action="#{desarrolloReunionBean.empezarPuntoDia(indice.index)}" disabled="#{desarrolloReunionBean.visibilidadAceptar(indice.index)}" value="Empezar punto"/>
-                                </tr>
-                                <tr>
+                                </td>
+                                <td>
                                     <ice:commandButton action="#{desarrolloReunionBean.terminarPuntoDia(indice.index)}" disabled="#{desarrolloReunionBean.visibilidadRechazar(indice.index)}" value="Terminar punto" />
-                                </tr>
-                                
-                            </td>
+                                </td>
+                                <td></td>
+                                <td></td>
+
+
+                            </tr>
                         </table>
                     </ice:panelSeries>
                     <ice:panelGroup rendered="#{desarrolloReunionBean.puntoactual!= null}">
                         <h3>Intervenciones:</h3>
                         <ice:outputText value="Seleccione el autor de la intervencion"/>
                         <h4>Punto del dia actual: #{desarrolloReunionBean.puntoactual.titulopunto}</h4>
+
                         <ice:inputRichText></ice:inputRichText>
-                    
-                    
+
+
                     </ice:panelGroup>
 
                     <script type="text/javascript">
