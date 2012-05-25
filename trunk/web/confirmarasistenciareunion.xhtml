@@ -5,7 +5,7 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
       xmlns:f="http://java.sun.com/jsf/core">
-    
+
 
     <body>
 
@@ -15,6 +15,8 @@
                 <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
                     #{usuario.creaDesarrolloReunion()}
                 </c:if>
+
+                <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
             </ui:define>
 
             <ui:define name="title">
@@ -22,15 +24,15 @@
             </ui:define>
 
             <ui:define name="logoempresa">
-                
+
             </ui:define>
 
             <ui:define name="left">
-                
+
             </ui:define>
 
             <ui:define name="right">
-                
+
             </ui:define>
 
             <ui:define name="content">
@@ -38,7 +40,7 @@
 
                     <h2>Confirme los asistentes: </h2>
 
-                    <ice:dataTable id="usuariosdisponibles"   var="usuarios" value="#{desarrolloReunionBean.usuariosasistentes}" 
+                    <ice:dataTable id="usuariosdisponibles"  var="usuarios" value="#{desarrolloReunionBean.usuariosasistentes}" 
                                    rows="5" columnClasses="tableCol">
                         <ice:column>
                             <ice:rowSelector id="seleccionado"

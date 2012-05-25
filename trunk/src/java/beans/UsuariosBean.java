@@ -4,6 +4,7 @@
  */
 package beans;
 
+import bd.Asistenciareunion;
 import bd.Empresas;
 import bd.Reuniones;
 import bd.Usuarios;
@@ -13,10 +14,14 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import utiles.Consultas;
+import utiles.Fila;
 import utiles.Utilidades;
 
 /**
@@ -77,6 +82,7 @@ public class UsuariosBean implements Serializable {
         this.telefono = us.getTelefono();
         this.usuario = us.getUsuario();
         this.falloinicioreunion = false;
+
 
 
     }
@@ -263,6 +269,8 @@ public class UsuariosBean implements Serializable {
     }
 
     public Reuniones getReunionhoy() {
+        //if(reunionhoy==null)
+        //reunionhoy= Consultas.buscaReunionesUsuarioInformacionHoy(this.dni);
         return reunionhoy;
     }
 
@@ -285,8 +293,6 @@ public class UsuariosBean implements Serializable {
     public void setFalloinicioreunionstr(String falloinicioreunionstr) {
         this.falloinicioreunionstr = falloinicioreunionstr;
     }
-
-    
 
     public String formatoFecha(Date fecha) {
         return Utilidades.getFormatoFecha(fecha) + " " + Utilidades.getFormatoFechaHora(fecha);
@@ -345,10 +351,22 @@ public class UsuariosBean implements Serializable {
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
         CreaReunionBean creunion = (CreaReunionBean) session.getAttribute("creaReunionBean");
         if (creunion == null || creunion.getFechaCalendario() == null) {
+            System.out.print("He entrado Aqui!!!!!!");
             CreaReunionBean crn = new CreaReunionBean();
             crn.inicializaCreaReunionBean();
             session.setAttribute("creaReunionBean", crn);
         }
+    }
+
+    public void retomaReunionBean() {
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+
+        DesarrolloReunionBean desreunion = new DesarrolloReunionBean();
+        desreunion.inicializaDesarrolloReunion();
+        session.setAttribute("desarrolloReunionBean", desreunion);
+
     }
 
     public void creaDesarrolloReunion() {
@@ -385,6 +403,8 @@ public class UsuariosBean implements Serializable {
         if (actual.compareTo(fechainicialest) > 0 && actual.compareTo(fechafinalest) < 0) {
             res = false;
         }
+        System.out.print("Boton activado: " + res);
+
 
         return res;
     }
@@ -407,8 +427,59 @@ public class UsuariosBean implements Serializable {
             res = "error";
 
         }
-        System.out.print(res);
         return res;
 
+    }
+
+    public boolean reunionEnProgreso() {
+        boolean res;
+        if (this.reunionhoy.getFechainicialreal() == null) {
+            res = false;
+        } else {
+            res = true;
+        }
+        System.out.print("Reunion Comenzada: " + res);
+        return res;
+    }
+
+    public String retomarDesarrolloReunion() {
+        String res = "";
+
+        retomaReunionBean();
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        DesarrolloReunionBean desa = (DesarrolloReunionBean) session.getAttribute("desarrolloReunionBean");
+        if (desa == null) {
+            System.out.print("la concha de tu madres!!!");
+
+        }
+
+
+        List<Asistenciareunion> asis = this.reunionhoy.getAsistenciareunionCollection();
+        List<Usuarios> usuariosconf = new LinkedList<Usuarios>();
+        List<Fila<Usuarios>> usuariosconfila = new LinkedList<Fila<Usuarios>>();
+        Set<Empresas> empresasesasis = new HashSet<Empresas>();
+
+        for (Asistenciareunion asreu : asis) {
+            if (asreu.getAsistencia()) {
+                usuariosconf.add(asreu.getDni());
+                Fila f1 = new Fila(asreu.getDni(), false);
+                usuariosconfila.add(f1);
+            }
+        }
+        for (Usuarios usur : usuariosconf) {
+
+            empresasesasis.add(usur.getNif());
+
+        }
+        desa.setUsuariosasistentesconf(usuariosconf);
+        desa.setUsuariosasistentesconfila(usuariosconfila);
+        desa.setEmpresasasistentes(empresasesasis);
+
+        session.setAttribute("desarrolloReunionBean", desa);
+        res = "ok";
+
+
+        return res;
     }
 }

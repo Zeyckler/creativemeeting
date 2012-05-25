@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.persistence.CascadeType;
 
 /**
  *
@@ -36,10 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Asistenciareunion.findAll", query = "SELECT a FROM Asistenciareunion a"),
     @NamedQuery(name = "Asistenciareunion.findByIdasistenciareunion", query = "SELECT a FROM Asistenciareunion a WHERE a.idasistenciareunion = :idasistenciareunion")})
 public class Asistenciareunion implements Serializable {
+
     @Column(name = "horaentrada")
     @Temporal(TemporalType.TIMESTAMP)
     private Date horaentrada;
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,7 +60,7 @@ public class Asistenciareunion implements Serializable {
     @JoinColumn(name = "dni", referencedColumnName = "dni")
     @ManyToOne
     private Usuarios dni;
-    @OneToMany(mappedBy = "idasistenciareunion")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idasistenciareunion")
     private Collection<Intervenciones> intervencionesCollection;
 
     public Asistenciareunion() {
@@ -68,15 +69,13 @@ public class Asistenciareunion implements Serializable {
     public Asistenciareunion(Integer idasistenciareunion) {
         this.idasistenciareunion = idasistenciareunion;
     }
-    
-    public Asistenciareunion(Usuarios usuario, Reuniones reunion ){
-        this.idasistenciareunion= new Integer(1);
-        this.dni=usuario;
-        this.idreunion=reunion;
+
+    public Asistenciareunion(Usuarios usuario, Reuniones reunion) {
+        this.idasistenciareunion = new Integer(1);
+        this.dni = usuario;
+        this.idreunion = reunion;
         this.notificacion = true;
     }
-
-    
 
     public Integer getIdasistenciareunion() {
         return idasistenciareunion;
@@ -167,5 +166,4 @@ public class Asistenciareunion implements Serializable {
     public void setHoraentrada(Date horaentrada) {
         this.horaentrada = horaentrada;
     }
-    
 }

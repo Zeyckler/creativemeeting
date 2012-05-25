@@ -84,8 +84,14 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
-                                            <ice:commandButton rendered="#{usuario.reunionhoy.dnicreador.dni == usuario.dni}" action="#{usuario.comenzarReunion}" disabled="#{usuario.activarBotonComenzarReunion()}" value="Empezar Reunion"/>
+                                            <ice:commandButton rendered="#{(usuario.reunionhoy.dnicreador.dni == usuario.dni)}" action="#{usuario.comenzarReunion}" disabled="#{usuario.activarBotonComenzarReunion() or usuario.reunionEnProgreso()}" value="Empezar Reunion"/>
                                         </td>
+                                        <td colspan="2">
+                                            <ice:commandButton action="#{usuario.retomarDesarrolloReunion}" rendered="#{usuario.reunionEnProgreso() and (usuario.reunionhoy.dnicreador.dni == usuario.dni)}" value="Retomar reunión"/>
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr>
                                         <td colspan="2">
                                             <ice:outputText rendered="#{usuario.falloinicioreunion}" styleClass="errorformulario" value="#{usuario.falloinicioreunionstr}"/>
                                         </td>

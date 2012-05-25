@@ -46,21 +46,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Reuniones.findReunionesNotificacionesPorUsuario", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia WHERE asistencia.dni.dni = :dni AND asistencia.notificacion =:noti AND r.fechainicial >=:hoy ORDER BY r.fechainicial ASC"),
     @NamedQuery(name = "Reuniones.findReunionesUsuarioInformacion", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND asistencia.notificacion =:notificacion AND asistencia.respuesta = :respuesta  AND r.fechainicial BETWEEN :fecha1 AND :fecha2"),
     @NamedQuery(name = "Reuniones.findReunionesUsuarioProximasInformacion", query = "SELECT r FROM Reuniones r JOIN r.asistenciareunionCollection asistencia JOIN asistencia.dni usuario WHERE usuario.dni = :dni AND asistencia.notificacion =:notificacion AND asistencia.respuesta = :respuesta  AND r.fechainicial> :fechamanana ORDER BY r.fechainicial")
-    
 })
 public class Reuniones implements Serializable {
-    @Column(name =     "fechainicial")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechainicial;
-    @Column(name =     "fechafinalestimada")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinalestimada;
-    @Column(name =     "fechafinalreal")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechafinalreal;
-    @Column(name =     "fechainicialreal")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechainicialreal;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -71,12 +58,24 @@ public class Reuniones implements Serializable {
     private Integer idreunion;
     @Column(name = "coste")
     private Integer coste;
+    @Column(name = "fechainicial")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicial;
+    @Column(name = "fechafinalestimada")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalestimada;
+    @Column(name = "fechafinalreal")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechafinalreal;
+    @Column(name = "fechainicialreal")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechainicialreal;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idreunion")
     @OrderBy("idpuntodeldia")
     private List<Puntosdeldia> puntosdeldiaCollection;
-    @OneToMany(mappedBy = "idreunion")
-    private List<Adjunto> adjuntoCollection;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "idreunion")
+    private List<Adjunto> adjuntoCollection;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "idreunion")
     private List<Asistenciareunion> asistenciareunionCollection;
     @JoinColumn(name = "idtipo", referencedColumnName = "idtipo")
     @ManyToOne
@@ -170,6 +169,9 @@ public class Reuniones implements Serializable {
     }
 
     public Date getFechainicialreal() {
+        if(this.fechainicialreal==null){
+            this.fechainicialreal=null;
+        }
         return fechainicialreal;
     }
 
@@ -209,8 +211,6 @@ public class Reuniones implements Serializable {
         this.puntosdeldiaCollection = puntosdeldiaCollection;
     }
 
-   
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -235,5 +235,4 @@ public class Reuniones implements Serializable {
     public String toString() {
         return "bd.Reuniones[ idreunion=" + idreunion + " ]";
     }
-
 }

@@ -3,391 +3,444 @@
 xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
-	<managed-bean>
-		<managed-bean-name>usuario</managed-bean-name>
-		<managed-bean-class>beans.UsuariosBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>empresa</managed-bean-name>
-		<managed-bean-class>beans.EmpresaBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>registroEmpresaBean</managed-bean-name>
-		<managed-bean-class>beans.RegistroEmpresaBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>validaciones</managed-bean-name>
-		<managed-bean-class>beans.ValidacionesBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<application>
-		<message-bundle>mensajeserror.erroresValidacion</message-bundle>
-	</application>
-	<managed-bean>
-		<managed-bean-name>registroBean</managed-bean-name>
-		<managed-bean-class>beans.RegistroBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>listapaises</managed-bean-name>
-		<managed-bean-class>beans.PaisesBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>listaTipoReunion</managed-bean-name>
-		<managed-bean-class>beans.TiposReunionBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>subirarchivobean</managed-bean-name>
-		<managed-bean-class>beans.SubirArchivoBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>privilegiosBean</managed-bean-name>
-		<managed-bean-class>beans.PrivilegiosBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>superAdministradorBean</managed-bean-name>
-		<managed-bean-class>beans.SuperAdministradorBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>login</managed-bean-name>
-		<managed-bean-class>beans.LoginBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>calendarioUsuarioBean</managed-bean-name>
-		<managed-bean-class>beans.CalendarioUsuarioBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>creaReunionBean</managed-bean-name>
-		<managed-bean-class>beans.CreaReunionBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>horaReunionBean</managed-bean-name>
-		<managed-bean-class>beans.HoraReunionBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>verNotificacionesAEBean</managed-bean-name>
-		<managed-bean-class>beans.VerNotificacionesAEBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>relacionesEmpresarialesBean</managed-bean-name>
-		<managed-bean-class>beans.relacionesEmpresarialesBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<navigation-rule>
-		<from-view-id>/index.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{login.compruebaLogin}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/home.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{login.compruebaLogin}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/cerrarsesion.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{login.noCerrarSesion}</from-action>
-			<from-outcome>nocerrarsesion</from-outcome>
-			<to-view-id>/home.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/viewcalendar.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{calendarioUsuarioBean.irAnio}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/viewcalendar.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{calendarioUsuarioBean.informacionReunion}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/viewcalendar.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{calendarioUsuarioBean.informacionReunion}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/viewcalendar.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/creareunion.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{creaReunionBean.irAnioCreaReunion}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/creareunion.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/registrarempresa.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{registroEmpresaBean.registraEmpresayUsuario}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{registroEmpresaBean.registraEmpresayUsuario}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/registrarempresa.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/home.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{usuario.insertarCalendarioSesion}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/viewcalendar.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{usuario.insertarCalendarioSesion}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/error.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/registrousuario.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{registroBean.registraUsuario}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/correcto_1.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{registroBean.registraUsuario}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/error_1.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{registroBean.volver}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/creareunion.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionPaso1}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/creareunion_2.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionPaso1}</from-action>
-			<from-outcome>errorpaso1</from-outcome>
-			<to-view-id>/creareunion.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionPaso1}</from-action>
-			<from-outcome>errorfecha</from-outcome>
-			<to-view-id>/creareunion.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/creareunion_3.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{creaReunionBean.agregarNuevo}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/creareunion_3.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{creaReunionBean.eliminaUltimo}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/creareunion_3.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/creareunion_2.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionPaso2}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/creareunion_3.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionPaso2}</from-action>
-			<from-outcome>salanoseleccionada</from-outcome>
-			<to-view-id>/creareunion_2.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionPaso2Anterior}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/creareunion.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/creareunion_3.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionPaso3Anterior}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/creareunion_2.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionFinal}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/correcto.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionFinal}</from-action>
-			<from-outcome>overbooking</from-outcome>
-			<to-view-id>/creareunion_3.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionFinal}</from-action>
-			<from-outcome>puntosdiavacio</from-outcome>
-			<to-view-id>/creareunion_3.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{creaReunionBean.creaReunionFinal}</from-action>
-			<from-outcome>usuariosvacio</from-outcome>
-			<to-view-id>/creareunion_3.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/vernotificaciones-ae.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.aceptaReunion(indice.index)}</from-action>
-			<from-outcome>aceptarok</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.aceptaReunion(indice.index)}</from-action>
-			<from-outcome>aceptarerror</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.rechazaReunion(indice.indice)}</from-action>
-			<from-outcome>rechazarok</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.rechazaReunion(indice.indice)}</from-action>
-			<from-outcome>"rechazarerror"</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.aceptarEmpresa(indice.index)}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{verNotificacionesAEBean.rechazarEmpresa(indice.index)}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/relaciones-empresariales.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{relacionesEmpresarialesBean.desvincularEmpresa}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/relaciones-empresariales.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{relacionesEmpresarialesBean.desvincularEmpresa}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/error.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{relacionesEmpresarialesBean.vincularEmpresas}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/relaciones-empresariales.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<managed-bean>
-		<managed-bean-name>desarrolloReunionBean</managed-bean-name>
-		<managed-bean-class>beans.DesarrolloReunionBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<navigation-rule>
-		<from-view-id>/home.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{usuario.comenzarReunion}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/confirmarasistenciareunion.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{usuario.comenzarReunion}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/home.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/confirmarasistenciareunion.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{desarrolloReunionBean.confirmarAsistenciaReunion}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/desarrolloreunion.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{desarrolloReunionBean.confirmarAsistenciaReunion}</from-action>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/confirmarasistenciareunion.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/desarrolloreunion.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{desarrolloReunionBean.empezarPuntoDia(indice.index)}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/desarrolloreunion.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{desarrolloReunionBean.terminarPuntoDia(indice.index)}</from-action>
-			<from-outcome>ok</from-outcome>
-			<to-view-id>/desarrolloreunion.xhtml</to-view-id>
-		</navigation-case>
-		<redirect />
-	</navigation-rule>
-	<navigation-case>
-		<from-action>#{registroEmpresaBean.volver}</from-action>
-		<from-outcome>ok</from-outcome>
-		<to-view-id>/index.xhtml</to-view-id>
-	</navigation-case>
+    <managed-bean>
+        <managed-bean-name>usuario</managed-bean-name>
+        <managed-bean-class>beans.UsuariosBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>empresa</managed-bean-name>
+        <managed-bean-class>beans.EmpresaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>registroEmpresaBean</managed-bean-name>
+        <managed-bean-class>beans.RegistroEmpresaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>validaciones</managed-bean-name>
+        <managed-bean-class>beans.ValidacionesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <application>
+        <message-bundle>mensajeserror.erroresValidacion</message-bundle>
+    </application>
+    <managed-bean>
+        <managed-bean-name>registroBean</managed-bean-name>
+        <managed-bean-class>beans.RegistroBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>listapaises</managed-bean-name>
+        <managed-bean-class>beans.PaisesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>listaTipoReunion</managed-bean-name>
+        <managed-bean-class>beans.TiposReunionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>subirarchivobean</managed-bean-name>
+        <managed-bean-class>beans.SubirArchivoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>privilegiosBean</managed-bean-name>
+        <managed-bean-class>beans.PrivilegiosBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>superAdministradorBean</managed-bean-name>
+        <managed-bean-class>beans.SuperAdministradorBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>login</managed-bean-name>
+        <managed-bean-class>beans.LoginBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>calendarioUsuarioBean</managed-bean-name>
+        <managed-bean-class>beans.CalendarioUsuarioBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>creaReunionBean</managed-bean-name>
+        <managed-bean-class>beans.CreaReunionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>horaReunionBean</managed-bean-name>
+        <managed-bean-class>beans.HoraReunionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>verNotificacionesAEBean</managed-bean-name>
+        <managed-bean-class>beans.VerNotificacionesAEBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>relacionesEmpresarialesBean</managed-bean-name>
+        <managed-bean-class>beans.relacionesEmpresarialesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{login.compruebaLogin}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/home.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{login.compruebaLogin}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/cerrarsesion.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{login.noCerrarSesion}</from-action>
+            <from-outcome>nocerrarsesion</from-outcome>
+            <to-view-id>/home.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/viewcalendar.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{calendarioUsuarioBean.irAnio}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/viewcalendar.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{calendarioUsuarioBean.informacionReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/viewcalendar.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{calendarioUsuarioBean.informacionReunion}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/viewcalendar.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/creareunion.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{creaReunionBean.irAnioCreaReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/creareunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/registrarempresa.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{registroEmpresaBean.registraEmpresayUsuario}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{registroEmpresaBean.registraEmpresayUsuario}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/registrarempresa.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/home.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{usuario.insertarCalendarioSesion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/viewcalendar.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{usuario.insertarCalendarioSesion}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/registrousuario.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{registroBean.registraUsuario}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/correcto_1.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{registroBean.registraUsuario}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error_1.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{registroBean.volver}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/creareunion.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionPaso1}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/creareunion_2.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionPaso1}</from-action>
+            <from-outcome>errorpaso1</from-outcome>
+            <to-view-id>/creareunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionPaso1}</from-action>
+            <from-outcome>errorfecha</from-outcome>
+            <to-view-id>/creareunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/creareunion_3.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{creaReunionBean.agregarNuevo}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/creareunion_3.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.eliminaUltimo}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/creareunion_3.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/creareunion_2.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionPaso2}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/creareunion_3.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionPaso2}</from-action>
+            <from-outcome>salanoseleccionada</from-outcome>
+            <to-view-id>/creareunion_2.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionPaso2Anterior}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/creareunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/creareunion_3.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionPaso3Anterior}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/creareunion_2.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionFinal}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/correcto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionFinal}</from-action>
+            <from-outcome>overbooking</from-outcome>
+            <to-view-id>/creareunion_3.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionFinal}</from-action>
+            <from-outcome>puntosdiavacio</from-outcome>
+            <to-view-id>/creareunion_3.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{creaReunionBean.creaReunionFinal}</from-action>
+            <from-outcome>usuariosvacio</from-outcome>
+            <to-view-id>/creareunion_3.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/vernotificaciones-ae.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.aceptaReunion(indice.index)}</from-action>
+            <from-outcome>aceptarok</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.aceptaReunion(indice.index)}</from-action>
+            <from-outcome>aceptarerror</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.rechazaReunion(indice.indice)}</from-action>
+            <from-outcome>rechazarok</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.rechazaReunion(indice.indice)}</from-action>
+            <from-outcome>"rechazarerror"</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.aceptarEmpresa(indice.index)}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{verNotificacionesAEBean.rechazarEmpresa(indice.index)}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/relaciones-empresariales.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{relacionesEmpresarialesBean.desvincularEmpresa}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/relaciones-empresariales.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{relacionesEmpresarialesBean.desvincularEmpresa}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{relacionesEmpresarialesBean.vincularEmpresas}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/relaciones-empresariales.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>desarrolloReunionBean</managed-bean-name>
+        <managed-bean-class>beans.DesarrolloReunionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <from-view-id>/home.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{usuario.comenzarReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/confirmarasistenciareunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{usuario.comenzarReunion}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/home.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{usuario.retomarDesarrolloReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/confirmarasistenciareunion.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.confirmarAsistenciaReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.confirmarAsistenciaReunion}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/confirmarasistenciareunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/desarrolloreunion.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.empezarPuntoDia(indice.index)}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.terminarPuntoDia(indice.index)}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+		
+    </navigation-rule>
+    <navigation-case>
+        <from-action>#{registroEmpresaBean.volver}</from-action>
+        <from-outcome>ok</from-outcome>
+        <to-view-id>/index.xhtml</to-view-id>
+        <redirect />
+    </navigation-case>
 </faces-config>

@@ -144,6 +144,7 @@ function costesReunionEmpresas(){
             var coste = arrayCostesEmpresas[j].firstChild.nodeValue;
             costePorEmpresa = parseFloat(costePorEmpresa) + parseFloat(coste) ;
             
+            costePorEmpresa= costePorEmpresa.toFixed(2);
         }
         var claseCambio = "cos"+arrayEmpresas[i].firstChild.nodeValue;
         

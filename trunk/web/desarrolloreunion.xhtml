@@ -18,6 +18,7 @@
                 <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
                     #{usuario.creaDesarrolloReunion()}
                 </c:if>
+                <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
 
             </ui:define>
 
@@ -72,15 +73,7 @@
                     <ice:dataTable var="asistentes" value="#{desarrolloReunionBean.usuariosasistentesconf}" styleClass="table table-bordered table-striped" >
                         <ice:column>
                             <f:facet name="header">Nombre</f:facet>
-                            <ice:outputText styleClass="nombreasist" value="#{asistentes.nombre}" />   
-                        </ice:column>
-                        <ice:column>
-                            <f:facet name="header">Apellido 1</f:facet>
-                            <ice:outputText styleClass="apellido1asist" value="#{asistentes.apellido1}" /> 
-                        </ice:column>
-                        <ice:column>
-                            <f:facet name="header">Apellido 2</f:facet>    
-                            <ice:outputText styleClass="apellido2asist" value="#{asistentes.apellido2}" />
+                            <ice:outputText styleClass="nombreasist" value="#{asistentes.nombre} #{asistentes.apellido1} #{asistentes.apellido2}" />   
                         </ice:column>
                         <ice:column>
                             <f:facet name="header">Salario</f:facet>    
@@ -123,10 +116,46 @@
                     </ice:panelSeries>
                     <ice:panelGroup rendered="#{desarrolloReunionBean.puntoactual!= null}">
                         <h3>Intervenciones:</h3>
-                        <ice:outputText value="Seleccione el autor de la intervencion"/>
                         <h4>Punto del dia actual: #{desarrolloReunionBean.puntoactual.titulopunto}</h4>
+                        <ice:outputText value="Seleccione el autor de la intervencion"/>
 
-                        <ice:inputRichText></ice:inputRichText>
+                        <ice:dataTable id="intervencion"   var="usuarios" value="#{desarrolloReunionBean.usuariosasistentesconfila}" 
+                                       rows="5" columnClasses="tableCol">
+                            <ice:column>
+                                <ice:rowSelector id="seleccionado"
+                                                 value="#{usuarios.seleccionada}"
+                                                 multiple="false"                                 
+                                                 selectionListener="#{desarrolloReunionBean.usuarioIntervencion}"/>
+                                <f:facet name="header">
+                                    <ice:outputText id="column1" value="Nombre"/>
+                                </f:facet>
+                                <ice:outputText id="nombreusuario" value="#{asistentes.nombre} #{asistentes.apellido1} #{asistentes.apellido2}" />
+                            </ice:column>
+                            
+
+                            <ice:column>
+                                <f:facet name="header">
+                                    <ice:outputText id="column2" value="Empresa"/>
+                                </f:facet>
+                                <ice:outputText id="empresausuario" value="#{usuarios.tipo.nif.razonsocial}"/>
+                            </ice:column>
+                        </ice:dataTable>
+
+                        <ice:dataPaginator id="paginadorusuariosdisponibles" for="intervencion" paginator="true" fastStep="3" paginatorMaxPages="4">
+                            <f:facet name="first">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
+                            </f:facet>
+                            <f:facet name="last">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
+                            </f:facet>
+                            <f:facet name="previous">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
+                            </f:facet>
+                            <f:facet name="next">
+                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
+                            </f:facet>
+                        </ice:dataPaginator>
+                        <ice:inputTextarea value="#{desarrolloReunionBean.intervencion}" rendered="#{!desarrolloReunionBean.puntoinactivo}"/>
 
 
                     </ice:panelGroup>
