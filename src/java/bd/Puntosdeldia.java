@@ -60,7 +60,7 @@ public class Puntosdeldia implements Serializable {
     @JoinColumn(name = "idreunion", referencedColumnName = "idreunion")
     @ManyToOne
     private Reuniones idreunion;
-    @OneToMany(mappedBy = "idpuntodeldia")
+    @OneToMany( mappedBy = "idpuntodeldia")
     private Collection<Intervenciones> intervencionesCollection;
     
     public static final String BUSCAR_PUNTOSDIAREUNION= "Puntosdeldia.findByIdReunion";
