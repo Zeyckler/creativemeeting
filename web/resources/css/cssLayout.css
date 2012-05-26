@@ -163,8 +163,18 @@ body{
     margin-bottom: 10px;
 }
 
+.bold{
+    font-weight: bold;
+}
+
 .errorformulario{
-    color: red!important;
+    color: #B94A48!important;
+}
+.exito{
+    color: #468847;
+}
+.warning{
+    color:#C09853;
 }
 
 /*-----viewcalendar.xhtml-----*/

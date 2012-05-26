@@ -43,6 +43,7 @@ public class UsuariosBean implements Serializable {
     private String usuario;
     private String provincia;
     private String contrasena;
+    private String contrasena2;
     private String localidad;
     private String pais;
     private Integer codigopostal;
@@ -54,7 +55,10 @@ public class UsuariosBean implements Serializable {
     private String niftmp;
     private Reuniones reunionhoy;
     private List<Reuniones> proximasreuniones;
+    private boolean datosactualizados;
     private boolean falloinicioreunion;
+    private boolean contrasenaactualizada;
+    private boolean errorcambiocontrasena;
     private String falloinicioreunionstr;
 
     public UsuariosBean() {
@@ -67,6 +71,7 @@ public class UsuariosBean implements Serializable {
         this.cargo = us.getCargo();
         this.codigopostal = us.getCodigopostal();
         this.contrasena = us.getContrasena();
+        this.contrasena2 = "";
         this.direccion = us.getDireccion();
         this.dni = us.getDni();
         this.email = us.getEmail();
@@ -81,15 +86,22 @@ public class UsuariosBean implements Serializable {
         this.salario = us.getSalario();
         this.telefono = us.getTelefono();
         this.usuario = us.getUsuario();
+        this.datosactualizados = false;
         this.falloinicioreunion = false;
-
-
-
+        this.contrasenaactualizada = false;
+        this.errorcambiocontrasena = false;
     }
 
     public void inicializaUsuariosBean() {
         this.reunionhoy = Consultas.buscaReunionesUsuarioInformacionHoy(this.dni);
         this.proximasreuniones = Consultas.buscaProximasReunionesAceptada(this.dni);
+    }
+
+    public void inicializaMensajes() {
+        this.datosactualizados = false;
+        this.falloinicioreunion = false;
+        this.contrasenaactualizada = false;
+        this.errorcambiocontrasena = false;
     }
 
     public boolean isActivo() {
@@ -138,6 +150,14 @@ public class UsuariosBean implements Serializable {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public String getContrasena2() {
+        return contrasena2;
+    }
+
+    public void setContrasena2(String contrasena2) {
+        this.contrasena2 = contrasena2;
     }
 
     public String getDireccion() {
@@ -284,6 +304,30 @@ public class UsuariosBean implements Serializable {
 
     public void setFalloinicioreunion(boolean falloinicioreunion) {
         this.falloinicioreunion = falloinicioreunion;
+    }
+
+    public boolean isContrasenaactualizada() {
+        return contrasenaactualizada;
+    }
+
+    public void setContrasenaactualizada(boolean contrasenaactualizada) {
+        this.contrasenaactualizada = contrasenaactualizada;
+    }
+
+    public boolean isErrorcambiocontrasena() {
+        return errorcambiocontrasena;
+    }
+
+    public void setErrorcambiocontrasena(boolean errorcambiocontrasena) {
+        this.errorcambiocontrasena = errorcambiocontrasena;
+    }
+
+    public boolean isDatosactualizados() {
+        return datosactualizados;
+    }
+
+    public void setDatosactualizados(boolean datosactualizados) {
+        this.datosactualizados = datosactualizados;
     }
 
     public String getFalloinicioreunionstr() {
@@ -476,5 +520,61 @@ public class UsuariosBean implements Serializable {
 
 
         return res;
+    }
+
+    public String actualizarDatosUsuario() {
+        String res = "";
+        this.datosactualizados = false;
+        try {
+            Usuarios us = Consultas.buscarUsuario(this.dni);
+            FactoriaBD.preActualizarDato(us);
+            us.setApellido1(this.apellido1);
+            us.setApellido2(this.apellido2);
+            us.setCargo(this.cargo);
+            us.setCodigopostal(this.codigopostal);
+            us.setDireccion(this.direccion);
+            us.setEmail(this.email);
+            us.setFechanacimiento(this.fechanacimiento);
+            us.setLocalidad(this.localidad);
+            us.setMovil(this.movil);
+            us.setNombre(this.nombre);
+            us.setPais(this.pais);
+            us.setProvincia(this.provincia);
+            us.setTelefono(this.telefono);
+            FactoriaBD.posActualizarDato(us);
+            res = "ok";
+            this.datosactualizados = true;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            res = "error";
+        }
+        return res;
+    }
+
+    public String actualizarContrasena() {
+        String res = "";
+        this.errorcambiocontrasena = false;
+        this.contrasenaactualizada = false;
+        try {
+            if (this.contrasena.equals(this.contrasena2)) {
+                Usuarios us = Consultas.buscarUsuario(this.dni);
+                FactoriaBD.preActualizarDato(us);
+                us.setContrasena(this.contrasena);
+                FactoriaBD.posActualizarDato(us);
+                res = "ok";
+                this.contrasenaactualizada = true;
+            } else {
+                this.errorcambiocontrasena = true;
+                res = "errorcontrasena";
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            res = "error";
+        }
+        return res;
+    }
+
+    public String volver() {
+        return "ok";
     }
 }
