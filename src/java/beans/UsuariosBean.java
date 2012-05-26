@@ -449,11 +449,6 @@ public class UsuariosBean implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
         DesarrolloReunionBean desa = (DesarrolloReunionBean) session.getAttribute("desarrolloReunionBean");
-        if (desa == null) {
-            System.out.print("la concha de tu madres!!!");
-
-        }
-
 
         List<Asistenciareunion> asis = this.reunionhoy.getAsistenciareunionCollection();
         List<Usuarios> usuariosconf = new LinkedList<Usuarios>();
