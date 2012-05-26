@@ -14,129 +14,118 @@
 
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
 
-            <ui:define name="title">
-                Relaciones empresariales - CreativeMeetings
-            </ui:define>
+            <ui:define name="title">Relaciones empresariales - CreativeMeetings</ui:define>
 
             <ui:define name="logoempresa">
-
             </ui:define>
 
             <ui:define name="left">
-
             </ui:define>
 
             <ui:define name="right">
-
             </ui:define>
 
             <ui:define name="content">
-                <div class="formulario" id="formularioreunion">
-                    <div> 
-                        <ice:form>
-                            <ice:panelGroup>
-                                <h1> 
-                                    Relaciones empresariales 
-                                </h1>
-                                <h2>
-                                    Empresas vinculadas:
-                                </h2>
-                                <ice:panelSeries varStatus="indice" var="empresas" value="#{relacionesEmpresarialesBean.empresasamigas}">
-                                    <ice:panelGroup rendered="#{relacionesEmpresarialesBean.empresasamigas.size()>0}">
-                                        <table>
-                                            <tr>
-                                                <td colspan="2"> 
-                                                    <ice:outputText value ="Nombre: "/>
-                                                    <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[1]}"/>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <ice:outputText value ="Dirección: "/>
-                                                    <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[4]}"/>
-                                                </td>
-                                                <td>
-                                                    <ice:outputText value ="Teléfono: "/>
-                                                    <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[2]}"/>
-                                                </td>
+                <h2 class="sectiontittle">Relaciones empresariales</h2>
+                <h3>Empresas vinculadas:</h3>
+                <ice:form>
+                    <ice:panelGroup>
+                        <ice:panelSeries varStatus="indice" var="empresas" value="#{relacionesEmpresarialesBean.empresasamigas}">
+                            <ice:panelGroup rendered="#{relacionesEmpresarialesBean.empresasamigas.size()>0}">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td colspan="2"> 
+                                            <ice:outputText styleClass="bold" value="Razón social: "/>
+                                            <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[1]}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <ice:outputText styleClass="bold" value="Dirección: "/>
+                                            <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[4]}"/>
+                                        </td>
+                                        <td>
+                                            <ice:outputText styleClass="bold" value="Teléfono: "/>
+                                            <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[2]}"/>
+                                        </td>
 
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <ice:outputText value ="Código Postal: "/>
-                                                    <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[9]}"/>
-                                                </td>
-                                                <td>
-                                                    <ice:panelGroup rendered="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[3] != null}">
-                                                        <ice:outputText value ="Fax: "/>
-                                                        <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[3]}"/>
-                                                    </ice:panelGroup>
-                                                </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <ice:outputText styleClass="bold" value="Código Postal: "/>
+                                            <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[9]}"/>
+                                        </td>
+                                        <td>
+                                            <ice:outputText styleClass="bold" value="Fax: "/>
+                                            <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[3]}"/>
+                                        </td>
 
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <ice:outputText value ="Localidad: "/>
-                                                    <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[6]}"/>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <ice:outputText styleClass="bold" value="Localidad: "/>
+                                            <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[6]}"/>
 
-                                                </td>
-                                                <td>
-                                                    <ice:panelGroup rendered="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[10] != null}">
-                                                        <ice:outputText value ="Página Web: "/>
-                                                        <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[10]}"/>
-                                                    </ice:panelGroup>
-                                                </td>
+                                        </td>
+                                        <td>
 
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <ice:outputText value ="Provincia: "/>
-                                                    <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[7]}"/>
-                                                </td>
-                                                <td>
-                                                    <ice:panelGroup rendered="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[5] != null}">
-                                                        <ice:outputText value ="Email: "/>
-                                                        <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[5]}"/>
-                                                    </ice:panelGroup>
-                                                </td>
+                                            <ice:outputText styleClass="bold" value="Página Web: "/>
+                                            <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[10]}"/>
 
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <ice:outputText value ="Pais: "/>
-                                                    <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[8]}"/>
-                                                </td>
-                                                <td>
-                                                    <ice:commandButton value="Desvincular" action="#{relacionesEmpresarialesBean.desvincularEmpresa(indice.index)}"/>
-                                                </td>
+                                        </td>
 
-                                            </tr>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <ice:outputText styleClass="bold" value="Provincia: "/>
+                                            <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[7]}"/>
+                                        </td>
+                                        <td>
+                                            <ice:panelGroup rendered="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[5] != null}">
+                                                <ice:outputText styleClass="bold" value="Correo electrónico: "/>
+                                                <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[5]}"/>
+                                            </ice:panelGroup>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <ice:outputText styleClass="bold" value ="Pais: "/>
+                                            <ice:outputText value="#{relacionesEmpresarialesBean.empresasamigas.get(indice.index)[8]}"/>
+                                        </td>
+                                        <td>
+                                            <ice:commandButton styleClass="btn btn-danger" value="Desvincular" action="#{relacionesEmpresarialesBean.desvincularEmpresa(indice.index)}"/>
+                                        </td>
+
+                                    </tr>
 
 
-                                        </table>
-
-                                    </ice:panelGroup>
-
-                                </ice:panelSeries>
-                                <ice:outputText styleClass="errorformulario" rendered="#{relacionesEmpresarialesBean.empresasamigas.size()==0}" value="Actualmente no tiene ninguna empresa vinculada"/>
-                            </ice:panelGroup>
-
-                        </ice:form>
-                        <ice:form>
-                            <ice:panelGroup>
-                                <h2>
-                                    Agregar vinculo empresarial:
-                                </h2>
-                                <ice:outputLabel for="nif" value="Si desea agregar un nuevo vinculo empresarial introduzca el nif de la empresa "/>
-                                <td><div class="inputsrelaciones"><ice:inputText id="nif" value="#{relacionesEmpresarialesBean.nifempresavinculo}" required="true" validator="#{validaciones.validarNifNuevoVinculo}"></ice:inputText></div></td>
-                                <td><div class="errorformulario"><ice:message id="errornif" for="nif"></ice:message></div></td>
-                                <ice:commandButton value="Aceptar" action="#{relacionesEmpresarialesBean.vincularEmpresas}"/>
-                                <ice:outputText value="#{relacionesEmpresarialesBean.notificacionstr}" rendered="#{relacionesEmpresarialesBean.vernotificacionvinculo}"/>
+                                </table>
 
                             </ice:panelGroup>
-                        </ice:form>
-                    </div>
-                </div>
+
+                        </ice:panelSeries>
+                        <ice:outputText styleClass="errorformulario" rendered="#{relacionesEmpresarialesBean.empresasamigas.size()==0}" value="Actualmente no tiene ninguna empresa vinculada"/>
+                    </ice:panelGroup>
+
+                </ice:form>
+                <ice:form>
+                    <h3>Agregar vinculo empresarial:</h3>
+                    <ice:outputText value="Si desea agregar un nuevo vinculo empresarial, introduzca el NIF de la empresa"/>
+                    <table class="tablaformulario">
+                        <tr>
+                            <td><ice:outputLabel for="nif" value="NIF:"/></td>
+                            <td><ice:inputText id="nif" value="#{relacionesEmpresarialesBean.nifempresavinculo}" required="true" validator="#{validaciones.validarNifNuevoVinculo}" /></td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="tdcenter"><ice:commandButton styleClass="btn" value="Vincular" action="#{relacionesEmpresarialesBean.vincularEmpresas}"/></td>
+                        </tr>
+                    </table>
+                    <div class="errorformulario"><ice:message id="errornif" for="nif"></ice:message></div>
+                    <ice:outputText value="#{relacionesEmpresarialesBean.notificacionstr}" rendered="#{relacionesEmpresarialesBean.vernotificacionvinculo}"/>
+
+                </ice:form>
 
             </ui:define>
 

@@ -9,6 +9,7 @@ import factoria.FactoriaBD;
 import java.io.Serializable;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
+import utiles.Consultas;
 
 /**
  *
@@ -31,26 +32,31 @@ public class EmpresaBean implements Serializable {
     private String pais;
     private Integer codigopostal;
     private String logotipo;
+    private boolean datosactualizados;
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     public EmpresaBean() {
     }
-    public EmpresaBean(Empresas emp){
-        this.codigopostal= emp.getCodigopostal();
-        this.direccion= emp.getDireccion();
-        this.email=emp.getEmail();
-        this.fax= emp.getFax();
+
+    public EmpresaBean(Empresas emp) {
+        this.codigopostal = emp.getCodigopostal();
+        this.direccion = emp.getDireccion();
+        this.email = emp.getEmail();
+        this.fax = emp.getFax();
         this.localidad = emp.getLocalidad();
-        this.logotipo= emp.getLogotipo();
-        this.nif= emp.getNif();
-        this.pais= emp.getPais();
-        this.provincia= emp.getProvincia();
-        this.razonsocial= emp.getRazonsocial();
-        this.telefono= emp.getTelefono();
-        this.web= emp.getWeb();
-        
-        
+        this.logotipo = emp.getLogotipo();
+        this.nif = emp.getNif();
+        this.pais = emp.getPais();
+        this.provincia = emp.getProvincia();
+        this.razonsocial = emp.getRazonsocial();
+        this.telefono = emp.getTelefono();
+        this.web = emp.getWeb();
+        this.datosactualizados = false;
+    }
+
+    public void inicializaMensajes() {
+        this.datosactualizados = false;
     }
 
     public Integer getCodigopostal() {
@@ -149,16 +155,49 @@ public class EmpresaBean implements Serializable {
         this.web = web;
     }
 
+    public boolean isDatosactualizados() {
+        return datosactualizados;
+    }
+
+    public void setDatosactualizados(boolean datosactualizados) {
+        this.datosactualizados = datosactualizados;
+    }
+
     public boolean insertaEmpresa() {
         boolean res = false;
-
         Empresas empresa = FactoriaBD.creaEmpresa(this.nif, this.telefono, this.razonsocial,
                 this.direccion, this.email, this.localidad, this.provincia,
                 this.pais, this.codigopostal, this.web, "ljcnsdljn", this.fax);
-
         res = FactoriaBD.insertaEmpresa(empresa);
+        return res;
+    }
 
+    public String actualizarDatosEmpresa() {
+        String res = "";
+        this.datosactualizados = false;
+        try {
+            Empresas emp = Consultas.buscaEmpresaNif(this.nif);
+            FactoriaBD.preActualizarDato(emp);
 
+            emp.setCodigopostal(this.codigopostal);
+            emp.setDireccion(this.direccion);
+            emp.setEmail(this.email);
+            emp.setFax(this.fax);
+            emp.setLocalidad(this.localidad);
+            emp.setLogotipo("");
+            emp.setPais(this.pais);
+            emp.setProvincia(this.provincia);
+            emp.setRazonsocial(this.razonsocial);
+            emp.setTelefono(this.telefono);
+            emp.setWeb(this.web);
+
+            FactoriaBD.posActualizarDato(emp);
+            res = "ok";
+            this.datosactualizados = true;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            res = "error";
+        }
         return res;
     }
 }

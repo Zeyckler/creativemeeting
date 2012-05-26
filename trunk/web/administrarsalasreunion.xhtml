@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
+
+            <ui:define name="sesion">
+            </ui:define>
+
+            <ui:define name="title">Administrar salas de reunión - CreativeMeetings</ui:define>
+
+            <ui:define name="logoempresa">
+            </ui:define>
+
+            <ui:define name="left">
+            </ui:define>
+
+            <ui:define name="right">
+            </ui:define>
+
+            <ui:define name="content">
+                <h3>A&ntilde;adir nueva sala de reuni&oacute;n</h3>
+                <ice:form>
+                    <table class="tablaformulario">
+                        <tr>
+                            <td><ice:outputLabel for="nomusuario">Nombre de usuario:</ice:outputLabel></td>
+                            <td><ice:inputText id="nomusuario" value="#{usuario.usuario}" disabled="true" /></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="contrasena">Nueva contraseña:</ice:outputLabel></td>
+                            <td><ice:inputSecret id="contrasena" value="#{usuario.contrasena}" required="true" validator="#{validaciones.validarCadena255}" /></td>                           
+                            <td><ice:message id="errorcontrasena" for="contrasena"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="contrasena2">Verificar contraseña:</ice:outputLabel></td>
+                            <td><ice:inputSecret id="contrasena2" value="#{usuario.contrasena2}" required="true" validator="#{validaciones.validarCadena255}" /></td>                           
+                            <td><ice:message id="errorcontrasena2" for="contrasena2"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><hr/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <ice:outputText styleClass="exito" rendered="#{usuario.contrasenaactualizada}">Contraseña actualizada</ice:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <ice:outputText styleClass="errorformulario" rendered="#{usuario.errorcambiocontrasena}">Las dos contraseñas deben coincidir</ice:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="tdcenter">
+                                <ice:commandButton styleClass="btn" id="botonactualizarcontrasena" value="Actualizar contraseña" action="#{usuario.actualizarContrasena}" />
+                            </td>
+                        </tr>
+                    </table>
+                </ice:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
+
+            <ui:define name="sesion">
+            </ui:define>
+
+            <ui:define name="title">Modificar datos de la empresa - CreativeMeetings</ui:define>
+
+            <ui:define name="logoempresa">
+            </ui:define>
+
+            <ui:define name="left">
+
+            </ui:define>
+
+            <ui:define name="right">
+            </ui:define>
+
+            <ui:define name="content">
+                <h2 class="sectiontittle">Modificar datos de la empresa</h2>
+                <ice:form>
+                    <table class="tablaformulario" id="tablaempresa">
+                        <tr>
+                            <td><ice:outputLabel for="nif">N.I.F.:</ice:outputLabel></td>
+                            <td><ice:inputText id="nif" value="#{empresa.nif}" disabled="true" /></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="razonsocial">Raz&oacute;n social:</ice:outputLabel></td>
+                            <td><ice:inputText id="razonsocial" value="#{empresa.razonsocial}" required="true" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="errorrazonsocial" for="razonsocial"></ice:message></td>
+                        </tr>
+
+                        <tr>
+                            <td><ice:outputLabel  for="direccion">Direcci&oacute;n:</ice:outputLabel></td>
+                            <td><ice:inputText id="direccion" value="#{empresa.direccion}" required="true" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="errordireccion" for="direccion"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="localidad">Localidad:</ice:outputLabel></td>
+                            <td><ice:inputText id="localidad" value="#{empresa.localidad}" required="true" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="errorlocalidad" for="localidad"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="codigopostal">C&oacute;digo postal:</ice:outputLabel></td>
+                            <td><ice:inputText id="codigopostal" value="#{empresa.codigopostal}" required="true" validator="#{validaciones.validarCodigoPostal}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="errorcodigopostal" for="codigopostal"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="provincia">Provincia:</ice:outputLabel></td>
+                            <td><ice:inputText id="provincia" value="#{empresa.provincia}" required="true" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="errorprovincia" for="provincia"></ice:message></td>
+                        </tr>
+
+                        <tr>
+                            <td><ice:outputLabel for="pais">Pa&iacute;s:</ice:outputLabel></td>
+                            <td><ice:selectOneMenu id="pais" value="#{empresa.pais}" partialSubmit="false">
+                                    <f:selectItems id="listapaisesemp" value="#{listapaises.paises}"/>
+                                </ice:selectOneMenu></td>
+                            <td><ice:message styleClass="errorformulario" id="errorpais" for="paisusuario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="telefono">Tel&eacute;fono:</ice:outputLabel></td>
+                            <td><ice:inputText id="telefono" value="#{empresa.telefono}" required="true" validator="#{validaciones.validarTelefono}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="errortelefono" for="telefono"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="fax">Fax:</ice:outputLabel></td>
+                            <td><ice:inputText id="fax" value="#{empresa.fax}" validator="#{validaciones.validarTelefono}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="errorfax" for="fax"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="email">Correo electr&oacute;nico:</ice:outputLabel></td>
+                            <td><ice:inputText id="email" value="#{empresa.email}" required="true" validator="#{validaciones.validarEmail}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="erroremail" for="email"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="web">P&aacute;gina web:</ice:outputLabel></td>
+                            <td><ice:inputText id="web" value="#{empresa.web}" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="errorweb" for="web"></ice:message></td>
+                        </tr>
+                        <!--<tr>
+                            <td><ice:outputLabel for="logo">Logotipo de la empresa:</ice:outputLabel></td>
+                            <td><ace:fileEntry id="logo" maxFileSize="10485760" useOriginalFilename="false" absolutePath="C:\\Temp" fileEntryListener="#{subirarchivobean.subirLogo(event)}"></ace:fileEntry></td>
+                            <td><ice:message id="errorlogo" for="logo"></ice:message></td>
+                        </tr>-->
+                        <tr>
+                            <td colspan="3">
+                                <ice:outputText styleClass="exito" rendered="#{empresa.datosactualizados}">Datos actualizados</ice:outputText>
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="3" class="tdcenter">
+                                <ice:commandButton styleClass="btn" id="actualizardatosempresa" value="Actualizar datos" action="#{empresa.actualizarDatosEmpresa}"></ice:commandButton>
+                            </td>
+                        </tr>
+                    </table>
+                </ice:form>
+                #{empresa.inicializaMensajes()}
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

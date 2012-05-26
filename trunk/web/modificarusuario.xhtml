@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <body>
+
+        <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
+
+            <ui:define name="sesion">
+                <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+            </ui:define>
+
+            <ui:define name="title">Perfil - CreativeMeetings</ui:define>
+
+            <ui:define name="logoempresa">
+            </ui:define>
+
+            <ui:define name="left">
+            </ui:define>
+
+            <ui:define name="right">
+            </ui:define>
+
+            <ui:define name="content">
+                <h2 class="sectiontittle">Modificar mis datos</h2>
+                <h3>Datos personales</h3>
+                <ice:form>
+                    <table class="tablaformulario" id="tablaempresa">
+                        <tr>
+                            <td><ice:outputLabel for="nombre">Nombre:</ice:outputLabel></td>
+                            <td><ice:inputText id="nombre" value="#{usuario.nombre}" required="true" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message id="errornombre" for="nombre"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="apellido1">Primer apellido:</ice:outputLabel></td>
+                            <td><ice:inputText id="apellido1"  value="#{usuario.apellido1}" required="true" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message id="errorapellido1" for="apellido1"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="apellido2">Segundo apellido:</ice:outputLabel></td>
+                            <td><ice:inputText id="apellido2" value="#{usuario.apellido2}" /></td>
+                            <td><ice:message id="errorapellido2" for="apellido2"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="dni">DNI:</ice:outputLabel></td>
+                            <td><ice:inputText id="dni" value="#{usuario.dni}" disabled="true" /></td>
+                            <td><ice:message id="errordni" for="dni"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="nif">N.I.F. de la empresa:</ice:outputLabel></td>
+                            <td><ice:inputText id="nif" value="#{usuario.nif.nif}" disabled="true"></ice:inputText></td>
+                            <td><ice:message id="errornif" for="nif"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="fechanacimiento">Fecha de nacimiento:</ice:outputLabel></td>
+                            <td><ice:selectInputDate id="fechanacimiento" value="#{usuario.fechanacimiento}" required="true" renderAsPopup="true" renderMonthAsDropdown="true" renderYearAsDropdown="true"><f:converter converterId="javax.faces.DateTime"/> 
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/></ice:selectInputDate></td>
+                            <td><ice:message id="errorfechanacimiento" for="fechanacimiento"></ice:message></td>
+
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="direccionusuario">Direcci&oacute;n:</ice:outputLabel></td>
+                            <td><ice:inputText id="direccionusuario" value="#{usuario.direccion}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></td>
+                            <td><ice:message id="errordireccionusuario" for="direccionusuario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="localidadusuario">Localidad:</ice:outputLabel></td>
+                            <td><ice:inputText id="localidadusuario" value="#{usuario.localidad}" required="true" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message id="errorlocalidadusuario" for="localidadusuario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="codigopostalusuario">C&oacute;digo postal:</ice:outputLabel></td>
+                            <td><ice:inputText id="codigopostalusuario" value="#{usuario.codigopostal}" required="true" validator="#{validaciones.validarCodigoPostal}" /></td>
+                            <td><ice:message id="errorcodigopostalusuario" for="codigopostalusuario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="provinciausuario">Provincia:</ice:outputLabel></td>
+                            <td><ice:inputText id="provinciausuario" value="#{usuario.provincia}" required="true" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message id="errorprivinciausuario" for="provinciausuario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="pais">Pa&iacute;s:</ice:outputLabel></td>
+                            <td><ice:selectOneMenu id="pais" value="#{usuario.pais}" partialSubmit="false">
+                                    <f:selectItems id="listapaisesemp" value="#{listapaises.paises}"/>
+                                </ice:selectOneMenu></td>
+                            <td><ice:message id="errorpais" for="paisusuario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="telefonousuario">Tel&eacute;fono:</ice:outputLabel></td>
+                            <td><ice:inputText id="telefonousuario" value="#{usuario.telefono}" validator="#{validaciones.validarTelefono}" required="true" /></td>
+                            <td><ice:message id="errortelefonousuario" for="telefonousuario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="movil">Tel&eacute;fono m&oacute;vil:</ice:outputLabel></td>
+                            <td><ice:inputText id="movil" value="#{usuario.movil}" validator="#{validaciones.validarMovil}" /></td>
+                            <td><ice:message id="errormovil" for="movil"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="emailusuario">Correo electr&oacute;nico:</ice:outputLabel></td>
+                            <td><ice:inputText id="emailusuario" value="#{usuario.email}" required="true" validator="#{validaciones.validarEmail}"></ice:inputText></td>
+                            <td><ice:message id="erroremailusuario" for="emailusuario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="cargo">Cargo:</ice:outputLabel></td>
+                            <td><ice:inputText id="cargo" value="#{usuario.cargo}" required="true" validator="#{validaciones.validarCadena255}"></ice:inputText></td>
+                            <td><ice:message id="errorcargo" for="cargo"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="salario">Salario mensual:</ice:outputLabel></td>
+                            <td><ice:inputText id="salario" value="#{usuario.salario}" required="true" validator="#{validaciones.validarSalario}"></ice:inputText></td>
+                            <td><ice:message id="errorsalario" for="salario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><hr/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <ice:outputText styleClass="exito" rendered="#{usuario.datosactualizados}">Datos actualizados</ice:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="tdcenter">
+                                <ice:commandButton styleClass="btn" id="botondardealta" value="Actualizar datos" action="#{usuario.actualizarDatosUsuario}" />
+                            </td>
+                        </tr>
+                    </table>
+                </ice:form>
+                <h3>Cuenta</h3>
+                <ice:form>
+                    <table class="tablaformulario">
+                        <tr>
+                            <td><ice:outputLabel for="nomusuario">Nombre de usuario:</ice:outputLabel></td>
+                            <td><ice:inputText id="nomusuario" value="#{usuario.usuario}" disabled="true" /></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="contrasena">Nueva contraseña:</ice:outputLabel></td>
+                            <td><ice:inputSecret id="contrasena" value="#{usuario.contrasena}" required="true" validator="#{validaciones.validarCadena255}" /></td>                           
+                            <td><ice:message id="errorcontrasena" for="contrasena"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="contrasena2">Verificar contraseña:</ice:outputLabel></td>
+                            <td><ice:inputSecret id="contrasena2" value="#{usuario.contrasena2}" required="true" validator="#{validaciones.validarCadena255}" /></td>                           
+                            <td><ice:message id="errorcontrasena2" for="contrasena2"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><hr/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <ice:outputText styleClass="exito" rendered="#{usuario.contrasenaactualizada}">Contraseña actualizada</ice:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <ice:outputText styleClass="errorformulario" rendered="#{usuario.errorcambiocontrasena}">Las dos contraseñas deben coincidir</ice:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="tdcenter">
+                                <ice:commandButton styleClass="btn" id="botonactualizarcontrasena" value="Actualizar contraseña" action="#{usuario.actualizarContrasena}" />
+                            </td>
+                        </tr>
+                    </table>
+                </ice:form>
+                <ice:form>
+                    <table class="tablaformulario">
+                        <tr>
+                            <td colspan="2" class="tdcenter">
+
+                                <ice:commandButton styleClass="btn" value="Volver" action="#{usuario.volver}" partialSubmit="false" />
+
+                            </td>
+                        </tr>
+                    </table>
+                </ice:form>
+                #{usuario.inicializaMensajes()}
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>
