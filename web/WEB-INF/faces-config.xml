@@ -427,15 +427,22 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
             <from-action>#{desarrolloReunionBean.empezarPuntoDia(indice.index)}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/desarrolloreunion.xhtml</to-view-id>
-            <redirect />
         </navigation-case>
         <navigation-case>
             <from-action>#{desarrolloReunionBean.terminarPuntoDia(indice.index)}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/desarrolloreunion.xhtml</to-view-id>
-            <redirect />
         </navigation-case>
-		
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.intervencionUsuarioReunion}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.intervencionUsuarioReunion}</from-action>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-case>
         <from-action>#{registroEmpresaBean.volver}</from-action>
