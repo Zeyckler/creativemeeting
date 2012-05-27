@@ -12,7 +12,7 @@
             <ui:define name="sesion">
             </ui:define>
 
-            <ui:define name="title">Administrar salas de reunión - CreativeMeetings</ui:define>
+            <ui:define name="title">A&ntilde;adir sala de reunión - CreativeMeetings</ui:define>
 
             <ui:define name="logoempresa">
             </ui:define>
@@ -24,47 +24,72 @@
             </ui:define>
 
             <ui:define name="content">
-                <h3>A&ntilde;adir nueva sala de reuni&oacute;n</h3>
+                <h2 class="sectiontittle">A&ntilde;adir nueva sala de reuni&oacute;n</h2>
                 <ice:form>
                     <table class="tablaformulario">
                         <tr>
-                            <td><ice:outputLabel for="nomusuario">Nombre de usuario:</ice:outputLabel></td>
-                            <td><ice:inputText id="nomusuario" value="#{usuario.usuario}" disabled="true" /></td>
-                            <td></td>
+                            <td><ice:outputLabel for="nomsala">Nombre de la sala:</ice:outputLabel></td>
+                            <td><ice:inputText id="nomsala" value="#{salaReunionBean.nombresala}" required="true" validator="#{validaciones.validarCadena255}" /></td>
+                            <td><ice:message styleClass="errorformulario" id="errornomsala" for="nomsala"></ice:message></td>
                         </tr>
                         <tr>
-                            <td><ice:outputLabel for="contrasena">Nueva contraseña:</ice:outputLabel></td>
-                            <td><ice:inputSecret id="contrasena" value="#{usuario.contrasena}" required="true" validator="#{validaciones.validarCadena255}" /></td>                           
-                            <td><ice:message id="errorcontrasena" for="contrasena"></ice:message></td>
+                            <td><ice:outputLabel for="capacidad">Capacidad:</ice:outputLabel></td>
+                            <td><ice:inputText id="capacidad" value="#{salaReunionBean.capacidad}" required="true" validator="#{validaciones.validarCodigoPostal}" /></td>                           
+                            <td><ice:message styleClass="errorformulario" id="errorcapacidad" for="capacidad"></ice:message></td>
                         </tr>
                         <tr>
-                            <td><ice:outputLabel for="contrasena2">Verificar contraseña:</ice:outputLabel></td>
-                            <td><ice:inputSecret id="contrasena2" value="#{usuario.contrasena2}" required="true" validator="#{validaciones.validarCadena255}" /></td>                           
-                            <td><ice:message id="errorcontrasena2" for="contrasena2"></ice:message></td>
+                            <td><ice:outputLabel for="coste">Coste por hora:</ice:outputLabel></td>
+                            <td><ice:inputText id="coste" value="#{salaReunionBean.costealquiler}" required="true" validator="#{validaciones.validarSalario}" /></td>                           
+                            <td><ice:message styleClass="errorformulario" id="errorcoste" for="coste"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="direccion">Direcci&oacute;n:</ice:outputLabel></td>
+                            <td><ice:inputText id="direccion" value="#{salaReunionBean.direccion}" required="true" validator="#{validaciones.validarCadena255}" /></td>                           
+                            <td><ice:message styleClass="errorformulario" id="errordireccion" for="direccion"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="telefono">Tel&eacute;fono:</ice:outputLabel></td>
+                            <td><ice:inputText id="telefono" value="#{salaReunionBean.telefono}" required="true" validator="#{validaciones.validarTelefono}" /></td>                           
+                            <td><ice:message styleClass="errorformulario" id="errortelefono" for="telefono"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="localidad">Localidad:</ice:outputLabel></td>
+                            <td><ice:inputText id="localidad" value="#{salaReunionBean.localidad}" required="true" validator="#{validaciones.validarCadena255}" /></td>                           
+                            <td><ice:message styleClass="errorformulario" id="errorlocalidad" for="localidad"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="provincia">Provincia:</ice:outputLabel></td>
+                            <td><ice:inputText id="provincia" value="#{salaReunionBean.provincia}" required="true" validator="#{validaciones.validarCadena255}" /></td>                           
+                            <td><ice:message styleClass="errorformulario" id="errorprovincia" for="provincia"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="codigopostal">C&oacute;digo postal:</ice:outputLabel></td>
+                            <td><ice:inputText id="codigopostal" value="#{salaReunionBean.codigopostal}" required="true" /></td>                           
+                            <td><ice:message styleClass="errorformulario" id="errorcodigopostal" for="codigopostal"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputLabel for="pais">Pa&iacute;s:</ice:outputLabel></td>
+                            <td><ice:selectOneMenu id="pais" value="#{salaReunionBean.pais}" partialSubmit="false">
+                                    <f:selectItems id="listapaisesemp" value="#{listapaises.paises}"/>
+                                </ice:selectOneMenu></td>
+                            <td><ice:message styleClass="errorformulario" id="errorpais" for="paisusuario"></ice:message></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <ice:outputText styleClass="exito" rendered="#{salaReunionBean.salaanadida}">La nueva sala ha sido a&ntilde;adida</ice:outputText>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="3"><hr/></td>
                         </tr>
                         <tr>
-                            <td colspan="3">
-                                <ice:outputText styleClass="exito" rendered="#{usuario.contrasenaactualizada}">Contraseña actualizada</ice:outputText>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <ice:outputText styleClass="errorformulario" rendered="#{usuario.errorcambiocontrasena}">Las dos contraseñas deben coincidir</ice:outputText>
-                            </td>
-                        </tr>
-                        <tr>
                             <td colspan="3" class="tdcenter">
-                                <ice:commandButton styleClass="btn" id="botonactualizarcontrasena" value="Actualizar contraseña" action="#{usuario.actualizarContrasena}" />
+                                <ice:commandButton styleClass="btn" id="botonanadirsala" value="Añadir sala" action="#{salaReunionBean.anadirSala}" />
                             </td>
                         </tr>
                     </table>
                 </ice:form>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

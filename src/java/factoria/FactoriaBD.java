@@ -125,7 +125,7 @@ public class FactoriaBD {
             terminarTransaccion();
         } catch (Exception e) {
             res = false;
-            System.out.println("EXCEPCION - "+e.toString());
+            System.out.println("EXCEPCION - " + e.toString());
         }
         return res;
     }
@@ -286,12 +286,10 @@ public class FactoriaBD {
         return res;
     }
 
-    public static Salasreuniones creaSalasreuniones(Integer idsalareunion, String direccion,
-            String codigopostal, String localidad, String pais, int capacidad,
-            BigDecimal costealquiler, int telefono) {
-
-        Salasreuniones slr1 = new Salasreuniones(idsalareunion, direccion, codigopostal,
-                localidad, pais, capacidad, costealquiler, telefono);
+    public static Salasreuniones creaSalasreuniones(String direccion,
+            String codigopostal, String localidad, String provincia, String pais, int capacidad,
+            BigDecimal costealquiler, int telefono, Empresas nif, String nombresala) {
+        Salasreuniones slr1 = new Salasreuniones(direccion, codigopostal, localidad, provincia, pais, capacidad, costealquiler, telefono, nif, nombresala);
         return slr1;
 
     }
@@ -335,14 +333,15 @@ public class FactoriaBD {
 
 
     }
-    public static Empresasamigas creaEmpresasAmigas(Empresas emp1, Empresas emp2){
-           
-            return new Empresasamigas(emp1, emp2);
-        
-        
+
+    public static Empresasamigas creaEmpresasAmigas(Empresas emp1, Empresas emp2) {
+
+        return new Empresasamigas(emp1, emp2);
+
+
     }
-    
-    public static boolean insertaEmpresasAmigas(Empresasamigas empa){
+
+    public static boolean insertaEmpresasAmigas(Empresasamigas empa) {
         boolean res = true;
 
         try {
