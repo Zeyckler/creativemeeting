@@ -44,12 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Salasreuniones.findByTelefono", query = "SELECT s FROM Salasreuniones s WHERE s.telefono = :telefono"),
     @NamedQuery(name = "Salasreuniones.findsalaslibresreunion1", query = "SELECT s FROM Salasreuniones s LEFT JOIN s.reunionesCollection reunion WHERE ( reunion.fechainicial NOT BETWEEN :fechinicial  AND :fechfinal) OR (reunion.fechafinalestimada  NOT BETWEEN :fechinicial  AND :fechfinal ) OR reunion.fechainicial IS NULL OR reunion.fechafinalestimada IS NULL   "),
     @NamedQuery(name = "Salasreuniones.findsalaslibresreunion", query = "SELECT DISTINCT s FROM Salasreuniones s LEFT JOIN s.reunionesCollection reunion WHERE ( :fechinicial < reunion.fechainicial   AND :fechfinal <= reunion.fechainicial ) OR ( :fechfinal > reunion.fechafinalestimada   AND  :fechinicial >= reunion.fechafinalestimada ) OR reunion.fechainicial IS NULL OR reunion.fechafinalestimada IS NULL   ")
-
-
 })
 public class Salasreuniones implements Serializable {
-    
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -101,13 +98,8 @@ public class Salasreuniones implements Serializable {
     @JoinColumn(name = "nif", referencedColumnName = "nif")
     @ManyToOne
     private Empresas nif;
-    
     /*Espacio reservado para las consultas*/
-    
     public static final String BUSCAR_SALASLIBREFECHA = "Salasreuniones.findsalaslibresreunion";
-    
-    
-    
 
     public Salasreuniones() {
     }
@@ -138,8 +130,19 @@ public class Salasreuniones implements Serializable {
         this.telefono = telefono;
     }
 
-   
-    
+    public Salasreuniones(String direccion, String codigopostal, String localidad, String provincia, String pais, int capacidad, BigDecimal costealquiler, int telefono, Empresas nif, String nombresala) {
+        this.idsalareunion = new Integer(1);
+        this.direccion = direccion;
+        this.codigopostal = codigopostal;
+        this.localidad = localidad;
+        this.provincia = provincia;
+        this.pais = pais;
+        this.capacidad = capacidad;
+        this.costealquiler = costealquiler;
+        this.telefono = telefono;
+        this.nif = nif;
+        this.nombresala = nombresala;
+    }
 
     public Integer getIdsalareunion() {
         return idsalareunion;
@@ -262,5 +265,4 @@ public class Salasreuniones implements Serializable {
     public void setNombresala(String nombresala) {
         this.nombresala = nombresala;
     }
-    
 }

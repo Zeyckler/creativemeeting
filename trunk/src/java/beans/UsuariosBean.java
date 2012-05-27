@@ -59,6 +59,7 @@ public class UsuariosBean implements Serializable {
     private boolean falloinicioreunion;
     private boolean contrasenaactualizada;
     private boolean errorcambiocontrasena;
+    private boolean salaanadida;
     private String falloinicioreunionstr;
 
     public UsuariosBean() {
@@ -90,6 +91,7 @@ public class UsuariosBean implements Serializable {
         this.falloinicioreunion = false;
         this.contrasenaactualizada = false;
         this.errorcambiocontrasena = false;
+        this.salaanadida = false;
     }
 
     public void inicializaUsuariosBean() {
@@ -102,6 +104,7 @@ public class UsuariosBean implements Serializable {
         this.falloinicioreunion = false;
         this.contrasenaactualizada = false;
         this.errorcambiocontrasena = false;
+        this.salaanadida = false;
     }
 
     public boolean isActivo() {
@@ -336,6 +339,14 @@ public class UsuariosBean implements Serializable {
 
     public void setFalloinicioreunionstr(String falloinicioreunionstr) {
         this.falloinicioreunionstr = falloinicioreunionstr;
+    }
+
+    public boolean isSalaanadida() {
+        return salaanadida;
+    }
+
+    public void setSalaanadida(boolean salaanadida) {
+        this.salaanadida = salaanadida;
     }
 
     public String formatoFecha(Date fecha) {
