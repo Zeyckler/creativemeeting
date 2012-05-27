@@ -545,7 +545,7 @@ public class CreaReunionBean implements Serializable {
 
                         String pd = this.listapuntosdeldia.get(i);
                         Puntosdeldia puntod = FactoriaBD.creaPuntosdeldia(pd, reunion);
-                        puntosdia.add(puntod);
+                        puntosdia.add(i,puntod);
                     }
                     reunion.setPuntosdeldiaCollection(puntosdia);
                     //boolean b = FactoriaBD.insertaListaPuntosdelDia(puntosdia);

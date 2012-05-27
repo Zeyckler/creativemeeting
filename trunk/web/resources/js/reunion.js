@@ -38,7 +38,7 @@ function tiemporeunion(){
     
     var seg = arrayI[2];
     var segmin = parseInt(arrayI[1])*60;
-    var hor = parseInt(arrayI[0])*3600;
+    var hor = parseInt((arrayI[0])*3600);
     var seginiciales = parseInt(seg)+parseInt(segmin)+parseInt(hor);
 
     var fechaact = new Date();
