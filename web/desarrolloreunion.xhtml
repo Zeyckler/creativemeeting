@@ -17,6 +17,7 @@
             <ui:define name="sesion">
                 <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
                     #{usuario.creaDesarrolloReunion()}
+                    
                 </c:if>
                 <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
 
@@ -94,6 +95,8 @@
                             <ice:outputText styleClass="cos#{empresas.razonsocial}" value="0" />
                         </ice:column>
                     </ice:dataTable>
+                    <ice:outputLabel for="alquilersala" value="Coste sala: "/>
+                    <ice:outputText id="alquilersala"  styleClass="alquilersala" value="#{desarrolloReunionBean.costeAlquilerSala()}"/>
                     <h3>Puntos del d&iacute;a</h3>
                     <ice:panelSeries value="#{desarrolloReunionBean.reunion.puntosdeldiaCollection}" var="puntos" varStatus="indice">
                         <table>
@@ -110,7 +113,7 @@
                                 <td></td>
                                 <td></td>
 
-
+                              
                             </tr>
                         </table>
                     </ice:panelSeries>
@@ -125,11 +128,11 @@
                                 <ice:rowSelector id="seleccionado"
                                                  value="#{usuarios.seleccionada}"
                                                  multiple="false"                                 
-                                                 selectionListener="#{desarrolloReunionBean.usuarioIntervencion}"/>
+                                                 selectionListener="#{desarrolloReunionBean.usuarioIntervencionReunion}"/>
                                 <f:facet name="header">
                                     <ice:outputText id="column1" value="Nombre"/>
                                 </f:facet>
-                                <ice:outputText id="nombreusuario" value="#{asistentes.nombre} #{asistentes.apellido1} #{asistentes.apellido2}" />
+                                <ice:outputText id="nombreusuario" value="#{usuarios.tipo.nombre} #{usuarios.tipo.apellido1} #{usuarios.tipo.apellido2}" />
                             </ice:column>
                             
 
@@ -154,9 +157,11 @@
                             <f:facet name="next">
                                 <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
                             </f:facet>
-                        </ice:dataPaginator>
-                        <ice:inputTextarea value="#{desarrolloReunionBean.intervencion}" rendered="#{!desarrolloReunionBean.puntoinactivo}"/>
-
+                        </ice:dataPaginator>               
+                        <ice:inputRichText id="intervencionusuario" value="#{desarrolloReunionBean.intervencion}" rendered="#{!desarrolloReunionBean.puntoinactivo}" toolbar="Default" skin="silver" language="es"/>
+                        <ice:commandButton  value="Añadir intervención" rendered="#{!desarrolloReunionBean.puntoinactivo}" action="#{desarrolloReunionBean.intervencionUsuarioReunion}"/>
+                        <ice:outputText rendered="#{desarrolloReunionBean.errorintervencion}" value="#{desarrolloReunionBean.errorintervencionstr}"/>
+                        <ice:outputText rendered="#{desarrolloReunionBean.exitointervencion}" value="Se ha registrado la intervención correctamente"/>
 
                     </ice:panelGroup>
 
