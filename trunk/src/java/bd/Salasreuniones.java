@@ -130,7 +130,7 @@ public class Salasreuniones implements Serializable {
         this.telefono = telefono;
     }
 
-    public Salasreuniones(String direccion, String codigopostal, String localidad, String provincia, String pais, int capacidad, BigDecimal costealquiler, int telefono, Empresas nif, String nombresala) {
+    public Salasreuniones(String direccion, String codigopostal, String localidad, String provincia, String pais, int capacidad, BigDecimal costealquiler, int telefono,Empresas nif,String nombresala) {
         this.idsalareunion = new Integer(1);
         this.direccion = direccion;
         this.codigopostal = codigopostal;
@@ -140,8 +140,8 @@ public class Salasreuniones implements Serializable {
         this.capacidad = capacidad;
         this.costealquiler = costealquiler;
         this.telefono = telefono;
-        this.nif = nif;
-        this.nombresala = nombresala;
+        this.nif=nif;
+        this.nombresala=nombresala;
     }
 
     public Integer getIdsalareunion() {

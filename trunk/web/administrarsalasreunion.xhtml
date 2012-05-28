@@ -75,12 +75,12 @@
                             <td><ice:message styleClass="errorformulario" id="errorpais" for="paisusuario"></ice:message></td>
                         </tr>
                         <tr>
-                            <td colspan="3">
-                                <ice:outputText styleClass="exito" rendered="#{salaReunionBean.salaanadida}">La nueva sala ha sido a&ntilde;adida</ice:outputText>
-                            </td>
+                            <td colspan="3"><hr/></td>
                         </tr>
                         <tr>
-                            <td colspan="3"><hr/></td>
+                            <td colspan="3">
+                                <ice:outputText styleClass="exito" rendered="#{usuario.salaanadida}">La nueva sala ha sido a&ntilde;adida</ice:outputText>
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="3" class="tdcenter">
@@ -89,6 +89,7 @@
                         </tr>
                     </table>
                 </ice:form>
+                #{usuario.inicializaMensajes()}
             </ui:define>
         </ui:composition>
     </body>

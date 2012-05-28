@@ -287,9 +287,9 @@ public class FactoriaBD {
     }
 
     public static Salasreuniones creaSalasreuniones(String direccion,
-            String codigopostal, String localidad, String provincia, String pais, int capacidad,
-            BigDecimal costealquiler, int telefono, Empresas nif, String nombresala) {
-        Salasreuniones slr1 = new Salasreuniones(direccion, codigopostal, localidad, provincia, pais, capacidad, costealquiler, telefono, nif, nombresala);
+            String codigopostal, String localidad, String provincia, String pais, Integer capacidad,
+            BigDecimal costealquiler, Integer telefono, Empresas nif, String nombresala) {
+        Salasreuniones slr1 = new Salasreuniones(direccion, codigopostal, localidad, provincia, pais, capacidad.intValue(), costealquiler, telefono.intValue(), nif, nombresala);
         return slr1;
 
     }

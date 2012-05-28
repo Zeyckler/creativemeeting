@@ -227,6 +227,10 @@ body{
     background-color: #FF4673!important;
 }
 
+.iceRowSelMouseOver{
+    background-color: #CCCCCC!important;
+}
+
 .iceRowSelSelected{
     background-color: #FFB500!important;
 }
