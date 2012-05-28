@@ -316,7 +316,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <navigation-case>
             <from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
             <from-outcome>error</from-outcome>
-            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <to-view-id>/error.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>
@@ -328,7 +328,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <navigation-case>
             <from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
             <from-outcome>error</from-outcome>
-            <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
+            <to-view-id>/error.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>
@@ -488,7 +488,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
     <managed-bean>
         <managed-bean-name>salaReunionBean</managed-bean-name>
         <managed-bean-class>beans.SalaReunionBean</managed-bean-class>
-        <managed-bean-scope>none</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <navigation-rule>
         <from-view-id>/administrarsalasreunion.xhtml</from-view-id>

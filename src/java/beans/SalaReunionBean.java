@@ -24,13 +24,13 @@ public class SalaReunionBean implements Serializable {
     private Integer idsalareunion;
     private String direccion;
     private String nombresala;
-    private String codigopostal;
+    private Integer codigopostal;
     private String localidad;
     private String provincia;
     private String pais;
-    private int capacidad;
+    private Integer capacidad;
     private BigDecimal costealquiler;
-    private int telefono;
+    private Integer telefono;
     private Empresas nif;
 
     /** Creates a new instance of SalaReunionBean */
@@ -38,19 +38,19 @@ public class SalaReunionBean implements Serializable {
         this.nif = Consultas.buscaEmpresaNif(Utilidades.getNifEmpresaSesion());
     }
 
-    public int getCapacidad() {
+    public Integer getCapacidad() {
         return capacidad;
     }
 
-    public void setCapacidad(int capacidad) {
+    public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
     }
 
-    public String getCodigopostal() {
+    public Integer getCodigopostal() {
         return codigopostal;
     }
 
-    public void setCodigopostal(String codigopostal) {
+    public void setCodigopostal(Integer codigopostal) {
         this.codigopostal = codigopostal;
     }
 
@@ -118,27 +118,34 @@ public class SalaReunionBean implements Serializable {
         this.provincia = provincia;
     }
 
-    public int getTelefono() {
+    public Integer getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(Integer telefono) {
         this.telefono = telefono;
     }
 
     public String anadirSala() {
         String res = "";
         try {
-            Salasreuniones sr = FactoriaBD.creaSalasreuniones(this.direccion, this.codigopostal, this.localidad, this.provincia, this.pais, this.capacidad, this.costealquiler, this.telefono, this.nif, this.nombresala);
+
+
+            Salasreuniones sr = FactoriaBD.creaSalasreuniones(this.direccion, this.codigopostal.toString(), this.localidad, this.provincia, this.pais, this.capacidad, this.costealquiler, this.telefono, this.nif, this.nombresala);
+
             FactoriaBD.insertaSalasreuniones(sr);
-            res = "ok";
+
             FacesContext ctx = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
             UsuariosBean usr = (UsuariosBean) session.getAttribute("usuario");
             usr.setSalaanadida(true);
             session.setAttribute("usuario", usr);
+            session.removeAttribute("salaReunionBean");
+            res = "ok";
+
+
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println("EXEPCION: " + e.toString());
             res = "error";
         }
         return res;

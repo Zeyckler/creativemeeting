@@ -13,6 +13,7 @@
                 <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
                     #{usuario.creaVerNotificacionesAEBean()}
                 </c:if>
+                <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
             </ui:define>
 
             <ui:define name="title">Ver Notificaciones - CreativeMeetings</ui:define>
@@ -29,66 +30,35 @@
             <ui:define name="content">
                 <h2 class="sectiontittle">Ver notificaciones</h2>
 
-                <ice:form>
+                <ice:form id="formulariousuarios">
                     <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==1}">
-
-                        <h2>Solicitudes de nuevos usuarios</h2>
+                        <h3>Solicitudes de nuevos usuarios</h3>
                         <ice:panelGroup rendered="#{verNotificacionesAEBean.filasusuariosnuevos.size()>0}">
-                            <ice:dataTable rendered="" id="usuariosdisponibles" var="usuarios" value="#{verNotificacionesAEBean.filasusuariosnuevos}"
-                                           rows="10" columnClasses="tableCol">
+                            <ice:dataTable id="usuariosdisponibles" var="usuarios" value="#{verNotificacionesAEBean.filasusuariosnuevos}" rows="10" columnClasses="tableCol">         
                                 <ice:column>
-                                    <ice:rowSelector id="seleccionado"
-                                                     value="#{usuarios.seleccionada}"
-                                                     multiple="true"                                 
-                                                     selectionListener="#{verNotificacionesAEBean.usuarioSeleccionadaListener(event)}"
-                                                     />
-
-                                    <f:facet name="header">
-                                        <ice:outputText id="column1"
-                                                        value="Nombre"/>
-                                    </f:facet>
-                                    <ice:outputText id="nombreusuario" value="#{usuarios.tipo[1]}"/>
-
-
+                                    <ice:rowSelector id="seleccionado" value="#{usuarios.seleccionada}" multiple="true" selectionListener="#{verNotificacionesAEBean.usuarioSeleccionadaListener(event)}"/>
+                                    <f:facet name="header">Nombre</f:facet>#{usuarios.tipo.nombre} #{usuarios.tipo.apellido1} #{usuarios.tipo.apellido2}
                                 </ice:column>
                                 <ice:column>
-                                    <f:facet name="header">
-                                        <ice:outputText id="column2"
-                                                        value="Apellido 1"/>
-                                    </f:facet>
-                                    <ice:outputText id="apellido1usuario" value="#{usuarios.tipo[2]}"/>
-                                </ice:column>
-                                <ice:column>
-                                    <f:facet name="header">
-                                        <ice:outputText id="column3"
-                                                        value="Apellido 2"/>
-                                    </f:facet>
-                                    <ice:outputText id="apellido2usuario" value="#{usuarios.tipo[3]}"/>
-                                </ice:column>
-                                <ice:column>
-                                    <f:facet name="header">
-                                        <ice:outputText id="column4"
-                                                        value="DNI"/>
-                                    </f:facet>
-                                    <ice:outputText id="empresausuario" value="#{usuarios.tipo[0]}"/>
+                                    <f:facet name="header">DNI</f:facet>#{usuarios.tipo.dni}
                                 </ice:column>
                             </ice:dataTable>
-                            <ice:dataPaginator id="paginadorusuariosdisponibles" for="usuariosdisponibles" paginator="true" fastStep="3" paginatorMaxPages="4">
+                            <ice:dataPaginator id="paginadorsalasdisponibles" for="usuariosdisponibles" paginator="true" fastStep="3" paginatorMaxPages="4">
                                 <f:facet name="first">
-                                    <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="Primera Página"></ice:graphicImage>
+                                    <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
                                 </f:facet>
                                 <f:facet name="last">
-                                    <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Última Página"></ice:graphicImage>
+                                    <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
                                 </f:facet>
                                 <f:facet name="previous">
-                                    <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Página Anterior"></ice:graphicImage>
+                                    <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
                                 </f:facet>
                                 <f:facet name="next">
-                                    <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Página Siguiente"></ice:graphicImage>
+                                    <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
                                 </f:facet>
                             </ice:dataPaginator>
-                            <ice:commandButton value="Aceptar usuarios seleccionados" action="#{verNotificacionesAEBean.aceptarUsuarios}"></ice:commandButton>
-                            <ice:commandButton  value="Rechazados usuarios seleccionados" action="#{verNotificacionesAEBean.rechazarUsuarios}"></ice:commandButton>
+                            <ice:commandButton styleClass="btn btn-success" value="Aceptar usuarios seleccionados" action="#{verNotificacionesAEBean.aceptarUsuarios}"></ice:commandButton>
+                            <ice:commandButton styleClass="btn btn-danger" value="Rechazar usuarios seleccionados" action="#{verNotificacionesAEBean.rechazarUsuarios}"></ice:commandButton>
                         </ice:panelGroup>
                         <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.filasusuariosnuevos.size()==0}" value="Actualmente no tiene ninguna solicitud nueva"/>
                         <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.errorsolicitudusuario}" value="Error al aceptar/rechazar el usuario"/>
@@ -97,24 +67,24 @@
                 </ice:form>
                 <ice:form>
                     <ice:panelGroup rendered="#{privilegiosBean.compruebaPrivilegiosSesion()==1}">
-                        <h2>Solicitudes de nuevas relaciones empresariales</h2>
+                        <h3>Solicitudes de nuevas relaciones empresariales</h3>
                         <ice:panelSeries varStatus="indice" var="empresas" value="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales}">
                             <ice:panelGroup rendered="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.size()>0}">
-                                <table>
+                                <table class="table table-bordered">
                                     <tr>
                                         <td colspan="2"> 
-                                            <ice:outputText value ="Nombre: "/>
+                                            <ice:outputText styleClass="bold" value ="Raz&oacute;n social: "/>
                                             <ice:outputText value="#{empresas.nif1.razonsocial}"/>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td>
-                                            <ice:outputText value ="Dirección: "/>
+                                            <ice:outputText styleClass="bold" value ="Dirección: "/>
                                             <ice:outputText value="#{empresas.nif1.direccion}"/>
                                         </td>
                                         <td>
-                                            <ice:outputText value ="Teléfono: "/>
+                                            <ice:outputText styleClass="bold" value ="Teléfono: "/>
                                             <ice:outputText value="#{empresas.nif1.telefono}"/>
                                         </td>
 
@@ -122,61 +92,53 @@
 
                                     <tr>
                                         <td>
-                                            <ice:outputText value ="Código Postal: "/>
+                                            <ice:outputText styleClass="bold" value ="Código Postal: "/>
                                             <ice:outputText value="#{empresas.nif1.codigopostal}"/>
                                         </td>
                                         <td>
-                                            <ice:panelGroup rendered="#{empresas.nif1.fax!=null}">
-                                                <ice:outputText value ="Fax: "/>
-                                                <ice:outputText value="#{empresas.nif1.fax}"/>
-                                            </ice:panelGroup>
+                                            <ice:outputText styleClass="bold" value ="Fax: "/>
+                                            <ice:outputText value="#{empresas.nif1.fax}"/>
                                         </td>
 
                                     </tr>
                                     <tr>
                                         <td>
-                                            <ice:outputText value ="Localidad: "/>
+                                            <ice:outputText styleClass="bold" value ="Localidad: "/>
                                             <ice:outputText value="#{empresas.nif1.localidad}"/>
 
                                         </td>
                                         <td>
-                                            <ice:panelGroup rendered="#{empresas.nif1.web != null}">
-                                                <ice:outputText value ="Página Web: "/>
-                                                <ice:outputText value="#{empresas.nif1.web}"/>
-                                            </ice:panelGroup>
+                                            <ice:outputText styleClass="bold" value ="Página Web: "/>
+                                            <ice:outputText value="#{empresas.nif1.web}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <ice:outputText value ="Provincia: "/>
+                                            <ice:outputText styleClass="bold" value ="Provincia: "/>
                                             <ice:outputText value="#{empresas.nif1.provincia}"/>
                                         </td>
                                         <td>
-                                            <ice:panelGroup rendered="#{empresas.nif1.email!= null}">
-                                                <ice:outputText value ="Email: "/>
-                                                <ice:outputText value="#{empresas.nif1.email}"/>
-                                            </ice:panelGroup>
+                                            <ice:outputText styleClass="bold" value ="Correo electr&oacute;nico: "/>
+                                            <ice:outputText value="#{empresas.nif1.email}"/>
                                         </td>
-
                                     </tr>
                                     <tr>
                                         <td>
-                                            <ice:outputText value ="Pais: "/>
+                                            <ice:outputText styleClass="bold" value ="Pais: "/>
                                             <ice:outputText value="#{empresas.nif1.pais}"/>
                                         </td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <ice:commandButton value="Aceptar empresa" action="#{verNotificacionesAEBean.aceptarEmpresa(indice.index)}"/>
+                                            <ice:commandButton styleClass="btn btn-success" value="Aceptar empresa" action="#{verNotificacionesAEBean.aceptarEmpresa(indice.index)}"/>
                                         </td>
                                         <td>
-                                            <ice:commandButton value="Rechazar empresa" action="#{verNotificacionesAEBean.rechazarEmpresa(indice.index)}"/>
+                                            <ice:commandButton styleClass="btn btn-danger" value="Rechazar empresa" action="#{verNotificacionesAEBean.rechazarEmpresa(indice.index)}"/>
                                         </td>
                                     </tr>
                                 </table>
-
                             </ice:panelGroup>
-
                         </ice:panelSeries>
                         <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.listanotificacionesrelacionesempresariales.size()==0}" value="Actualmente no tiene ninguna solicitud nueva"/>
                         <ice:outputText styleClass="errorformulario" rendered="#{verNotificacionesAEBean.errorsolicitudempresa}" value="Error al aceptar/rechazar la empresa"/>
@@ -185,68 +147,63 @@
                 </ice:form>
                 <ice:form>
 
-                    <h2>Solicitudes de nuevas reuniones</h2>
+                    <h3>Solicitudes de nuevas reuniones</h3>
                     <ice:panelSeries  varStatus="indice" var="reunion" value="#{verNotificacionesAEBean.listadereunionesnotificacion}">
                         <ice:panelGroup>
-                            <table>
+                            <table class="table table-bordered">
                                 <tr>
-                                    <td colspan="1">
-
-                                        <ice:outputText value="Fecha: " ></ice:outputText>
+                                    <td>
+                                        <ice:outputText styleClass="bold" value="Fecha: " />
                                         <ice:outputText value="#{verNotificacionesAEBean.formatoFecha(reunion.fechainicial)}" ></ice:outputText>
                                     </td>
                                     <td colspan="3">
-                                        <ice:outputText value="Sala: " />
-                                        <ice:outputText value="#{reunion.getIdsalareunion().nombresala} - " />
-                                        <ice:outputText value="#{reunion.getIdsalareunion().direccion} - " />
-                                        <ice:outputText value="#{reunion.getIdsalareunion().localidad} (#{reunion.getIdsalareunion().provincia}) - " />
-                                        <ice:outputText value="#{reunion.getIdsalareunion().pais} " />
+                                        <ice:outputText styleClass="bold" value="Sala: " />
+                                        <ice:outputText value="#{reunion.getIdsalareunion().nombresala} - #{reunion.getIdsalareunion().direccion} - #{reunion.getIdsalareunion().localidad} (#{reunion.getIdsalareunion().provincia}) - #{reunion.getIdsalareunion().pais}" />
                                     </td>
                                 </tr> 
                                 <tr>
-                                    <td colspan="1">
-                                        <ice:outputText value="Duración: " />
+                                    <td>
+                                        <ice:outputText styleClass="bold" value="Duración: " />
                                         <ice:outputText value="#{verNotificacionesAEBean.calcularDuracionReunion(i.index)}"></ice:outputText>
                                     </td>
                                     <td colspan="3">
-                                        <ice:outputText value="Solicitante: " />
-                                        <ice:outputText value="#{reunion.dnicreador.nombre} " />
-                                        <ice:outputText value="#{reunion.dnicreador.apellido1} " />
-                                        <ice:outputText value="#{reunion.dnicreador.apellido2} - " />
-                                        <ice:outputText value="#{reunion.dnicreador.nif.razonsocial}" />
+                                        <ice:outputText styleClass="bold" value="Solicitante: " />
+                                        <ice:outputText value="#{reunion.dnicreador.nombre} #{reunion.dnicreador.apellido1} #{reunion.dnicreador.apellido2} - #{reunion.dnicreador.nif.razonsocial}" />
                                     </td>
                                 </tr> 
                                 <tr>
                                     <td colspan="2">
-                                        <ice:outputText value="Asistentes: " />
+                                        <ice:outputText styleClass="bold" value="Asistentes: " />
                                     </td>
                                     <td colspan="2">
-                                        <ice:outputText value="Puntos del día: " /><br/>   
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td colspan="2">
-                                        <ice:panelSeries varStatus="u" var="usuarios" value="#{reunion.asistenciareunionCollection}">
-                                            <ice:outputText value="- #{usuarios.dni.nombre} " />
-                                            <ice:outputText value="#{usuarios.dni.apellido1} " />
-                                            <ice:outputText value="#{usuarios.dni.apellido2}" /><br/>
-                                        </ice:panelSeries>
-                                    </td>
-                                    <td colspan="2">
-                                        <ice:panelSeries varStatus="p" var="puntosdia" value="#{reunion.puntosdeldiaCollection}">
-                                            <ice:outputText value="#{p.index+1}.- #{puntosdia.titulopunto}" /><br/>
-                                        </ice:panelSeries>
+                                        <ice:outputText styleClass="bold" value="Puntos del día: " /><br/>   
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td colspan="2">
-                                        <ice:commandButton id="aceptareunion" action="#{verNotificacionesAEBean.aceptaReunion(indice.index)}" value="Aceptar invitación"  />
+                                        <ul>
+                                            <ice:repeat varStatus="u" var="usuarios" value="#{reunion.asistenciareunionCollection}">
+                                                <li>#{usuarios.dni.nombre} #{usuarios.dni.apellido1} #{usuarios.dni.apellido2}</li>                                            
+                                            </ice:repeat>
+                                        </ul>
+                                    </td>
+                                    <td colspan="2">
+                                        <ol>
+                                            <ice:repeat varStatus="p" var="puntosdia" value="#{reunion.puntosdeldiaCollection}">
+                                                <li>#{puntosdia.titulopunto}</li>
+                                            </ice:repeat>
+                                        </ol>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="2">
+                                        <ice:commandButton styleClass="btn btn-success" id="aceptareunion" action="#{verNotificacionesAEBean.aceptaReunion(indice.index)}" value="Aceptar invitación"  />
                                     </td>
 
                                     <td colspan="2">
-                                        <ice:commandButton id="rechazareunion" action="#{verNotificacionesAEBean.rechazaReunion(indice.index)}" value="Rechazar invitación"  />    
+                                        <ice:commandButton styleClass="btn btn-danger" id="rechazareunion" action="#{verNotificacionesAEBean.rechazaReunion(indice.index)}" value="Rechazar invitación"  />    
                                     </td>
 
                                 </tr>

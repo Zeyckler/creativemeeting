@@ -6,7 +6,6 @@ package beans;
 
 import bd.Asistenciareunion;
 import bd.Empresasamigas;
-import bd.Puntosdeldia;
 import bd.Reuniones;
 import bd.Usuarios;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
@@ -28,8 +27,8 @@ import utiles.Utilidades;
 public class VerNotificacionesAEBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private List<Fila<Object[]>> filasusuariosnuevos;
-    private List<Object[]> usuariosnuevosseleccionados;
+    private List<Fila<Usuarios>> filasusuariosnuevos;
+    private List<Usuarios> usuariosnuevosseleccionados;
     private List<Reuniones> listadereunionesnotificacion;
     private List<Empresasamigas> listanotificacionesrelacionesempresariales;
     boolean errorsolicitudusuario;
@@ -41,32 +40,32 @@ public class VerNotificacionesAEBean implements Serializable {
 
     public void inicializaVerNotificacionesAEBean() {
 
-        this.usuariosnuevosseleccionados = new LinkedList<Object[]>();
-        this.filasusuariosnuevos = new LinkedList<Fila<Object[]>>();
+
+        this.filasusuariosnuevos = new LinkedList<Fila<Usuarios>>();
         String dni = Utilidades.getDniUsuarioSesion();
         String nif = Utilidades.getNifEmpresaSesion();
         this.listadereunionesnotificacion = Consultas.buscaReunionesNotificacionesporUsuario(dni);
         this.listanotificacionesrelacionesempresariales = Consultas.buscaEmpresasAmigasNotificacion(nif);
-        List<Object[]> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
-        for (Object[] fila : aux) {
-            this.filasusuariosnuevos.add(new Fila(fila, false));
+        List<Usuarios> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
+        for (Usuarios us : aux) {
+            this.filasusuariosnuevos.add(new Fila(us, false));
         }
 
     }
 
-    public List<Fila<Object[]>> getFilasusuariosnuevos() {
+    public List<Fila<Usuarios>> getFilasusuariosnuevos() {
         return filasusuariosnuevos;
     }
 
-    public void setFilasusuariosnuevos(List<Fila<Object[]>> filasusuariosnuevos) {
+    public void setFilasusuariosnuevos(List<Fila<Usuarios>> filasusuariosnuevos) {
         this.filasusuariosnuevos = filasusuariosnuevos;
     }
 
-    public List<Object[]> getUsuariosnuevosseleccionados() {
+    public List<Usuarios> getUsuariosnuevosseleccionados() {
         return usuariosnuevosseleccionados;
     }
 
-    public void setUsuariosnuevosseleccionados(List<Object[]> usuariosnuevosseleccionados) {
+    public void setUsuariosnuevosseleccionados(List<Usuarios> usuariosnuevosseleccionados) {
         this.usuariosnuevosseleccionados = usuariosnuevosseleccionados;
     }
 
@@ -109,18 +108,18 @@ public class VerNotificacionesAEBean implements Serializable {
     public void setErrorsolicitudusuario(boolean errorsolicitudusuario) {
         this.errorsolicitudusuario = errorsolicitudusuario;
     }
-    
 
     public void usuarioSeleccionadaListener(RowSelectorEvent event) {
 
-        this.usuariosnuevosseleccionados.clear();
+        this.usuariosnuevosseleccionados = new LinkedList<Usuarios>();
         Integer numerofilas = filasusuariosnuevos.size();
 
-        for (int i = 0, max = numerofilas; i < max; i++) {
-
-            Fila<Object[]> fila = filasusuariosnuevos.get(i);
+        for (int i = 0; i < numerofilas; i++) {
+            Fila<Usuarios> fila = filasusuariosnuevos.get(i);
             if (fila.isSeleccionada()) {
                 this.usuariosnuevosseleccionados.add(fila.getTipo());
+                System.out.println(this.usuariosnuevosseleccionados.size() + " tamano lista");
+                System.out.println("NOMBRE: " + this.usuariosnuevosseleccionados.get(i).getNombre());
             }
 
         }
@@ -130,10 +129,9 @@ public class VerNotificacionesAEBean implements Serializable {
     public String aceptarUsuarios() {
 
         String res = "";
-        this.errorsolicitudusuario=false;
+        this.errorsolicitudusuario = false;
         try {
-            for (Object[] o : this.usuariosnuevosseleccionados) {
-                Usuarios u = Consultas.buscarUsuario((String) o[0]);
+            for (Usuarios u : this.usuariosnuevosseleccionados) {
                 FactoriaBD.preActualizarDato(u);
                 u.setActivacioninicial(false);
                 u.setActivo(true);
@@ -143,18 +141,18 @@ public class VerNotificacionesAEBean implements Serializable {
         } catch (Exception e) {
             res = "error";
             this.errorsolicitudusuario = true;
-            System.out.println(e);
+            System.out.println(e.toString());
         }
         return res;
     }
 
     public String rechazarUsuarios() {
+        System.out.println("size: " + this.usuariosnuevosseleccionados.size());
         String res = "";
-        this.errorsolicitudusuario= false;
+        this.errorsolicitudusuario = false;
         try {
 
-            for (Object[] o : this.usuariosnuevosseleccionados) {
-                Usuarios u = Consultas.buscarUsuario((String) o[0]);
+            for (Usuarios u : this.usuariosnuevosseleccionados) {
                 FactoriaBD.preActualizarDato(u);
                 u.setActivacioninicial(false);
                 u.setActivo(false);
@@ -164,7 +162,7 @@ public class VerNotificacionesAEBean implements Serializable {
             res = "ok";
         } catch (Exception e) {
             res = "error";
-            this.errorsolicitudusuario=true;
+            this.errorsolicitudusuario = true;
             System.out.println(e.toString());
         }
         return res;
@@ -201,7 +199,7 @@ public class VerNotificacionesAEBean implements Serializable {
     public String aceptaReunion(int indice) {
 
         String res = "";
-        this.errorsolicitudreunion=false;
+        this.errorsolicitudreunion = false;
         String dniusuario = Utilidades.getDniUsuarioSesion();
         Reuniones reunion = this.listadereunionesnotificacion.get(indice);
         Integer id = reunion.getIdreunion();
@@ -224,7 +222,7 @@ public class VerNotificacionesAEBean implements Serializable {
                 } catch (Exception e) {
                     System.out.print(e.toString());
                     res = "aceptarerror";
-                    this.errorsolicitudreunion=true;
+                    this.errorsolicitudreunion = true;
 
                 }
             }
@@ -234,9 +232,9 @@ public class VerNotificacionesAEBean implements Serializable {
     }
 
     public String rechazaReunion(int indice) {
-        
+
         String res = "";
-        this.errorsolicitudreunion=false;
+        this.errorsolicitudreunion = false;
         String dniusuario = Utilidades.getDniUsuarioSesion();
         Reuniones reunion = this.listadereunionesnotificacion.get(indice);
         Integer id = reunion.getIdreunion();
@@ -260,7 +258,7 @@ public class VerNotificacionesAEBean implements Serializable {
                 } catch (Exception e) {
                     System.out.print(e.toString());
                     res = "rechazarerror";
-                    this.errorsolicitudreunion=true;
+                    this.errorsolicitudreunion = true;
 
                 }
             }
@@ -272,7 +270,7 @@ public class VerNotificacionesAEBean implements Serializable {
 
     public String aceptarEmpresa(int indice) {
         String res = "";
-        this.errorsolicitudempresa=false;
+        this.errorsolicitudempresa = false;
         try {
             Empresasamigas ea = this.listanotificacionesrelacionesempresariales.get(indice);
             FactoriaBD.preActualizarDato(ea);
@@ -283,14 +281,14 @@ public class VerNotificacionesAEBean implements Serializable {
         } catch (Exception e) {
             res = "error";
             System.out.println(e);
-            this.errorsolicitudempresa=true;
+            this.errorsolicitudempresa = true;
         }
         return res;
     }
 
     public String rechazarEmpresa(int indice) {
         String res = "";
-        this.errorsolicitudempresa=false;
+        this.errorsolicitudempresa = false;
         try {
             Empresasamigas ea = this.listanotificacionesrelacionesempresariales.get(indice);
             FactoriaBD.preActualizarDato(ea);
@@ -300,7 +298,7 @@ public class VerNotificacionesAEBean implements Serializable {
         } catch (Exception e) {
             res = "error";
             System.out.println(e);
-            this.errorsolicitudempresa=true;
+            this.errorsolicitudempresa = true;
         }
         return res;
     }

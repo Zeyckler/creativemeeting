@@ -457,14 +457,14 @@ public class Consultas {
         return usuario;
     }
 
-    public static List<Object[]> buscarUsuariosporActivarAE(String nif) {
-        List<Object[]> usuarios = null;
+    public static List<Usuarios> buscarUsuariosporActivarAE(String nif) {
+        List<Usuarios> usuarios = null;
         abrirTransaccion();
         Query q1 = em.createNamedQuery("Usuarios.findUsuariosNuevosPorActivarAE");
         q1.setParameter("empnif", nif);
         q1.setParameter("actini", true);
         try {
-            usuarios = (List<Object[]>) q1.getResultList();
+            usuarios = (List<Usuarios>) q1.getResultList();
         } catch (Exception e) {
             System.out.print(e.toString());
         }
@@ -603,11 +603,11 @@ public class Consultas {
         abrirTransaccion();
         Query q1 = em.createNamedQuery("Reuniones.findReunionesUsuarioProximasInformacion");
         q1.setParameter("dni", dni);
-        q1.setParameter("fechamanana", fecha );
+        q1.setParameter("fechamanana", fecha);
         q1.setParameter("notificacion", false);
         q1.setParameter("respuesta", true);
         try {
-            reuniones =  q1.getResultList();
+            reuniones = q1.getResultList();
         } catch (Exception e) {
             reuniones = null;
         }
