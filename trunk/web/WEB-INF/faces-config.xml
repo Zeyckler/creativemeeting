@@ -42,11 +42,6 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>subirarchivobean</managed-bean-name>
-        <managed-bean-class>beans.SubirArchivoBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>privilegiosBean</managed-bean-name>
         <managed-bean-class>beans.PrivilegiosBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
@@ -308,25 +303,25 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
             <redirect />
         </navigation-case>
         <navigation-case>
-            <from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
+            <from-action>#{verNotificacionesAEBean.aceptarUsuarios(indice.index)}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>
-            <from-action>#{verNotificacionesAEBean.aceptarUsuarios}</from-action>
+            <from-action>#{verNotificacionesAEBean.aceptarUsuarios(indice.index)}</from-action>
             <from-outcome>error</from-outcome>
             <to-view-id>/error.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>
-            <from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
+            <from-action>#{verNotificacionesAEBean.rechazarUsuarios(indice.index)}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/vernotificaciones-ae.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>
-            <from-action>#{verNotificacionesAEBean.rechazarUsuarios}</from-action>
+            <from-action>#{verNotificacionesAEBean.rechazarUsuarios(indice.index)}</from-action>
             <from-outcome>error</from-outcome>
             <to-view-id>/error.xhtml</to-view-id>
             <redirect />
@@ -426,6 +421,11 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <navigation-case>
             <from-action>#{desarrolloReunionBean.intervencionUsuarioReunion}</from-action>
             <from-outcome>error</from-outcome>
+            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.terminaReunion}</from-action>
+            <from-outcome>ok</from-outcome>
             <to-view-id>/desarrolloreunion.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
