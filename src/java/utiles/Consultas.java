@@ -13,6 +13,7 @@ import bd.Reuniones;
 import bd.Salasreuniones;
 import bd.Tiporeuniones;
 import bd.Usuarios;
+import com.sun.faces.application.resource.LibraryInfo;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -309,6 +310,8 @@ public class Consultas {
         c1.set(Calendar.MINUTE, 59);
         c1.set(Calendar.SECOND, 59);
         Date hoyfinal = c1.getTime();
+        
+        System.out.print("dni "+dniusuario+"Fecha inicial"+"Fecha inicial:"+ hoyinicial  + "Fecha Final"+ hoyfinal);
 
         try {
             r = buscaReunionesUsuarioInformacion(dniusuario, hoyinicial, hoyfinal);
@@ -458,13 +461,13 @@ public class Consultas {
     }
 
     public static List<Usuarios> buscarUsuariosporActivarAE(String nif) {
-        List<Usuarios> usuarios = null;
+        List<Usuarios> usuarios = new LinkedList<Usuarios>();
         abrirTransaccion();
         Query q1 = em.createNamedQuery("Usuarios.findUsuariosNuevosPorActivarAE");
         q1.setParameter("empnif", nif);
         q1.setParameter("actini", true);
         try {
-            usuarios = (List<Usuarios>) q1.getResultList();
+            usuarios = q1.getResultList();
         } catch (Exception e) {
             System.out.print(e.toString());
         }

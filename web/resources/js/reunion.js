@@ -21,15 +21,16 @@ function tiempoRestante( fechfin) {
     return restante;
 }
 
-function diferenciarestante() {
+function diferenciarest() {
     
     var hfin = getElementsByClass("horafinal")[0].value;
 
     var aux = tiempoRestante(hfin);
     var aux2 = getElementsByClass("tiemporestante");
     aux2[0].value = aux;
-    setTimeout("diferenciarestante()", 1000);
+
 }
+
 
 function tiemporeunion(){
     
@@ -37,7 +38,7 @@ function tiemporeunion(){
     var arrayI = contador.split(":");
     
     var seg = arrayI[2];
-    var segmin = parseInt(arrayI[1])*60;
+    var segmin = parseInt((arrayI[1])*60);
     var hor = parseInt((arrayI[0])*3600);
     var seginiciales = parseInt(seg)+parseInt(segmin)+parseInt(hor);
 
@@ -56,10 +57,6 @@ function tiemporeunion(){
     
 }
 
-function contador(){
-   
-    setInterval(setTime , 1000);
-}
 
 function setTime(){
     var totalSegundos = tiemporeunion();
@@ -153,15 +150,72 @@ function costesReunionEmpresas(){
     }
    
 }
+function costeTotalR(){
+    var arraycosteasis = getElementsByClass("costeasist");
+    var arrayCosteSala = getElementsByClass("alquilersala");
+    var tamcosasis = arraycosteasis.length;
+    var costeTotalUsuarios  = 0;
+
+     
+    for(var i =0; i<tamcosasis; i++){
+         
+        var costeAsistente = arraycosteasis[i].firstChild.nodeValue;
+         
+        costeTotalUsuarios = parseFloat(costeTotalUsuarios)+ parseFloat(costeAsistente);   
+    }
+    var costeSala = arrayCosteSala[0].firstChild.nodeValue;
+     
+    var totalAlquiler = parseFloat(costeSala)+parseFloat(costeTotalUsuarios);
+     
+    totalAlquiler = totalAlquiler.toFixed(2);
+    
+     
+    getElementsByClass("alquilertotal")[0].firstChild.nodeValue= totalAlquiler;
+    
+    
+}
+
 function costes(){
     
     costesReunionEmpleados(); 
-    setInterval(costesReunionEmpleados, 15000);
+    return setInterval(costesReunionEmpleados, 15000);
     
 }
 function costeEmpresas(){
     
     costesReunionEmpresas();
-    setInterval(costesReunionEmpresas, 15000)
+    return setInterval(costesReunionEmpresas, 15000)
+    
+}
+function costeTotalReunion(){
+    costeTotalR();
+    return setInterval(costeTotalR, 15000);
+}
+
+function contador(){
+   
+    return setInterval(setTime , 1000);
+}
+function diferenciarestante(){
+    
+    diferenciarest();
+    return setInterval(diferenciarest, 1000);
+    
+    
+}
+
+function terminarFunciones(){
+
+    clearInterval(costesEmpleadosReunion);
+    clearInterval(costesEmpresasReunion);
+    clearInterval(contadorReunion);
+    clearInterval(diferenciaRestante);
+    clearInterval(costeTotaldReunion);
+  
+    costesReunionEmpleados();
+    costesReunionEmpresas();
+    costeTotalR();
+    setTime();
+    diferenciarest();
     
 }

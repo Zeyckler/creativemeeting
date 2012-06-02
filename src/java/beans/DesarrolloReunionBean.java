@@ -19,6 +19,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import utiles.Fila;
 import utiles.Utilidades;
 
@@ -46,6 +48,8 @@ public class DesarrolloReunionBean implements Serializable {
     private boolean errorintervencion;
     private String errorintervencionstr;
     private boolean exitointervencion;
+    private double costealquilersala;
+    private boolean reunionfinalizada;
 
     /** Creates a new instance of DesarrolloReunionBean */
     public DesarrolloReunionBean() {
@@ -53,10 +57,11 @@ public class DesarrolloReunionBean implements Serializable {
 
     public void inicializaDesarrolloReunion() {
 
-        System.out.print("He entrado en el inicializaDesarrolloReunion");
+        //System.out.print("He entrado en el inicializaDesarrolloReunion");
         UsuariosBean us = (UsuariosBean) Utilidades.getSessionBean("usuario");
 
         this.reunion = us.getReunionhoy();
+        this.reunion.setCoste(new Integer(0));
         this.errorasistencia = "";
         this.errorconfirmarasist = false;
         this.errorintervencion = false;
@@ -104,9 +109,9 @@ public class DesarrolloReunionBean implements Serializable {
             if (!puntoComenzado(i) && !puntoTermindo(i)) {
                 this.arraydisabledaceptar[i] = false;
                 this.arraydisabledrechazar[i] = true;
-                this.puntoactual = this.reunion.getPuntosdeldiaCollection().get(i);
-                this.setPuntoinactivo(false);
-                
+                this.puntoactual = null;
+                this.setPuntoinactivo(true);
+
                 i++;
                 for (; i < tampuntosdia; i++) {
                     this.arraydisabledaceptar[i] = true;
@@ -117,7 +122,7 @@ public class DesarrolloReunionBean implements Serializable {
             } else if (puntoComenzado(i) && !puntoTermindo(i)) {
                 this.arraydisabledaceptar[i] = true;
                 this.arraydisabledrechazar[i] = false;
-                System.out.print("ha entrado aqui en el indice: " + i);
+                //System.out.print("ha entrado aqui en el indice: " + i);
                 this.puntoactual = this.reunion.getPuntosdeldiaCollection().get(i);
                 this.setPuntoinactivo(false);
                 i++;
@@ -130,16 +135,18 @@ public class DesarrolloReunionBean implements Serializable {
 
         }
         if (!puntoComenzado(0) && !puntoTermindo(0)) {
-                    this.puntoactual = null;
-                    this.puntoinactivo = false;
+            this.puntoactual = null;
+            this.puntoinactivo = false;
 
-                }
+        }
         for (Asistenciareunion ar : reunion.getAsistenciareunionCollection()) {
             if (ar.getNotificacion() == false && ar.getRespuesta() == true) {
                 Fila f = new Fila(ar.getDni(), false);
                 usuariosasistentes.add(f);
             }
         }
+        this.costealquilersala = costeAlquilerSala();
+        this.reunionfinalizada = false;
 
     }
 
@@ -279,6 +286,22 @@ public class DesarrolloReunionBean implements Serializable {
         this.exitointervencion = exitointervencion;
     }
 
+    public double getCostealquilersala() {
+        return costealquilersala;
+    }
+
+    public void setCostealquilersala(double costealquilersala) {
+        this.costealquilersala = costealquilersala;
+    }
+
+    public boolean isReunionfinalizada() {
+        return reunionfinalizada;
+    }
+
+    public void setReunionfinalizada(boolean reunionfinalizada) {
+        this.reunionfinalizada = reunionfinalizada;
+    }
+
     public void usuarioSeleccionadaListener(RowSelectorEvent event) {
 
         this.usuariosasistentesconf.clear();
@@ -297,16 +320,16 @@ public class DesarrolloReunionBean implements Serializable {
         }
 
     }
-    
+
     public void usuarioIntervencionReunion(RowSelectorEvent event) {
 
         this.usuarioIntervencion = null;
         this.usuarioIntervencionlista = new LinkedList<Usuarios>();
-        System.out.print("hemos entrado en el Metodo Listener");
+        //System.out.print("hemos entrado en el Metodo Listener");
 
         Integer numerofilas = this.usuariosasistentesconfila.size();
 
-        System.out.print("numero de Filas asistentes" + numerofilas);
+        //System.out.print("numero de Filas asistentes" + numerofilas);
 
         for (int i = 0, max = numerofilas; i < max; i++) {
 
@@ -346,18 +369,18 @@ public class DesarrolloReunionBean implements Serializable {
                 res = "ok";
                 Reuniones a = this.reunion;
 
-                System.out.print("Preactualizando dato");
+                //System.out.print("Preactualizando dato");
                 FactoriaBD.preActualizarDato(a);
                 a.setFechainicialreal(Calendar.getInstance().getTime());
 
-                System.out.println("tamaño asistentes confirmados" + this.reunion.getAsistenciareunionCollection().size());
+                //System.out.println("tamaño asistentes confirmados" + this.reunion.getAsistenciareunionCollection().size());
                 List<Asistenciareunion> asr = this.reunion.getAsistenciareunionCollection();
                 for (Usuarios user : this.usuariosasistentesconf) {
                     for (int i = 0; i < a.getAsistenciareunionCollection().size(); i++) {
 
 
                         if (user.getDni().equals(asr.get(i).getDni().getDni())) {
-                            System.out.println(user.getDni());
+                            //System.out.println(user.getDni());
                             asr.get(i).setAsistencia(true);
                         }
 
@@ -369,7 +392,7 @@ public class DesarrolloReunionBean implements Serializable {
 
 
 
-                System.out.print("Preactualizando dato hecho");
+                //System.out.print("Preactualizando dato hecho");
 
                 for (Usuarios us : this.usuariosasistentesconf) {
                     this.empresasasistentes.add(us.getNif());
@@ -414,11 +437,11 @@ public class DesarrolloReunionBean implements Serializable {
     public String empezarPuntoDia(int indice) {
         String res = "";
 
-        System.out.print(indice);
+        //System.out.print(indice);
 
         this.puntoactual = reunion.getPuntosdeldiaCollection().get(indice);
 
-        System.out.print(this.puntoactual.getTitulopunto());
+        //System.out.print(this.puntoactual.getTitulopunto());
 
         this.arraydisabledaceptar[indice] = true;
         this.arraydisabledrechazar[indice] = false;
@@ -491,7 +514,7 @@ public class DesarrolloReunionBean implements Serializable {
         if (pt.getHorafin() != null) {
             res = true;
         }
-        System.out.print("Punto del dia Terminado" + res);
+        //System.out.print("Punto del dia Terminado" + res);
         return res;
 
     }
@@ -545,31 +568,61 @@ public class DesarrolloReunionBean implements Serializable {
 
         return res;
     }
-    public double costeAlquilerSala(){
-        int preciohora= this.reunion.getIdsalareunion().getCostealquiler().intValue();
-        double preciosegundo = preciohora/3600;
+
+    public double costeAlquilerSala() {
+        int preciohora = this.reunion.getIdsalareunion().getCostealquiler().intValue();
+        double preciosegundo = (double) preciohora / (double) 3600;
+
+
         Date fechainicialreunion = this.reunion.getFechainicial();
         Date fechafinalreunion = this.reunion.getFechafinalestimada();
-        
+
         Calendar fechini = Calendar.getInstance();
         fechini.setTime(fechainicialreunion);
-        
+
         Calendar fechfin = Calendar.getInstance();
-        fechini.setTime(fechafinalreunion);
-        
+        fechfin.setTime(fechafinalreunion);
+
         long milsecfin = fechfin.getTimeInMillis();
         long milsecini = fechini.getTimeInMillis();
-        
-        long resta = milsecfin-milsecini;
-        
-        //JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR
-        
-        
-        
-        int alquilertotal = 1;
-        
+
+        long resta = milsecfin - milsecini;
+
+        long digseg = resta / 1000;
+
+        double alquilertotal = preciosegundo * digseg;
+
         return alquilertotal;
+
+
+    }
+
+    public String terminaReunion() {
+        Reuniones a = this.reunion;
+
+        Date fechaini = this.reunion.getFechainicialreal();
+        Date fechafin = this.reunion.getFechafinalestimada();
+        System.out.print("Fecha Inicial Sistema: " + fechaini.toString());
+        System.out.print("Fecha Final Sistema: " + fechafin.toString());
         
-        
+
+        Calendar fechainic = Calendar.getInstance();
+        fechainic.set(fechainic.get(Calendar.YEAR), fechainic.get(Calendar.MONTH), fechainic.get(Calendar.DAY_OF_MONTH), fechaini.getHours(), fechaini.getMinutes(), fechaini.getSeconds());
+
+        Calendar fechafinc = Calendar.getInstance();
+        fechafinc.set(fechafinc.get(Calendar.YEAR), fechafinc.get(Calendar.MONTH), fechafinc.get(Calendar.DAY_OF_MONTH), fechafin.getHours(), fechafin.getMinutes(), fechafin.getSeconds());
+
+        Date fechainif = fechainic.getTime();
+        Date fechafinf = fechafinc.getTime();
+
+        System.out.print("Fecha Inicial Sistema: " + fechainif.toString());
+        System.out.print("Fecha Final Sistema: " + fechafinf.toString());
+
+        System.out.print("COSTE DE LOCOS!!!  " + this.reunion.getCoste());
+        /*FactoriaBD.preActualizarDato(a);
+        a.setFechafinalreal(Calendar.getInstance().getTime());
+        FactoriaBD.posActualizarDato(a);*/
+        this.reunionfinalizada = true;
+        return "ok";
     }
 }

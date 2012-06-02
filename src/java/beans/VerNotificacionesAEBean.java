@@ -27,8 +27,7 @@ import utiles.Utilidades;
 public class VerNotificacionesAEBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private List<Fila<Usuarios>> filasusuariosnuevos;
-    private List<Usuarios> usuariosnuevosseleccionados;
+    private List<Usuarios> filasusuariosnuevos;
     private List<Reuniones> listadereunionesnotificacion;
     private List<Empresasamigas> listanotificacionesrelacionesempresariales;
     boolean errorsolicitudusuario;
@@ -41,32 +40,20 @@ public class VerNotificacionesAEBean implements Serializable {
     public void inicializaVerNotificacionesAEBean() {
 
 
-        this.filasusuariosnuevos = new LinkedList<Fila<Usuarios>>();
         String dni = Utilidades.getDniUsuarioSesion();
         String nif = Utilidades.getNifEmpresaSesion();
         this.listadereunionesnotificacion = Consultas.buscaReunionesNotificacionesporUsuario(dni);
         this.listanotificacionesrelacionesempresariales = Consultas.buscaEmpresasAmigasNotificacion(nif);
-        List<Usuarios> aux = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
-        for (Usuarios us : aux) {
-            this.filasusuariosnuevos.add(new Fila(us, false));
-        }
+        this.filasusuariosnuevos = Consultas.buscarUsuariosporActivarAE(Utilidades.getNifEmpresaSesion());
 
     }
 
-    public List<Fila<Usuarios>> getFilasusuariosnuevos() {
+    public List<Usuarios> getFilasusuariosnuevos() {
         return filasusuariosnuevos;
     }
 
-    public void setFilasusuariosnuevos(List<Fila<Usuarios>> filasusuariosnuevos) {
+    public void setFilasusuariosnuevos(List<Usuarios> filasusuariosnuevos) {
         this.filasusuariosnuevos = filasusuariosnuevos;
-    }
-
-    public List<Usuarios> getUsuariosnuevosseleccionados() {
-        return usuariosnuevosseleccionados;
-    }
-
-    public void setUsuariosnuevosseleccionados(List<Usuarios> usuariosnuevosseleccionados) {
-        this.usuariosnuevosseleccionados = usuariosnuevosseleccionados;
     }
 
     public List<Reuniones> getListadereunionesnotificacion() {
@@ -109,64 +96,49 @@ public class VerNotificacionesAEBean implements Serializable {
         this.errorsolicitudusuario = errorsolicitudusuario;
     }
 
-    public void usuarioSeleccionadaListener(RowSelectorEvent event) {
-
-        this.usuariosnuevosseleccionados = new LinkedList<Usuarios>();
-        Integer numerofilas = filasusuariosnuevos.size();
-
-        for (int i = 0; i < numerofilas; i++) {
-            Fila<Usuarios> fila = filasusuariosnuevos.get(i);
-            if (fila.isSeleccionada()) {
-                this.usuariosnuevosseleccionados.add(fila.getTipo());
-                System.out.println(this.usuariosnuevosseleccionados.size() + " tamano lista");
-                System.out.println("NOMBRE: " + this.usuariosnuevosseleccionados.get(i).getNombre());
-            }
-
-        }
-
-    }
-
-    public String aceptarUsuarios() {
+    public String aceptarUsuarios(int indice) {
 
         String res = "";
         this.errorsolicitudusuario = false;
+
+
         try {
-            for (Usuarios u : this.usuariosnuevosseleccionados) {
-                FactoriaBD.preActualizarDato(u);
-                u.setActivacioninicial(false);
-                u.setActivo(true);
-                FactoriaBD.posActualizarDato(u);
-                res = "ok";
-            }
-        } catch (Exception e) {
-            res = "error";
-            this.errorsolicitudusuario = true;
-            System.out.println(e.toString());
-        }
-        return res;
-    }
-
-    public String rechazarUsuarios() {
-        System.out.println("size: " + this.usuariosnuevosseleccionados.size());
-        String res = "";
-        this.errorsolicitudusuario = false;
-        try {
-
-            for (Usuarios u : this.usuariosnuevosseleccionados) {
-                FactoriaBD.preActualizarDato(u);
-                u.setActivacioninicial(false);
-                u.setActivo(false);
-                FactoriaBD.posActualizarDato(u);
-
-            }
+            Usuarios us = this.filasusuariosnuevos.get(indice);
+            FactoriaBD.preActualizarDato(us);
+            us.setActivacioninicial(false);
+            us.setActivo(true);
+            FactoriaBD.posActualizarDato(us);
             res = "ok";
         } catch (Exception e) {
             res = "error";
             this.errorsolicitudusuario = true;
             System.out.println(e.toString());
         }
+
         return res;
     }
+        public String rechazarUsuarios(int indice) {
+
+        String res = "";
+        this.errorsolicitudusuario = false;
+
+
+        try {
+            Usuarios us = this.filasusuariosnuevos.get(indice);
+            FactoriaBD.preActualizarDato(us);
+            us.setActivacioninicial(false);
+            us.setActivo(false);
+            FactoriaBD.posActualizarDato(us);
+            res = "ok";
+        } catch (Exception e) {
+            res = "error";
+            this.errorsolicitudusuario = true;
+            System.out.println(e.toString());
+        }
+
+        return res;
+    }
+
 
     public String calcularDuracionReunion(int index) {
         String minutostr = null;

@@ -9,15 +9,13 @@
 
     <body>
 
-
-
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
 
 
             <ui:define name="sesion">
                 <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
                     #{usuario.creaDesarrolloReunion()}
-                    
+
                 </c:if>
                 <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
 
@@ -95,8 +93,11 @@
                             <ice:outputText styleClass="cos#{empresas.razonsocial}" value="0" />
                         </ice:column>
                     </ice:dataTable>
+
                     <ice:outputLabel for="alquilersala" value="Coste sala: "/>
-                    <ice:outputText id="alquilersala"  styleClass="alquilersala" value="#{desarrolloReunionBean.costeAlquilerSala()}"/>
+                    <ice:outputText id="alquilersala"  styleClass="alquilersala" value="#{desarrolloReunionBean.costealquilersala}"/>
+                    <ice:outputLabel for="alquilertotal" value="Coste total: "/>
+                    <ice:outputText id="alquilertotal"  styleClass="alquilertotal" value="#{desarrolloReunionBean.reunion.coste}"/>
                     <h3>Puntos del d&iacute;a</h3>
                     <ice:panelSeries value="#{desarrolloReunionBean.reunion.puntosdeldiaCollection}" var="puntos" varStatus="indice">
                         <table>
@@ -113,7 +114,7 @@
                                 <td></td>
                                 <td></td>
 
-                              
+
                             </tr>
                         </table>
                     </ice:panelSeries>
@@ -134,7 +135,7 @@
                                 </f:facet>
                                 <ice:outputText id="nombreusuario" value="#{usuarios.tipo.nombre} #{usuarios.tipo.apellido1} #{usuarios.tipo.apellido2}" />
                             </ice:column>
-                            
+
 
                             <ice:column>
                                 <f:facet name="header">
@@ -165,14 +166,32 @@
 
                     </ice:panelGroup>
 
-                    <script type="text/javascript">
-                       diferenciarestante();
-                       contador();
-                       costes();
-                       costeEmpresas();
-                    </script>
+
+                    <c:if test="#{not desarrolloReunionBean.reunionfinalizada}">
+                        <script type="text/javascript">
+                       
+                           var diferenciaRestante=diferenciarestante();
+                           var contadorReunion=contador();
+                           var costesEmpleadosReunion= costes();
+                           var costesEmpresasReunion = costeEmpresas();
+                           var costeTotaldReunion = costeTotalReunion();
+                       
+                        </script>
+
+                    </c:if>
+                    <c:if test="#{desarrolloReunionBean.reunionfinalizada}">
+                        <script type="text/javascript">
+                            costesReunionEmpleados();
+                            costesReunionEmpresas();
+                            costeTotalR();
+                            setTime();
+                            diferenciarest();
+                        </script>
+                    </c:if>
 
 
+
+                    <h:commandButton  onclick="terminarFunciones()" value="Terminar reunion" action="#{desarrolloReunionBean.terminaReunion}"  />
 
 
 

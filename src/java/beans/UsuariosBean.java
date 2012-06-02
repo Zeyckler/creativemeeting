@@ -92,11 +92,15 @@ public class UsuariosBean implements Serializable {
         this.contrasenaactualizada = false;
         this.errorcambiocontrasena = false;
         this.salaanadida = false;
+
     }
 
     public void inicializaUsuariosBean() {
         this.reunionhoy = Consultas.buscaReunionesUsuarioInformacionHoy(this.dni);
         this.proximasreuniones = Consultas.buscaProximasReunionesAceptada(this.dni);
+        if(this.reunionhoy==null){
+            System.out.print("HE entrado aquiiiiiiiiiiiiiiiiiii!!!!!!!");
+        }
     }
 
     public void inicializaMensajes() {
