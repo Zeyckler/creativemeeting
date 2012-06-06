@@ -3,27 +3,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:icecore="http://www.icefaces.org/icefaces/core"
-      xmlns:ace="http://www.icefaces.org/icefaces/components"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
       >
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel='stylesheet' type='text/css' href='./xmlhttp/css/xp/xp.css'/>
+        <ui:insert name="sesion"></ui:insert>
+        <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
         <link href="#{resource['css:cssLayout.css']}" rel="stylesheet" type="text/css" />
         <link href="#{resource['css:bootstrap.css']}" rel="stylesheet" type="text/css" />
         <link href="#{resource['css:bootstrap-responsive.css']}" rel="stylesheet" type="text/css" />
         <link href="#{resource['img:favicon.ico']}" rel="icon" />
-        <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+        <script src="#{resource['js:reunion.js']}" type="text/javascript" />
+        <script src="#{resource['js:jquery-1.7.1.min.js']}" type="text/javascript" />
+        <script src="#{resource['js:bootstrap.min.js']}" type="text/javascript" />
+        <script>jQuery.noConflict();</script>
         <title><ui:insert name="title"/></title>
     </h:head>
 
     <h:body>
         <div class="wrapper">
             <div id="top">
-
-                <div id="logocm"><ice:graphicImage alt="Logo CreativeMeetings" title="CreativeMeetings" url="#{resource['img:logo-creativemeeting.png']}"/></div>
+                <div id="logocm"><ice:outputLink value="index.xhtml"><ice:graphicImage alt="Logo CreativeMeetings" title="CreativeMeetings" url="#{resource['img:logo-creativemeeting.png']}"/></ice:outputLink></div>
                 <div><ui:insert name="logoempresa"></ui:insert></div>
             </div>
             <div>

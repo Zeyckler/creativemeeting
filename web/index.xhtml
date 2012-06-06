@@ -2,11 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:ice="http://www.icesoft.com/icefaces/component">
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <body>
         <ui:composition template="./WEB-INF/facelets/templates/plantilla.xhtml">
 
-            <ui:define name="title">Creative Meetings</ui:define>
+            <ui:define name="sesion">
+                <c:if test="#{privilegiosBean.compruebaPrivilegiosSesion()==0 or privilegiosBean.compruebaPrivilegiosSesion()==1 or privilegiosBean.compruebaPrivilegiosSesion()==2  }">
+                    #{facesContext.externalContext.redirect("home.xhtml")} 
+                    <h1>HOLA</h1>
+                </c:if>
+            </ui:define>
+            <ui:define name="title">CreativeMeetings</ui:define>
 
             <ui:define name="logoempresa">
             </ui:define>
@@ -36,6 +43,9 @@
                             <div class="message errormsg">
                                 <ice:message styleClass="errorformulario" id="errorusuario" for="usuario" />
                                 <ice:message styleClass="errorformulario" id="errorclave" for="clave" />
+                                <ice:outputText rendered="#{login.inactivo}" styleClass="errorformulario" value="El usuario está inactivo" />
+                                #{login.cambiaInactivo()}
+                                
                             </div>
                             <div>
                                 <ice:outputText rendered="#{registroEmpresaBean.exitoregistro}" value="Se ha registrado con éxito. Se le enviará un correo cuando su usuario y empresa sean activadas."/>

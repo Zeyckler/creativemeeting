@@ -26,6 +26,7 @@ public class LoginBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private String usuario;
     private String contrasena;
+    private boolean inactivo;
 
     /** Creates a new instance of LoginBean */
     public LoginBean() {
@@ -93,17 +94,23 @@ public class LoginBean implements Serializable {
     }
 
     public String compruebaLogin() {
-
+        this.inactivo= false;
+        String res;
         Usuarios a = null;
         try {
             a = Consultas.buscaUsuarioContrasena(this.usuario, this.contrasena);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.toString());
 
         }
 
 
         if (a != null) {
+            
+            if (a.getActivo()==false){
+                res= "inactivo"; 
+                this.inactivo=true;
+            }else{
             UsuariosBean user = new UsuariosBean(a);
             EmpresaBean emp = new EmpresaBean(a.getNif());
             FacesContext ctx = FacesContext.getCurrentInstance();
@@ -111,12 +118,18 @@ public class LoginBean implements Serializable {
             session.setAttribute("usuario", user);
             session.setAttribute("empresa", emp);
 
-            return "ok";
+            res = "ok";
+            }
 
         } else {
-            return "error";
+            res= "error";
 
         }
+        return res;
+        
+    }
+    public void cambiaInactivo(){
+        this.inactivo =false;
     }
 
     public String getContrasena() {
@@ -135,12 +148,24 @@ public class LoginBean implements Serializable {
         this.usuario = usuario;
     }
 
-    public String cerrarSesion() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index.xhtml?faces-redirect=true";
+    public void cerrarSesion() {
+        try{
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        }catch(Exception e){
+            
+        }     
     }
 
     public String noCerrarSesion() {
         return "nocerrarsesion";
     }
+
+    public boolean isInactivo() {
+        return inactivo;
+    }
+
+    public void setInactivo(boolean inactivo) {
+        this.inactivo = inactivo;
+    }
+    
 }

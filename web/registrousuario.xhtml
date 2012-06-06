@@ -24,9 +24,9 @@
                 <div class="logindiv" id="formularioempresa">
                     <div class="encabezado" id="iniciosesion"><h2>Registro de usuario</h2></div>
                     <div class="cuerpo">
-
+                        <ice:form>
                         <table class="tablaformulario" id="tablaempresa">
-                            <ice:form>
+                            
                                 <tr>
                                     <td><ice:outputLabel for="nombre">Nombre:</ice:outputLabel></td>
                                     <td><ice:inputText id="nombre" value="#{registroBean.nombre}" required="true" validator="#{validaciones.validarCadena255}" /></td>
@@ -120,7 +120,9 @@
                                         <ice:commandButton styleClass="btn" id="botondardealta" value="Registrarse" action="#{registroBean.registraUsuario}" />
                                     </td>
                                 </tr>
-                            </ice:form>
+                        </table>
+                        </ice:form>
+                        <table>
                             <tr>
                                 <td colspan="2" class="tdcenter">
                                     <ice:form>
