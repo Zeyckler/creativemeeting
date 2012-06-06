@@ -18,14 +18,14 @@
         <script src="#{resource['js:reunion.js']}" type="text/javascript" />
         <script src="#{resource['js:jquery-1.7.1.min.js']}" type="text/javascript" />
         <script src="#{resource['js:bootstrap.min.js']}" type="text/javascript" />
-        <script>jQuery.noConflict();</script>
+        <script type="text/javascript">jQuery.noConflict();</script>
         <title><ui:insert name="title"/></title>
 
     </h:head>
     <h:body>
         <div class="wrapper">
             <div id="top">
-                <div id="logocm"><ice:graphicImage alt="Logo CreativeMeetings" title="CreativeMeetings" url="#{resource['img:logo-creativemeeting.png']}"></ice:graphicImage></div>
+                <div id="logocm"><ice:outputLink value="home.xhtml"><ice:graphicImage alt="Logo CreativeMeetings" title="CreativeMeetings" url="#{resource['img:logo-creativemeeting.png']}"></ice:graphicImage></ice:outputLink></div>
                 <div><ui:insert name="logoempresa"></ui:insert></div>
             </div>
 
