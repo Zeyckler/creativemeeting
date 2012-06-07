@@ -14,145 +14,121 @@
 
         <ui:composition template="./WEB-INF/facelets/templates/plantillalogueado.xhtml">
 
-            <ui:define name="title">
+            <ui:define name="title">Crear reunión - Paso 3</ui:define>
 
-            </ui:define>
+            <ui:define name="logoempresa"></ui:define>
 
-            <ui:define name="logoempresa">
+            <ui:define name="left"></ui:define>
 
-            </ui:define>
-
-            <ui:define name="left">
-
-            </ui:define>
-
-            <ui:define name="right">
-
-            </ui:define>
+            <ui:define name="right"></ui:define>
 
             <ui:define name="content">
-                <div class="formulario" id="formularioreunion2">
-                    <ice:form>
-                        <h1>Puntos del día de la reunión</h1>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>=0}" >
-                            <ice:outputLabel for="puntodeldia1">Punto del día 1:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia1" value="#{creaReunionBean.listapuntosdeldia[0]}"  maxlength="255" ></ice:inputText>
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>0}" >
-                            <ice:outputLabel for="puntodeldia2">Punto del día 2:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia2" value="#{creaReunionBean.listapuntosdeldia[1]}"   maxlength="255"></ice:inputText>
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>1}">
-                            <ice:outputLabel for="puntodeldia3">Punto del día 3:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia3" value="#{creaReunionBean.listapuntosdeldia[2]}"  maxlength="255"></ice:inputText>
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>2}">
-                            <ice:outputLabel for="puntodeldia4">Punto del día 4:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia4" value="#{creaReunionBean.listapuntosdeldia[3]}"   maxlength="255"></ice:inputText>
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>3}">
-                            <ice:outputLabel for="puntodeldia5">Punto del día 5:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia5" value="#{creaReunionBean.listapuntosdeldia[4]}"   maxlength="255" ></ice:inputText>
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>4}">
-                            <ice:outputLabel for="puntodeldia6">Punto del día 6:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia6" value="#{creaReunionBean.listapuntosdeldia[5]}"   maxlength="255" ></ice:inputText>
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>5}">
-                            <ice:outputLabel for="puntodeldia7">Punto del día 7:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia7" value="#{creaReunionBean.listapuntosdeldia[6]}"  maxlength="255"></ice:inputText>
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>6}">
-                            <ice:outputLabel for="puntodeldia8">Punto del día 8:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia8" value="#{creaReunionBean.listapuntosdeldia[7]}"   maxlength="255"></ice:inputText> 
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>7}">
-                            <ice:outputLabel for="puntodeldia9">Punto del día 9:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia9" value="#{creaReunionBean.listapuntosdeldia[8]}"  maxlength="255" ></ice:inputText>
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.posicion>8}">
-                            <ice:outputLabel for="puntodeldia10">Punto del día 10:</ice:outputLabel>
-                            <ice:inputText id="puntodeldia10" value="#{creaReunionBean.listapuntosdeldia[9]}"  maxlength="255"></ice:inputText>
-                        </ice:panelGroup>
-                        <ice:panelGroup rendered="#{creaReunionBean.errores}">
-                            <ice:outputText styleClass="errorformulario">No puede estar vacío ningún punto del día </ice:outputText>
-                        </ice:panelGroup>
-                        <ice:commandButton disabled="#{creaReunionBean.eliminaUltimoDisabled}" action="#{creaReunionBean.eliminaUltimo}" value="Eliminar último Version ICE"></ice:commandButton>
-                        <ice:commandButton disabled="#{creaReunionBean.agregaNuevoDisabled}" action="#{creaReunionBean.agregarNuevo}" value="Agregar Nuevo Version ICE"></ice:commandButton>
+                <h2 class="sectiontittle">Crear reuni&oacute;n - Paso 3</h2>
+                <ice:form>
+                    <h3>Puntos del día de la reunión</h3>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>=0}" >
+                        <ice:outputLabel for="puntodeldia1">Punto del día 1:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia1" value="#{creaReunionBean.listapuntosdeldia[0]}"  maxlength="255" ></ice:inputText>
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>0}" >
+                        <ice:outputLabel for="puntodeldia2">Punto del día 2:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia2" value="#{creaReunionBean.listapuntosdeldia[1]}"   maxlength="255"></ice:inputText>
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>1}">
+                        <ice:outputLabel for="puntodeldia3">Punto del día 3:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia3" value="#{creaReunionBean.listapuntosdeldia[2]}"  maxlength="255"></ice:inputText>
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>2}">
+                        <ice:outputLabel  for="puntodeldia4">Punto del día 4:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia4" value="#{creaReunionBean.listapuntosdeldia[3]}"   maxlength="255"></ice:inputText>
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>3}">
+                        <ice:outputLabel for="puntodeldia5">Punto del día 5:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia5" value="#{creaReunionBean.listapuntosdeldia[4]}"   maxlength="255" ></ice:inputText>
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>4}">
+                        <ice:outputLabel for="puntodeldia6">Punto del día 6:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia6" value="#{creaReunionBean.listapuntosdeldia[5]}"   maxlength="255" ></ice:inputText>
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>5}">
+                        <ice:outputLabel for="puntodeldia7">Punto del día 7:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia7" value="#{creaReunionBean.listapuntosdeldia[6]}"  maxlength="255"></ice:inputText>
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>6}">
+                        <ice:outputLabel for="puntodeldia8">Punto del día 8:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia8" value="#{creaReunionBean.listapuntosdeldia[7]}"   maxlength="255"></ice:inputText> 
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>7}">
+                        <ice:outputLabel for="puntodeldia9">Punto del día 9:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia9" value="#{creaReunionBean.listapuntosdeldia[8]}"  maxlength="255" ></ice:inputText>
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.posicion>8}">
+                        <ice:outputLabel for="puntodeldia10">Punto del día 10:</ice:outputLabel>
+                        <ice:inputText id="puntodeldia10" value="#{creaReunionBean.listapuntosdeldia[9]}"  maxlength="255"></ice:inputText>
+                    </ice:panelGroup>
+                    <ice:panelGroup rendered="#{creaReunionBean.errores}">
+                        <ice:outputText styleClass="errorformulario">No puede estar vacío ningún punto del día </ice:outputText>
+                    </ice:panelGroup>
+                    <ice:commandButton styleClass="btn" disabled="#{creaReunionBean.eliminaUltimoDisabled}" action="#{creaReunionBean.eliminaUltimo}" value="Eliminar último" />
+                    <ice:commandButton styleClass="btn" disabled="#{creaReunionBean.agregaNuevoDisabled}" action="#{creaReunionBean.agregarNuevo}" value="Agregar nuevo" />
 
-                        <h1> Usuarios disponibles para la reunión</h1>
-                        <ice:dataTable id="usuariosdisponibles"   var="usuarios" value="#{creaReunionBean.filausuariosdisponibles}"
-                                       rows="5" columnClasses="tableCol">
-                            <ice:column>
-                                <ice:rowSelector id="seleccionado"
+                    <h3>Usuarios disponibles para la reunión</h3>
+                    <ice:dataTable styleClass="table table-bordered" id="usuariosdisponibles" var="usuarios" value="#{creaReunionBean.filausuariosdisponibles}" rows="5" columnClasses="tableCol">
+                        <ice:column>
+                            <ice:rowSelector id="seleccionado"
+                                             value="#{usuarios.seleccionada}"
+                                             multiple="true"                                 
+                                             selectionListener="#{creaReunionBean.usuarioSeleccionadaListener}" />
 
-                                                 value="#{usuarios.seleccionada}"
-                                                 multiple="true"                                 
-                                                 selectionListener="#{creaReunionBean.usuarioSeleccionadaListener}"
-                                                 
-                                                 />
-
-                                <f:facet name="header">
-                                    <ice:outputText id="column1"
-                                                    value="Nombre"/>
-                                </f:facet>
-                                <ice:outputText id="nombreusuario" value="#{usuarios.tipo[1]}"/>
-
-
-                            </ice:column>
-                            <ice:column>
-                                <f:facet name="header">
-                                    <ice:outputText id="column2"
-                                                    value="Apellido 1"/>
-                                </f:facet>
-                                <ice:outputText id="apellido1usuario" value="#{usuarios.tipo[2]}"/>
-                            </ice:column>
-                            <ice:column>
-                                <f:facet name="header">
-                                    <ice:outputText id="column3"
-                                                    value="Apellido 2"/>
-                                </f:facet>
-                                <ice:outputText id="apellido2usuario" value="#{usuarios.tipo[3]}"/>
-                            </ice:column>
-                            <ice:column>
-                                <f:facet name="header">
-                                    <ice:outputText id="column4"
-                                                    value="Empresa"/>
-                                </f:facet>
-                                <ice:outputText id="empresausuario" value="#{usuarios.tipo[5]}"/>
-                            </ice:column>
-                        </ice:dataTable>
-                        <ice:dataPaginator id="paginadorusuariosdisponibles" for="usuariosdisponibles" paginator="true" fastStep="3" paginatorMaxPages="4">
-                            <f:facet name="first">
-                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
+                            <f:facet name="header">
+                                <ice:outputText id="column1"
+                                                value="Nombre"/>
                             </f:facet>
-                            <f:facet name="last">
-                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
+                            <ice:outputText id="nombreusuario" value="#{usuarios.tipo[1]}"/>
+
+
+                        </ice:column>
+                        <ice:column>
+                            <f:facet name="header">
+                                <ice:outputText id="column2"
+                                                value="Apellido 1"/>
                             </f:facet>
-                            <f:facet name="previous">
-                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
+                            <ice:outputText id="apellido1usuario" value="#{usuarios.tipo[2]}"/>
+                        </ice:column>
+                        <ice:column>
+                            <f:facet name="header">
+                                <ice:outputText id="column3"
+                                                value="Apellido 2"/>
                             </f:facet>
-                            <f:facet name="next">
-                                <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
+                            <ice:outputText id="apellido2usuario" value="#{usuarios.tipo[3]}"/>
+                        </ice:column>
+                        <ice:column>
+                            <f:facet name="header">
+                                <ice:outputText id="column4"
+                                                value="Empresa"/>
                             </f:facet>
-                        </ice:dataPaginator>
-                        
-                        <ice:outputText rendered="#{creaReunionBean.errorusuariovacio}" value="#{creaReunionBean.errorstrusuariovacio}" styleClass="errorformulario"></ice:outputText>
-                        <ice:commandButton id="creareunionpaso3atras" value="Paso anterior" action="#{creaReunionBean.creaReunionPaso3Anterior}"></ice:commandButton>
-                        <ice:commandButton id="creareunionfinal" value="Crear reunión" action="#{creaReunionBean.creaReunionFinal}"></ice:commandButton>
-
-
-
-
-
-
-                    </ice:form>
-                </div>
-
-
+                            <ice:outputText id="empresausuario" value="#{usuarios.tipo[5]}"/>
+                        </ice:column>
+                    </ice:dataTable>
+                    <ice:dataPaginator id="paginadorusuariosdisponibles" for="usuariosdisponibles" paginator="true" fastStep="3" paginatorMaxPages="4">
+                        <f:facet name="first">
+                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif" style="border:none;" title="First Page"></ice:graphicImage>
+                        </f:facet>
+                        <f:facet name="last">
+                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif" style="border:none;" title="Last Page"></ice:graphicImage>
+                        </f:facet>
+                        <f:facet name="previous">
+                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-previous.gif" style="border:none;" title="Previous Page"></ice:graphicImage>
+                        </f:facet>
+                        <f:facet name="next">
+                            <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
+                        </f:facet>
+                    </ice:dataPaginator>
+                    <ice:outputText rendered="#{creaReunionBean.errorusuariovacio}" value="#{creaReunionBean.errorstrusuariovacio}" styleClass="errorformulario"></ice:outputText>
+                    <ice:commandButton styleClass="btn" id="creareunionpaso3atras" value="Paso anterior" action="#{creaReunionBean.creaReunionPaso3Anterior}"></ice:commandButton>
+                    <ice:commandButton styleClass="btn" id="creareunionfinal" value="Crear reunión" action="#{creaReunionBean.creaReunionFinal}"></ice:commandButton>
+                </ice:form>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

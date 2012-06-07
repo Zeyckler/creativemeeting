@@ -19,28 +19,18 @@
                 <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
             </ui:define>
 
-            <ui:define name="title">
-                Confirmar asistencia - CreativeMeetings
-            </ui:define>
+            <ui:define name="title">Confirmar asistencia - CreativeMeetings</ui:define>
 
-            <ui:define name="logoempresa">
+            <ui:define name="logoempresa"></ui:define>
 
-            </ui:define>
+            <ui:define name="left"></ui:define>
 
-            <ui:define name="left">
-
-            </ui:define>
-
-            <ui:define name="right">
-
-            </ui:define>
+            <ui:define name="right"></ui:define>
 
             <ui:define name="content">
+                <h2 class="sectiontittle">Confirme los asistentes:</h2>
                 <ice:form>
-
-                    <h2>Confirme los asistentes: </h2>
-
-                    <ice:dataTable id="usuariosdisponibles"  var="usuarios" value="#{desarrolloReunionBean.usuariosasistentes}" 
+                    <ice:dataTable styleClass="table table-bordered" id="usuariosdisponibles"  var="usuarios" value="#{desarrolloReunionBean.usuariosasistentes}" 
                                    rows="5" columnClasses="tableCol">
                         <ice:column>
                             <ice:rowSelector id="seleccionado"
@@ -50,23 +40,8 @@
                             <f:facet name="header">
                                 <ice:outputText id="column1" value="Nombre"/>
                             </f:facet>
-                            <ice:outputText id="nombreusuario" value="#{usuarios.tipo.nombre}"/>
+                            <ice:outputText id="nombreusuario" value="#{usuarios.tipo.nombre} #{usuarios.tipo.apellido1} #{usuarios.tipo.apellido2}"/>
                         </ice:column>
-
-                        <ice:column>
-                            <f:facet name="header">
-                                <ice:outputText id="column2" value="Apellido 1"/>
-                            </f:facet>
-                            <ice:outputText id="apellido1usuario" value="#{usuarios.tipo.apellido1}"/>
-                        </ice:column>
-
-                        <ice:column>
-                            <f:facet name="header">
-                                <ice:outputText id="column3" value="Apellido 2"/>
-                            </f:facet>
-                            <ice:outputText id="apellido2usuario" value="#{usuarios.tipo.apellido2}"/>
-                        </ice:column>
-
                         <ice:column>
                             <f:facet name="header">
                                 <ice:outputText id="column4" value="Empresa"/>
@@ -89,10 +64,8 @@
                             <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
                         </f:facet>
                     </ice:dataPaginator>
-                    <ice:commandButton value="Confirmar asistencia" action="#{desarrolloReunionBean.confirmarAsistenciaReunion}"/>
+                    <ice:commandButton styleClass="btn" value="Confirmar asistencia" action="#{desarrolloReunionBean.confirmarAsistenciaReunion}"/>
                     <ice:outputText value ="#{desarrolloReunionBean.errorasistencia}" rendered="#{desarrolloReunionBean.errorconfirmarasist}"/>
-
-
                 </ice:form>
             </ui:define>
 

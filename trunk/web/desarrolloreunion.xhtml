@@ -21,53 +21,32 @@
 
             </ui:define>
 
-            <ui:define name="title">
-                Desarrollo Reunión - CreativeMeetings
-            </ui:define>
+            <ui:define name="title">Desarrollo Reunión - CreativeMeetings</ui:define>
 
-            <ui:define name="logoempresa">
-                logoempresa
+            <ui:define name="logoempresa"></ui:define>
 
-            </ui:define>
+            <ui:define name="left"></ui:define>
 
-            <ui:define name="left">
-                left
-            </ui:define>
-
-            <ui:define name="right">
-
-            </ui:define>
+            <ui:define name="right"></ui:define>
 
             <ui:define name="content">
-                <ice:form>
-
-
-                </ice:form>
-
+                <h2 class="sectiontittle">Desarrollo de la reuni&oacute;n</h2>
                 <ice:form styleClass="form-inline">
                     <div id="panelsuperior">
-
-                        <div id="panelhoras" style="float: left;">
-                            <div class="clearfix">
-                                <ice:outputLabel value="Hora de inicio" for="horainicio"/>
-                                <ice:inputText styleClass="horainicio"  id="horainicio" value="#{desarrolloReunionBean.reunion.fechainicialreal}"><f:convertDateTime  pattern="HH:mm:ss"/></ice:inputText>
-                            </div>
-
-                            <div class="clearfix">
-                                <ice:outputLabel value="Hora de final" for="horafinal"/>
-                                <ice:inputText styleClass="horafinal" id="horafinal" value="#{desarrolloReunionBean.reunion.fechafinalestimada}"><f:convertDateTime pattern="HH:mm:ss"/></ice:inputText>
-                            </div>
-
-                            <div class="clearfix">
-                                <ice:outputLabel value="Tiempo transcurrido" for="tiempo"/>
-                                <ice:inputText styleClass="tiempotranscurrido" id="tiempo" value="00:00:00"/>
-                            </div>
-
-                            <div class="clearfix">
-                                <ice:outputLabel value="Tiempo restante" for="tiemporestante"/>
-                                <ice:inputText styleClass="tiemporestante" id="tiemporestante" value="00:00:00"/>
-                            </div>
-                        </div>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>Hora de inicio</td>
+                                <td><ice:inputText styleClass="horainicio"  id="horainicio" value="#{desarrolloReunionBean.reunion.fechainicialreal}"><f:convertDateTime  pattern="HH:mm:ss"/></ice:inputText></td>
+                                <td>Tiempo transcurrido</td>
+                                <td><ice:inputText styleClass="tiempotranscurrido" id="tiempo" value="00:00:00"/></td>
+                            </tr>
+                            <tr>
+                                <td>Hora de final</td>
+                                <td><ice:inputText styleClass="horafinal" id="horafinal" value="#{desarrolloReunionBean.reunion.fechafinalestimada}"><f:convertDateTime pattern="HH:mm:ss"/></ice:inputText></td>
+                                <td>Tiempo restante</td>
+                                <td><ice:inputText styleClass="tiemporestante" id="tiemporestante" value="00:00:00"/></td>
+                            </tr>
+                        </table>
                     </div>
                     <ice:dataTable var="asistentes" value="#{desarrolloReunionBean.usuariosasistentesconf}" styleClass="table table-bordered table-striped" >
                         <ice:column>
@@ -94,30 +73,33 @@
                         </ice:column>
                     </ice:dataTable>
 
-                    <ice:outputLabel for="alquilersala" value="Coste sala: "/>
-                    <ice:outputText id="alquilersala"  styleClass="alquilersala" value="#{desarrolloReunionBean.costealquilersala}"/>
-                    <ice:outputLabel for="alquilertotal" value="Coste total: "/>
-                    <ice:outputText id="alquilertotal"   styleClass="alquilertotal" value="#{desarrolloReunionBean.reunion.coste}" />
+
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <td class="bold">Coste sala:</td><td><ice:outputText id="alquilersala"  styleClass="alquilersala" value="#{desarrolloReunionBean.costealquilersala}"/></td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Coste total:</td><td><ice:outputText id="alquilertotal"   styleClass="alquilertotal" value="#{desarrolloReunionBean.reunion.coste}" /></td>
+                        </tr>
+                    </table>
+
                     <h3>Puntos del d&iacute;a</h3>
-                    <ice:panelSeries value="#{desarrolloReunionBean.reunion.puntosdeldiaCollection}" var="puntos" varStatus="indice">
-                        <table>
+                    <table class="table table-striped">
+                        <ice:repeat value="#{desarrolloReunionBean.reunion.puntosdeldiaCollection}" var="puntos" varStatus="indice">
                             <tr>
                                 <td>
                                     <ice:outputText value="#{puntos.titulopunto}"/>
                                 </td>
                                 <td>
-                                    <ice:commandButton action="#{desarrolloReunionBean.empezarPuntoDia(indice.index)}" disabled="#{desarrolloReunionBean.visibilidadAceptar(indice.index)}" value="Empezar punto"/>
+                                    <ice:commandButton styleClass="btn btn-primary" action="#{desarrolloReunionBean.empezarPuntoDia(indice.index)}" disabled="#{desarrolloReunionBean.visibilidadAceptar(indice.index)}" value="Empezar punto"/>
                                 </td>
                                 <td>
-                                    <ice:commandButton action="#{desarrolloReunionBean.terminarPuntoDia(indice.index)}" disabled="#{desarrolloReunionBean.visibilidadRechazar(indice.index)}" value="Terminar punto" />
+                                    <ice:commandButton styleClass="btn btn-inverse" action="#{desarrolloReunionBean.terminarPuntoDia(indice.index)}" disabled="#{desarrolloReunionBean.visibilidadRechazar(indice.index)}" value="Terminar punto" />
                                 </td>
-                                <td></td>
-                                <td></td>
-
-
                             </tr>
-                        </table>
-                    </ice:panelSeries>
+                        </ice:repeat>
+                    </table>
                     <ice:panelGroup rendered="#{desarrolloReunionBean.puntoactual!= null}">
                         <h3>Intervenciones:</h3>
                         <h4>Punto del dia actual: #{desarrolloReunionBean.puntoactual.titulopunto}</h4>
@@ -160,7 +142,7 @@
                             </f:facet>
                         </ice:dataPaginator>               
                         <ice:inputRichText id="intervencionusuario" saveOnSubmit="true" value="#{desarrolloReunionBean.intervencion}" rendered="#{!desarrolloReunionBean.puntoinactivo}" toolbar="Default" skin="silver"  language="es"/>
-                        <ice:commandButton  value="Añadir intervención" rendered="#{!desarrolloReunionBean.puntoinactivo}" action="#{desarrolloReunionBean.intervencionUsuarioReunion}"/>
+                        <ice:commandButton  styleClass="btn" value="Añadir intervención" rendered="#{!desarrolloReunionBean.puntoinactivo}" action="#{desarrolloReunionBean.intervencionUsuarioReunion}"/>
                         <ice:outputText rendered="#{desarrolloReunionBean.errorintervencion}" value="#{desarrolloReunionBean.errorintervencionstr}"/>
                         <ice:outputText rendered="#{desarrolloReunionBean.exitointervencion and !desarrolloReunionBean.puntoinactivo}" value="Se ha registrado la intervención correctamente"/>
 
@@ -191,7 +173,7 @@
 
 
 
-                    <h:commandButton  onclick="terminarFunciones()" value="Terminar reunion" action="#{desarrolloReunionBean.terminaReunion}"  />
+                    <h:commandButton style="float: right" styleClass="btn btn-success" onclick="terminarFunciones()" value="Terminar reunion" action="#{desarrolloReunionBean.terminaReunion}"  />
                     <!--<h:commandButton rendered="#{desarrolloReunionBean.reunionfinalizada}" action="#{desarrolloReunionBean.irActa()}"/>-->
 
 
