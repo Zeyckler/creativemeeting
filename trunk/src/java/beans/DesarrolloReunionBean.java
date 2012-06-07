@@ -10,9 +10,11 @@ import bd.Intervenciones;
 import bd.Puntosdeldia;
 import bd.Reuniones;
 import bd.Usuarios;
+import beans.actaReunionBean;
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 import factoria.FactoriaBD;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -598,13 +600,14 @@ public class DesarrolloReunionBean implements Serializable {
     }
 
     public String terminaReunion() {
-        Reuniones a = this.reunion;
+        //Reuniones a = this.reunion;
+        Date fechafinalreal = Calendar.getInstance().getTime();
 
         Date fechaini = this.reunion.getFechainicialreal();
         Date fechafin = this.reunion.getFechafinalestimada();
-        System.out.print("Fecha Inicial Sistema: " + fechaini.toString());
-        System.out.print("Fecha Final Sistema: " + fechafin.toString());
-        
+        /* System.out.print("Fecha Inicial Sistema: " + fechaini.toString());
+        System.out.print("Fecha Final Sistema: " + fechafin.toString());*/
+
 
         Calendar fechainic = Calendar.getInstance();
         fechainic.set(fechainic.get(Calendar.YEAR), fechainic.get(Calendar.MONTH), fechainic.get(Calendar.DAY_OF_MONTH), fechaini.getHours(), fechaini.getMinutes(), fechaini.getSeconds());
@@ -612,17 +615,73 @@ public class DesarrolloReunionBean implements Serializable {
         Calendar fechafinc = Calendar.getInstance();
         fechafinc.set(fechafinc.get(Calendar.YEAR), fechafinc.get(Calendar.MONTH), fechafinc.get(Calendar.DAY_OF_MONTH), fechafin.getHours(), fechafin.getMinutes(), fechafin.getSeconds());
 
-        Date fechainif = fechainic.getTime();
-        Date fechafinf = fechafinc.getTime();
 
-        System.out.print("Fecha Inicial Sistema: " + fechainif.toString());
-        System.out.print("Fecha Final Sistema: " + fechafinf.toString());
+        Date fechainicialreal = fechainic.getTime();
+        Date fechafinalestimada = fechafinc.getTime();
 
-        System.out.print("COSTE DE LOCOS!!!  " + this.reunion.getCoste());
-        /*FactoriaBD.preActualizarDato(a);
-        a.setFechafinalreal(Calendar.getInstance().getTime());
-        FactoriaBD.posActualizarDato(a);*/
+        double costereunion = costReunion(fechainicialreal, fechafinalreal);
+
+        FactoriaBD.preActualizarDato(this.reunion);
+        this.reunion.setFechainicialreal(fechainicialreal);
+        this.reunion.setFechafinalreal(fechafinalreal);
+        this.reunion.setFechafinalestimada(fechafinalestimada);
+        this.reunion.setCoste((int) costereunion);
+        FactoriaBD.posActualizarDato(this.reunion);
         this.reunionfinalizada = true;
         return "ok";
+    }
+
+    public double costReunion(Date fechainicial, Date fechafinal) {
+        double costetotal = 0;
+        double costeSala = this.costealquilersala;
+        double costeasistentes = 0;
+
+        Calendar fechini = Calendar.getInstance();
+        fechini.setTime(fechainicial);
+
+        Calendar fechfin = Calendar.getInstance();
+        fechfin.setTime(fechafinal);
+
+        long milsecfin = fechfin.getTimeInMillis();
+        long milsecini = fechini.getTimeInMillis();
+
+        long resta = milsecfin - milsecini;
+
+        long difseg = resta / 1000;
+
+
+
+        for (Usuarios participantes : this.usuariosasistentesconf) {
+
+            costeasistentes = costeasistentes + calculaSueldoSegundo(participantes) * difseg;
+
+        }
+        costetotal = costeSala + costeasistentes;
+
+        return costetotal;
+    }
+
+    public double calculaSueldoSegundo(Usuarios usuario) {
+        double sueldo = 0;
+
+        BigDecimal sueldomensual = usuario.getSalario();
+
+        sueldo = ((sueldomensual.doubleValue() / 160) / 3600);
+
+        return sueldo;
+    }
+
+    public String irActa() {
+        String res = "";
+
+        actaReunionBean acta = new actaReunionBean(this.reunion.getIdreunion());
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        session.setAttribute("actaReunionBean", acta);
+        res = "ok";
+
+
+        return res;
     }
 }

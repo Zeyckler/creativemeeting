@@ -27,6 +27,8 @@
             <ui:define name="content">
                 <h2 class="sectiontittle">Inicio</h2>
                 <ice:form>
+                    <ice:outputText styleClass="exito" rendered="#{usuario.exitocreareunion}" value="Se ha creado con exito la reunion"/>
+                    #{usuario.inicializaExitoReunion()}
 
                     <h3>Hoy:</h3>
                     <ice:outputText styleClass="errorformulario" rendered="#{usuario.reunionhoy==null}" value="No tiene reuniones para hoy"/>
@@ -79,7 +81,7 @@
                                         <ice:commandButton styleClass="btn" rendered="#{(usuario.reunionhoy.dnicreador.dni == usuario.dni)}" action="#{usuario.comenzarReunion}" disabled="#{usuario.activarBotonComenzarReunion() or usuario.reunionEnProgreso()}" value="Empezar Reunion"/>
                                     </td>
                                     <td colspan="2">
-                                        <ice:commandButton styleClass="btn" action="#{usuario.retomarDesarrolloReunion}" rendered="#{usuario.reunionEnProgreso() and (usuario.reunionhoy.dnicreador.dni == usuario.dni)}" value="Retomar reunión"/>
+                                        <ice:commandButton styleClass="btn" action="#{usuario.retomarDesarrolloReunion}" rendered="#{usuario.reunionEnProgreso() and (usuario.reunionhoy.dnicreador.dni == usuario.dni)}" disabled="#{not usuario.retomarReunionActiva()}" value="Retomar reunión"/>
                                     </td>
                                 </tr>
                             </table>

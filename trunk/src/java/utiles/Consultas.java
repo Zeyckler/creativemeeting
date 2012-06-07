@@ -118,6 +118,17 @@ public class Consultas {
         return lu;
 
     }
+    public static Reuniones buscaReunionId(Integer id) {
+
+
+        abrirTransaccion();
+        Query q1 = em.createNamedQuery("Reuniones.findByIdreunion");
+        q1.setParameter("idreunion",id);
+        Reuniones reunion =(Reuniones) q1.getSingleResult();
+
+        return reunion;
+
+    }
 
     public static List<Adjunto> listaAdjuntosReunion(int idReunion) {
 

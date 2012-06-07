@@ -588,6 +588,12 @@ public class CreaReunionBean implements Serializable {
             }
 
         }
+        if (res.equals("ok")){
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+            UsuariosBean usuario = (UsuariosBean)session.getAttribute("usuario");
+            usuario.setExitocreareunion(true);         
+        }
         return res;
 
 

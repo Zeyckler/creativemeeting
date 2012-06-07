@@ -11,7 +11,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import utiles.Consultas;
 
@@ -149,11 +151,13 @@ public class LoginBean implements Serializable {
     }
 
     public void cerrarSesion() {
-        try{
-            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        }catch(Exception e){
-            
-        }     
+        FacesContext context = FacesContext.getCurrentInstance();
+ 		ExternalContext ec = context.getExternalContext();
+ 
+ 		final HttpServletRequest request = (HttpServletRequest)ec.getRequest();
+ 	     request.getSession( false ).invalidate();
+        
+     
     }
 
     public String noCerrarSesion() {
