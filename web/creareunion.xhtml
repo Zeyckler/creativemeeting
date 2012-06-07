@@ -35,7 +35,6 @@
             <ui:define name="content">
                 <h2 class="sectiontittle">Crear reuni&oacute;n - Paso 1</h2>
 
-
                 <ice:form>
                     <table class="tablaformulario" id="tablareunion">
                         <tr><td colspan="2"><h1>Datos referidos a la fecha y los puntos de día de la reunión</h1></td></tr> 
@@ -111,8 +110,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                <ice:commandButton id="creareunionpaso1" value="Siguiente paso" action="#{creaReunionBean.creaReunionPaso1}"></ice:commandButton>
+                            <td colspan="2" class="tdcenter">
+                                <ice:commandButton styleClass="btn" id="creareunionpaso1" value="Siguiente paso" action="#{creaReunionBean.creaReunionPaso1}" />
                             </td>
                         </tr>
 
