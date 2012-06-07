@@ -260,7 +260,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <navigation-case>
             <from-action>#{creaReunionBean.creaReunionFinal}</from-action>
             <from-outcome>ok</from-outcome>
-            <to-view-id>/correcto.xhtml</to-view-id>
+            <to-view-id>/home.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>
@@ -433,7 +433,14 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
             <from-action>#{desarrolloReunionBean.terminaReunion}</from-action>
             <from-outcome>ok</from-outcome>
             <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+            <redirect />
         </navigation-case>
+        <navigation-case>
+            <from-action>#{desarrolloReunionBean.irActa}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/acta.xhtml</to-view-id>
+        </navigation-case>
+        
     </navigation-rule>
     <navigation-case>
         <from-action>#{registroEmpresaBean.volver}</from-action>
@@ -510,5 +517,9 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
             <redirect />
         </navigation-case>
     </navigation-rule>
-    
+    <managed-bean>
+        <managed-bean-name>actaReunionBean</managed-bean-name>
+        <managed-bean-class>beans.actaReunionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

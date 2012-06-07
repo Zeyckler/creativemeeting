@@ -61,6 +61,7 @@ public class UsuariosBean implements Serializable {
     private boolean errorcambiocontrasena;
     private boolean salaanadida;
     private String falloinicioreunionstr;
+    private boolean exitocreareunion;
 
     public UsuariosBean() {
     }
@@ -92,6 +93,7 @@ public class UsuariosBean implements Serializable {
         this.contrasenaactualizada = false;
         this.errorcambiocontrasena = false;
         this.salaanadida = false;
+        this.exitocreareunion = false;
 
     }
 
@@ -357,6 +359,15 @@ public class UsuariosBean implements Serializable {
         return Utilidades.getFormatoFecha(fecha) + " " + Utilidades.getFormatoFechaHora(fecha);
     }
 
+    public boolean isExitocreareunion() {
+        return exitocreareunion;
+    }
+
+    public void setExitocreareunion(boolean exitocreareunion) {
+        this.exitocreareunion = exitocreareunion;
+    }
+    
+
     public String calcularDuracionReunion() {
         String minutostr = null;
         Calendar calini = Calendar.getInstance();
@@ -492,12 +503,22 @@ public class UsuariosBean implements Serializable {
 
     public boolean reunionEnProgreso() {
         boolean res;
-        if (this.reunionhoy.getFechainicialreal() == null) {
-            res = false;
-        } else {
-            res = true;
+        if (this.reunionhoy.getFechainicialreal()!=null){
+            res=true;
+        }else{
+            res=false;
         }
-        System.out.print("Reunion Comenzada: " + res);
+        
+        return res;
+    }
+    public boolean retomarReunionActiva() {
+        boolean res;
+        if (this.reunionhoy.getFechainicialreal()!=null && this.reunionhoy.getFechafinalreal()==null ){
+            res=true;
+        }else{
+            res=false;
+        }
+        System.out.print("la reunion ha empezado: "+ res);
         return res;
     }
 
@@ -591,5 +612,9 @@ public class UsuariosBean implements Serializable {
 
     public String volver() {
         return "ok";
+    }
+    public void inicializaExitoReunion(){
+        this.exitocreareunion= false;
+        
     }
 }

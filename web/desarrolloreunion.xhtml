@@ -97,7 +97,7 @@
                     <ice:outputLabel for="alquilersala" value="Coste sala: "/>
                     <ice:outputText id="alquilersala"  styleClass="alquilersala" value="#{desarrolloReunionBean.costealquilersala}"/>
                     <ice:outputLabel for="alquilertotal" value="Coste total: "/>
-                    <ice:outputText id="alquilertotal"  styleClass="alquilertotal" value="#{desarrolloReunionBean.reunion.coste}"/>
+                    <ice:outputText id="alquilertotal"   styleClass="alquilertotal" value="#{desarrolloReunionBean.reunion.coste}" />
                     <h3>Puntos del d&iacute;a</h3>
                     <ice:panelSeries value="#{desarrolloReunionBean.reunion.puntosdeldiaCollection}" var="puntos" varStatus="indice">
                         <table>
@@ -159,10 +159,10 @@
                                 <ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif" style="border:none;" title="Next Page"></ice:graphicImage>
                             </f:facet>
                         </ice:dataPaginator>               
-                        <ice:inputRichText id="intervencionusuario" value="#{desarrolloReunionBean.intervencion}" rendered="#{!desarrolloReunionBean.puntoinactivo}" toolbar="Default" skin="silver" language="es"/>
+                        <ice:inputRichText id="intervencionusuario" saveOnSubmit="true" value="#{desarrolloReunionBean.intervencion}" rendered="#{!desarrolloReunionBean.puntoinactivo}" toolbar="Default" skin="silver"  language="es"/>
                         <ice:commandButton  value="Añadir intervención" rendered="#{!desarrolloReunionBean.puntoinactivo}" action="#{desarrolloReunionBean.intervencionUsuarioReunion}"/>
                         <ice:outputText rendered="#{desarrolloReunionBean.errorintervencion}" value="#{desarrolloReunionBean.errorintervencionstr}"/>
-                        <ice:outputText rendered="#{desarrolloReunionBean.exitointervencion}" value="Se ha registrado la intervención correctamente"/>
+                        <ice:outputText rendered="#{desarrolloReunionBean.exitointervencion and !desarrolloReunionBean.puntoinactivo}" value="Se ha registrado la intervención correctamente"/>
 
                     </ice:panelGroup>
 
@@ -192,6 +192,7 @@
 
 
                     <h:commandButton  onclick="terminarFunciones()" value="Terminar reunion" action="#{desarrolloReunionBean.terminaReunion}"  />
+                    <!--<h:commandButton rendered="#{desarrolloReunionBean.reunionfinalizada}" action="#{desarrolloReunionBean.irActa()}"/>-->
 
 
 
