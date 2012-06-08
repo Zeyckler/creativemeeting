@@ -80,9 +80,14 @@
                                     <td colspan="2">
                                         <ice:commandButton styleClass="btn" rendered="#{(usuario.reunionhoy.dnicreador.dni == usuario.dni)}" action="#{usuario.comenzarReunion}" disabled="#{usuario.activarBotonComenzarReunion() or usuario.reunionEnProgreso()}" value="Empezar Reunion"/>
                                     </td>
-                                    <td colspan="2">
+                                    <td >
                                         <ice:commandButton styleClass="btn" action="#{usuario.retomarDesarrolloReunion}" rendered="#{usuario.reunionEnProgreso() and (usuario.reunionhoy.dnicreador.dni == usuario.dni)}" disabled="#{not usuario.retomarReunionActiva()}" value="Retomar reunión"/>
+                                        
                                     </td>
+                                    <td>
+                                        <ice:commandButton styleClass="btn" action="#{usuario.irActaReunionHoy()}" rendered="#{usuario.reunionFinalizada()}" value="Ir a acta"/>
+                                    </td>
+                                    
                                 </tr>
                             </table>
                         </ice:panelGroup>
