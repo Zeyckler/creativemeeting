@@ -16,12 +16,10 @@
                     #{actaReunionBean.inicializaActa()}
 
                 </c:if>
-                
+
             </ui:define>
 
-            <ui:define name="title">
-                CreativeMeetings - Ver acta
-            </ui:define>
+            <ui:define name="title">CreativeMeetings - Ver acta</ui:define>
 
             <ui:define name="logoempresa">
 
@@ -36,9 +34,114 @@
             </ui:define>
 
             <ui:define name="content">
-                <h2>Acta</h2>
-                <h3>Datos de la reunión</h3>
-                
+                <h2 class="sectiontittle">Ver acta</h2>
+                <h3>Sala de reunión</h3>
+
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            <ice:outputLabel for="nombresala" value="Nombre sala: "/>
+                        </td>
+                        <td>
+                            <ice:outputText id="nombresala" value="#{actaReunionBean.reunion.idsalareunion.nombresala}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ice:outputLabel for="capacidadsala" value="Capacidad: "/>
+                        </td>
+                        <td>
+                            <ice:outputText id="capacidadsala" value="#{actaReunionBean.reunion.idsalareunion.capacidad}"/>  
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <ice:outputLabel for="direccionsla" value="Dirección: "/>
+                            <ice:outputText id="direccionsala" value="#{actaReunionBean.reunion.idsalareunion.direccion}"/>
+                        </td>
+                        <td colspan="1">
+                            <ice:outputLabel for="localidadsala" value="Localidad: "/>
+                            <ice:outputText id="localidadsala" value="#{actaReunionBean.reunion.idsalareunion.localidad}"/>
+                        </td>
+                        <td colspan="1">
+                            <ice:outputLabel for="cpsala" value="Código postal: "/>
+                            <ice:outputText id="cpsala" value="#{actaReunionBean.reunion.idsalareunion.codigopostal}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <ice:outputLabel for="provinciasala" value="Provincia: "/>
+                            <ice:outputText id="provinciasala" value="#{actaReunionBean.reunion.idsalareunion.provincia}"/>
+                        </td>
+                        <td colspan="2">
+                            <ice:outputLabel for="paissala" value="Pais: "/>
+                            <ice:outputText id="paissala" value="#{actaReunionBean.reunion.idsalareunion.pais}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <ice:outputLabel for="telefonosala" value="Teléfono: "/>
+                            <ice:outputText id="telefonosala" value="#{actaReunionBean.reunion.idsalareunion.telefono}"/>
+                        </td>
+                    </tr>
+
+                </table>
+                <h3>Asistentes a la reunión </h3>
+
+                <ice:repeat value="#{actaReunionBean.usuariosasistente}" var="usuarios" varStatus="indice">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>
+                                <ice:outputLabel for="nombreasistente" value="Nombre: "/>
+                            </td>
+                            <td>
+                                <ice:outputText id="nombreasistente" value="#{usuarios.nombre} #{usuarios.apellido1} #{usuarios.apellido2}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ice:outputLabel for="empresaasistente" value="Empresa: "/>
+                            </td>
+                            <td>
+                                <ice:outputText id="empresaasistente" value="#{usuarios.nif.razonsocial}" />
+                            </td>
+                        </tr>
+                    </table>
+                </ice:repeat>
+
+                <h3>Puntos del día</h3>
+                <ice:repeat value="#{actaReunionBean.reunion.puntosdeldiaCollection}" var="puntosdia" varStatus="indice">
+                    <table class="table table-striped">
+                        <tr>
+                            <td colspan="4">
+                                <ice:outputLabel for="puntodiareunion" value="Punto del día: "/>
+                                <ice:outputText id="puntodiareunion" value="#{puntosdia.titulopunto}" />
+                            </td>
+                        </tr>
+                        <ice:repeat value="#{puntosdia.intervencionesCollection}" var="intervencionesPuntoDia" varStatus="indice">
+                            <tr>
+                                <td colspan="3">
+                                    <ice:outputText id="nombreinterventor" value="#{intervencionesPuntoDia.idasistenciareunion.dni.nombre} #{intervencionesPuntoDia.idasistenciareunion.dni.apellido1} #{intervencionesPuntoDia.idasistenciareunion.dni.apellido2}" />
+                                </td>
+                                <td colspan="1">
+                                    <ice:outputText value="#{intervencionesPuntoDia.momentointervencion}"><f:convertDateTime pattern="HH:mm:ss"/></ice:outputText>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <ice:outputText value="#{intervencionesPuntoDia.intervencion}" escape="false"/>
+                                </td>
+
+                            </tr>
+
+                        </ice:repeat>
+                    </table>
+                </ice:repeat>
+
+
+
+
             </ui:define>
 
         </ui:composition>

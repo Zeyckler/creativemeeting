@@ -628,6 +628,14 @@ public class DesarrolloReunionBean implements Serializable {
         this.reunion.setCoste((int) costereunion);
         FactoriaBD.posActualizarDato(this.reunion);
         this.reunionfinalizada = true;
+        
+        
+        actaReunionBean acta = new actaReunionBean(this.reunion.getIdreunion());
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        session.setAttribute("actaReunionBean", acta);
+        
         return "ok";
     }
 
@@ -671,17 +679,4 @@ public class DesarrolloReunionBean implements Serializable {
         return sueldo;
     }
 
-    public String irActa() {
-        String res = "";
-
-        actaReunionBean acta = new actaReunionBean(this.reunion.getIdreunion());
-
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
-        session.setAttribute("actaReunionBean", acta);
-        res = "ok";
-
-
-        return res;
-    }
 }

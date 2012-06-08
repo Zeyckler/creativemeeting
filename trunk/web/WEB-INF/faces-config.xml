@@ -391,6 +391,12 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
             <to-view-id>/desarrolloreunion.xhtml</to-view-id>
             <redirect />
         </navigation-case>
+        <navigation-case>
+            <from-action>#{usuario.irActaReunionHoy()}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/acta.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/confirmarasistenciareunion.xhtml</from-view-id>
@@ -432,7 +438,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
         <navigation-case>
             <from-action>#{desarrolloReunionBean.terminaReunion}</from-action>
             <from-outcome>ok</from-outcome>
-            <to-view-id>/desarrolloreunion.xhtml</to-view-id>
+            <to-view-id>/acta.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>

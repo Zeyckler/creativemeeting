@@ -617,4 +617,21 @@ public class UsuariosBean implements Serializable {
         this.exitocreareunion= false;
         
     }
+    public String irActaReunionHoy(){
+        String res="";
+        actaReunionBean acta = new actaReunionBean(this.reunionhoy.getIdreunion());
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true);
+        session.setAttribute("actaReunionBean", acta);
+        res="ok";
+        return res;
+    }
+    public boolean reunionFinalizada(){
+        boolean res= false;
+        if(this.reunionhoy.getFechafinalreal()!=null){
+            res=true;
+        }
+        return res;
+    }
 }
